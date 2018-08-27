@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>iPayWebApplication</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<description>This is test application for JAVA Lab at EPAM</description>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>customtags</taglib-uri>
+			<taglib-location>/WEB-INF/tld/customtags.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+	<filter>
+		<description>Encoding to UTF-8</description>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>by.htp.hvozdzeu.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<description>Authorization filter</description>
+		<filter-name>AuthorizationFilter</filter-name>
+		<filter-class>by.htp.hvozdzeu.web.filter.AuthorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthorizationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>ServletController</servlet-name>
+		<servlet-class>by.htp.hvozdzeu.web.controller.ServletController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletController</servlet-name>
+		<url-pattern>/ServletController</url-pattern>
+	</servlet-mapping>
+</web-app>
