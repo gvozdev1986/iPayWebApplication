@@ -16,7 +16,7 @@
 }
 
 .sidebar-sticky {
-	position: relative;
+	position: relative; 
 	top: 0;
 	height: calc(100vh - 48px);
 	padding-top: .5rem;
