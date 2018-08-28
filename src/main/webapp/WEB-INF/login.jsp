@@ -75,7 +75,7 @@
 					<div class="form-group input-group-sm">
 						<label for="loginInput"><i class="fas fa-user"></i> <fmt:message
 								key="login_login" /></label> <input type="text" class="form-control"
-							id="loginInput" name="username" value="admin" autocomplete="off"
+							id="loginInput" name="username" value="" autocomplete="off"
 							placeholder="<fmt:message key="login_login" />" required
 							oninvalid="this.setCustomValidity('Please fill login field')"
 							oninput="setCustomValidity('')">
@@ -83,7 +83,7 @@
 					<div class="form-group input-group-sm">
 						<label for="pswInput"><i class="fas fa-key"></i> <fmt:message
 								key="login_password" /></label> <input type="password"
-							class="form-control" id="pswInput" name="password" value="admin"
+							class="form-control" id="pswInput" name="password" value=""
 							autocomplete="off"
 							placeholder="<fmt:message key="login_password" />" required
 							oninvalid="this.setCustomValidity('Please fill password field')"

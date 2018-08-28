@@ -42,17 +42,34 @@ public class ListCardView implements Command {
 			page = Integer.valueOf(request.getParameter("page"));
 		} else {
 			page = 0;
-		}	
+		}
+
+		String navigationBtn;
+		if (request.getParameter("navigationBtn") != null) {
+			navigationBtn = request.getParameter("navigationBtn");
+
+			if (navigationBtn.equals("previous")) {
+				System.out.println(navigationBtn);
+				page--;
+			}
+
+			if (navigationBtn.equals("next")) {
+				System.out.println(navigationBtn);
+				page++;
+			}
+		} else {
+			navigationBtn = "none";
+		}
 
 		Integer displacement = page * pageRowSize;
-		
+
 		Integer firstPage = 0;
 		Integer lastPage = countPage - 1;
-		
-		System.out.println("last page: " + lastPage + " current page: " + page);
 
 		List<CreditCard> pagination = iCreditCardService.pagination(pageRowSize, displacement);
 
+		request.getSession().setAttribute("previous", "previous");
+		request.getSession().setAttribute("next", "next");
 		request.getSession().setAttribute("page", page);
 		request.getSession().setAttribute("firstPage", firstPage);
 		request.getSession().setAttribute("lastPage", lastPage);

@@ -93,8 +93,11 @@
 			</table>				
 			
 			<form action="ServletController" method="get"> 
-				<input id="pageHiddenInput" type="hidden" name="page" />
-					<nav aria-label="Page navigation example">					
+				<input id="pageHiddenInput" type="hidden" name="page" value="${page}"/>
+				<input id="navigationBtnInput" type="hidden" name="navigationBtn" value="none" />
+				
+					<label for="pag">Page ${page + 1} from ${countPage}</label>
+					<nav id="pag" aria-label="Page navigation example">					
 						<ul class="pagination pagination-sm">
 							<div class="form-group input-group-sm">						
 							      <select class="form-control" name="countRowOnPage">
@@ -108,25 +111,23 @@
 							      </script>
 								<input id="nextInput" type="hidden" name="nextInput" />
 								<input id="previousInput" type="hidden" name="previousInput" />
-						    </div>		
-						    					    		
-						
+						    </div>
+						    
 							<c:choose>
-						    	<c:when test="${firstPage != page}">
+						    	<c:when test="${firstPage != page}">						    		
 							       	<button	class="btn btn-outline-secondary form-control btn-sm"
-											type="submit" 
-											id="previous_btn"
-											name="command" 
+							       			onclick="navigationBtnFunc('${previous}');"
+											type="submit"
+											name="command"
 											value="list_card_view"
+											id="previous_btn"
 											style="height: 31px; width: 70px; vertical-align: middle; text-align: center;">Previous
 									</button>
 						    	</c:when>    
 						    	<c:otherwise>
 							       	<button	class="btn btn-outline-secondary form-control btn-sm"
-											type="submit" 
+											type="button"
 											id="previous_btn"
-											name="command" 
-											value="list_card_view"
 											style="height: 31px; width: 70px; vertical-align: middle; text-align: center;" disabled>Previous
 									</button>
 						    	</c:otherwise>
@@ -148,27 +149,27 @@
 						
 							<c:choose>
 						    	<c:when test="${lastPage != page}">
+						    		<input type="hidden" name="nextBtn" value="1" />
 							       	<button	class="btn btn-outline-secondary form-control btn-sm"
-											type="submit" 
-											id="next_btn"
-											name="command" 
-											value="list_card_view"
+							       			type="submit"
+							       			id="next_btn"
+							       			name="command"
+							       			onclick="navigationBtnFunc('${next}');"
+											value="list_card_view"											
 											style="height: 31px; width: 60px; vertical-align: middle; text-align: center;">Next
 									</button>
 						    	</c:when>    
 						    	<c:otherwise>
 							       	<button	class="btn btn-outline-secondary form-control btn-sm"
-											type="submit" 
+											type="button"
 											id="next_btn"
-											name="command" 
-											value="list_card_view"
 											style="height: 31px; width: 60px; vertical-align: middle; text-align: center;" disabled>Next
 									</button>
 						    	</c:otherwise>
 							</c:choose>				
 							
 						</ul>
-					</nav>	
+					</nav>						
 			</form>				
 		</div>
 		</main>
@@ -177,7 +178,13 @@
 <ctg:footer />
 <script>
 	function getPage(page){
-		var x = document.getElementById("pageHiddenInput");
-		x.value = page;
-	}
+		var input = document.getElementById("pageHiddenInput");
+		input.value = page;
+	};
+						
+	function navigationBtnFunc(action){
+		var actionBtn = action;
+		var input = document.getElementById("navigationBtnInput");
+		input.value = actionBtn;
+	};
 </script>
