@@ -54,15 +54,11 @@
 				style="width: 100%; font-size: 9pt;">
 				<tr style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
-					<td style="vertical-align: middle; font-weight: bold;">First
-						name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Last
-						name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Credit
-						card number</td>
+					<td style="vertical-align: middle; font-weight: bold;">First name</td>
+					<td style="vertical-align: middle; font-weight: bold;">Last	name</td>
+					<td style="vertical-align: middle; font-weight: bold;">Credit card number</td>
 					<td style="vertical-align: middle; font-weight: bold;">Valid</td>
-					<td style="vertical-align: middle; font-weight: bold;">Type of
-						card</td>
+					<td style="vertical-align: middle; font-weight: bold;">Type of card</td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">B</td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">A</td>
 				</tr>
@@ -72,8 +68,7 @@
 						<td>${pagination.cardFirstName}</td>
 						<td>${pagination.cardLastName}</td>
 						<td>${pagination.cardNumber}</td>
-						<td
-							style="vertical-align: middle; width: 10px; text-align: right;">${creditCards.validDate}</td>
+						<td	style="vertical-align: middle; width: 10px; text-align: right;">${pagination.validDate}</td>
 						<td>${pagination.typeCard}</td>
 
 						<c:if test="${pagination.block}">
@@ -102,11 +97,11 @@
 			<form>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination pagination-sm">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						<li class="page-item"><a style="color: black;" class="page-link" href="#">Previous</a></li>
+						<li class="page-item"><a style="color: black;" class="page-link" href="#">1</a></li>
+						<li class="page-item"><a style="color: black;" class="page-link" href="#">2</a></li>
+						<li class="page-item"><a style="color: black;" class="page-link" href="#">3</a></li>
+						<li class="page-item"><a style="color: black;" class="page-link" href="#">Next</a></li>
 					</ul>
 				</nav>	
 			</form>
