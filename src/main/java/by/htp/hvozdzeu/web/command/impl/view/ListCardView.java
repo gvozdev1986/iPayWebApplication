@@ -17,24 +17,47 @@ import static by.htp.hvozdzeu.web.util.RedirectPageUrl.*;
 import static by.htp.hvozdzeu.web.util.RequestAttributeEntity.*;
 
 public class ListCardView implements Command {
-	
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+
+	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws DAOException, ServletException, IOException {
+
+		Integer countRowOnPage;
+
+		if (request.getParameter("countRowOnPage") != null) {
+			countRowOnPage = Integer.valueOf(request.getParameter("countRowOnPage"));
+		} else {
+			countRowOnPage = 10;
+		}
+
+		Integer pageRowSize = countRowOnPage;
+
+		Integer countRow = iCreditCardService.read().size();
+		Integer countPage = countRow / pageRowSize;
+
+		Integer page;
+		if (request.getParameter("page") != null) {
+			page = Integer.valueOf(request.getParameter("page"));
+		} else {
+			page = 0;
+		}	
+
+		Integer displacement = page * pageRowSize;
 		
-		List<CreditCard> creditCards = iCreditCardService.read();
+		Integer firstPage = 0;
+		Integer lastPage = countPage - 1;
 		
-		Integer count = creditCards.size();
-		Integer pageRowSize = 1;	
-		Integer page = 1; //Integer.valueOf(request.getParameter("page"));			
-		Integer pages = count / pageRowSize;
-																	//LIMIT 10 OFFSET 0
-		List<CreditCard> pagination = iCreditCardService.pagination(pageRowSize, count);
-		
-		System.out.println(pagination);
-				
+		System.out.println("last page: " + lastPage + " current page: " + page);
+
+		List<CreditCard> pagination = iCreditCardService.pagination(pageRowSize, displacement);
+
+		request.getSession().setAttribute("page", page);
+		request.getSession().setAttribute("firstPage", firstPage);
+		request.getSession().setAttribute("lastPage", lastPage);
+		request.getSession().setAttribute("countRowOnPage", countRowOnPage);
+		request.getSession().setAttribute("countPage", countPage);
 		request.getSession().setAttribute(REQUEST_ATTRIBUTE_CREDIT_CARD, pagination);
 		return LIST_CARD_VIEW.getUrl();
 	}

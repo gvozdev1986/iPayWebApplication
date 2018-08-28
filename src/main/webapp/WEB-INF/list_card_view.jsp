@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <fmt:setLocale value="${locale}" />
 <fmt:setBundle basename="Resource" />
 <jsp:include page="admin_navbar.jsp" />
@@ -49,9 +48,7 @@
 					</div>
 				</div>
 			</form>
-			<table
-				class="table table-bordered table-hover table-sm table-striped"
-				style="width: 100%; font-size: 9pt;">
+			<table class="table table-bordered table-hover table-sm table-striped" style="width: 100%; font-size: 9pt;">				
 				<tr style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
 					<td style="vertical-align: middle; font-weight: bold;">First name</td>
@@ -93,20 +90,94 @@
 
 					</tr>
 				</c:forEach>
-			</table>
-			<form>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination pagination-sm">
-						<li class="page-item"><a style="color: black;" class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a style="color: black;" class="page-link" href="#">1</a></li>
-						<li class="page-item"><a style="color: black;" class="page-link" href="#">2</a></li>
-						<li class="page-item"><a style="color: black;" class="page-link" href="#">3</a></li>
-						<li class="page-item"><a style="color: black;" class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>	
-			</form>
+			</table>				
+			
+			<form action="ServletController" method="get"> 
+				<input id="pageHiddenInput" type="hidden" name="page" />
+					<nav aria-label="Page navigation example">					
+						<ul class="pagination pagination-sm">
+							<div class="form-group input-group-sm">						
+							      <select class="form-control" name="countRowOnPage">
+							        <option value="5">5</option>
+							        <option value="10">10</option>
+							        <option value="20">20</option>
+							      </select>					      
+							      <script type="text/javascript">
+								      var val = text = ${countRowOnPage};
+								      $("select option[value=" + val + "]").attr('selected', 'true').text(text);
+							      </script>
+								<input id="nextInput" type="hidden" name="nextInput" />
+								<input id="previousInput" type="hidden" name="previousInput" />
+						    </div>		
+						    					    		
+						
+							<c:choose>
+						    	<c:when test="${firstPage != page}">
+							       	<button	class="btn btn-outline-secondary form-control btn-sm"
+											type="submit" 
+											id="previous_btn"
+											name="command" 
+											value="list_card_view"
+											style="height: 31px; width: 70px; vertical-align: middle; text-align: center;">Previous
+									</button>
+						    	</c:when>    
+						    	<c:otherwise>
+							       	<button	class="btn btn-outline-secondary form-control btn-sm"
+											type="submit" 
+											id="previous_btn"
+											name="command" 
+											value="list_card_view"
+											style="height: 31px; width: 70px; vertical-align: middle; text-align: center;" disabled>Previous
+									</button>
+						    	</c:otherwise>
+							</c:choose>	
+												
+							<c:forEach begin="1" end="${countPage}" step="1" var="i">								
+								<li class="page-item">
+									<button	class="btn btn-outline-secondary form-control btn-sm"
+											type="submit" 
+											id="${i-1}"
+											name="command" 
+											onclick="getPage(${i-1});"
+											value="list_card_view"
+											style="height: 31px; width: 31px; vertical-align: middle; text-align: center;">
+											${i}
+									</button>
+								</li>
+							</c:forEach>								
+						
+							<c:choose>
+						    	<c:when test="${lastPage != page}">
+							       	<button	class="btn btn-outline-secondary form-control btn-sm"
+											type="submit" 
+											id="next_btn"
+											name="command" 
+											value="list_card_view"
+											style="height: 31px; width: 60px; vertical-align: middle; text-align: center;">Next
+									</button>
+						    	</c:when>    
+						    	<c:otherwise>
+							       	<button	class="btn btn-outline-secondary form-control btn-sm"
+											type="submit" 
+											id="next_btn"
+											name="command" 
+											value="list_card_view"
+											style="height: 31px; width: 60px; vertical-align: middle; text-align: center;" disabled>Next
+									</button>
+						    	</c:otherwise>
+							</c:choose>				
+							
+						</ul>
+					</nav>	
+			</form>				
 		</div>
 		</main>
 	</div>
 </div>
 <ctg:footer />
+<script>
+	function getPage(page){
+		var x = document.getElementById("pageHiddenInput");
+		x.value = page;
+	}
+</script>

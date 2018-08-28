@@ -27,6 +27,9 @@
 	background-color: #41c7a3;
 	border-color: #41c7a3;
 }
+.button.btn.btn-default.btn-xl:focus {
+  outline: 0px;
+}
 </style>
 <header>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

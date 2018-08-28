@@ -60,7 +60,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
 
 	private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, " + "`CardFirstName`, "
 			+ "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, " + "`Block`, " + "`Available` "
-			+ "FROM `ipaywebapplication`.`creditcard` LIMIT ? OFFSET ?;";
+			+ "FROM `ipaywebapplication`.`creditcard` LIMIT ?, ?;";
 	
 	private static final String ERROR_CREATE = "Error create message.";
 	private static final String ERROR_UPDATE_BY_ID = "Error update message.";
