@@ -71,4 +71,9 @@ public class ClientServiceImpl implements IClientService {
 	public List<Client> pagination(Integer start, Integer count) throws DAOException {
 		return iClientDAO.pagination(start, count);
 	}
+
+	@Override
+	public List<Client> findByParameter(String param) throws DAOException {
+		return iClientDAO.findByParameter(param);
+	}
 }

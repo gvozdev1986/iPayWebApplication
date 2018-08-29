@@ -13,6 +13,7 @@ import by.htp.hvozdzeu.web.command.impl.card.PaymentHistory;
 import by.htp.hvozdzeu.web.command.impl.card.SavePayPayment;
 import by.htp.hvozdzeu.web.command.impl.card.SaveTransfer;
 import by.htp.hvozdzeu.web.command.impl.card.UnblockCard;
+import by.htp.hvozdzeu.web.command.impl.client.FindClientByParameters;
 import by.htp.hvozdzeu.web.command.impl.client.SaveChangePersonalData;
 import by.htp.hvozdzeu.web.command.impl.client.UpdatePassword;
 import by.htp.hvozdzeu.web.command.impl.locale.Localization;
@@ -76,6 +77,7 @@ public class CommandDirector {
         map.put("view_detail_blocked_card", new DetailBlockedCard());
         map.put("list_card_view", new ListCardView());
         map.put("find_card_by_param", new FindCardByParameters());
+        map.put("find_client_by_param", new FindClientByParameters());
         map.put("list_client_view", new ListClientView());
     }
 

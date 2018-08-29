@@ -37,8 +37,11 @@
 						placeholder="Search..." aria-label="search input"
 						aria-describedby="inputGroup-sizing-sm">
 					<div class="input-group-append">
-						<button class="btn btn-success" type="submit" name="command"
-							value="find_card_by_param" id="search-Btn">
+						<button class="btn btn-success" 
+								type="submit" 
+								name="command"
+								value="find_card_by_param" 
+								id="search-Btn">
 							<i class="fas fa-search"></i> Search
 						</button>
 						<button class="btn btn-success" type="submit" name="command"

@@ -43,14 +43,14 @@
 						<button class="btn btn-success" 
 								type="submit" 
 								name="command"
-							    value="find_card_by_param" 
+							    value="find_client_by_param" 
 							    id="search-Btn">
 							<i class="fas fa-search"></i> Search
 						</button>
 						<button class="btn btn-success" 
 								type="submit" 
 								name="command"
-							    value="list_card_view" 
+							    value="list_client_view" 
 							    id="search-Btn">
 							<i class="fas fa-times"></i> Clear
 						</button>
@@ -60,6 +60,7 @@
 			<table class="table table-bordered table-hover table-sm table-striped" style="width: 100%; font-size: 9pt;">				
 				<tr style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
+					<td style="vertical-align: middle; font-weight: bold;">S</td>
 					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="first_name_card_label" /></td>
 					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_last_name" /></td>
 					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_patronymic" /></td>
@@ -70,6 +71,17 @@
 				<c:forEach items="${clients}" var="pagination">
 					<tr>
 						<td style="vertical-align: middle; text-align: right;">${pagination.id}</td>
+						
+						
+						<td style="vertical-align: middle; width: 25px;">
+							<a href="ServletController?command=view_detail_client&clientId=${pagination.id}"
+							   style="cursor: pointer; 
+							   margin-top: -7px; color: black"> 
+								<i class="fas fa-search"></i>
+							</a>
+						</td>
+						
+						
 						<td>${pagination.firstName}</td>
 						<td>${pagination.lastName}</td>
 						<td>${pagination.patronymic}</td>

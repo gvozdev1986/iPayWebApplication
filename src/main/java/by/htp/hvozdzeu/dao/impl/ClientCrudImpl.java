@@ -4,6 +4,7 @@ import by.htp.hvozdzeu.dao.IClientDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.ClientRowMapper;
 import by.htp.hvozdzeu.model.Client;
+import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.util.PasswordEncoder;
 
 import java.sql.*;
@@ -103,6 +104,25 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 			+ "`Available`, "
 			+ "`isOnline` FROM `ipaywebapplication`.`client` LIMIT ?, ?;";
 	
+	private static final String SQL_FIND_BY_PARAMETER = "SELECT "
+			+ "`Id`, "
+			+ "`Login`, "
+			+ "`Password`, "
+			+ "`FirstName`, "
+			+ "`LastName`, "
+			+ "`Patronymic`, "
+			+ "`DateBirth`, "
+			+ "`PhoneHome`, "
+			+ "`PhoneMobile`, "
+			+ "`Address`, "
+			+ "`Role`, " 
+			+ "`Email`, "
+			+ "`Available`, "
+			+ "`isOnline` "
+			+ "FROM `ipaywebapplication`.`client` "
+			+ "WHERE concat(client.FirstName, client.LastName, client.Patronymic, "
+			+ "client.PhoneHome, client.PhoneMobile, client.Address) like ?;";
+	
 	private static final String ERROR_UPDATE_BY_ID = "Error update message.";
 	private static final String ERROR_CREATE = "Error create message.";
 	private static final String ERROR_READ = "Error read from clients table.";
@@ -114,6 +134,7 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 	private static final String ERROR_UPDATE_AS_OFFLINE = "Error update client as offline.";
 	private static final String ERROR_LIST_BLOCKED_CLIENT = "Error getting list blocked client.";
 	private static final String ERROR_PAGINATION = "Error getting pagination.";
+	private static final String ERROR_FIND_BY_PARAMETER = "Error find by parameter.";
 
 	@Override
 	public Client create(Client entity) throws DAOException {
@@ -341,6 +362,27 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException(ERROR_PAGINATION, e);
+		} finally {
+			dataBaseConnection.closeConnection(connection);
+		}
+		return clients;
+	}
+
+	@Override
+	public List<Client> findByParameter(String param) throws DAOException {
+		List<Client> clients = new ArrayList<>();
+		Client client;
+		Connection connection = dataBaseConnection.getConnection();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_PARAMETER)) {
+			preparedStatement.setString(1, "%" + param + "%");
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					client = buildClientRowMapper(resultSet);
+					clients.add(client);
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage()); //ERROR_FIND_BY_PARAMETER
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
