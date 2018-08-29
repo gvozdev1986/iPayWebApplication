@@ -79,10 +79,24 @@
 </div>
 <div class="container">
 	<div class="card my-2">
-		<div class="card-body">Some content.</div>
+		<div class="card-body">
+		Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		 Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		  Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		   Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		    Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		     Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		</div>
 	</div>
 	<div class="card my-2">
-		<div class="card-body">Some content.</div>
+		<div class="card-body">
+		Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		 Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		  Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		   Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		    Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		     Some content. Some content. Some content. Some content. Some content. Some content. Some content.
+		</div>
 	</div>
 	<div class="card my-2">
 		<div class="card-header">

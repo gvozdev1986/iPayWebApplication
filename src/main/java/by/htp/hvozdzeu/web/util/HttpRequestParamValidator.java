@@ -84,6 +84,7 @@ public final class HttpRequestParamValidator {
 		return matchToRegex(date, DATE_REGEX);
 	}
 
+	
 	public static boolean validatePositiveId(String value) {
 		LOGGER.info("Process validation positive ID {}", value);
 		validateParamNotNull(value);

@@ -132,23 +132,41 @@
 									</button>
 						    	</c:otherwise>
 							</c:choose>	
-												
-							<c:forEach begin="1" end="${countPage}" step="1" var="i">								
-								<li class="page-item">
-									<button	class="btn btn-outline-secondary form-control btn-sm"
-											type="submit" 
-											id="${i-1}"
-											name="command" 
-											onclick="getPage(${i-1});"
-											value="list_card_view"
-											style="height: 31px; width: 31px; vertical-align: middle; text-align: center;">
-											${i}
-									</button>
-								</li>
-							</c:forEach>								
+							
+							
+							<c:forEach items="${paginationBtns}" var="paginationBtns">	
+							
+							
+								<c:if test = "${paginationBtns eq '...'}">
+						        	<li class="page-item">
+										<button	class="btn btn-outline-secondary form-control btn-sm"
+												type="button" 
+												style="height: 31px; width: 31px; vertical-align: middle; text-align: center;">
+												${paginationBtns}
+										</button>
+									</li>
+						        </c:if>
+						        
+						        <c:if test = "${paginationBtns ne '...'}">
+						        	<li class="page-item">
+										<button	class="btn btn-outline-secondary form-control btn-sm"
+												type="submit" 
+												id="${paginationBtns}"
+												name="command" 
+												onclick="getPage(${paginationBtns - 1});"
+												value="list_card_view"
+												style="height: 31px; width: 31px; vertical-align: middle; text-align: center;">
+												${paginationBtns}
+										</button>
+									</li>
+						        </c:if>							
+													    
+								
+							</c:forEach>							
+														
 						
 							<c:choose>
-						    	<c:when test="${lastPage != page}">
+						    	<c:when test="${lastPage != (page + 1)}">
 						    		<input type="hidden" name="nextBtn" value="1" />
 							       	<button	class="btn btn-outline-secondary form-control btn-sm"
 							       			type="submit"
@@ -170,21 +188,9 @@
 							
 						</ul>
 					</nav>						
-			</form>				
-		</div>
+				</form>				
+			</div>
 		</main>
 	</div>
 </div>
 <ctg:footer />
-<script>
-	function getPage(page){
-		var input = document.getElementById("pageHiddenInput");
-		input.value = page;
-	};
-						
-	function navigationBtnFunc(action){
-		var actionBtn = action;
-		var input = document.getElementById("navigationBtnInput");
-		input.value = actionBtn;
-	};
-</script>

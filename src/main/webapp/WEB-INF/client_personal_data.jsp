@@ -111,12 +111,12 @@
 						value="save_chaged_personal_data">
 						<i class="fas fa-check"></i> Save
 					</button>
-					<button
+					<!-- <button
 						class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
 						type="button" id="button" data-toggle="modal"
 						data-target="#bockClientAccount">
 						<i class="fas fa-ban"></i> Block
-					</button>
+					</button> -->
 				</div>
 			</form>
 		</div>

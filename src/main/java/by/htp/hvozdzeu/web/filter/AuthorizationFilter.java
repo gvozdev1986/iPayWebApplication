@@ -24,13 +24,9 @@ public class AuthorizationFilter implements Filter {
 
 		String inputCommand = req.getParameter("command");
 
-		System.out.println(inputCommand);
-
 		if (inputCommand != null && !inputCommand.isEmpty()) {
-			System.out.println("IF COMMAND NOT NULL");
 			chain.doFilter(request, response);
 		} else {
-			System.out.println("IF COMMAND NULL");
 			chain.doFilter(request, response);
 		}
 

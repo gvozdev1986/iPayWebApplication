@@ -26,15 +26,23 @@ public class Authorization implements Command {
 	private static final String CLIENT_PANEL_COMMAND = "client_panel_view";
 
 	private IClientService iClientService = ServiceFactory.getClientService();
-
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws DAOException, ServletException, IOException {
 
 		String u = request.getParameter(REQUEST_PARAM_USERNAME);
 		String p = request.getParameter(REQUEST_PARAM_PSWD);
-		Client client = iClientService.checkUser(u, p);
-		boolean available = client.isAvailable();
+		Client client = iClientService.checkUser(u, p);	
+		
+		boolean available;
+		
+		if(client != null) {
+			available = client.isAvailable();
+		} else {
+			request.getSession().setAttribute("messageBlock", "Error check user!");
+			return LOGIN_PAGE_VIEW.getUrl();
+		}
 
 		if (!available) {
 			LOGGER.info("Error auth, client has been blocked.");

@@ -14,85 +14,27 @@
 	-webkit-animation: myfirst 1s linear 0s infinite alternate;
 }
 
-@
-keyframes myfirst { 0% {
-	box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+@keyframes myfirst {
+	0% {
+		box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+	}
+	50%{
+		box-shadow:0020pxrgba(255,255,255,.5);
+	}
+	100%{
+		box-shadow:0020pxrgba(0,173,126,.5);
+	}
 }
-
-50%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(255
-,
-255,255,
-.5
-);
-}
-100%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(0
-,
-173,126,
-.5
-);
-}
-}
-@
--webkit-keyframes myfirst { 0% {
-	box-shadow: 0 0 20px rgba(0, 173, 126, .5);
-}
-
-50%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(255
-,
-255,255,
-.5
-);
-}
-100%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(0
-,
-173,126,
-.5
-);
-}
+@-webkit-keyframes myfirst {
+	0% {
+		box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+	}
+	50%{
+		box-shadow:0020pxrgba(255,255,255,.5);
+	}
+	100%{
+		box-shadow:0020pxrgba(0,173,126,.5);
+	}
 }
 .card-style {
 	height: 20px;

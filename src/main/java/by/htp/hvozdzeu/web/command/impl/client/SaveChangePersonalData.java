@@ -97,7 +97,7 @@ public class SaveChangePersonalData implements Command {
 			iClientService.update(client, clientId);
 
 			Client clientUpdate = iClientService.findById(clientId);
-
+			
 			request.getSession().setAttribute(REQUEST_ATTRIBUTE_CLIENT, clientUpdate);
 			request.getSession().setAttribute(MSG_UPDATE_CLIENT_DATA, MSG_SUCCESS);
 			return PERSONAL_DATA_VIEW.getUrl();
