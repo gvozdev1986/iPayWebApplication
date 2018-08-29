@@ -22,6 +22,7 @@ import by.htp.hvozdzeu.web.command.impl.registration.SaveRegistration;
 import by.htp.hvozdzeu.web.command.impl.service.ReplyEmail;
 import by.htp.hvozdzeu.web.command.impl.view.AdminPanelView;
 import by.htp.hvozdzeu.web.command.impl.view.BlockedCreditCardsView;
+import by.htp.hvozdzeu.web.command.impl.view.ClientDetailView;
 import by.htp.hvozdzeu.web.command.impl.view.ClientPanelView;
 import by.htp.hvozdzeu.web.command.impl.view.CreditCardView;
 import by.htp.hvozdzeu.web.command.impl.view.DetailBlockedCard;
@@ -79,6 +80,7 @@ public class CommandDirector {
         map.put("find_card_by_param", new FindCardByParameters());
         map.put("find_client_by_param", new FindClientByParameters());
         map.put("list_client_view", new ListClientView());
+        map.put("view_detail_client", new ClientDetailView());
     }
 
     public Command getCommand(String commandName) {

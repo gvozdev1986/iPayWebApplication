@@ -71,8 +71,6 @@
 				<c:forEach items="${clients}" var="pagination">
 					<tr>
 						<td style="vertical-align: middle; text-align: right;">${pagination.id}</td>
-						
-						
 						<td style="vertical-align: middle; width: 25px;">
 							<a href="ServletController?command=view_detail_client&clientId=${pagination.id}"
 							   style="cursor: pointer; 
@@ -80,22 +78,17 @@
 								<i class="fas fa-search"></i>
 							</a>
 						</td>
-						
-						
 						<td>${pagination.firstName}</td>
 						<td>${pagination.lastName}</td>
 						<td>${pagination.patronymic}</td>
 						<td>${pagination.email}</td>
-						<td>${pagination.phoneMobile}</td>
-						
+						<td>${pagination.phoneMobile}</td>						
 						<c:if test="${pagination.available}">
 							<td style="text-align: center; vertical-align: middle;"><i class="fas fa-chart-line"></i></td>							
 						</c:if>
-
 						<c:if test="${not pagination.available}">
 							<td style="text-align: center; vertical-align: middle;"><i class="far fa-trash-alt"></i></td>
-						</c:if>						
-						
+						</c:if>	
 					</tr>
 				</c:forEach>
 			</table>				

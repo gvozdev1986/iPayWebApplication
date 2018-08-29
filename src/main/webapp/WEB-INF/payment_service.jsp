@@ -53,7 +53,7 @@
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
 						<label for="code"><i class="fas fa-user-secret"></i> Code</label>
-						<input type="text" class="form-control" id="code"
+						<input type="password" class="form-control" id="code"
 							placeholder="Code" name="code" required>
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
