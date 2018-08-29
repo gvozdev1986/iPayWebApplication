@@ -1,8 +1,9 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.Command;
 import static by.htp.hvozdzeu.web.util.RedirectPageUrl.*;
 import static by.htp.hvozdzeu.web.util.RequestAttributeEntity.*;
+import static by.htp.hvozdzeu.web.pagination.PaginationDots.*;
+import static by.htp.hvozdzeu.web.pagination.NavigationEvent.*;
 
 public class ListCardView implements Command {
 
@@ -27,15 +30,12 @@ public class ListCardView implements Command {
 	private static final String COUNT_ROW_ON_PAGE = "countRowOnPage";
 	private static final Integer COUNT_ROW_ON_PAGE_DEFAULT = 10;
 	private static final String PAGE = "page";
-	private static final String NAVIGATION_BUTTON = "navigationBtn";
-	private static final String NONE_EVENT = "none";
 	private static final String FIRST_PAGE_NAME_ATTRIBUTE = "firstPage";
 	private static final Integer FIRST_PAGE_NAME_VALUE = 0;
 	private static final String LAST_PAGE_NAME_ATTRIBUTE = "lastPage";
 	private static final String COUNT_PAGE_NAME_ATTRIBUTE = "countPage";
 	private static final String PAGINATION_BUTTON_ARRAY_ATTIRIBURE_NAME = "paginationBtns";
-	private static final String DOTS_BTN = "...";
-	private static final Integer DELTA = 2;
+
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 
@@ -51,9 +51,9 @@ public class ListCardView implements Command {
 			countRowOnPage = COUNT_ROW_ON_PAGE_DEFAULT;
 		}
 
-		Integer pageRowSize = countRowOnPage;
+
 		Integer countRow = iCreditCardService.read().size();
-		Integer countPage = (countRow / pageRowSize) + 1;
+		Integer countPage = (countRow / countRowOnPage) + 1;
 
 		Integer page;
 		if (request.getParameter(PAGE) != null) {
@@ -63,12 +63,11 @@ public class ListCardView implements Command {
 		}
 
 		page = navigationBtnEvent(request, page);
-		Integer displacement = page * pageRowSize;
+		Integer displacement = page * countRowOnPage;
 		Integer lastPage = countPage;
 		
 		List<String> paginationBtns =  paginationDots(page, countPage);
-
-		List<CreditCard> pagination = resultPagination(pageRowSize, displacement);
+		List<CreditCard> pagination = iCreditCardService.pagination(countRowOnPage, displacement);
 
 		request.getSession().setAttribute(PREVIOUS_BUTTON, PREVIOUS_BUTTON);
 		request.getSession().setAttribute(NEXT_BUTTON, NEXT_BUTTON);
@@ -80,59 +79,13 @@ public class ListCardView implements Command {
 		request.getSession().setAttribute(REQUEST_ATTRIBUTE_CREDIT_CARD, pagination);
 		request.getSession().setAttribute(PAGINATION_BUTTON_ARRAY_ATTIRIBURE_NAME, paginationBtns);
 		return LIST_CARD_VIEW.getUrl();
-	}
-
-	private List<String> paginationDots(int currentPage, int pageAmount) {	
+	}	
+	
+	private Map<String, Integer> calculatPagination(HttpServletRequest request){
+		Map<String, Integer> calc = new HashMap<>();
 		
-		Integer left = currentPage - DELTA;
-		Integer right = currentPage + DELTA + 1;
-		List<String> range = new ArrayList<>();
-		List<String> rangeWithDots = new ArrayList<>();
-		Integer l = 0;
-
-		for (int i = 1; i <= pageAmount; i++) {
-			if (i == 1 || i == pageAmount || i >= left && i < right) {
-				range.add("" + i);
-			}
-		}
-
-		for (String i : range) {
-			if (l > 0) {
-				if (Integer.parseInt(i) - l == 2) {
-					rangeWithDots.add("" + (l + 1));
-				} else if (Integer.parseInt(i) - l != 1) {
-					rangeWithDots.add(DOTS_BTN);
-				}
-			}
-			rangeWithDots.add(i);
-			l = Integer.parseInt(i);
-		}
-
-		return rangeWithDots;
-	}
-
-	private Integer navigationBtnEvent(HttpServletRequest request, Integer page) {
-		String navigationBtn;
-		if (request.getParameter(NAVIGATION_BUTTON) != null) {
-			navigationBtn = request.getParameter(NAVIGATION_BUTTON);
-			if (navigationBtn.equals(PREVIOUS_BUTTON)) {
-				page--;
-				LOGGER.debug(String.valueOf(page));
-				return page;
-			}
-			if (navigationBtn.equals(NEXT_BUTTON)) {
-				page++;
-				LOGGER.debug(String.valueOf(page));
-				return page;
-			}
-		} else {
-			navigationBtn = NONE_EVENT;
-		}
-		return page;
-	}
-
-	private List<CreditCard> resultPagination(Integer pageRowSize, Integer displacement) throws DAOException {
-		return iCreditCardService.pagination(pageRowSize, displacement);
+		
+		return calc;
 	}
 
 }
