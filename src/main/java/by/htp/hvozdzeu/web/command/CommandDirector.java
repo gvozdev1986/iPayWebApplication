@@ -26,6 +26,7 @@ import by.htp.hvozdzeu.web.command.impl.view.CreditCardView;
 import by.htp.hvozdzeu.web.command.impl.view.DetailBlockedCard;
 import by.htp.hvozdzeu.web.command.impl.view.GreetingPageView;
 import by.htp.hvozdzeu.web.command.impl.view.ListCardView;
+import by.htp.hvozdzeu.web.command.impl.view.ListClientView;
 import by.htp.hvozdzeu.web.command.impl.view.LoginPageView;
 import by.htp.hvozdzeu.web.command.impl.view.PaymenServiceView;
 import by.htp.hvozdzeu.web.command.impl.view.PaymentHistoryView;
@@ -43,7 +44,7 @@ public class CommandDirector {
 
     private Map<String, Command> map = new HashMap<>();
 
-    public CommandDirector() {
+    public CommandDirector() { 
         map.put("greeting_page_view", new GreetingPageView());
         map.put("login_page_view", new LoginPageView());
         map.put("authorization_user", new Authorization());
@@ -75,11 +76,11 @@ public class CommandDirector {
         map.put("view_detail_blocked_card", new DetailBlockedCard());
         map.put("list_card_view", new ListCardView());
         map.put("find_card_by_param", new FindCardByParameters());
-
+        map.put("list_client_view", new ListClientView());
     }
 
     public Command getCommand(String commandName) {
-        LOGGER.info("GET EVENT: {}", commandName);
+        LOGGER.info("Getting command: {}", commandName);
         Command command;
         command = map.get(commandName);
         return command;

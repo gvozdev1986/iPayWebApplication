@@ -64,7 +64,9 @@
 							style="vertical-align: middle; width: 10px; text-align: right;">${creditBlockedCards.validDate}</td>
 					</tr>
 				</c:forEach>
-			</table>			
+			</table>	
+			<!-- PAGINATION -->
+				<jsp:include page="pagination.jsp" />		
 		</div>
 		</main>
 	</div>

@@ -87,6 +87,22 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 			+ "`isOnline` " 
 			+ "FROM `ipaywebapplication`.`client` WHERE `client`.`Available` = false;";
 	
+	private static final String SQL_PAGINATION = "SELECT "
+			+ "`Id`, "
+			+ "`Login`, "
+			+ "`Password`, "
+			+ "`FirstName`, "
+			+ "`LastName`, "
+			+ "`Patronymic`, "
+			+ "`DateBirth`, "
+			+ "`PhoneHome`, "
+			+ "`PhoneMobile`, "
+			+ "`Address`, "
+			+ "`Role`, " 
+			+ "`Email`, "
+			+ "`Available`, "
+			+ "`isOnline` FROM `ipaywebapplication`.`client` LIMIT ?, ?;";
+	
 	private static final String ERROR_UPDATE_BY_ID = "Error update message.";
 	private static final String ERROR_CREATE = "Error create message.";
 	private static final String ERROR_READ = "Error read from clients table.";
@@ -97,6 +113,7 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 	private static final String ERROR_UPDATE_AS_ONLINE = "Error update client as online.";
 	private static final String ERROR_UPDATE_AS_OFFLINE = "Error update client as offline.";
 	private static final String ERROR_LIST_BLOCKED_CLIENT = "Error getting list blocked client.";
+	private static final String ERROR_PAGINATION = "Error getting pagination.";
 
 	@Override
 	public Client create(Client entity) throws DAOException {
@@ -302,6 +319,28 @@ public class ClientCrudImpl extends ClientRowMapper implements IClientDAO {
 			}
 		} catch (SQLException e) {
 			throw new DAOException(ERROR_LIST_BLOCKED_CLIENT, e);
+		} finally {
+			dataBaseConnection.closeConnection(connection);
+		}
+		return clients;
+	}
+
+	@Override
+	public List<Client> pagination(Integer start, Integer count) throws DAOException {
+		List<Client> clients = new ArrayList<>();
+		Client client;
+		Connection connection = dataBaseConnection.getConnection();
+		try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_PAGINATION)) {
+			preparedStatement.setInt(1, count);
+			preparedStatement.setInt(2, start);
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+				while (resultSet.next()) {
+					client = buildClientRowMapper(resultSet);
+					clients.add(client);
+				}
+			}
+		} catch (SQLException e) {
+			throw new DAOException(ERROR_PAGINATION, e);
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}

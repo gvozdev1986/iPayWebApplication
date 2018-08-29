@@ -115,7 +115,7 @@ supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 		</h6>
 		<div class="collapse" id="settingsPartMenu">
 			<ul class="nav flex-column mb-2">
-				<li class="nav-item"><a class="nav-link" href=""
+				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_client_view"
 					style="cursor: pointer"><i class="fas fa-user-tag"></i> Клиенты
 						<sup><span class="badge badge-danger">${countBlockedClients}</span></sup></a></li>
 			</ul>

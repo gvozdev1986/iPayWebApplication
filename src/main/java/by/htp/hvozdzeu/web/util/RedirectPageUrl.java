@@ -10,6 +10,7 @@ public enum RedirectPageUrl {
 	
 	//CLIENT_MESSAGES
 	CLIENT_MESSAGES("/WEB-INF/messages.jsp"),
+	LIST_CLIENT_VIEW("/WEB-INF/list_client_view.jsp"),
 		
 	//MENU
 	PAYMENT_HISTORY_VIEW("/WEB-INF/payment_history.jsp"),

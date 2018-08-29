@@ -66,4 +66,9 @@ public class ClientServiceImpl implements IClientService {
 	public List<Client> blockedClient() throws DAOException {
 		return iClientDAO.blockedClient();
 	}
+
+	@Override
+	public List<Client> pagination(Integer start, Integer count) throws DAOException {
+		return iClientDAO.pagination(start, count);
+	}
 }

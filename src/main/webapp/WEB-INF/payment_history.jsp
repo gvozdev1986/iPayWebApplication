@@ -23,10 +23,14 @@
 							Card</label> <select class="custom-select" id="idCard" name="idCard"
 							style="line-height: 14px; height: 31px;">
 							<c:forEach items="${cards}" var="creditCards">
-								<option value="${creditCards.id}">
-									${creditCards.cardNumber} / ${creditCards.balanceBankAccount}</option>
+								<option value="${creditCards.id}">${creditCards.cardNumber}</option>
 							</c:forEach>
 						</select>
+						<script type="text/javascript">
+								      var val = ${searchedCardId};
+								      var text = '${searchedCardNumber}';
+								      $("select option[value=" + val + "]").attr('selected', 'true').text(text);
+					    </script>
 					</div>
 					<div class="col-md-3 mb-3 input-group-sm">
 						<label for="startHistory"><i class="far fa-calendar-alt"></i>
@@ -91,19 +95,23 @@
 									<td style="vertical-align: middle; font-weight: bold;">Name</td>
 									<td style="vertical-align: middle; font-weight: bold;">Description</td>
 								</tr>
-								<c:forEach items="${paymentReport}" var="payments">
+								<c:forEach items="${paymentReport}" var="pagination">
 									<tr>
-										<td>${payments.id}</td>
-										<td style="text-align: center;">${payments.datePayment}</td>
-										<td style="text-align: center;">${payments.timePayment}</td>
-										<td>${payments.descriptionPayment}</td>
-										<td>${payments.paymentDataGroup}</td>
-										<td>${payments.paymentDataName}</td>
-										<td>${payments.paymentDataDescription}</td>
-										<td style="text-align: right;">${payments.amountPayment}</td>
+										<td>${pagination.id}</td>
+										<td style="text-align: center;">${pagination.datePayment}</td>
+										<td style="text-align: center;">${pagination.timePayment}</td>
+										<td>${pagination.descriptionPayment}</td>
+										<td>${pagination.paymentDataGroup}</td>
+										<td>${pagination.paymentDataName}</td>
+										<td>${pagination.paymentDataDescription}</td>
+										<td style="text-align: right;">${pagination.amountPayment}</td>
 									</tr>
 								</c:forEach>
 							</table>
+							
+							<!-- PAGINATION -->
+							<jsp:include page="pagination.jsp" />
+							
 						</div>
 					</div>
 				</div>

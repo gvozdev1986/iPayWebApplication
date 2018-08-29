@@ -18,5 +18,6 @@ public interface IClientService {
     boolean isOnlineUpdate(Long id) throws DAOException;
     boolean isOffLineUpdate(Long id) throws DAOException;
     List<Client> blockedClient() throws DAOException;
+    List<Client> pagination(Integer start, Integer count) throws DAOException;
 
 }

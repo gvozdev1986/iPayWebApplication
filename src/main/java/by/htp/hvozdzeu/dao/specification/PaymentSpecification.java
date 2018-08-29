@@ -8,7 +8,7 @@ import by.htp.hvozdzeu.model.report.SumPaymentReportChartPie;
 
 public interface PaymentSpecification {
 	
-	List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException;
-	List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException;
+	List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count) throws DAOException;
+	List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count) throws DAOException;
 
 }
