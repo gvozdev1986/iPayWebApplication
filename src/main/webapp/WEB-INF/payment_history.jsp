@@ -2,10 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
-<jsp:include page="client_navbar.jsp" />
+<jsp:include page="user_navbar.jsp" />
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="client_menu.jsp" />
+		<jsp:include page="user_menu.jsp" />
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"
 			style="padding-bottom: 85px;">
 		<div
@@ -23,15 +23,23 @@
 							Card</label> <select class="custom-select" id="idCard" name="idCard"
 							style="line-height: 14px; height: 31px;">
 							<c:forEach items="${cards}" var="creditCards">
-								<option value="${creditCards.id}">
-									${creditCards.cardNumber} / ${creditCards.balanceBankAccount}</option>
+								<option value="${creditCards.id}">${creditCards.cardNumber}</option>
 							</c:forEach>
 						</select>
+						<script type="text/javascript">
+								      var val = ${searchedCardId};
+								      var text = '${searchedCardNumber}';
+								      $("select option[value=" + val + "]").attr('selected', 'true').text(text);
+					    </script>
 					</div>
 					<div class="col-md-3 mb-3 input-group-sm">
-						<label for="startHistory"><i class="far fa-calendar-alt"></i>
-							From</label> <input type="date" class="form-control" id="startHistory"
-							name="startHistory" value="${startDate}" required>
+						<label for="startHistory"><i class="far fa-calendar-alt"></i> From</label>
+						<input type="date"
+							   class="form-control"
+                               id="startHistory"
+                               name="startHistory"
+                               value="${startDate}"
+                               required>
 						<!-- <div class="valid-feedback">Looks good!</div> -->
 					</div>
 					<div class="col-md-3 mb-3 input-group-sm">
@@ -91,19 +99,23 @@
 									<td style="vertical-align: middle; font-weight: bold;">Name</td>
 									<td style="vertical-align: middle; font-weight: bold;">Description</td>
 								</tr>
-								<c:forEach items="${paymentReport}" var="payments">
+								<c:forEach items="${paymentReport}" var="pagination">
 									<tr>
-										<td>${payments.id}</td>
-										<td style="text-align: center;">${payments.datePayment}</td>
-										<td style="text-align: center;">${payments.timePayment}</td>
-										<td>${payments.descriptionPayment}</td>
-										<td>${payments.paymentDataGroup}</td>
-										<td>${payments.paymentDataName}</td>
-										<td>${payments.paymentDataDescription}</td>
-										<td style="text-align: right;">${payments.amountPayment}</td>
+										<td>${pagination.id}</td>
+										<td style="text-align: center;">${pagination.datePayment}</td>
+										<td style="text-align: center;">${pagination.timePayment}</td>
+										<td>${pagination.descriptionPayment}</td>
+										<td>${pagination.paymentDataGroup}</td>
+										<td>${pagination.paymentDataName}</td>
+										<td>${pagination.paymentDataDescription}</td>
+										<td style="text-align: right;">${pagination.amountPayment}</td>
 									</tr>
 								</c:forEach>
 							</table>
+
+							<!-- PAGINATION -->
+							<jsp:include page="pagination.jsp" />
+
 						</div>
 					</div>
 				</div>
@@ -118,12 +130,12 @@
 									style="display: block; width: 570px; height: 285px;"></canvas>
 								<script>
 				var labelsF = ${chartLabel};
-				var datasF = ${chartData};			
+				var datasF = ${chartData};
 				var ctx = document.getElementById("chart-area").getContext('2d');
 				var myChart = new Chart(ctx, {
-				    type: 'pie',				    
+				    type: 'pie',
 				    data: {
-				        labels: labelsF,				        
+				        labels: labelsF,
 				        datasets: [{
 				            label: '# of Votes',
 				            data: datasF,
@@ -149,7 +161,7 @@
 				    options: {
 				    	legend: {
 			                display: true,
-			                fullWidth : true, 
+			                fullWidth : true,
 					        display: true,
 					        position: "right",
 			                labels: {

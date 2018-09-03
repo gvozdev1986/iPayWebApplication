@@ -37,4 +37,19 @@ public class PaymentDataServiceImpl implements IPaymentDataService {
 		return iPaymentDataDAO.deleteById(id);
 	}
 
+	@Override
+	public List<PaymentData> pagination(Integer start, Integer count) throws DAOException {
+		return iPaymentDataDAO.pagination(start, count);
+	}
+
+	@Override
+	public List<PaymentData> findByParameter(String param) throws DAOException {
+		return iPaymentDataDAO.findByParameter(param);
+	}
+
+	@Override
+	public Long maxIndex() throws DAOException {
+		return iPaymentDataDAO.maxIndex();
+	}
+
 }

@@ -16,7 +16,7 @@
 }
 
 .sidebar-sticky {
-	position: relative;
+	position: relative; 
 	top: 0;
 	height: calc(100vh - 48px);
 	padding-top: .5rem;
@@ -25,8 +25,7 @@
 	/* Scrollable contents if viewport is shorter than content. */
 }
 
-@
-supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
+@supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 	{ position:-webkit-sticky;
 	position: sticky;
 }
@@ -78,19 +77,16 @@ supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 				href="#"><i class="fas fa-envelope-open"></i></a>
 		</h6>
 		<ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href=""
+			<li class="nav-item"><a class="nav-link" href="ServletController?command=list_message_view"
 				style="cursor: pointer"><i class="fas fa-envelope"></i>
 					Сообщения <sup><span class="badge badge-danger">${countUnreadMessage}</span></sup></a></li>
 		</ul>
-		<h6
-			class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-			style="cursor: pointer" data-toggle="collapse"
-			href="#paymentPartMenu" role="button" aria-expanded="false"
-			aria-controls="paymentPartMenu">
+		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+			style="cursor: pointer" >
 			<span>КАРТЫ</span> <a class="d-flex align-items-center text-muted"><i
-				class="fas fa-credit-card"></i></i></a>
+				class="fas fa-credit-card"></i></a>
 		</h6>
-		<div class="collapse" id="paymentPartMenu">
+		<div>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link"
 					href="ServletController?command=blocked_credit_cards_view"
@@ -105,38 +101,49 @@ supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 				</a></li>
 			</ul>
 		</div>
-		<h6
-			class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-			style="cursor: pointer" data-toggle="collapse"
-			href="#settingsPartMenu" role="button" aria-expanded="false"
-			aria-controls="settingsPartMenu">
+		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+			style="cursor: pointer" data-toggle="collapse">
 			<span>Клиеты</span> <a class="d-flex align-items-center text-muted"><i
 				class="fas fa-users"></i></a>
 		</h6>
-		<div class="collapse" id="settingsPartMenu">
+		<div>
 			<ul class="nav flex-column mb-2">
-				<li class="nav-item"><a class="nav-link" href=""
+				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_client_view"
 					style="cursor: pointer"><i class="fas fa-user-tag"></i> Клиенты
 						<sup><span class="badge badge-danger">${countBlockedClients}</span></sup></a></li>
 			</ul>
 		</div>
-		<h6
-			class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-			style="cursor: pointer" data-toggle="collapse"
-			href="#diretoryPartMenu" role="button" aria-expanded="false"
-			aria-controls="diretoryPartMenu">
+		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+			style="cursor: pointer">
 			<span>Справочник</span> <a
 				class="d-flex align-items-center text-muted"><i
 				class="fas fa-book"></i></a>
 		</h6>
-		<div class="collapse" id="diretoryPartMenu">
+		<div>
 			<ul class="nav flex-column mb-2">
-				<li class="nav-item"><a class="nav-link" href=""
-					style="cursor: pointer"><i class="fab fa-servicestack"></i>
-						Сервисы</a></li>
+				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_services_view"
+					style="cursor: pointer"><i class="fab fa-servicestack"></i>	Сервисы</a></li>
 			</ul>
 		</div>
-
+        <h6
+                class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+                style="cursor: pointer">
+            <span><fmt:message key="client_menu_settings" /></span> <a
+                class="d-flex align-items-center text-muted"><i
+                class="fas fa-cogs"></i></a>
+        </h6>
+        <div>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item"><a class="nav-link"
+                                        href=""
+                                        style="cursor: pointer"><i class="far fa-user-circle"></i> <fmt:message
+                        key="client_menu_personal_data" /></a></li>
+                <li class="nav-item"><a class="nav-link"
+                                        href=""
+                                        style="cursor: pointer"><i class="fas fa-cogs"></i> <fmt:message
+                        key="client_menu_update_password" /></a></li>
+            </ul>
+        </div>
 
 	</div>
 </nav>

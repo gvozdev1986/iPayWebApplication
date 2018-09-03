@@ -6,7 +6,7 @@
 
 <fmt:setLocale value="${locale}" />
 <fmt:setBundle basename="Resource" />
-<jsp:include page="client_navbar.jsp" />
+<jsp:include page="user_navbar.jsp" />
 <style>
 .custome-flash {
 	box-shadow: 0 0 20px rgba(0, 173, 126, 5);
@@ -14,97 +14,53 @@
 	-webkit-animation: myfirst 1s linear 0s infinite alternate;
 }
 
-@
-keyframes myfirst { 0% {
-	box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+@keyframes myfirst {
+	0% {
+		box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+	}
+	50%{
+		box-shadow:0020pxrgba(255,255,255,.5);
+	}
+	100%{
+		box-shadow:0020pxrgba(0,173,126,.5);
+	}
 }
-
-50%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(255
-,
-255,255,
-.5
-);
-}
-100%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(0
-,
-173,126,
-.5
-);
-}
-}
-@
--webkit-keyframes myfirst { 0% {
-	box-shadow: 0 0 20px rgba(0, 173, 126, .5);
-}
-
-50%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(255
-,
-255,255,
-.5
-);
-}
-100%
-{
-box-shadow
-:
- 
-0
-0
-20
-px
- 
-rgba
-(0
-,
-173,126,
-.5
-);
-}
+@-webkit-keyframes myfirst {
+	0% {
+		box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+	}
+	50%{
+		box-shadow:0020pxrgba(255,255,255,.5);
+	}
+	100%{
+		box-shadow:0020pxrgba(0,173,126,.5);
+	}
 }
 .card-style {
 	height: 20px;
 	width: 27px;
 	margin-top: -3px;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-button {
+    background: #ccc
+}
+::-webkit-scrollbar-track-piece {
+    background: #888
+}
+::-webkit-scrollbar-thumb {
+    background: #eee
+}​
 </style>
 
 
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="client_menu.jsp" />
+		<jsp:include page="user_menu.jsp" />
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -115,6 +71,18 @@ rgba
 				<fmt:message key="brief_credit_card_label" />
 			</div>
 		</div>
+            <form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
+                <div class="form-inline">
+                    <div class="input-group input-group-sm mb-2">
+                        <button class="btn btn-sm btn-success mr-sm-2"
+                                type="submit"
+                                name="command"
+                                value="new_credit_card">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+            </form>
 		<div class="container"
 			style="height: 70%; overflow-y: scroll; padding: 5px;">
 			<c:forEach items="${cards}" var="creditCards">
@@ -155,12 +123,12 @@ rgba
 										name="cardId" value="${creditCards.id}" />
 									<div class="form-inline">
 										<c:if test="${not creditCards.block}">
-											<button
+											<!--<button
 												class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
 												type="submit" name="command" value="get_balance">
 												<i class="fas fa-sync"></i>
 												<fmt:message key="refresh_btn" />
-											</button>
+											</button>-->
 											<button
 												class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
 												onclick="getCardId(document.getElementById('cardId_${creditCards.id}').value);"
@@ -181,7 +149,6 @@ rgba
 				</br>
 			</c:forEach>
 		</div>
-	</div>
 	</main>
 </div>
 <ctg:footer />

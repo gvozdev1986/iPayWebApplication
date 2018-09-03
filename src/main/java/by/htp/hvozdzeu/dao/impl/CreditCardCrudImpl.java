@@ -60,7 +60,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
 
 	private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, " + "`CardFirstName`, "
 			+ "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, " + "`Block`, " + "`Available` "
-			+ "FROM `ipaywebapplication`.`creditcard` LIMIT ? OFFSET ?;";
+			+ "FROM `ipaywebapplication`.`creditcard` LIMIT ?, ?;";
 	
 	private static final String ERROR_CREATE = "Error create message.";
 	private static final String ERROR_UPDATE_BY_ID = "Error update message.";
@@ -68,7 +68,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
 	private static final String ERROR_FIND_BY_ID = "Error find message by id.";
 	private static final String ERROR_DELETE_BY_ID = "Error delete message by id.";
 	private static final String ERROR_FIND_BY_CARD_NUMBER = "Error find message by card number.";
-	private static final String ERROR_FIND_CARD_BY_CLIENT_ID = "Error find credit card by id client";
+	private static final String ERROR_FIND_CARD_BY_CLIENT_ID = "Error find credit card by id user";
 	private static final String ERROR_BLOCK_CARD = "Error block credit card;";
 	private static final String ERROR_UNBLOCK_CARD = "Error block credit card;";
 	private static final String ERROR_LIST_BLOCKED_CARD = "Error getting blcked credit card;";

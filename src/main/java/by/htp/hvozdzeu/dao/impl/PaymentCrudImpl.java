@@ -40,14 +40,16 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			+ "paymentdata.PaymentDataDescription, "
 			+ "payment.AmountPayment " 
 			+ "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData " 
-			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? ORDER BY DatePayment, TimePayment;";
+			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? ORDER BY DatePayment, TimePayment "
+			+ "LIMIT ?, ?;";
 	
 	private static final String SQL_FIND_PAYMENT_BY_CARD_ID_AND_DATE_CHART_PIE  = "SELECT "
 			+ "COUNT(*) AS Amount, "
 			+ "paymentdata.PaymentDataGroup, "
 			+ "TRUNCATE(SUM(payment.AmountPayment), 2) AS Sum " 
 			+ "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData " 
-			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? GROUP BY paymentdata.PaymentDataGroup;";
+			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? GROUP BY paymentdata.PaymentDataGroup "
+			+ "LIMIT ?, ?;";
 	
 	private static final String ERROR_CREATE = "Error create payment.";
 	private static final String ERROR_UPDATE_BY_ID = "Error update payment by id.";
@@ -146,7 +148,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 	}
 
 	@Override
-	public List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate)
+	public List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count)
 			throws DAOException {
 		List<PaymentReport> payments = new ArrayList<>();
 		PaymentReport paymentReport;
@@ -155,6 +157,8 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			preparedStatement.setLong(1, cardId);
 			preparedStatement.setDate(2, Date.valueOf(startDate.toString()));
 			preparedStatement.setDate(3, Date.valueOf(endDate.toString()));
+			preparedStatement.setInt(4, count);
+			preparedStatement.setInt(5, start);
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				while (resultSet.next()) {
 					paymentReport = buildPaymentReportRowMapper(resultSet);
@@ -162,7 +166,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_FIND_PAYMENT_BY_CARD_AND_DATE, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -171,14 +175,16 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 
 	@Override
 	public List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate,
-			LocalDate endDate) throws DAOException {
+			LocalDate endDate, Integer start, Integer count) throws DAOException {
 		List<SumPaymentReportChartPie> sumPaymentReportChartPies = new ArrayList<>();
 		SumPaymentReportChartPie sumPaymentReportChartPie;
 		Connection connection = dataBaseConnection.getConnection();
 		try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAYMENT_BY_CARD_ID_AND_DATE_CHART_PIE)) {
 			preparedStatement.setLong(1, cardId);
 			preparedStatement.setDate(2, Date.valueOf(startDate.toString()));
-			preparedStatement.setDate(3, Date.valueOf(endDate.toString()));
+			preparedStatement.setDate(3, Date.valueOf(endDate.toString()));			
+			preparedStatement.setInt(4, count);
+			preparedStatement.setInt(5, start);
 			try (ResultSet resultSet = preparedStatement.executeQuery()) {
 				while (resultSet.next()) {
 					sumPaymentReportChartPie = buildChartPiePaymentRowMapper(resultSet);

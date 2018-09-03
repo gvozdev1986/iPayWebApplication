@@ -6,21 +6,21 @@ import java.util.Objects;
 
 public class MessageContact extends Entity {
 
-	private static final long serialVersionUID = 4461284830441916569L;
-	
-	private String nameContact;
+    private static final long serialVersionUID = 4461284830441916569L;
+
+    private String nameContact;
     private String emailContact;
     private String phoneContact;
     private String messageFromContact;
-    private boolean isRead;
+    private boolean checkRead;
 
-    public MessageContact(Builder builder) {
+    private MessageContact(Builder builder) {
         this.setId(builder.id);
         this.nameContact = builder.nameContact;
         this.emailContact = builder.emailContact;
         this.phoneContact = builder.phoneContact;
         this.messageFromContact = builder.messageFromContact;
-        this.isRead = builder.isRead;
+        this.checkRead = builder.checkRead;
     }
 
     public String getNameContact() {
@@ -39,10 +39,9 @@ public class MessageContact extends Entity {
         return messageFromContact;
     }
 
-    public boolean isRead() {
-        return isRead;
+    public boolean checkRead() {
+        return checkRead;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,7 +49,7 @@ public class MessageContact extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         MessageContact that = (MessageContact) o;
-        return isRead == that.isRead &&
+        return checkRead == that.checkRead &&
                 Objects.equals(nameContact, that.nameContact) &&
                 Objects.equals(emailContact, that.emailContact) &&
                 Objects.equals(phoneContact, that.phoneContact) &&
@@ -65,20 +64,18 @@ public class MessageContact extends Entity {
                 emailContact,
                 phoneContact,
                 messageFromContact,
-                isRead
+                checkRead
         );
     }
-
 
     @Override
     public String toString() {
         return "MessageContact{" +
-                "id='" + getId() + '\'' +
-                ", nameContact='" + nameContact + '\'' +
+                "nameContact='" + nameContact + '\'' +
                 ", emailContact='" + emailContact + '\'' +
                 ", phoneContact='" + phoneContact + '\'' +
                 ", messageFromContact='" + messageFromContact + '\'' +
-                ", isRead=" + isRead +
+                ", checkRead=" + checkRead +
                 '}';
     }
 
@@ -89,7 +86,7 @@ public class MessageContact extends Entity {
         private String emailContact;
         private String phoneContact;
         private String messageFromContact;
-        private boolean isRead;
+        private boolean checkRead;
 
 
         public Builder id(Long id) {
@@ -117,8 +114,8 @@ public class MessageContact extends Entity {
             return this;
         }
 
-        public Builder isRead(boolean isRead) {
-            this.isRead = isRead;
+        public Builder checkRead(boolean checkRead) {
+            this.checkRead = checkRead;
             return this;
         }
 

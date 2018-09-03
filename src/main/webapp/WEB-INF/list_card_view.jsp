@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <fmt:setLocale value="${locale}" />
 <fmt:setBundle basename="Resource" />
 <jsp:include page="admin_navbar.jsp" />
@@ -14,7 +13,19 @@
 	background-color: #00ad7e;
 	border-color: #00ad7e;
 }
-
+::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+}
+::-webkit-scrollbar-button {
+	background: #ccc
+}
+::-webkit-scrollbar-track-piece {
+	background: #888
+}
+::-webkit-scrollbar-thumb {
+	background: #eee
+}​
 .btn-success:hover {
 	color: #fff;
 	background-color: #41c7a3;
@@ -38,8 +49,11 @@
 						placeholder="Search..." aria-label="search input"
 						aria-describedby="inputGroup-sizing-sm">
 					<div class="input-group-append">
-						<button class="btn btn-success" type="submit" name="command"
-							value="find_card_by_param" id="search-Btn">
+						<button class="btn btn-success" 
+								type="submit" 
+								name="command"
+								value="find_card_by_param" 
+								id="search-Btn">
 							<i class="fas fa-search"></i> Search
 						</button>
 						<button class="btn btn-success" type="submit" name="command"
@@ -49,20 +63,14 @@
 					</div>
 				</div>
 			</form>
-			<table
-				class="table table-bordered table-hover table-sm table-striped"
-				style="width: 100%; font-size: 9pt;">
+			<table class="table table-bordered table-hover table-sm table-striped" style="width: 100%; font-size: 9pt;">				
 				<tr style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
-					<td style="vertical-align: middle; font-weight: bold;">First
-						name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Last
-						name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Credit
-						card number</td>
+					<td style="vertical-align: middle; font-weight: bold;">First name</td>
+					<td style="vertical-align: middle; font-weight: bold;">Last	name</td>
+					<td style="vertical-align: middle; font-weight: bold;">Credit card number</td>
 					<td style="vertical-align: middle; font-weight: bold;">Valid</td>
-					<td style="vertical-align: middle; font-weight: bold;">Type of
-						card</td>
+					<td style="vertical-align: middle; font-weight: bold;">Type of card</td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">B</td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">A</td>
 				</tr>
@@ -72,8 +80,7 @@
 						<td>${pagination.cardFirstName}</td>
 						<td>${pagination.cardLastName}</td>
 						<td>${pagination.cardNumber}</td>
-						<td
-							style="vertical-align: middle; width: 10px; text-align: right;">${creditCards.validDate}</td>
+						<td	style="vertical-align: middle; width: 10px; text-align: right;">${pagination.validDate}</td>
 						<td>${pagination.typeCard}</td>
 
 						<c:if test="${pagination.block}">
@@ -98,19 +105,10 @@
 
 					</tr>
 				</c:forEach>
-			</table>
-			<form>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination pagination-sm">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>	
-			</form>
-		</div>
+			</table>				
+			<!-- PAGINATION -->
+				<jsp:include page="pagination.jsp" />			
+			</div>
 		</main>
 	</div>
 </div>

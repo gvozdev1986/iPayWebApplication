@@ -30,7 +30,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<a class="navbar-brand"
 			href="ServletController?command=admin_panel_view"> <img
-			src="img/logo.png" width="30" height="30"
+			src="/img/logo.png" width="30" height="30"
 			class="d-inline-block align-top" alt=""> iPay
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -41,8 +41,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto" style="color: #fff;">
-				<li><fmt:message key="admin" />: ${client.getLastName()}
-					${client.getFirstName()} ${client.getPatronymic()}</li>
+				<li><fmt:message key="admin" />: ${user.getLastName()}
+					${user.getFirstName()} ${user.getPatronymic()}</li>
 			</ul>
 		</div>
 		<form class="form-inline my-2 my-lg-0" action="ServletController"

@@ -12,7 +12,7 @@ public class MessageContactRowMapper {
     private static final String CONTACT_MESSAGE_EMAIL = "EmailContact";
     private static final String CONTACT_MESSAGE_PHONE = "PhoneContact";
     private static final String CONTACT_MESSAGE = "MessageContact";
-    private static final String CONTACT_MESSAGE_IS_READY = "ReadStatus";
+    private static final String CONTACT_MESSAGE_IS_READY = "isCheckRead";
 
     protected MessageContact buildMessageContactRowMapper(ResultSet resultSet) throws SQLException {
         return new MessageContact.Builder()
@@ -21,7 +21,7 @@ public class MessageContactRowMapper {
                 .emailContact(resultSet.getString(CONTACT_MESSAGE_EMAIL))
                 .phoneContact(resultSet.getString(CONTACT_MESSAGE_PHONE))
                 .messageFromContact(resultSet.getString(CONTACT_MESSAGE))
-                .isRead(resultSet.getBoolean(CONTACT_MESSAGE_IS_READY))
+                .checkRead(resultSet.getBoolean(CONTACT_MESSAGE_IS_READY))
                 .build();
     }
 

@@ -5,31 +5,47 @@ import by.htp.hvozdzeu.service.impl.*;
 
 public class ServiceFactory {
 
+    private static IUserService iUserService;
+    private static IBankAccountService iBankAccountService;
+    private static ICreditCardService iCreditCardService;
+    private static IPaymentService iPaymentService;
+    private static IPaymentDataService iPaymentDataService;
+    private static IMessageContactService iMessageContactService;
+
+    static{
+        iUserService = new UserServiceImpl();
+        iBankAccountService = new BankAccountServiceImpl();
+        iCreditCardService = new CreditCardServiceImpl();
+        iPaymentService = new PaymentServiceImpl();
+        iPaymentDataService = new PaymentDataServiceImpl();
+        iMessageContactService = new MessageContactServiceImpl();
+    }
+
     private ServiceFactory() {
     }
 
-    public static IClientService getClientService() {
-        return new ClientServiceImpl();
+    public static IUserService getUserService() {
+        return iUserService;
     }
 
     public static IBankAccountService getBankAccountService() {
-        return new BankAccountServiceImpl();
+        return iBankAccountService;
     }
 
     public static ICreditCardService getCreditCardService() {
-        return new CreditCardServiceImpl();
+        return iCreditCardService;
     }
 
     public static IPaymentService getPaymentService() {
-        return new PaymentServiceImpl();
+        return iPaymentService;
     }
 
     public static IPaymentDataService getPaymentDataService() {
-        return new PaymentDataServiceImpl();
+        return iPaymentDataService;
     }
 
     public static IMessageContactService getMessageContactService() {
-        return new MessageContactServiceImpl();
+        return iMessageContactService;
     }
 
 }

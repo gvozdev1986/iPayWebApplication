@@ -2,10 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
-<jsp:include page="client_navbar.jsp" />
+<jsp:include page="user_navbar.jsp" />
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="client_menu.jsp" />
+		<jsp:include page="user_menu.jsp" />
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -14,7 +14,7 @@
 		</div>
 		<div class="container">
 			<form action="ServletController" method="post">
-				<input type="hidden" name="clientId" value="${client.id}" />
+				<input type="hidden" name="userId" value="${user.id}" />
 				<div class="form-row">
 					<div class="col-md-3 mb-3 input-group-sm">
 						<label for="current_password"><i class="fas fa-key"></i>
@@ -29,10 +29,10 @@
 							required>
 					</div>
 					<div class="col-md-4 mb-3 input-group-sm">
-						<label for="veriry_new_password"><i class="fas fa-key"></i>
+						<label for="verify_new_password"><i class="fas fa-key"></i>
 							Verify</label> <input type="password" class="form-control"
-							id="veriry_new_password" placeholder="Verify"
-							name="veriry_new_password" required>
+							id="verify_new_password" placeholder="Verify"
+							name="verify_new_password" required>
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
 						<div style="margin-top: 31px;"></div>
@@ -45,7 +45,7 @@
 					</div>
 				</div>
 			</form>
-			<p>${messageErrorSavePassword}</p>
+			<p style="color: #fe0c00">${messageErrorSavePassword}</p>
 		</div>
 		</main>
 	</div>
