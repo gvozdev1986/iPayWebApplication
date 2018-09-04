@@ -2,6 +2,8 @@ package by.htp.hvozdzeu.model;
 
 import by.htp.hvozdzeu.model.entity.Entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class MessageContact extends Entity {
@@ -9,14 +11,21 @@ public class MessageContact extends Entity {
     private static final long serialVersionUID = 4461284830441916569L;
 
     private String nameContact;
+    private LocalDate date;
+    private LocalTime time;
     private String emailContact;
     private String phoneContact;
     private String messageFromContact;
     private boolean checkRead;
 
-    private MessageContact(Builder builder) {
+    public MessageContact() {
+    }
+
+    public MessageContact(Builder builder) {
         this.setId(builder.id);
         this.nameContact = builder.nameContact;
+        this.date = builder.date;
+        this.time = builder.time;
         this.emailContact = builder.emailContact;
         this.phoneContact = builder.phoneContact;
         this.messageFromContact = builder.messageFromContact;
@@ -25,6 +34,14 @@ public class MessageContact extends Entity {
 
     public String getNameContact() {
         return nameContact;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
     }
 
     public String getEmailContact() {
@@ -39,7 +56,7 @@ public class MessageContact extends Entity {
         return messageFromContact;
     }
 
-    public boolean checkRead() {
+    public boolean isCheckRead() {
         return checkRead;
     }
 
@@ -51,6 +68,8 @@ public class MessageContact extends Entity {
         MessageContact that = (MessageContact) o;
         return checkRead == that.checkRead &&
                 Objects.equals(nameContact, that.nameContact) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(time, that.time) &&
                 Objects.equals(emailContact, that.emailContact) &&
                 Objects.equals(phoneContact, that.phoneContact) &&
                 Objects.equals(messageFromContact, that.messageFromContact);
@@ -61,6 +80,8 @@ public class MessageContact extends Entity {
         return Objects.hash(
                 super.hashCode(),
                 nameContact,
+                date,
+                time,
                 emailContact,
                 phoneContact,
                 messageFromContact,
@@ -72,6 +93,8 @@ public class MessageContact extends Entity {
     public String toString() {
         return "MessageContact{" +
                 "nameContact='" + nameContact + '\'' +
+                ", date=" + date +
+                ", time=" + time +
                 ", emailContact='" + emailContact + '\'' +
                 ", phoneContact='" + phoneContact + '\'' +
                 ", messageFromContact='" + messageFromContact + '\'' +
@@ -83,6 +106,8 @@ public class MessageContact extends Entity {
 
         private Long id;
         private String nameContact;
+        private LocalDate date;
+        private LocalTime time;
         private String emailContact;
         private String phoneContact;
         private String messageFromContact;
@@ -96,6 +121,16 @@ public class MessageContact extends Entity {
 
         public Builder nameContact(String nameContact) {
             this.nameContact = nameContact;
+            return this;
+        }
+
+        public Builder date(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder time(LocalTime time) {
+            this.time = time;
             return this;
         }
 

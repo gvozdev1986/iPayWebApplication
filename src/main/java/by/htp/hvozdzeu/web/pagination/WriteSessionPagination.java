@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.pagination;
 
 import static by.htp.hvozdzeu.web.pagination.CalculatePagination.*;
-import static by.htp.hvozdzeu.web.pagination.CalculatePagination.calculatPagination;
+import static by.htp.hvozdzeu.web.pagination.CalculatePagination.calculatePagination;
 import static by.htp.hvozdzeu.web.pagination.NavigationEvent.*;
 import static by.htp.hvozdzeu.web.pagination.PaginationDots.paginationDots;
 
@@ -16,13 +16,13 @@ public class WriteSessionPagination {
 	}
 
 	public static Integer getSessionPaginationAttribute(HttpServletRequest request, Integer countRow, String nameAttribute) {
-		Map<String, Integer> calculatePagination = calculatPagination(request, countRow);
+		Map<String, Integer> calculatePagination = calculatePagination(request, countRow);
 		return calculatePagination.get(nameAttribute);		
 	}
 	
 	public static void writeSessionPagination(HttpServletRequest request, Integer countRow, String paginationName, List<?> pagination){
 
-		Map<String, Integer> calculatePagination = calculatPagination(request, countRow);
+		Map<String, Integer> calculatePagination = calculatePagination(request, countRow);
 		Integer page = calculatePagination.get(PAGE);
 		Integer countPage = calculatePagination.get(COUNT_PAGE);
 		Integer countRowOnPage = calculatePagination.get(COUNT_ROW_ON_PAGE);
@@ -36,8 +36,8 @@ public class WriteSessionPagination {
 		request.getSession().setAttribute(FIRST_PAGE, FIRST_PAGE_NAME_VALUE);
 		request.getSession().setAttribute(LAST_PAGE, lastPage);
 		request.getSession().setAttribute(COUNT_ROW_ON_PAGE, countRowOnPage);
-		request.getSession().setAttribute(COUNT_PAGE, countPage);		
-		request.getSession().setAttribute(paginationName, pagination);		
+		request.getSession().setAttribute(COUNT_PAGE, countPage);
+		request.getSession().setAttribute(paginationName, pagination);
 		request.getSession().setAttribute(PAGINATION_BUTTON_ARRAY_ATTRIBUTE_NAME, paginationBtns);
 	}
 	

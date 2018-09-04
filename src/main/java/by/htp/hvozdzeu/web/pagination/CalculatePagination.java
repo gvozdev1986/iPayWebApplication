@@ -23,11 +23,13 @@ public class CalculatePagination {
 	public static final Integer FIRST_PAGE_NAME_VALUE = 0;
 	public static final String FIRST_PAGE = "firstPage";
 	public static final String PAGINATION_BUTTON_ARRAY_ATTRIBUTE_NAME = "paginationBtns";
-	
-	public static Map<String, Integer> calculatPagination(HttpServletRequest request, Integer countRow){
+
+    private CalculatePagination() {
+    }
+
+    public static Map<String, Integer> calculatePagination(HttpServletRequest request, Integer countRow){
 		Map<String, Integer> calc = new HashMap<>();
 		calc.clear();
-		
 		Integer countRowOnPage;
 
 		if (request.getParameter(COUNT_ROW_ON_PAGE) != null) {
@@ -47,15 +49,14 @@ public class CalculatePagination {
 
 		page = navigationBtnEvent(request, page);
 		Integer displacement = page * countRowOnPage;
-		Integer lastPage = countPage;
-		
-		calc.put(PAGE, page);
+
+        calc.put(PAGE, page);
 		calc.put(COUNT_PAGE, countPage);		
 		calc.put(COUNT_ROW_ON_PAGE, countRowOnPage);		
 		calc.put(DISPLACEMENT, displacement);
-		calc.put(LAST_PAGE, lastPage);
+		calc.put(LAST_PAGE, countPage);
 		
-		LOGGER.debug("Get paggination data: PAGE-{} COUNT_PAGE-{} COUNT_ROW_ON_PAGE-{} DISPLACEMENT-{} LAST_PAGE-{}", page, countPage, countRowOnPage, displacement,lastPage);
+		LOGGER.debug("Get paggination data: PAGE-{} COUNT_PAGE-{} COUNT_ROW_ON_PAGE-{} DISPLACEMENT-{} LAST_PAGE-{}", page, countPage, countRowOnPage, displacement, countPage);
 		
 		return calc;
 	}

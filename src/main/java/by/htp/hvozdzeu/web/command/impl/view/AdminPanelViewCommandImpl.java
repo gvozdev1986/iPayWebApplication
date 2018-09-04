@@ -23,7 +23,7 @@ public class AdminPanelViewCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		Integer countUnreadMessage = iMessageContactService.unreadmessages(false).size();
+		Integer countUnreadMessage = iMessageContactService.unreadMessages(false).size();
 		Integer countBlockedCreditCard = iCreditCardService.blockedCreditCard().size();
 		Integer countBlockedClients = iClientService.listBlockedClient().size();
 

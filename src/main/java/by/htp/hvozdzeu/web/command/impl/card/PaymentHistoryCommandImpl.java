@@ -39,7 +39,7 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
 		
 		Integer countRow = iPaymentService.read().size();
 
-		Map<String, Integer> calculatePagination = calculatPagination(request, countRow);
+		Map<String, Integer> calculatePagination = calculatePagination(request, countRow);
 		Integer page = calculatePagination.get(PAGE);
 		Integer countPage = calculatePagination.get(COUNT_PAGE);
 		Integer countRowOnPage = calculatePagination.get(COUNT_ROW_ON_PAGE);

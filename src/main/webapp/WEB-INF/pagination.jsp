@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <form action="ServletController" method="get">
     <input id="pageHiddenInput" type="hidden" name="page" value="${page}"/>
     <input id="navigationBtnInput" type="hidden" name="navigationBtn" value="none"/>
@@ -81,13 +79,11 @@
                     <button class="btn btn-outline-secondary form-control btn-sm"
                             type="button"
                             id="next_btn"
-                            style="height: 31px; width: 60px; vertical-align: middle; text-align: center;" disabled>Next
+                            style="height: 31px; width: 60px; vertical-align: middle; text-align: center;" disabled>
+                        Next
                     </button>
-            </c:otherwise>
+                </c:otherwise>
             </c:choose>
         </ul>
     </nav>
 </form>
-
-
-

@@ -38,7 +38,7 @@ public final class PagePathConstantPool {
 	public static final String LIST_CARD_VIEW = "/WEB-INF/list_card_view.jsp";
 	public static final String REGISTRATION_PAGE_VIEW = "/WEB-INF/registration.jsp";
 	public static final String INDEX_PAGE_LOAD = "/index.jsp";
-	public static final String BLOCKED_CREDIT_CARDS = "/WEB-INF/blocked_cards.jsp";
+	public static final String BLOCKED_CREDIT_CARDS = "/WEB-INF/list_blocked_cards.jsp";
     public static final String PAGE_ERROR = "/error/error.jsp";
 
 }

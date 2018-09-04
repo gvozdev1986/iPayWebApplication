@@ -13,37 +13,45 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
 
     private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`messages` " +
             "(`NameContact`, " +
+            "`Date`, " +
+            "`Time`, " +
             "`EmailContact`, " +
             "`PhoneContact`, " +
             "`MessageContact`, " +
-            "`isCheckRead`) " +
-            "VALUES (?, ?, ?, ?, ?);";
+            "`CheckRead`) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`messages` SET " +
             "`messages`.`NameContact`=?, " +
+            "`messages`.`Date`=?, " +
+            "`messages`.`Time`=?, " +
             "`messages`.`EmailContact`=?, " +
             "`messages`.`PhoneContact`=?, " +
             "`messages`.`MessageContact`=?, " +
-            "`messages`.`isCheckRead`=? " +
+            "`messages`.`CheckRead`=? " +
             "WHERE `Id`=?;";
 
     private static final String SQL_FIND_BY_ID = "SELECT " +
             "`messages`.`Id`, " +
             "`messages`.`NameContact`, " +
+            "`messages`.`Date`, " +
+            "`messages`.`Time`, " +
             "`messages`.`EmailContact`, " +
             "`messages`.`PhoneContact`, " +
             "`messages`.`MessageContact`, " +
-            "`messages`.`isCheckRead` " +
+            "`messages`.`CheckRead` " +
             "FROM `ipaywebapplication`.`messages` " +
             "WHERE `id`=?;";
 
     private static final String SQL_READ = "SELECT " +
             "`messages`.`Id`, " +
             "`messages`.`NameContact`, " +
+            "`messages`.`Date`, " +
+            "`messages`.`Time`, " +
             "`messages`.`EmailContact`, " +
             "`messages`.`PhoneContact`, " +
             "`messages`.`MessageContact`, " +
-            "`messages`.`isCheckRead` " +
+            "`messages`.`CheckRead` " +
             "FROM `ipaywebapplication`.`messages`;";
 
     private static final String SQL_DELETE_BY_ID = "DELETE " +
@@ -53,28 +61,25 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     private static final String SQL_UNREAD_MESSAGE = "SELECT "
             + "messages.Id, "
             + "messages.NameContact, "
+            + "messages.Date, "
+            + "messages.Time, "
             + "messages.EmailContact, "
             + "messages.PhoneContact, "
             + "messages.MessageContact, "
-            + "messages.isCheckRead "
-            + "FROM messages WHERE messages.isCheckRead = ?;";
-
-    private static final String ERROR_UPDATE_BY_ID = "Error update message.";
-    private static final String ERROR_CREATE = "Error create message.";
-    private static final String ERROR_READ = "Error read from messages table.";
-    private static final String ERROR_FIND_BY_ID = "Error find message by id.";
-    private static final String ERROR_DELETE_BY_ID = "Error delete message by id.";
-    private static final String ERROR_UNREAD_MESSAGE = "Error getting unread messages";
+            + "messages.CheckRead "
+            + "FROM messages WHERE messages.CheckRead = ?;";
 
     @Override
     public MessageContact create(MessageContact entity) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             preparedStatement.setString(1, entity.getNameContact());
-            preparedStatement.setString(2, entity.getEmailContact());
-            preparedStatement.setString(3, entity.getPhoneContact());
-            preparedStatement.setString(4, entity.getMessageFromContact());
-            preparedStatement.setBoolean(5, false);
+            preparedStatement.setDate(2, Date.valueOf(entity.getDate()));
+            preparedStatement.setTime(3, Time.valueOf(entity.getTime()));
+            preparedStatement.setString(4, entity.getEmailContact());
+            preparedStatement.setString(5, entity.getPhoneContact());
+            preparedStatement.setString(6, entity.getMessageFromContact());
+            preparedStatement.setBoolean(7, false);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException(e.getMessage());
@@ -92,11 +97,11 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             preparedStatement.setString(2, entity.getEmailContact());
             preparedStatement.setString(3, entity.getPhoneContact());
             preparedStatement.setString(4, entity.getMessageFromContact());
-            preparedStatement.setBoolean(5, entity.checkRead());
+            preparedStatement.setBoolean(5, entity.isCheckRead());
             preparedStatement.setLong(6, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException(ERROR_UPDATE_BY_ID, e);
+            throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -115,7 +120,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(ERROR_FIND_BY_ID, e);
+            throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -150,7 +155,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new DAOException(ERROR_DELETE_BY_ID, e);
+            throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -170,7 +175,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(ERROR_UNREAD_MESSAGE, e);
+            throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
