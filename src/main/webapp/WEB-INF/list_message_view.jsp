@@ -50,7 +50,33 @@
                 <h1 class="h2">Messages</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">LIST OF MESSAGE</div>
             </div>
-            <div class="container" style="height: 70%; overflow-y: scroll; padding: 5px;">
+            <form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
+                <div class="form-inline">
+                    <div class="input-group input-group-sm mb-2">
+                        <input type="text"
+                               name="param"
+                               class="form-control"
+                               placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="btn btn-success"
+                                    type="submit"
+                                    name="command"
+                                    value=""
+                                    id="search-Btn">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <button class="btn btn-success"
+                                    type="submit"
+                                    name="command"
+                                    value=""
+                                    id="clear-Btn">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
                 <table class="table table-bordered table-hover table-sm"
                        style="width: 100%; font-size: 9pt;">
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
@@ -62,28 +88,38 @@
                         <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_email"/></td>
                         <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_tel"/></td>
                     </tr>
-                    <c:forEach items="${messageContacts}" var="messageContacts">
+                    <c:forEach items="${messageContacts}" var="pagination">
                         <tr>
-                            <td style="vertical-align: middle; text-align: right;">${messageContacts.id}</td>
+                            <td style="vertical-align: middle; text-align: right;">${pagination.id}</td>
 
-                            <c:if test="${messageContacts.checkRead}">
-                                <td style="text-align: center; vertical-align: middle;"><i class="far fa-envelope-open"></i></td>
+                            <c:if test="${pagination.checkRead}">
+                                <td style="vertical-align: middle; width: 25px; text-align: center;">
+                                    <a href="ServletController?command=view_detail_message&messageId=${pagination.id}"
+                                       style="cursor: pointer; margin-top: -7px; color: black"><i class="far fa-envelope-open"></i>
+                                    </a>
+                                </td>
                             </c:if>
 
-                            <c:if test="${not messageContacts.checkRead}">
-                                <td style="text-align: center; vertical-align: middle;"><i class="far fa-envelope"></i></td>
+                            <c:if test="${not pagination.checkRead}">
+                                <td style="vertical-align: middle; width: 25px; text-align: center;">
+                                    <a href="ServletController?command=view_detail_message&messageId=${pagination.id}"
+                                       style="cursor: pointer; margin-top: -7px; color: red"><i class="far fa-envelope"></i>
+                                    </a>
+                                </td>
                             </c:if>
 
-                            <td style="text-align: right;">${messageContacts.date}</td>
-                            <td style="text-align: right;">${messageContacts.time}</td>
-                            <td>${messageContacts.nameContact}</td>
-                            <td style="text-align: right;">${messageContacts.emailContact}</td>
-                            <td style="text-align: right;">${messageContacts.phoneContact}</td>
+                            <td style="text-align: right;">${pagination.date}</td>
+                            <td style="text-align: right;">${pagination.time}</td>
+                            <td>${pagination.nameContact}</td>
+                            <td style="text-align: right;">${pagination.emailContact}</td>
+                            <td style="text-align: right;">${pagination.phoneContact}</td>
 
                         </tr>
                     </c:forEach>
                 </table>
             </div>
+            <!-- PAGINATION -->
+            <jsp:include page="pagination.jsp" />
         </main>
     </div>
 </div>

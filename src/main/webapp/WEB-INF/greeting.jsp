@@ -120,8 +120,7 @@
                             <!-- <div class="valid-feedback">Looks good!</div> -->
                         </div>
                         <div class="form-group col-md-4 input-group-sm">
-                            <label for="email_contact"><i
-                                    class="fas fa-envelope-open"></i> <fmt:message
+                            <label for="email_contact"><i class="fas fa-envelope-open"></i> <fmt:message
                                     key="greeting_email"/></label> <input type="email"
                                                                           class="form-control" id="email_contact"
                                                                           placeholder="<fmt:message key="greeting_email" />"

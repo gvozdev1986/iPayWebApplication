@@ -48,7 +48,9 @@ public enum CommandEnum {
     PAYMENT_DATA_DETAIL_VIEW(UserTypeEnum.ADMIN),
     NEW_SERVICE_DATA_VIEW(UserTypeEnum.ADMIN),
     FIND_SERVICE_DATA_BY_PARAM(UserTypeEnum.ADMIN),
-    SAVE_PAYMENT_DATA(UserTypeEnum.ADMIN);
+    SAVE_PAYMENT_DATA(UserTypeEnum.ADMIN),
+    VIEW_DETAIL_MESSAGE(UserTypeEnum.ADMIN),
+    SAVE_MESSAGE_READ(UserTypeEnum.ADMIN);
 
 
 	private UserTypeEnum userType;

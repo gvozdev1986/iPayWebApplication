@@ -16,6 +16,7 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_SAVE_PAY_PAYMENT = "/ServletController?command=payment_service_view";
     public static final String REDIRECT_SAVE_TRANSFER = "/ServletController?command=transfer_view";
     public static final String REDIRECT_UPDATE_CLIENT_PSWD = "/ServletController?command=update_client_password_view";
+    public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
 
     public static final String LOAD_ADMIN_PANEL = "/WEB-INF/admin_panel.jsp";
     public static final String LOAD_CLIENT_PANEL = "/WEB-INF/user_panel.jsp";
@@ -40,5 +41,6 @@ public final class PagePathConstantPool {
 	public static final String INDEX_PAGE_LOAD = "/index.jsp";
 	public static final String BLOCKED_CREDIT_CARDS = "/WEB-INF/list_blocked_cards.jsp";
     public static final String PAGE_ERROR = "/error/error.jsp";
+    public static final String MESSAGE_DETAIL_VIEW = "/WEB-INF/message_detail_view.jsp";
 
 }

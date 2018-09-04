@@ -6,6 +6,8 @@ import by.htp.hvozdzeu.dao.mapper.MessageContactRowMapper;
 import by.htp.hvozdzeu.model.MessageContact;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             "`messages`.`PhoneContact`, " +
             "`messages`.`MessageContact`, " +
             "`messages`.`CheckRead` " +
-            "FROM `ipaywebapplication`.`messages`;";
+            "FROM `ipaywebapplication`.`messages` ORDER BY `messages`.`CheckRead` ASC;";
 
     private static final String SQL_DELETE_BY_ID = "DELETE " +
             "FROM `ipaywebapplication`.`messages` " +
@@ -69,13 +71,27 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             + "messages.CheckRead "
             + "FROM messages WHERE messages.CheckRead = ?;";
 
+    private static final String SQL_CHECK_READ = "UPDATE " +
+            "`ipaywebapplication`.`messages` SET `CheckRead`='1' WHERE  `Id`=?;";
+
+    private static final String SQL_PAGINATION = "SELECT " +
+            "messages.Id, " +
+            "messages.NameContact, " +
+            "messages.Date, " +
+            "messages.Time, " +
+            "messages.EmailContact, " +
+            "messages.PhoneContact, " +
+            "messages.MessageContact, " +
+            "messages.CheckRead " +
+            "FROM messages ORDER BY messages.CheckRead ASC LIMIT ?,?;";
+
     @Override
     public MessageContact create(MessageContact entity) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             preparedStatement.setString(1, entity.getNameContact());
-            preparedStatement.setDate(2, Date.valueOf(entity.getDate()));
-            preparedStatement.setTime(3, Time.valueOf(entity.getTime()));
+            preparedStatement.setDate(2, Date.valueOf(LocalDate.now()));
+            preparedStatement.setTime(3, Time.valueOf(LocalTime.now()));
             preparedStatement.setString(4, entity.getEmailContact());
             preparedStatement.setString(5, entity.getPhoneContact());
             preparedStatement.setString(6, entity.getMessageFromContact());
@@ -162,12 +178,48 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     }
 
     @Override
-    public List<MessageContact> unreadmessages(boolean status) throws DAOException {
+    public List<MessageContact> unreadMessages(boolean status) throws DAOException {
         List<MessageContact> messageContacts = new ArrayList<>();
         MessageContact messageContact;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UNREAD_MESSAGE)) {
             preparedStatement.setBoolean(1, status);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    messageContact = buildMessageContactRowMapper(resultSet);
+                    messageContacts.add(messageContact);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return messageContacts;
+    }
+
+    @Override
+    public boolean checkMessageAsRead(Long messageId) throws DAOException {
+        Connection connection = dataBaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_READ)) {
+            preparedStatement.setLong(1, messageId);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<MessageContact> pagination(Integer start, Integer count) throws DAOException {
+        List<MessageContact> messageContacts = new ArrayList<>();
+        MessageContact messageContact;
+        Connection connection = dataBaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_PAGINATION)) {
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, start);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     messageContact = buildMessageContactRowMapper(resultSet);

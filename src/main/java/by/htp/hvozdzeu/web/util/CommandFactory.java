@@ -5,6 +5,7 @@ import by.htp.hvozdzeu.web.command.impl.authorization.LogInCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.authorization.LogOutCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.card.*;
 import by.htp.hvozdzeu.web.command.impl.locale.LocalizationCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.message.CheckReadMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.registration.SaveRegistrationCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.FindPaymentDataByParamCommandImpl;
@@ -169,7 +170,12 @@ public class CommandFactory {
             case SAVE_TRANSFER:
                 command = new SaveTransferCommandImpl();
                 break;
-
+            case VIEW_DETAIL_MESSAGE:
+                command = new MessageDetailViewCommandImpl();
+                break;
+            case SAVE_MESSAGE_READ:
+                command = new CheckReadMessageCommandImpl();
+                break;
             default:
                 command = new GreetingPageViewCommandImpl();
                 break;

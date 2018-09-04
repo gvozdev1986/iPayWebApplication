@@ -8,7 +8,7 @@ import java.util.Properties;
 public class EmailSenderCommandImpl {
 
     private static final String USER = "aliaksandr.hvozdzeu@gmail.com";
-    private static final String PSW = "gvozdvtaranov250486";
+    private static final String PSW = "";
 
     public void send(String toEmail, String subjectEmail, String messageEmail){
 
