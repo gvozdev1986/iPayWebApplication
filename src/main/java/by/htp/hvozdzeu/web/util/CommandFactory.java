@@ -8,6 +8,7 @@ import by.htp.hvozdzeu.web.command.impl.locale.LocalizationCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.CheckReadMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.registration.SaveRegistrationCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.FindPaymentDataByParamCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.SavePaymentDataCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.user.FindClientByParametersCommandImpl;
@@ -175,6 +176,9 @@ public class CommandFactory {
                 break;
             case SAVE_MESSAGE_READ:
                 command = new CheckReadMessageCommandImpl();
+                break;
+            case REPLY_EMAIL:
+                command = new ReplyEmailCommandImpl();
                 break;
             default:
                 command = new GreetingPageViewCommandImpl();

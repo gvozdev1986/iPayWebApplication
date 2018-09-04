@@ -111,7 +111,7 @@
 <ctg:footer/>
 <!-- Modal reply on email-->
 <div class="modal fade" id="modalReplyOnEmail" tabindex="-1" role="dialog" aria-labelledby="modalReplyOnEmail" aria-hidden="true">
-    <form>
+    <form action="ServletController" method="post">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -128,8 +128,18 @@
                             <input type="text"
                                    class="form-control"
                                    id="emailToReply"
+                                   name="emailToReply"
                                    value="${messageContact.emailContact}"
                                    readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 input-group-sm">
+                            <label for="emailToReply"><i class="fab fa-leanpub"></i> Subject</label>
+                            <input type="text"
+                                   name="subjectToReply"
+                                   class="form-control"
+                                   id="subjectToReply">
                         </div>
                     </div>
                     <div class="form-row">
@@ -137,14 +147,24 @@
                             <label for="messageToReply"><i class="fas fa-comments"></i> <fmt:message
                                     key="messages_table_contact_message"/></label>
                             <textarea class="form-control"
+                                      name="messageToReply"
                                       id="messageToReply"
                                       rows="3"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-chevron-left"></i> Back</button>
-                    <button type="button" class="btn btn-success"><i class="far fa-share-square"></i> Send</button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+                        <i class="fas fa-chevron-left"></i> Back
+                    </button>
+                    <button type="submit"
+                            name="command"
+                            value="reply_email"
+                            class="btn btn-success">
+                        <i class="far fa-share-square"></i> Send
+                    </button>
                 </div>
             </div>
         </div>

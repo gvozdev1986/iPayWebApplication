@@ -50,7 +50,8 @@ public enum CommandEnum {
     FIND_SERVICE_DATA_BY_PARAM(UserTypeEnum.ADMIN),
     SAVE_PAYMENT_DATA(UserTypeEnum.ADMIN),
     VIEW_DETAIL_MESSAGE(UserTypeEnum.ADMIN),
-    SAVE_MESSAGE_READ(UserTypeEnum.ADMIN);
+    SAVE_MESSAGE_READ(UserTypeEnum.ADMIN),
+    REPLY_EMAIL(UserTypeEnum.ADMIN);
 
 
 	private UserTypeEnum userType;
