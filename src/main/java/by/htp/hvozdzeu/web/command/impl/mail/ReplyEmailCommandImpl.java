@@ -35,12 +35,9 @@ public class ReplyEmailCommandImpl implements BaseCommand {
                     messageToReply,
                     properties
             );
-
-            LOGGER.debug(properties.toString());
-
             mailThread.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         return REDIRECT_MESSAGE_DETAIL + "&messageId=" + messageId;

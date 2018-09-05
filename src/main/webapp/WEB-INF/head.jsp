@@ -13,6 +13,10 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+<link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
 	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"

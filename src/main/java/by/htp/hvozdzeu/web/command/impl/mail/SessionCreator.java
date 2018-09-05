@@ -18,18 +18,12 @@ public class SessionCreator {
         smtpPost = configProperties.getProperty("mail.smtp.port");
         userName = configProperties.getProperty("mail.user.name");
         userPassword = configProperties.getProperty("mail.user.password");
-
         sessionProperties = new Properties();
         sessionProperties.setProperty("mail.transport.protocol", "smtp");
         sessionProperties.setProperty("mail.host", smtpHost);
         sessionProperties.put("mail.smtp.auth", "true");
         sessionProperties.put("mail.smtp.port", smtpPost);
-
-
-        sessionProperties.put("mail.smtp.ssl.enable", "true"); ////
-        //sessionProperties.put("mail.smtp.starttls.enable", "true"); ////
-
-
+        sessionProperties.put("mail.smtp.ssl.enable", "true");
         sessionProperties.put("mail.smtp.socketFactory.port", smtpPost);
         sessionProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         sessionProperties.put("mail.smtp.socketFactory.fallback", "false");
