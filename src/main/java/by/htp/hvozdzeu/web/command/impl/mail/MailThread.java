@@ -22,34 +22,34 @@ public class MailThread extends Thread {
     private String mailText;
     private Properties properties;
 
-    public MailThread(String sendToEmail, String mailSubject, String mailText, Properties properties){
+    public MailThread(String sendToEmail, String mailSubject, String mailText, Properties properties) {
         this.sendToEmail = sendToEmail;
         this.mailSubject = mailSubject;
         this.mailText = mailText;
         this.properties = properties;
     }
 
-    private void init(){
+    private void init() {
         Session mailSession = (new SessionCreator(properties)).createSession();
         mailSession.setDebug(true);
         message = new MimeMessage(mailSession);
-        try{
+        try {
             message.setSubject(mailSubject);
             message.setContent(mailText, "text/html");
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
         } catch (AddressException e) {
             LOGGER.error("Invalid address: {} ", e.getMessage());
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             LOGGER.error("Error forming message. {}", e.getMessage());
         }
     }
 
     @Override
-    public void run(){
+    public void run() {
         init();
-        try{
+        try {
             Transport.send(message);
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             LOGGER.error("Error to send email. {}", e.getMessage());
         }
     }

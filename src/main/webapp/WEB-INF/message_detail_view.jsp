@@ -28,8 +28,9 @@
                 <div class="btn-toolbar mb-2 mb-md-0">MESSAGE DETAIL</div>
             </div>
             <div class="container" style="height: 70%; padding: 5px;">
-                <form action="ServletController" method="post">
+                <form action="ServletController" method="get">
                     <input type="hidden" name="messageId" value="${messageContact.id}">
+                    <input type="hidden" name="messageEmailTo" value="${messageContact.emailContact}">
                     <div class="form-row">
                         <div class="form-group col-md-6 input-group-sm">
                             <label><fmt:message key="messages_table_contact_data"/>: ${messageContact.date} <fmt:message
@@ -70,20 +71,15 @@
                             <label for="message"><i class="fas fa-comments"></i> <fmt:message
                                     key="messages_table_contact_message"/></label>
                             <textarea class="form-control" id="message"
+                                      style="margin-top: 0px; margin-bottom: 0px; height: 150px;"
                                       rows="3"
                                       readonly>${messageContact.messageFromContact}</textarea>
                         </div>
                     </div>
                     <button type="submit"
                             name="command"
-                            value="list_message_view"
+                            value="mail_sender_view"
                             class="btn btn-success btn-sm">
-                        <i class="fas fa-chevron-left"></i> Back
-                    </button>
-                    <button type="button"
-                            class="btn btn-success btn-sm"
-                            data-toggle="modal"
-                            data-target="#modalReplyOnEmail">
                         <i class="fas fa-reply"></i> Reply
                     </button>
                     <c:if test = "${messageContact.checkRead}">
@@ -109,64 +105,3 @@
     </div>
 </div>
 <ctg:footer/>
-<!-- Modal reply on email-->
-<div class="modal fade" id="modalReplyOnEmail" tabindex="-1" role="dialog" aria-labelledby="modalReplyOnEmail" aria-hidden="true">
-    <form action="ServletController" method="post">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Reply on email</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-12 input-group-sm">
-                            <label for="emailToReply"><i class="fas fa-envelope-open"></i> <fmt:message
-                                    key="messages_table_contact_email"/></label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="emailToReply"
-                                   name="emailToReply"
-                                   value="${messageContact.emailContact}"
-                                   readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 input-group-sm">
-                            <label for="emailToReply"><i class="fab fa-leanpub"></i> Subject</label>
-                            <input type="text"
-                                   name="subjectToReply"
-                                   class="form-control"
-                                   id="subjectToReply">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12 input-group-sm">
-                            <label for="messageToReply"><i class="fas fa-comments"></i> <fmt:message
-                                    key="messages_table_contact_message"/></label>
-                            <textarea class="form-control"
-                                      name="messageToReply"
-                                      id="messageToReply"
-                                      rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">
-                        <i class="fas fa-chevron-left"></i> Back
-                    </button>
-                    <button type="submit"
-                            name="command"
-                            value="reply_email"
-                            class="btn btn-success">
-                        <i class="far fa-share-square"></i> Send
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>

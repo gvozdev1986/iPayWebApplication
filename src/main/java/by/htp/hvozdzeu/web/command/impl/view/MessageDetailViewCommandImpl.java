@@ -21,6 +21,7 @@ public class MessageDetailViewCommandImpl implements BaseCommand {
         MessageContact messageContact = iMessageContactService.findById(messageId);
 
         request.getSession().setAttribute("messageContact", messageContact);
+
         return PagePathConstantPool.MESSAGE_DETAIL_VIEW;
     }
 }

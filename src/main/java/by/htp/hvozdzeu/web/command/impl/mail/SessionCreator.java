@@ -12,7 +12,7 @@ public class SessionCreator {
     private String userPassword;
     private Properties sessionProperties;
 
-    public SessionCreator(Properties configProperties){
+    public SessionCreator(Properties configProperties) {
 
         smtpHost = configProperties.getProperty("mail.smtp.host");
         smtpPost = configProperties.getProperty("mail.smtp.port");
@@ -36,13 +36,13 @@ public class SessionCreator {
         sessionProperties.put("mail.smtp.quitwait", "false");
     }
 
-    public Session createSession(){
-        return Session.getInstance(sessionProperties, new javax.mail.Authenticator(){
+    public Session createSession() {
+        return Session.getInstance(sessionProperties, new javax.mail.Authenticator() {
 
             @Override
-            protected PasswordAuthentication getPasswordAuthentication(){
-               return new PasswordAuthentication(userName, userPassword);
-           }
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(userName, userPassword);
+            }
 
         });
     }

@@ -5,10 +5,11 @@ import by.htp.hvozdzeu.web.command.impl.authorization.LogInCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.authorization.LogOutCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.card.*;
 import by.htp.hvozdzeu.web.command.impl.locale.LocalizationCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.message.BackDetailMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.CheckReadMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.registration.SaveRegistrationCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.FindPaymentDataByParamCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.SavePaymentDataCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.user.FindClientByParametersCommandImpl;
@@ -164,7 +165,9 @@ public class CommandFactory {
             case SAVE_PAYMENT_DATA:
                 command = new SavePaymentDataCommandImpl();
                 break;
-
+            case MAIL_SENDER_VIEW:
+                command = new MailSenderViewCommandImpl();
+                break;
             case SAVE_PAY_PAYMENT:
                 command = new SavePayPaymentCommandImpl();
                 break;
@@ -179,6 +182,9 @@ public class CommandFactory {
                 break;
             case REPLY_EMAIL:
                 command = new ReplyEmailCommandImpl();
+                break;
+            case BACK_DETAIL_MESSAGE:
+                command = new BackDetailMessageCommandImpl();
                 break;
             default:
                 command = new GreetingPageViewCommandImpl();

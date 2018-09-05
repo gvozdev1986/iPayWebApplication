@@ -17,7 +17,9 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_SAVE_TRANSFER = "/ServletController?command=transfer_view";
     public static final String REDIRECT_UPDATE_CLIENT_PSWD = "/ServletController?command=update_client_password_view";
     public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
+    public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
 
+    public static final String MAIL_SENDER_VIEW = "/WEB-INF/mail_sender_view.jsp";
     public static final String LOAD_ADMIN_PANEL = "/WEB-INF/admin_panel.jsp";
     public static final String LOAD_CLIENT_PANEL = "/WEB-INF/user_panel.jsp";
     public static final String MESSAGE_LIST_VIEW = "/WEB-INF/list_message_view.jsp";
@@ -26,7 +28,6 @@ public final class PagePathConstantPool {
     public static final String LIST_SERVICE_VIEW = "/WEB-INF/list_payment_data_view.jsp";
 	public static final String GREETING_PAGE_VIEW = "/WEB-INF/greeting.jsp";
 	public static final String LOGIN_PAGE_VIEW = "/WEB-INF/login.jsp";
-	public static final String CLIENT_MESSAGES = "/WEB-INF/messages.jsp";
 	public static final String LIST_CLIENT_VIEW = "/WEB-INF/list_user_view.jsp";
 	public static final String CLIENT_DETAIL_VIEW = "/WEB-INF/view_detail_user.jsp";
 	public static final String PAYMENT_HISTORY_VIEW = "/WEB-INF/payment_history.jsp";

@@ -51,7 +51,10 @@ public enum CommandEnum {
     SAVE_PAYMENT_DATA(UserTypeEnum.ADMIN),
     VIEW_DETAIL_MESSAGE(UserTypeEnum.ADMIN),
     SAVE_MESSAGE_READ(UserTypeEnum.ADMIN),
-    REPLY_EMAIL(UserTypeEnum.ADMIN);
+    REPLY_EMAIL(UserTypeEnum.ADMIN),
+    MAIL_SENDER_VIEW(UserTypeEnum.ADMIN),
+    BACK_DETAIL_MESSAGE(UserTypeEnum.ADMIN),
+    BACK_LIST_MESSAGE_VIEW(UserTypeEnum.ADMIN);
 
 
 	private UserTypeEnum userType;
