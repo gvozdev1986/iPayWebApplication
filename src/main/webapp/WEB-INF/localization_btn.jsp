@@ -1,11 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-
 <style>
     .btn-success:not (:disabled ):not (.disabled ).active, .btn-success:not
 	(:disabled ):not (.disabled ):active, .show > .btn-success.dropdown-toggle {
@@ -51,8 +48,11 @@
     }
 </style>
 <div class="dropdown">
-    <button class="btn btn-success dropdown-toggle mr-sm-2" type="button"
-            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+    <button class="btn btn-success dropdown-toggle mr-sm-2"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
             aria-expanded="false">
         <i class="fas fa-globe"></i>
         <c:if test="${sessionScope.locale == 'en'}">
@@ -68,7 +68,7 @@
             BY
         </c:if>
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+    <div id="locale_btn" class="dropdown-menu" aria-labelledby="dropdownMenuButton"
          style="width: 20px;">
         <c:if test="${locale == 'en'}">
             <a class="dropdown-item" href="ServletController?command=change_locale&locale=by">
