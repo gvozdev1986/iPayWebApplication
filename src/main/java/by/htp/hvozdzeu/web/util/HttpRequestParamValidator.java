@@ -24,7 +24,7 @@ public final class HttpRequestParamValidator {
     private static final String TEL_NUMBER_REGEX = "";
 
     private HttpRequestParamValidator() {
-        throw new IllegalStateException("Utility class");
+
     }
 
     public static void validateParamNotNull(String s) throws ValidateNullRequestParamException {

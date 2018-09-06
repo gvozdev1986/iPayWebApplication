@@ -3,7 +3,7 @@ package by.htp.hvozdzeu.web.util;
 public final class PagePathConstantPool {
 
 	private PagePathConstantPool() {
-		throw new IllegalStateException("Utility class");
+
 	}	
 		
 	public static final String REDIRECT_ADMIN_URL = "/ServletController?command=admin_panel_view";
@@ -19,6 +19,7 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
     public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
 
+    public static final String PAYMENT_HISTORY_PAGINATION = "/WEB-INF/payment_history_pagination.jsp";
     public static final String MAIL_SENDER_VIEW = "/WEB-INF/mail_sender_view.jsp";
     public static final String LOAD_ADMIN_PANEL = "/WEB-INF/admin_panel.jsp";
     public static final String LOAD_CLIENT_PANEL = "/WEB-INF/user_panel.jsp";
@@ -30,7 +31,7 @@ public final class PagePathConstantPool {
 	public static final String LOGIN_PAGE_VIEW = "/WEB-INF/login.jsp";
 	public static final String LIST_CLIENT_VIEW = "/WEB-INF/list_user_view.jsp";
 	public static final String CLIENT_DETAIL_VIEW = "/WEB-INF/view_detail_user.jsp";
-	public static final String PAYMENT_HISTORY_VIEW = "/WEB-INF/payment_history.jsp";
+	public static final String PAYMENT_HISTORY_VIEW = "/WEB-INF/list_payment_history.jsp";
 	public static final String CREDIT_CARD_VIEW = "/WEB-INF/cards.jsp";
 	public static final String PAYMENT_SERVICE_VIEW = "/WEB-INF/payment_service.jsp";
 	public static final String TRANSFER_VIEW = "/WEB-INF/card_money_transfer.jsp";

@@ -29,6 +29,7 @@ public enum CommandEnum {
     UPDATE_PASSWORD(UserTypeEnum.USER),
     SAVE_PAY_PAYMENT(UserTypeEnum.USER),
     SAVE_TRANSFER(UserTypeEnum.USER),
+    PAYMENT_HISTORY_PAGINATION(UserTypeEnum.USER),
 
 
 	//ADMIN ACCESS

@@ -30,7 +30,7 @@ public class CommandFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletController.class);
 
     private CommandFactory() {
-        throw new IllegalStateException("Utility class");
+
     }
 
     public static BaseCommand defineCommand(HttpServletRequest request) {
@@ -145,11 +145,9 @@ public class CommandFactory {
             case LIST_MESSAGE_VIEW:
                 command = new ListMessageViewCommandImpl();
                 break;
-
             case SAVE_MESSAGE_CONTACT:
                 command = new WriteUsCommandImpl();
                 break;
-
             case LIST_SERVICES_VIEW:
                 command = new ListPaymentServiceViewCommandImpl();
                 break;
@@ -185,6 +183,9 @@ public class CommandFactory {
                 break;
             case BACK_DETAIL_MESSAGE:
                 command = new BackDetailMessageCommandImpl();
+                break;
+            case PAYMENT_HISTORY_PAGINATION:
+                command = new PaymentHistoryCommandImpl();
                 break;
             default:
                 command = new GreetingPageViewCommandImpl();

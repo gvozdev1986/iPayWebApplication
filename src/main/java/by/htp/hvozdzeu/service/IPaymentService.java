@@ -15,7 +15,6 @@ public interface IPaymentService {
     Payment findById(Long id) throws DAOException;
     List<Payment> read() throws DAOException;
     boolean deleteById(Long id) throws DAOException;
-    List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count) throws DAOException;
-    List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count) throws DAOException;
-    
+    List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement) throws DAOException;
+    List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException;
 }

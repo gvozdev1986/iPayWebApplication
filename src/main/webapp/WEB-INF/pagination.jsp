@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form action="ServletController" method="get">
+
     <input id="pageHiddenInput" type="hidden" name="page" value="${page}"/>
     <input id="navigationBtnInput" type="hidden" name="navigationBtn" value="none"/>
+    <input id="additional_param_1" type="hidden" name="additional_param_1" value="${returnCardId}">
+    <input id="additional_param_2" type="hidden" name="additional_param_2" value="${returnDateStart}">
+    <input id="additional_param_3" type="hidden" name="additional_param_3" value="${returnDateEnd}">
+
     <label for="pag">Page ${page + 1} from ${countPage}</label>
     <nav id="pag" aria-label="Page navigation example">
         <ul class="pagination pagination-sm">

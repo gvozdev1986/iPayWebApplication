@@ -41,15 +41,15 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	@Override
-	public List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer start, Integer count)
+	public List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement)
 			throws DAOException {
-		return iPaymentDAO.findPaynemtByCardAndBetweenDate(cardId, startDate, endDate, start, count);
+		return iPaymentDAO.findPaynemtByCardAndBetweenDate(cardId, startDate, endDate, countRowOnPage, displacement);
 	}
 
 	@Override
 	public List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate,
-			LocalDate endDate, Integer start, Integer count) throws DAOException {
-		return iPaymentDAO.findPaynemtByCardAndBetweenDateChartPie(cardId, startDate, endDate, start, count);
+			LocalDate endDate) throws DAOException {
+		return iPaymentDAO.findPaynemtByCardAndBetweenDateChartPie(cardId, startDate, endDate);
 	}
 
 }

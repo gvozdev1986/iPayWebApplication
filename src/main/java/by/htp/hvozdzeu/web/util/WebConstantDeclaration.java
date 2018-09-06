@@ -3,9 +3,8 @@ package by.htp.hvozdzeu.web.util;
 public final class WebConstantDeclaration {
 	
 	private WebConstantDeclaration() {
-		throw new IllegalStateException("Utility class");
-	}	
-	
+
+	}
 
 	public static final String REQUEST_PARAM_USER = "user";
 	public static final String REQUEST_PARAM_PASS = "password";
