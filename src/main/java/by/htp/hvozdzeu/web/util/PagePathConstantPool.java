@@ -19,6 +19,7 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
     public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
 
+    public static final String ADD_NEW_CREDIT_CARD = "/WEB-INF/add_new_credit_card.jsp";
     public static final String PAYMENT_HISTORY_PAGINATION = "/WEB-INF/payment_history_pagination.jsp";
     public static final String MAIL_SENDER_VIEW = "/WEB-INF/mail_sender_view.jsp";
     public static final String LOAD_ADMIN_PANEL = "/WEB-INF/admin_panel.jsp";

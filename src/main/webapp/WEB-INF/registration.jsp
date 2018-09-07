@@ -61,8 +61,7 @@
 </header>
 <div class="container h-100">
 	<div class="row h-100 justify-content-center align-items-center">
-		<div class="card"
-			style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); z-index: 50000;">
+		<div class="card" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); z-index: 50000;">
 			<div class="card-header">
 				<fmt:message key="form_label" />
 			</div>
@@ -175,11 +174,11 @@
 						</div>
 					</div>
 					<div class="form-inline">
-						<!-- <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
+						<button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
 								type="submit" 
 								name="command"
 								value="log_out"><i class="fas fa-undo"></i> Cancel
-						</button> -->
+						</button>
 						<button
 							class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
 							id="save_btn" type="submit" name="command"

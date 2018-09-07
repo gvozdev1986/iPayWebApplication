@@ -187,6 +187,9 @@ public class CommandFactory {
             case PAYMENT_HISTORY_PAGINATION:
                 command = new PaymentHistoryCommandImpl();
                 break;
+            case NEW_CREDIT_CARD:
+                command = new NewCreditCardCommandImpl();
+                break;
             default:
                 command = new GreetingPageViewCommandImpl();
                 break;

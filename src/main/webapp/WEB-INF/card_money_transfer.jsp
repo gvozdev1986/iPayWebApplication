@@ -29,8 +29,8 @@
 				<div class="form-row">
 					<div class="col-md-5 mb-3 input-group-sm">
 						<label for="idCardFromTransf"><i
-							class="far fa-credit-card"></i> Card from</label> <select
-							class="custom-select" id="idCardFromTransf"
+							class="far fa-credit-card"></i> Card from</label>
+						<select	class="custom-select" id="idCardFromTransf"
 							name="idCardFromTransf" style="line-height: 14px; height: 31px;">
 							<c:forEach items="${cards}" var="creditCards">
 								<c:if test="${not creditCards.block}">

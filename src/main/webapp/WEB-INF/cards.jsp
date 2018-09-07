@@ -83,9 +83,9 @@
                     <fmt:message key="brief_credit_card_label"/>
                 </div>
             </div>
-            <form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
+            <form action="ServletController" method="get" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
-                    <div class="input-group input-group-sm mb-2">
+                    <div class="input-group input-group-sm mb-2" style="margin-left: 15px;">
                         <button class="btn btn-sm btn-success mr-sm-2"
                                 type="submit"
                                 name="command"
