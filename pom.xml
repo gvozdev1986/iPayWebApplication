@@ -18,10 +18,12 @@
 		<junit.version>4.12</junit.version>
 		<maven.compiler.plugin>2.19.1</maven.compiler.plugin>
 		<javax.servlet>4.0.1</javax.servlet>
+        <mail>1.6.1</mail>
 		<mysql.connector.java>8.0.11</mysql.connector.java>
 		<jstl>1.2</jstl>
 		<jstl-api.version>1.2</jstl-api.version>
 		<org.slf4j>1.7.25</org.slf4j>
+        <gson.vertion>2.8.5</gson.vertion>
 	</properties>
 
 	<build>
@@ -88,19 +90,18 @@
 
 	<dependencies>
 
+        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${mail}</version>
+        </dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.8.5</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>javax.mail-api</artifactId>
-			<version>1.6.1</version>
+			<version>${gson.vertion}</version>
 		</dependency>
 
 		<dependency>

@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class PaymentReport {
 
+    private static final long serialVersionUID = -1497682454960981508L;
+
 	private Long id;
 	private LocalDate datePayment;
 	private LocalTime timePayment;
@@ -63,37 +65,50 @@ public class PaymentReport {
 		return paymentDataDescription;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		PaymentReport that = (PaymentReport) o;
-		return Objects.equals(id, that.id) && Objects.equals(datePayment, that.datePayment)
-				&& Objects.equals(timePayment, that.timePayment)
-				&& Objects.equals(descriptionPayment, that.descriptionPayment)
-				&& Objects.equals(amountPayment, that.amountPayment)
-				&& Objects.equals(paymentDataName, that.paymentDataName)
-				&& Objects.equals(paymentDataGroup, that.paymentDataGroup)
-				&& Objects.equals(paymentDataDescription, that.paymentDataDescription);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentReport that = (PaymentReport) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(datePayment, that.datePayment) &&
+                Objects.equals(timePayment, that.timePayment) &&
+                Objects.equals(descriptionPayment, that.descriptionPayment) &&
+                Objects.equals(amountPayment, that.amountPayment) &&
+                Objects.equals(paymentDataName, that.paymentDataName) &&
+                Objects.equals(paymentDataGroup, that.paymentDataGroup) &&
+                Objects.equals(paymentDataDescription, that.paymentDataDescription);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, datePayment, timePayment, descriptionPayment, amountPayment, paymentDataName,
-				paymentDataGroup, paymentDataDescription);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                id,
+                datePayment,
+                timePayment,
+                descriptionPayment,
+                amountPayment,
+                paymentDataName,
+                paymentDataGroup,
+                paymentDataDescription
+        );
+    }
 
-	@Override
-	public String toString() {
-		return "PaymentReport{" + "id=" + id + ", datePayment=" + datePayment + ", timePayment=" + timePayment
-				+ ", descriptionPayment='" + descriptionPayment + '\'' + ", amountPayment=" + amountPayment
-				+ ", paymentDataName='" + paymentDataName + '\'' + ", paymentDataGroup='" + paymentDataGroup + '\''
-				+ ", paymentDataDescription='" + paymentDataDescription + '\'' + '}';
-	}
+    @Override
+    public String toString() {
+        return "PaymentReport{" +
+                "id=" + id +
+                ", datePayment=" + datePayment +
+                ", timePayment=" + timePayment +
+                ", descriptionPayment='" + descriptionPayment + '\'' +
+                ", amountPayment=" + amountPayment +
+                ", paymentDataName='" + paymentDataName + '\'' +
+                ", paymentDataGroup='" + paymentDataGroup + '\'' +
+                ", paymentDataDescription='" + paymentDataDescription + '\'' +
+                '}';
+    }
 
-	public static class Builder {
+    public static class Builder {
 		private Long id;
 		private LocalDate datePayment;
 		private LocalTime timePayment;

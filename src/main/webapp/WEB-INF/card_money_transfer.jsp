@@ -2,10 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
-<jsp:include page="client_navbar.jsp" />
+<jsp:include page="user_navbar.jsp" />
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="client_menu.jsp" />
+		<jsp:include page="user_menu.jsp" />
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -15,10 +15,13 @@
 		<div class="container">
 			<div class="form-group">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value=""
-						id="anotherCardCheck" onclick="anotheCard();" required> <label
-						class="form-check-label" for="invalidCheck"> Another's
-						card</label>
+					<input class="form-check-input"
+						   type="checkbox" value=""
+                           id="anotherCardCheck"
+                           onclick="anotherCard();"
+                           required>
+                    <label class="form-check-label"
+                           for="anotherCardCheck"> Another's card</label>
 				</div>
 			</div>
 			<form action="ServletController" method="post" name="transferForm">
@@ -26,8 +29,8 @@
 				<div class="form-row">
 					<div class="col-md-5 mb-3 input-group-sm">
 						<label for="idCardFromTransf"><i
-							class="far fa-credit-card"></i> Card from</label> <select
-							class="custom-select" id="idCardFromTransf"
+							class="far fa-credit-card"></i> Card from</label>
+						<select	class="custom-select" id="idCardFromTransf"
 							name="idCardFromTransf" style="line-height: 14px; height: 31px;">
 							<c:forEach items="${cards}" var="creditCards">
 								<c:if test="${not creditCards.block}">
@@ -77,7 +80,7 @@
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
 						<label for="code"><i class="fas fa-user-secret"></i> Code</label>
-						<input type="text" class="form-control" id="code"
+						<input type="password" class="form-control" id="code"
 							placeholder="Code" name="code" required>
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
@@ -108,7 +111,7 @@
 	    this.value = anotherCardInput;
 	}
 
-	function anotheCard() {		
+	function anotherCard() {
 		var x = document.getElementById("anotherCardCheck").checked;		
 		yourCardBlock = document.getElementById("yourCardBlock");
 		anotherCardBlock = document.getElementById("anotherCardBlock");		

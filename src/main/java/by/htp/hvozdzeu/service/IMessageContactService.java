@@ -12,6 +12,8 @@ public interface IMessageContactService {
     MessageContact findById(Long id) throws DAOException;
     boolean deleteById(Long id) throws DAOException;
     List<MessageContact> read() throws DAOException;
-    List<MessageContact> unreadmessages(boolean status) throws DAOException;
+    List<MessageContact> unreadMessages(boolean status) throws DAOException;
+    boolean checkMessageAsRead(Long messageId) throws DAOException;
+    List<MessageContact> pagination(Integer start, Integer count) throws DAOException;
 
 }

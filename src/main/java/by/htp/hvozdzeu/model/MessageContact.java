@@ -2,29 +2,46 @@ package by.htp.hvozdzeu.model;
 
 import by.htp.hvozdzeu.model.entity.Entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class MessageContact extends Entity {
 
-	private static final long serialVersionUID = 4461284830441916569L;
-	
-	private String nameContact;
+    private static final long serialVersionUID = 4461284830441916569L;
+
+    private String nameContact;
+    private LocalDate date;
+    private LocalTime time;
     private String emailContact;
     private String phoneContact;
     private String messageFromContact;
-    private boolean isRead;
+    private boolean checkRead;
+
+    public MessageContact() {
+    }
 
     public MessageContact(Builder builder) {
         this.setId(builder.id);
         this.nameContact = builder.nameContact;
+        this.date = builder.date;
+        this.time = builder.time;
         this.emailContact = builder.emailContact;
         this.phoneContact = builder.phoneContact;
         this.messageFromContact = builder.messageFromContact;
-        this.isRead = builder.isRead;
+        this.checkRead = builder.checkRead;
     }
 
     public String getNameContact() {
         return nameContact;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
     }
 
     public String getEmailContact() {
@@ -39,10 +56,9 @@ public class MessageContact extends Entity {
         return messageFromContact;
     }
 
-    public boolean isRead() {
-        return isRead;
+    public boolean isCheckRead() {
+        return checkRead;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,8 +66,10 @@ public class MessageContact extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         MessageContact that = (MessageContact) o;
-        return isRead == that.isRead &&
+        return checkRead == that.checkRead &&
                 Objects.equals(nameContact, that.nameContact) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(time, that.time) &&
                 Objects.equals(emailContact, that.emailContact) &&
                 Objects.equals(phoneContact, that.phoneContact) &&
                 Objects.equals(messageFromContact, that.messageFromContact);
@@ -62,23 +80,25 @@ public class MessageContact extends Entity {
         return Objects.hash(
                 super.hashCode(),
                 nameContact,
+                date,
+                time,
                 emailContact,
                 phoneContact,
                 messageFromContact,
-                isRead
+                checkRead
         );
     }
-
 
     @Override
     public String toString() {
         return "MessageContact{" +
-                "id='" + getId() + '\'' +
-                ", nameContact='" + nameContact + '\'' +
+                "nameContact='" + nameContact + '\'' +
+                ", date=" + date +
+                ", time=" + time +
                 ", emailContact='" + emailContact + '\'' +
                 ", phoneContact='" + phoneContact + '\'' +
                 ", messageFromContact='" + messageFromContact + '\'' +
-                ", isRead=" + isRead +
+                ", checkRead=" + checkRead +
                 '}';
     }
 
@@ -86,10 +106,12 @@ public class MessageContact extends Entity {
 
         private Long id;
         private String nameContact;
+        private LocalDate date;
+        private LocalTime time;
         private String emailContact;
         private String phoneContact;
         private String messageFromContact;
-        private boolean isRead;
+        private boolean checkRead;
 
 
         public Builder id(Long id) {
@@ -99,6 +121,16 @@ public class MessageContact extends Entity {
 
         public Builder nameContact(String nameContact) {
             this.nameContact = nameContact;
+            return this;
+        }
+
+        public Builder date(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder time(LocalTime time) {
+            this.time = time;
             return this;
         }
 
@@ -117,8 +149,8 @@ public class MessageContact extends Entity {
             return this;
         }
 
-        public Builder isRead(boolean isRead) {
-            this.isRead = isRead;
+        public Builder checkRead(boolean checkRead) {
+            this.checkRead = checkRead;
             return this;
         }
 

@@ -1,6 +1,5 @@
 package by.htp.hvozdzeu.dao.connection;
 
-import by.htp.hvozdzeu.web.controller.ServletController;
 import by.htp.hvozdzeu.dao.connection.exception.ConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,32 +13,35 @@ import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServletController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionPool.class);
 
     private static final String DB_CONNECT_PROPERTY = "db_config";
     private static final String RESOURCE_DRIVER_NAME = "db.driver.name";
     private static final String RESOURCE_URL = "db.url";
     private static final String RESOURCE_LOGIN = "db.login";
-    private static final String RESOURCE_PASS = "db.pass";
-    private static final int MAX_CONNECTION_COUNT = 80;
-    private static final int MIN_CONNECTION_COUNT = 5;
+    private static final String RESOURCE_PASS = "db.pswd";
+    private static final String MAX_CONNECTION_COUNT = "db.min.connect.size";
+    private static final String MIN_CONNECTION_COUNT = "db.min.connect.size";
 
     private static volatile ConnectionPool instance;
     private static String url;
     private static String login;
-    private static String pass;
+    private static String pswd;
     private static String driverName;
+    private static int maxCountConnect;
+    private static int minCountConnect;
 
     static {
         ResourceBundle rb = ResourceBundle.getBundle(DB_CONNECT_PROPERTY);
         url = rb.getString(RESOURCE_URL);
         login = rb.getString(RESOURCE_LOGIN);
-        pass = rb.getString(RESOURCE_PASS);
+        pswd = rb.getString(RESOURCE_PASS);
         driverName = rb.getString(RESOURCE_DRIVER_NAME);
+        maxCountConnect = Integer.valueOf(rb.getString(MAX_CONNECTION_COUNT));
+        minCountConnect = Integer.valueOf(rb.getString(MIN_CONNECTION_COUNT));
     }
 
-    private Integer currentConnectionNumber = MIN_CONNECTION_COUNT;
-    private BlockingQueue<Connection> pool = new ArrayBlockingQueue<>(MAX_CONNECTION_COUNT, true);
+    private BlockingQueue<Connection> pool = new ArrayBlockingQueue<>(maxCountConnect, true);
 
     private ConnectionPool() {
         try {
@@ -47,9 +49,9 @@ public class ConnectionPool {
         } catch (ClassNotFoundException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        for (int i = 0; i < MIN_CONNECTION_COUNT; i++) {
+        for (int i = 0; i < minCountConnect; i++) {
             try {
-                pool.add(DriverManager.getConnection(url, login, pass));
+                pool.add(DriverManager.getConnection(url, login, pswd));
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage(), e);
             }
@@ -57,6 +59,7 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
+        LOGGER.info("Method getInstance has been created.");
         if (instance == null) {
             synchronized (ConnectionPool.class) {
                 if (instance == null) {
@@ -68,14 +71,12 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() throws ConnectionException {
-
+        LOGGER.info("Method getConnection has been created.");
         Connection connection;
         try {
-            if (pool.isEmpty() && currentConnectionNumber < MAX_CONNECTION_COUNT) {
-                openAdditionalConnection();
-            }
             connection = pool.take();
         } catch (InterruptedException e) {
+            LOGGER.error("Method getConnection has been interrupted.");
             Thread.currentThread().interrupt();
             throw new ConnectionException(e);
         }
@@ -83,34 +84,16 @@ public class ConnectionPool {
     }
 
     public void closeConnection(Connection connection) throws ConnectionException {
+        LOGGER.info("Method closeConnection has been created.");
         if (connection != null) {
-
-            if (currentConnectionNumber > MIN_CONNECTION_COUNT) {
-                currentConnectionNumber--;
-            }
             try {
                 pool.put(connection);
             } catch (InterruptedException e) {
+                LOGGER.error("Method closeConnection has been interrupted.");
                 Thread.currentThread().interrupt();
                 throw new ConnectionException(e);
             }
-
         }
     }
-
-    private void openAdditionalConnection() throws ConnectionException {
-        try {
-            Class.forName(driverName);
-        } catch (ClassNotFoundException e) {
-            throw new ConnectionException(e);
-        }
-        try {
-            pool.add(DriverManager.getConnection(url, login, pass));
-            currentConnectionNumber++;
-        } catch (SQLException e) {
-            throw new ConnectionException(e);
-        }
-    }
-
 
 }

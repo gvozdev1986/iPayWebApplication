@@ -9,6 +9,12 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<description>This is test application for JAVA Lab at EPAM</description>
+
+    <context-param>
+        <param-name>mail</param-name>
+        <param-value>/WEB-INF/config/mail.properties</param-value>
+    </context-param>
+
 	<jsp-config>
 		<taglib>
 			<taglib-uri>customtags</taglib-uri>

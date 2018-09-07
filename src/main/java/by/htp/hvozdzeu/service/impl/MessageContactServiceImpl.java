@@ -38,7 +38,17 @@ public class MessageContactServiceImpl implements IMessageContactService {
     }
 
 	@Override
-	public List<MessageContact> unreadmessages(boolean status) throws DAOException {
-		return iMessageContactDAO.unreadmessages(status);
+	public List<MessageContact> unreadMessages(boolean status) throws DAOException {
+		return iMessageContactDAO.unreadMessages(status);
 	}
+
+    @Override
+    public boolean checkMessageAsRead(Long messageId) throws DAOException {
+        return iMessageContactDAO.checkMessageAsRead(messageId);
+    }
+
+    @Override
+    public List<MessageContact> pagination(Integer start, Integer count) throws DAOException {
+        return iMessageContactDAO.pagination(start, count);
+    }
 }

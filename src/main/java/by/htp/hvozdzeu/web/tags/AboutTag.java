@@ -6,7 +6,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import by.htp.hvozdzeu.resources.ResourceManager;
+import by.htp.hvozdzeu.resources.Resource;
 
 public class AboutTag extends TagSupport {
 	
@@ -19,7 +19,7 @@ public class AboutTag extends TagSupport {
 
 		try{
 			JspWriter out = pageContext.getOut();
-			out.write(ResourceManager.getStr(ABOUT));
+			out.write(Resource.getStr(ABOUT));
 		} catch (IOException e) {
 			throw new JspException(e.getMessage());
 		}

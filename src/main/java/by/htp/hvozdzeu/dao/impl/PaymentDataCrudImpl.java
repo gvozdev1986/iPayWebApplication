@@ -1,6 +1,7 @@
 package by.htp.hvozdzeu.dao.impl;
 
 import by.htp.hvozdzeu.dao.IPaymentDataDAO;
+import by.htp.hvozdzeu.dao.connection.exception.ConnectionException;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.PaymentDataRowMapper;
 import by.htp.hvozdzeu.model.PaymentData;
@@ -27,13 +28,30 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements IPaymen
 			+ "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available` "
 			+ "FROM `ipaywebapplication`.`paymentdata`;";
 
+    private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`PaymentDataCode`, " + "`PaymentDataName`, "
+            + "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available` "
+            + "FROM `ipaywebapplication`.`paymentdata` LIMIT ?, ?;";
+
 	private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`paymentdata` SET `Available`='0' WHERE  `Id`= ?;";
+
+    private static final String SQL_PARAMETERS = "SELECT " +
+            "paymentdata.Id, " +
+            "paymentdata.PaymentDataCode, " +
+            "paymentdata.PaymentDataName, " +
+            "paymentdata.PaymentDataGroup, " +
+            "paymentdata.PaymentDataDescription, " +
+            "paymentdata.Available " +
+            "FROM paymentdata " +
+            "WHERE concat(paymentdata.PaymentDataCode, paymentdata.PaymentDataName, paymentdata.PaymentDataGroup, paymentdata.PaymentDataDescription) like ?;";
+
+    private static final String SQL_MAX_ID = "SELECT MAX(`id`) AS MaxID FROM `paymentdata`;";
 
 	private static final String ERROR_CREATE = "Error create payment data.";
 	private static final String ERROR_UPDATE_BY_ID = "Error update payment data by id.";
 	private static final String ERROR_FIND_BY_ID = "Error find payment data by id.";
 	private static final String ERROR_READ = "Error read payment dates.";
 	private static final String ERROR_DELETE_BY_ID = "Error delete payment data by id.";
+
 
 	@Override
 	public PaymentData create(PaymentData entity) throws DAOException {
@@ -124,4 +142,64 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements IPaymen
 		}
 	}
 
+	@Override
+	public List<PaymentData> pagination(Integer start, Integer count) throws DAOException {
+        List<PaymentData> paymentDataList = new ArrayList<>();
+        PaymentData paymentData;
+        Connection connection = dataBaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_PAGINATION)) {
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, start);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    paymentData = buildPaymentServiceRowMapper(resultSet);
+                    paymentDataList.add(paymentData);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return paymentDataList;
+	}
+
+    @Override
+    public List<PaymentData> findByParameter(String param) throws DAOException {
+        List<PaymentData> paymentDataList = new ArrayList<>();
+        PaymentData paymentData;
+        Connection connection = dataBaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_PARAMETERS)) {
+            preparedStatement.setString(1, "%" + param + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    paymentData = buildPaymentServiceRowMapper(resultSet);
+                    paymentDataList.add(paymentData);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return paymentDataList;
+    }
+
+    @Override
+    public Long maxIndex() throws DAOException {
+        Long maxIndex = null;
+        Connection connection = dataBaseConnection.getConnection();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SQL_MAX_ID)) {
+                while (resultSet.next()) {
+                    maxIndex = resultSet.getLong("MaxID");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return maxIndex;
+    }
 }

@@ -2,10 +2,10 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
-<jsp:include page="client_navbar.jsp" />
+<jsp:include page="user_navbar.jsp" />
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="client_menu.jsp" />
+		<jsp:include page="user_menu.jsp" />
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -53,7 +53,7 @@
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
 						<label for="code"><i class="fas fa-user-secret"></i> Code</label>
-						<input type="text" class="form-control" id="code"
+						<input type="password" class="form-control" id="code"
 							placeholder="Code" name="code" required>
 					</div>
 					<div class="col-md-1 mb-3 input-group-sm">
