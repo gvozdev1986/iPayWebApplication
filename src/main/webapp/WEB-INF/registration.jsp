@@ -158,7 +158,7 @@
 								   class="form-control"
                                    id="home_phone"
 								   placeholder="<fmt:message key="form_home_phone" />"
-                                   value="${returnValidateErrorMap.returnMobilePhoneValidateError}"
+                                   value="${returnValidateErrorMap.returnHomePhoneValidateError}"
 								   name="home_phone"
                                    required>
 							<span class="validate">${validateErrorMap.homePhoneValidateError}</span>

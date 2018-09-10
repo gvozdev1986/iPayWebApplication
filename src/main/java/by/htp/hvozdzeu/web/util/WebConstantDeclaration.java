@@ -6,6 +6,7 @@ public final class WebConstantDeclaration {
 
 	}
 
+	public static final String REQUEST_VERIFY_PSWD = "password_verify";
 	public static final String REQUEST_PARAM_USER = "user";
 	public static final String REQUEST_PARAM_PASS = "password";
 	public static final String REQUEST_PARAM_LOGIN = "username";
