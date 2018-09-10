@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label style="width: 100%; text-align: left;">${creditCards.nameAccount}</label>
+                                            <label style="width: 100%; text-align: left; font-size: 11px; line-height: 28px;">${creditCards.nameAccount}</label>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label style="width: 100%; text-align: center;">${creditCards.balanceBankAccount}</label>

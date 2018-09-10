@@ -85,19 +85,21 @@
                         <form autocomplete="off" action="ServletController" method="post" name="createCreditCard">
                             <div class="form-row">
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardFirstName">First name</label>
+                                    <label for="cardFirstName"><i class="fas fa-user"></i> First name</label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardFirstName"
+                                           name="cardFirstName"
                                            placeholder="First name"
                                            autocomplete="off"
                                            required>
                                 </div>
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardLastName">Last name</label>
+                                    <label for="cardLastName"><i class="fas fa-user"></i> Last name</label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardLastName"
+                                           name="cardLastName"
                                            placeholder="Last name"
                                            autocomplete="off"
                                            required>
@@ -105,11 +107,12 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="cardNumber">Card number</label>
+                                    <label for="cardNumber"><i class="far fa-credit-card"></i> Card number</label>
                                     <input type="text"
                                            style="text-align: center;"
                                            class="form-control"
                                            id="cardNumber"
+                                           name="cardNumber"
                                            placeholder="XXXX XXXX XXXX XXXX"
                                            autocomplete="off"
                                            required>
@@ -121,6 +124,7 @@
                                            maxlength="2"
                                            class="form-control"
                                            id="cardValidMonth"
+                                           name="cardValidMonth"
                                            placeholder="00"
                                            autocomplete="off"
                                            required>
@@ -132,36 +136,38 @@
                                            maxlength="2"
                                            class="form-control"
                                            id="cardValidYear"
+                                           name="cardValidYear"
                                            placeholder="00"
                                            autocomplete="off"
                                            required>
                                 </div>
                                 <div class="form-group col-md-4 input-group-sm">
                                     <label for="creditCardType">
-                                        <i class="far fa-credit-card"></i> Card type</label>
+                                        <i class="fas fa-list"></i> Card type</label>
                                     <select class="custom-select"
                                             id="creditCardType"
                                             name="creditCardType"
                                             style="line-height: 14px; height: 31px;">
-                                        <option value="BELCARD"><i class="far fa-credit-card"></i> BELCARD</option>
-                                        <option value="MASTERCARD"><i class="far fa-credit-card"></i> MASTERCARD</option>
-                                        <option value="MASTERCARD MAESTRO"><i class="far fa-credit-card"></i> MASTERCARD MAESTRO</option>
-                                        <option value="VISA"><i class="far fa-credit-card"></i> VISA</option>
-                                        <option value="VISA ELECTRON"><i class="far fa-credit-card"></i> VISA ELECTRON</option>
+                                        <option value="BELCARD">BELCARD</option>
+                                        <option value="MASTERCARD">MASTERCARD</option>
+                                        <option value="MASTERCARD_MAESTRO">MASTERCARD MAESTRO</option>
+                                        <option value="VISA">VISA</option>
+                                        <option value="VISA_ELECTRON">VISA ELECTRON</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="secretCode">Secret code</label>
+                                    <label for="secretCode"><i class="fas fa-user-secret"></i> Secret code</label>
                                     <input type="password"
                                            class="form-control"
                                            id="secretCode"
+                                           name="secretCode"
                                            placeholder="Secret code"
                                            autocomplete="false"
                                            required>
                                 </div>
                             </div>
                             <div>
-                                <a>${messageAddCard}</a>
+                                <a>${messageErrorInsertNewCreditCard}</a>
                             </div>
                             <div class="form-inline">
                                 <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
@@ -175,7 +181,7 @@
                                         id="save_new_btn"
                                         type="submit"
                                         name="command"
-                                        value=""
+                                        value="save_new_credit_card"
                                         disabled>
                                     <i class="fas fa-check"></i> Save
                                 </button>

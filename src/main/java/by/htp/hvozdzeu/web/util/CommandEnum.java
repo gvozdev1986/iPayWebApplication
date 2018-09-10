@@ -31,7 +31,7 @@ public enum CommandEnum {
     SAVE_TRANSFER(UserTypeEnum.USER),
     PAYMENT_HISTORY_PAGINATION(UserTypeEnum.USER),
     NEW_CREDIT_CARD(UserTypeEnum.USER),
-
+    SAVE_NEW_CREDIT_CARD(UserTypeEnum.USER),
 
 	//ADMIN ACCESS
 	REDIRECT_ADMIN_URL(UserTypeEnum.ADMIN),

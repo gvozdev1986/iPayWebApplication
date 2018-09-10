@@ -14,7 +14,12 @@ public class BankAccountCrudImpl extends BankAccountRowMapper implements IBankAc
 
     private static final String SQL_CREATE = "INSERT "
     		+ "INTO `ipaywebapplication`.`bankaccount` "
-    		+ "(`NameAccount`, `CreditCard`, `StatusBankAccount`, `BalanceBankAccount`, `Available`) VALUES (?, ?, ?, ?, ?);";
+    		+ "(" +
+            "`CreditCard`, " +
+            "`NameAccount`, " +
+            "`StatusBankAccount`, " +
+            "`BalanceBankAccount`, " +
+            "`Available`) VALUES (?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`bankaccount` SET `CreditCard`= ? WHERE  `Id`= ?;";
 
