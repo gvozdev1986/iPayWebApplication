@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="ctg" uri="customtags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -29,12 +28,16 @@
 	padding: .75rem 1.25rem;
 	margin-bottom: 0;
 	position: relative;
-	background: url("img/j.jpg") no-repeat center center;
+	background: url("/img/j.jpg") no-repeat center center;
 	width: 100%;
 	height: 6%;
 	background-size: 100% 100%;
 	color: #fff;
 }
+    .validate{
+        font-size: 9px;
+        color: red;
+    }
 </style>
 <header>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -51,10 +54,10 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#"><i
-						class="fa fa-home"></i> Home<span class="sr-only">(current)</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"><i
-						class="fas fa-pencil-alt"></i> Write us</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#">
+                    <i	class="fa fa-home"></i> Home<span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="#">
+                    <i class="fas fa-pencil-alt"></i> Write us</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -69,98 +72,130 @@
 				<form action="ServletController" method="post">
 					<div class="form-row">
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="login"><i class="fas fa-user-plus"></i> <fmt:message
-									key="form_login" /></label> <input type="text" class="form-control"
-								id="login" placeholder="<fmt:message key="form_login" />"
-								value="" name="username" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="login"><i class="fas fa-user-plus"></i>	<fmt:message key="form_login" /></label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="login"
+                                   placeholder="<fmt:message key="form_login" />"
+								   value="${returnValidateErrorMap.returnLoginValidateError}"
+                                   name="username"
+                                   required>
+							<span class="validate">${validateErrorMap.loginValidateError}</span>
 						</div>
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="pswd"><i class="fas fa-key"></i> <fmt:message
-									key="form_password" /></label> <input type="password"
-								class="form-control" id="pswd"
-								placeholder="<fmt:message key="form_password" />" value=""
-								name="password" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="pswd"><i class="fas fa-key"></i> <fmt:message key="form_password" /></label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="pswd"
+								   placeholder="<fmt:message key="form_password" />" value=""
+								   name="password"
+                                   required>
+							<span class="validate">${validateErrorMap.passwordValidateError}</span>
 						</div>
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="pswd_verify"><i class="fas fa-check"></i> <fmt:message
-									key="form_verify" /></label> <input type="password"
-								class="form-control" id="pswd_verify"
-								placeholder="<fmt:message key="form_verify" />" value=""
-								name="password_verify" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="pswd_verify"><i class="fas fa-check"></i> <fmt:message key="form_verify" /></label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="pswd_verify"
+                                   placeholder="<fmt:message key="form_verify" />" value=""
+								   name="password_verify"
+                                   required>
+                            <span class="validate">${validateErrorMap.passwordVerifyValidateError}</span>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-6 mb-3 input-group-sm">
-							<label for="last_name"><i class="fas fa-pencil-alt"></i>
-								<fmt:message key="form_last_name" /></label> <input type="text"
-								class="form-control" id="last_name"
-								placeholder="<fmt:message key="form_last_name" />" value=""
-								name="last_name" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="last_name"><i class="fas fa-pencil-alt"></i> <fmt:message key="form_last_name" /></label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="last_name"
+								   placeholder="<fmt:message key="form_last_name" />"
+                                   value="${returnValidateErrorMap.returnLastNameValidateError}"
+								   name="last_name"
+                                   required>
+							<span class="validate">${validateErrorMap.lastNameValidateError}</span>
 						</div>
 						<div class="col-md-6 mb-3 input-group-sm">
-							<label for="first_name"><i class="fas fa-pencil-alt"></i>
-								<fmt:message key="form_first_name" /></label> <input type="text"
-								class="form-control" id="first_name"
-								placeholder="<fmt:message key="form_first_name" />" value=""
-								name="first_name" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="first_name"><i class="fas fa-pencil-alt"></i> <fmt:message key="form_first_name" /></label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="first_name"
+								   placeholder="<fmt:message key="form_first_name" />"
+                                   value="${returnValidateErrorMap.returnFirstNameValidateError}"
+								   name="first_name"
+                                   required>
+							<span class="validate">${validateErrorMap.firstNameValidateError}</span>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-8 mb-3 input-group-sm">
-							<label for="patronymic"><i class="fas fa-pencil-alt"></i>
-								<fmt:message key="form_patronymic" /></label> <input type="text"
-								class="form-control" id="patronymic"
-								placeholder="<fmt:message key="form_patronymic" />" value=""
-								name="patronymic" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="patronymic"><i class="fas fa-pencil-alt"></i> <fmt:message key="form_patronymic" /></label>
+                            <input type="text"
+								   class="form-control"
+                                   id="patronymic"
+								   placeholder="<fmt:message key="form_patronymic" />"
+                                   value="${returnValidateErrorMap.returnPatronymicValidateError}"
+								   name="patronymic"
+                                   required>
+							<span class="validate">${validateErrorMap.patronymicValidateError}</span>
 						</div>
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="date_birth"><i class="far fa-calendar-alt"></i>
-								<fmt:message key="form_date_birth" /></label> <input type="date"
-								class="form-control" id="date_birth"
-								placeholder="<fmt:message key="form_date_birth" />" value=""
-								name="date_birth" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="date_birth"><i class="far fa-calendar-alt"></i>	<fmt:message key="form_date_birth" /></label>
+                            <input type="date"
+								   class="form-control"
+                                   id="date_birth"
+								   placeholder="<fmt:message key="form_date_birth" />"
+                                   value="${returnValidateErrorMap.returnDateBirthValidateError}"
+								   name="date_birth"
+                                   required>
+							<span class="validate">${validateErrorMap.dateBirthValidateError}</span>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="home_phone"><i class="fas fa-phone"></i> <fmt:message
-									key="form_home_phone" /></label> <input type="tel"
-								class="form-control" id="home_phone"
-								placeholder="<fmt:message key="form_home_phone" />" value=""
-								name="home_phone" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="home_phone"><i class="fas fa-phone"></i> <fmt:message key="form_home_phone" /></label>
+                            <input type="tel"
+								   class="form-control"
+                                   id="home_phone"
+								   placeholder="<fmt:message key="form_home_phone" />"
+                                   value="${returnValidateErrorMap.returnMobilePhoneValidateError}"
+								   name="home_phone"
+                                   required>
+							<span class="validate">${validateErrorMap.homePhoneValidateError}</span>
 						</div>
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="mobile_phone"><i class="fas fa-mobile-alt"></i>
-								<fmt:message key="form_mobile_phone" /></label> <input type="tel"
-								class="form-control" id="mobile_phone"
-								placeholder="<fmt:message key="form_mobile_phone" />" value=""
-								name="mobile_phone" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="mobile_phone"><i class="fas fa-mobile-alt"></i>	<fmt:message key="form_mobile_phone" /></label>
+                            <input type="tel"
+                                   class="form-control"
+                                   id="mobile_phone"
+								   placeholder="<fmt:message key="form_mobile_phone" />"
+                                   value="${returnValidateErrorMap.returnMobilePhoneValidateError}"
+								   name="mobile_phone"
+                                   required>
+							<span class="validate">${validateErrorMap.mobilePhoneValidateError}</span>
 						</div>
 						<div class="col-md-4 mb-3 input-group-sm">
-							<label for="email"><i class="fas fa-envelope-open"></i> <fmt:message
-									key="form_email" /></label> <input type="email" class="form-control"
-								id="email" placeholder="<fmt:message key="form_email" />"
-								value="" name="email" required>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="email"><i class="fas fa-envelope-open"></i> <fmt:message key="form_email" /></label>
+                            <input type="email"
+                                   class="form-control"
+								   id="email"
+                                   placeholder="<fmt:message key="form_email" />"
+								   value="${returnValidateErrorMap.returnEmailValidateError}"
+                                   name="email"
+                                   required>
+							<span class="validate">${validateErrorMap.emailValidateError}</span>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-12 mb-3 input-group-sm">
-							<label for="address"><i class="fas fa-map-pin"></i> <fmt:message
-									key="form_address" /></label>
-							<textarea class="form-control" aria-label="With textarea"
-								id="address" name="address"
-								placeholder="<fmt:message key="form_address" />" required></textarea>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
+							<label for="address"><i class="fas fa-map-pin"></i> <fmt:message key="form_address" /></label>
+							<textarea class="form-control"
+                                      aria-label="With textarea"
+								      id="address"
+                                      name="address"
+								      placeholder="<fmt:message key="form_address" />"
+                                      required>${returnValidateErrorMap.returnAddressValidateError}</textarea>
+							<span class="validate">${validateErrorMap.addressValidateError}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -170,12 +205,11 @@
 								class="form-check-label" for="invalidCheck"> <fmt:message
 									key="reg_agree_checkbox" />
 							</label>
-							<!-- <div class="valid-feedback">Looks good!</div> -->
 						</div>
 					</div>
 					<div class="form-inline">
 						<button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
-								type="submit" 
+								type="submit"
 								name="command"
 								value="log_out"><i class="fas fa-undo"></i> Cancel
 						</button>

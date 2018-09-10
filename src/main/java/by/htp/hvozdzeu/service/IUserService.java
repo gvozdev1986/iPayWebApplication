@@ -27,4 +27,6 @@ public interface IUserService {
 
 	List<User> findByParameter(String param) throws DAOException;
 
+	User findByLogin(String login) throws DAOException;
+
 }

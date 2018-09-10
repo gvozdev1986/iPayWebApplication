@@ -13,6 +13,7 @@ public interface UserSpecification {
     PasswordEncoder passwordEncoder = new PasswordEncoder();
 
     User checkAccount(String login, String pswd) throws DAOException;
+    User findByLogin(String login) throws DAOException;
     boolean updatePassword(Long id, String password) throws DAOException;    
     List<User> blockedUser() throws DAOException;
     List<User> pagination(Integer start, Integer count) throws DAOException;
