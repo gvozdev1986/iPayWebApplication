@@ -16,4 +16,5 @@ public interface CreditCardSpecification {
     List<CreditCard> findByParameter(String param) throws DAOException;
     List<CreditCard> findBlockedByParameter(String param) throws DAOException;
     List<CreditCard> pagination(Integer start, Integer count) throws DAOException;
+    Long createReturnId(CreditCard creditCard) throws DAOException;
 }

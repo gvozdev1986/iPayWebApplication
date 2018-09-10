@@ -190,6 +190,9 @@ public class CommandFactory {
             case NEW_CREDIT_CARD:
                 command = new NewCreditCardCommandImpl();
                 break;
+            case SAVE_NEW_CREDIT_CARD:
+                command = new InsertNewCreditCardCommandImpl();
+                break;
             default:
                 command = new GreetingPageViewCommandImpl();
                 break;

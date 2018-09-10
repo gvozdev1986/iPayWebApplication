@@ -77,4 +77,9 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	public List<CreditCard> pagination(Integer start, Integer count) throws DAOException {
 		return iCreditCardDAO.pagination(start, count);
 	}
+
+	@Override
+	public Long createReturnId(CreditCard creditCard) throws DAOException {
+		return iCreditCardDAO.createReturnId(creditCard);
+	}
 }
