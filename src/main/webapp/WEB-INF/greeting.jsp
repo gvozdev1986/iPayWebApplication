@@ -5,50 +5,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="head.jsp"/>
-<style>
-    .jumbotron {
-        position: relative;
-        background: url("/img/j.jpg") no-repeat center center;
-        width: 100%;
-        height: 30%;
-        background-size: 100% 100%;
-    }
-
-    .btn-success {
-        color: #fff;
-        background-color: #00ad7e;
-        border-color: #00ad7e;
-    }
-
-    .btn-success:hover {
-        color: #fff;
-        background-color: #41c7a3;
-        border-color: #41c7a3;
-    }
-
-    .button.btn.btn-default.btn-xl:focus {
-        outline: 0px;
-    }
-
-    ::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
-    }
-
-    ::-webkit-scrollbar-button {
-        background: #ccc
-    }
-
-    ::-webkit-scrollbar-track-piece {
-        background: #888
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #eee
-    }
-
-    ​
-</style>
+<link rel="stylesheet" href="/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand"
@@ -96,44 +53,60 @@
     </div>
 </div>
 <div class="container">
-    <div class="card my-2">
+    <div class="card my-2" style="border: 1px solid #00ad7e;">
         <div class="row" style="padding: 5px;">
             <div class="col-xl-5">
                 <div class="row">
                     <div class="col-lg-6 my-1">
-                        <div class="card widget-flat">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (Доллар США)</div>
                             <div class="card-body">
-                                1
+                                <h5 class="card-title" style="text-align: right;">$ ${currencyMap.USD}<span
+                                        style="font-size: 12px;">/1</span></h5>
+                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 my-1">
-                        <div class="card widget-flat">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (Евро)</div>
                             <div class="card-body">
-                                2
+                                <h5 class="card-title" style="text-align: right;">&#8364; ${currencyMap.EUR}<span
+                                        style="font-size: 12px;">/1</span></h5>
+                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 my-1">
-                        <div class="card widget-flat">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (Российский
+                                рубль)
+                            </div>
                             <div class="card-body">
-                                3
+                                <h5 class="card-title" style="text-align: right;">P ${currencyMap.RUB}<span
+                                        style="font-size: 12px;">/100</span></h5>
+                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 my-1">
-                        <div class="card widget-flat">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (Украинская
+                                гривна)
+                            </div>
                             <div class="card-body">
-                                4
+                                <h5 class="card-title" style="text-align: right;">&#8372; ${currencyMap.UAH}<span
+                                        style="font-size: 12px;">/100</span></h5>
+                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-7 my-1">
-                <div class="card">
+                <div class="card" style="border: 1px solid #00ad7e;">
                     <div class="card-body">
                         Some information
                     </div>
@@ -141,12 +114,37 @@
             </div>
         </div>
     </div>
-    <div class="card my-2">
+    <div class="card my-2" style="border: 1px solid #00ad7e;">
         <div class="card-body">
-            Some content. ${sessionScope.locale}
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="progress pink">
+                        <span class="progress-left"><span class="progress-bar"></span></span>
+                        <span class="progress-right"><span class="progress-bar"></span></span>
+                        <div class="progress-value">${countUser}%</div>
+                    </div>
+                    <p style="width: 100%; text-align: center;">1</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="progress blue">
+                        <span class="progress-left"><span class="progress-bar"></span></span>
+                        <span class="progress-right"><span class="progress-bar"></span></span>
+                        <div class="progress-value">${countOperation}%</div>
+                    </div>
+                    <p style="width: 100%; text-align: center;">2</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="progress green">
+                        <span class="progress-left"><span class="progress-bar"></span></span>
+                        <span class="progress-right"><span class="progress-bar"></span></span>
+                        <div class="progress-value">5%</div>
+                    </div>
+                    <p style="width: 100%; text-align: center;">3</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="card my-2">
+    <div class="card my-2" style="border: 1px solid #00ad7e;">
         <div class="card-header">
             <i class="fas fa-pencil-alt" data-toggle="collapse"
                href="#multiCollapseExample1" role="button" aria-expanded="false"
