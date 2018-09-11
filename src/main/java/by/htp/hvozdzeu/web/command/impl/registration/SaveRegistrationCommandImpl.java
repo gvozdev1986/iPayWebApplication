@@ -48,6 +48,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                     .phoneMobile(request.getParameter(REQUEST_PARAM_MOBILE_PHONE))
                     .address(request.getParameter(REQUEST_PARAM_ADDRESS))
                     .email(request.getParameter(REQUEST_PARAM_EMAIL))
+                    .regCode(String.valueOf(uuid))
                     .build();
 
             iUserService.create(user);

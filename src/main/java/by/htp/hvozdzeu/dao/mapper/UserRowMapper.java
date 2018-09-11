@@ -20,6 +20,7 @@ public class UserRowMapper {
     private static final String USER_EMAIL = "Email";
     private static final String USER_AVAILABLE = "Available";
     private static final String USER_IS_ADMIN = "isAdmin";
+    private static final String USER_REG_CODE = "RegCode";
 
 
     protected User buildUserRowMapper(ResultSet resultSet) throws SQLException {
@@ -38,6 +39,7 @@ public class UserRowMapper {
                 .email(resultSet.getString(USER_EMAIL))
                 .available(resultSet.getBoolean(USER_AVAILABLE))
                 .isAdmin(resultSet.getBoolean(USER_IS_ADMIN))
+                .regCode(resultSet.getString(USER_REG_CODE))
                 .build();
     }
 

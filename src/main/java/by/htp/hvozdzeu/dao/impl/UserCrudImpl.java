@@ -24,20 +24,55 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
             + "`Address`, "
             + "`Email`, "
             + "`Available`, "
-            + "`isAdmin`)"
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            + "`isAdmin`, "
+            + "`regCode` "
+            + ")"
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-	private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`usr` SET " + "`FirstName`=?, "
-			+ "`LastName`=?, " + "`Patronymic`=?, " + "`PhoneHome`=?, " + "`DateBirth`=?, " + "`PhoneMobile`=?, "
-			+ "`Address`=?, " + "`Email`=? " + "WHERE  `Id`=?;";
+	private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`usr` SET "
+            + "`FirstName`=?, "
+			+ "`LastName`=?, "
+            + "`Patronymic`=?, "
+            + "`PhoneHome`=?, "
+            + "`DateBirth`=?, "
+            + "`PhoneMobile`=?, "
+			+ "`Address`=?, "
+            + "`Email`=? "
+            + "WHERE  `Id`=?;";
 
-	private static final String SQL_FIND_BY_ID = "SELECT " + "`Id`, " + "`Login`, " + "`Password`, " + "`FirstName`, "
-			+ "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, " + "`PhoneMobile`, " + "`Address`, "
-			+ "`Email`, " + "`Available`, " + "`isAdmin` " + "FROM `ipaywebapplication`.`usr` WHERE `id` = ?";
+	private static final String SQL_FIND_BY_ID = "SELECT "
+            + "`Id`, "
+            + "`Login`, "
+            + "`Password`, "
+            + "`FirstName`, "
+			+ "`LastName`, "
+            + "`Patronymic`, "
+            + "`DateBirth`, "
+            + "`PhoneHome`, "
+            + "`PhoneMobile`, "
+            + "`Address`, "
+			+ "`Email`, "
+            + "`Available`, "
+            + "`isAdmin`, "
+            + "`regCode` "
+            + "FROM `ipaywebapplication`.`usr` WHERE `id` = ?";
 
-	private static final String SQL_FIND_BY_LOGIN = "SELECT " + "`Id`, " + "`Login`, " + "`Password`, " + "`FirstName`, "
-			+ "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, " + "`PhoneMobile`, " + "`Address`, "
-			+ "`Email`, " + "`Available`, " + "`isAdmin` " + "FROM `ipaywebapplication`.`usr` WHERE `Login` = ?";
+	private static final String SQL_FIND_BY_LOGIN = "SELECT "
+            + "`Id`, "
+            + "`Login`, "
+            + "`Password`, "
+            + "`FirstName`, "
+			+ "`LastName`, "
+            + "`Patronymic`, "
+            + "`DateBirth`, "
+            + "`PhoneHome`, "
+            + "`PhoneMobile`, "
+            + "`Address`, "
+			+ "`Email`, "
+            + "`Available`, "
+            + "`isAdmin`, "
+            + "`regCode` "
+            + "FROM `ipaywebapplication`.`usr` WHERE `Login` = ?";
 
 	private static final String CHECK_ACCOUNT = "SELECT "
 			+ "`Id`, "
@@ -52,7 +87,8 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
             + "`Address`, "
 			+ "`Email`, "
             + "`Available`, "
-            + "`isAdmin` "
+            + "`isAdmin`, "
+            + "`regCode` "
 			+ "FROM `ipaywebapplication`.`usr` WHERE `Login` = ? AND `Password` = ?;";
 
 	private static final String SQL_READ = "SELECT "
@@ -68,7 +104,9 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
             + "`Address`, "
 			+ "`Email`, "
             + "`Available`, "
-            + "`isAdmin` " + "FROM `ipaywebapplication`.`usr` WHERE `isAdmin` = false;";
+            + "`isAdmin`, "
+            + "`regCode` "
+            + "FROM `ipaywebapplication`.`usr` WHERE `isAdmin` = false;";
 
 	private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`usr` SET"
 			+ "`Available` = 0 WHERE `Id` = ?;";
@@ -89,16 +127,42 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
             + "`Address`, "
             + "`Email`, "
             + "`Available`, "
-            + "`isAdmin` "
+            + "`isAdmin`, "
+            + "`regCode` "
 			+ "FROM `ipaywebapplication`.`usr` WHERE `usr`.`Available` = false;";
 
-	private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`Login`, " + "`Password`, " + "`FirstName`, "
-			+ "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, " + "`PhoneMobile`, " + "`Address`, "
-			+ "`Email`, " + "`Available`, " + "`isAdmin` FROM `ipaywebapplication`.`usr`  WHERE `isAdmin` = false LIMIT ?, ?;";
+	private static final String SQL_PAGINATION = "SELECT "
+            + "`Id`, "
+            + "`Login`, "
+            + "`Password`, "
+            + "`FirstName`, "
+			+ "`LastName`, "
+            + "`Patronymic`, "
+            + "`DateBirth`, "
+            + "`PhoneHome`, "
+            + "`PhoneMobile`, "
+            + "`Address`, "
+			+ "`Email`, "
+            + "`Available`, "
+            + "`isAdmin`, "
+            + "`regCode` "
+            + "FROM `ipaywebapplication`.`usr`  WHERE `isAdmin` = false LIMIT ?, ?;";
 
-	private static final String SQL_FIND_BY_PARAMETER = "SELECT " + "`Id`, " + "`Login`, " + "`Password`, "
-			+ "`FirstName`, " + "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, "
-			+ "`PhoneMobile`, " + "`Address`, " + "`Email`, " + "`Available`, " + "`isAdmin` "
+	private static final String SQL_FIND_BY_PARAMETER = "SELECT "
+            + "`Id`, "
+            + "`Login`, "
+            + "`Password`, "
+			+ "`FirstName`, "
+            + "`LastName`, "
+            + "`Patronymic`, "
+            + "`DateBirth`, "
+            + "`PhoneHome`, "
+			+ "`PhoneMobile`, "
+            + "`Address`, "
+            + "`Email`, "
+            + "`Available`, "
+            + "`isAdmin`, "
+            + "`regCode` "
 			+ "FROM `ipaywebapplication`.`usr` "
 			+ "WHERE concat(usr.FirstName, usr.LastName, usr.Patronymic, "
 			+ "usr.PhoneHome, usr.PhoneMobile, usr.Address) like ?;";
@@ -119,8 +183,9 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			preparedStatement.setString(8, entity.getPhoneMobile());
 			preparedStatement.setString(9, entity.getAddress());
 			preparedStatement.setString(10, entity.getEmail());
-			preparedStatement.setBoolean(11, true);
+			preparedStatement.setBoolean(11, false);
             preparedStatement.setBoolean(12, false);
+            preparedStatement.setString(13, entity.getRegCode());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
