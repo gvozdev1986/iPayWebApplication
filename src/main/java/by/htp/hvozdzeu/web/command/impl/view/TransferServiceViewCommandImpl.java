@@ -29,6 +29,7 @@ public class TransferServiceViewCommandImpl implements BaseCommand {
 		request.getSession().setAttribute("user", user);
 		request.getSession().setAttribute("cards", creditCards);
 		request.getSession().setAttribute("groups", paymentDatas);
+		request.getSession().removeAttribute("messageFromTransfer");
 		return PagePathConstantPool.TRANSFER_VIEW;
 	}
 

@@ -38,7 +38,10 @@ public class ServletController extends HttpServlet {
         String path;
         try {
             path = requestCommand.executeCommand(request);
-            if (path.contains("messageId")) {
+            if (path.contains("checkCode")) {
+                LOGGER.debug("SERVLET REDIRECT ON CHECK NEW ACCOUNT");
+                response.sendRedirect(path);
+            } else if (path.contains("messageId")) {
                 LOGGER.debug("SERVLET REDIRECT ON MESSAGE DETAIL");
                 response.sendRedirect(path);
             } else if (getRedirectUrl(path)) {

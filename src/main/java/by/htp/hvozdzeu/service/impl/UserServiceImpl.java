@@ -57,7 +57,12 @@ public class UserServiceImpl implements IUserService {
 		return iUserDAO.findByParameter(param);
 	}
 
-	@Override
+    @Override
+    public User findByLogin(String login) throws DAOException {
+        return iUserDAO.findByLogin(login);
+    }
+
+    @Override
 	public List<User> listBlockedClient() throws DAOException {
 		return iUserDAO.listBlockedClient();
 	}

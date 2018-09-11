@@ -13,6 +13,7 @@
         height: 30%;
         background-size: 100% 100%;
     }
+
     .btn-success {
         color: #fff;
         background-color: #00ad7e;
@@ -33,15 +34,20 @@
         width: 0px;
         height: 0px;
     }
+
     ::-webkit-scrollbar-button {
         background: #ccc
     }
+
     ::-webkit-scrollbar-track-piece {
         background: #888
     }
+
     ::-webkit-scrollbar-thumb {
         background: #eee
-    }​
+    }
+
+    ​
 </style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -91,8 +97,48 @@
 </div>
 <div class="container">
     <div class="card my-2">
-        <div class="card-body">
-            Some content. ${sessionScope.locale}
+        <div class="row" style="padding: 5px;">
+            <div class="col-xl-5">
+                <div class="row">
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                1
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                3
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat">
+                            <div class="card-body">
+                                4
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 my-1">
+                <div class="card">
+                    <div class="card-body">
+                        Some information
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card my-2">

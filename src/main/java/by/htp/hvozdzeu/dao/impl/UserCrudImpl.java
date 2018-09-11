@@ -35,6 +35,10 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			+ "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, " + "`PhoneMobile`, " + "`Address`, "
 			+ "`Email`, " + "`Available`, " + "`isAdmin` " + "FROM `ipaywebapplication`.`usr` WHERE `id` = ?";
 
+	private static final String SQL_FIND_BY_LOGIN = "SELECT " + "`Id`, " + "`Login`, " + "`Password`, " + "`FirstName`, "
+			+ "`LastName`, " + "`Patronymic`, " + "`DateBirth`, " + "`PhoneHome`, " + "`PhoneMobile`, " + "`Address`, "
+			+ "`Email`, " + "`Available`, " + "`isAdmin` " + "FROM `ipaywebapplication`.`usr` WHERE `Login` = ?";
+
 	private static final String CHECK_ACCOUNT = "SELECT "
 			+ "`Id`, "
 			+ "`Login`, "
@@ -99,14 +103,6 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			+ "WHERE concat(usr.FirstName, usr.LastName, usr.Patronymic, "
 			+ "usr.PhoneHome, usr.PhoneMobile, usr.Address) like ?;";
 
-	private static final String ERROR_UPDATE_BY_ID = "Error update message.";
-	private static final String ERROR_CREATE = "Error create message.";
-	private static final String ERROR_READ = "Error read from users table.";
-	private static final String ERROR_FIND_BY_ID = "Error find message by id.";
-	private static final String ERROR_DELETE_BY_ID = "Error delete message by id.";
-	private static final String ERROR_CHECK_ACCOUNT = "Error check account by users";
-	private static final String ERROR_LIST_BLOCKED_CLIENT = "Error getting list blocked users.";
-	private static final String ERROR_PAGINATION = "Error getting pagination.";
 
 	@Override
 	public User create(User entity) throws DAOException {
@@ -149,7 +145,7 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			preparedStatement.setLong(9, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_UPDATE_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -168,7 +164,7 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_FIND_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -203,7 +199,7 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_DELETE_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -228,6 +224,25 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 			dataBaseConnection.closeConnection(connection);
 		}
 		return user;
+	}
+
+	@Override
+	public User findByLogin(String login) throws DAOException {
+        User user = null;
+        Connection connection = dataBaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = buildUserRowMapper(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return user;
 	}
 
 	@Override
@@ -259,7 +274,7 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_LIST_BLOCKED_CLIENT, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -281,7 +296,7 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_PAGINATION, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}

@@ -14,6 +14,9 @@ public class MailSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReplyEmailCommandImpl.class);
 
+    private MailSender() {
+    }
+
     public static void mailSender(HttpServletRequest request, String emailToReply, String subjectToReply, String messageToReply){
         try {
             Properties properties = new Properties();

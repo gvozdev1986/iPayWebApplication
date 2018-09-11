@@ -12,6 +12,7 @@ public enum CommandEnum {
     REDIRECT_GUEST(UserTypeEnum.ALL),
     SAVE_MESSAGE_CONTACT(UserTypeEnum.ALL),
     LOG_OUT(UserTypeEnum.ALL),
+    CHECK_NEW_ACCOUNT(UserTypeEnum.ALL),
 	
 	//USER ACCESS
 	REDIRECT_USER_URL(UserTypeEnum.USER),
@@ -32,6 +33,7 @@ public enum CommandEnum {
     PAYMENT_HISTORY_PAGINATION(UserTypeEnum.USER),
     NEW_CREDIT_CARD(UserTypeEnum.USER),
     SAVE_NEW_CREDIT_CARD(UserTypeEnum.USER),
+    SUCCESS_REGISTRATION_VIEW(UserTypeEnum.USER),
 
 	//ADMIN ACCESS
 	REDIRECT_ADMIN_URL(UserTypeEnum.ADMIN),
@@ -56,6 +58,10 @@ public enum CommandEnum {
     REPLY_EMAIL(UserTypeEnum.ADMIN),
     MAIL_SENDER_VIEW(UserTypeEnum.ADMIN),
     BACK_DETAIL_MESSAGE(UserTypeEnum.ADMIN),
+    ADMIN_PERSONAL_DATA_VIEW(UserTypeEnum.ADMIN),
+    UPDATE_ADMIN_PASSWORD_VIEW(UserTypeEnum.ADMIN),
+    SAVE_CHANGED_ADMIN_PERSONAL_DATA(UserTypeEnum.ADMIN),
+    UPDATE_ADMIN_PASSWORD(UserTypeEnum.ADMIN),
     BACK_LIST_MESSAGE_VIEW(UserTypeEnum.ADMIN);
 
 

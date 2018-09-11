@@ -135,11 +135,11 @@
         <div>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item"><a class="nav-link"
-                                        href=""
+                                        href="ServletController?command=admin_personal_data_view"
                                         style="cursor: pointer"><i class="far fa-user-circle"></i> <fmt:message
                         key="client_menu_personal_data" /></a></li>
                 <li class="nav-item"><a class="nav-link"
-                                        href=""
+                                        href="ServletController?command=update_admin_password_view"
                                         style="cursor: pointer"><i class="fas fa-cogs"></i> <fmt:message
                         key="client_menu_update_password" /></a></li>
             </ul>

@@ -12,9 +12,7 @@ import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.registration.SaveRegistrationCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.FindPaymentDataByParamCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.servicedata.SavePaymentDataCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.user.FindClientByParametersCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.user.SaveChangePersonalDataCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.user.UpdatePasswordCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.user.*;
 import by.htp.hvozdzeu.web.command.impl.view.*;
 import by.htp.hvozdzeu.web.controller.ServletController;
 import org.slf4j.Logger;
@@ -193,6 +191,30 @@ public class CommandFactory {
             case SAVE_NEW_CREDIT_CARD:
                 command = new InsertNewCreditCardCommandImpl();
                 break;
+            case SUCCESS_REGISTRATION_VIEW:
+                command = new SuccessRegistrationViewCommandImpl();
+                break;
+            case CHECK_NEW_ACCOUNT:
+                command = new CheckNewAccountCommandImpl();
+                break;
+
+
+            case SAVE_CHANGED_ADMIN_PERSONAL_DATA:
+                command = new SaveChangePersonalAdminDataCommandImpl();
+                break;
+            case UPDATE_ADMIN_PASSWORD:
+                command = new UpdateAdminPasswordCommandImpl();
+                break;
+
+            case ADMIN_PERSONAL_DATA_VIEW:
+                command = new AdminPersonalDataViewCommandImpl();
+                break;
+            case UPDATE_ADMIN_PASSWORD_VIEW:
+                command = new UpdateAdminPasswordViewCommandImpl();
+                break;
+
+
+
             default:
                 command = new GreetingPageViewCommandImpl();
                 break;
