@@ -31,7 +31,7 @@
         padding: .75rem 1.25rem;
         margin-bottom: 0;
         position: relative;
-        background: url("img/j.jpg") no-repeat center center;
+        background: url("/img/j.jpg") no-repeat center center;
         width: 100%;
         height: 6%;
         background-size: 100% 100%;
@@ -93,11 +93,8 @@
                                                                       oninvalid="this.setCustomValidity('Please fill password field')"
                                                                       oninput="setCustomValidity('')">
                     </div>
-                    <c:if test="${not empty invalid_login_or_password}">
+                    <c:if test="${not empty info_message}">
                         <a><fmt:message key="invalid_login_or_password"/></a>
-                    </c:if>
-                    <c:if test="${not empty invalid_login_or_password}">
-                        <a><fmt:message key="client_blocked"/></a>
                     </c:if>
                     <div class="form-inline">
                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"

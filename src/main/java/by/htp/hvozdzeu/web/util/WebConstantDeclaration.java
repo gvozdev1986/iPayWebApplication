@@ -27,10 +27,5 @@ public final class WebConstantDeclaration {
 	public static final String REQUEST_PARAM_MOBILE_PHONE = "mobile_phone";
 	public static final String REQUEST_PARAM_EMAIL = "email";
 	public static final String REQUEST_PARAM_ADDRESS = "address";
-	
-	
-	
-	
-	
 
 }

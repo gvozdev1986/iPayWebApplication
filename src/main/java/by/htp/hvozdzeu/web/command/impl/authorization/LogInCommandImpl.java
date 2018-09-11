@@ -23,8 +23,8 @@ public class LogInCommandImpl implements BaseCommand {
     public String executeCommand(HttpServletRequest request) throws CommandException {
         String login = request.getParameter(REQUEST_PARAM_LOGIN);
         String pass = request.getParameter(REQUEST_PARAM_PASS);
-        //validateParamNotNull(login);
-        //validateParamNotNull(pass);
+        validateParamNotNull(login);
+        validateParamNotNull(pass);
         User user = userService.checkUser(login, pass);
         return checkReceivedUser(user, request);
     }
@@ -34,8 +34,8 @@ public class LogInCommandImpl implements BaseCommand {
             request.getSession().setAttribute(REQUEST_PARAM_USER, user);
             return identifyUserType(user, request);
         } else {
-            request.setAttribute(REQUEST_PARAM_INFO_MESSAGE, Resource.getStrLocale(MESSAGE_VALUE, request));
-            return REDIRECT_REGISTRATION_FORM;
+            request.setAttribute(REQUEST_PARAM_INFO_MESSAGE, MESSAGE_VALUE);
+            return LOGIN_PAGE_VIEW;
         }
     }
 

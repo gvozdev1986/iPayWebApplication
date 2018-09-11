@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.HttpRequestParamValidator.*;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
@@ -33,6 +35,8 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
 
         if (sizeErrorMap == 0) {
 
+            UUID uuid = UUID.randomUUID();
+
             User user = new User.Builder()
                     .login(request.getParameter(REQUEST_PARAM_LOGIN))
                     .password(rebasePassword.rebasePSWD(request.getParameter(REQUEST_PARAM_PASS)))
@@ -47,7 +51,17 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                     .build();
 
             iUserService.create(user);
-            return PagePathConstantPool.REDIRECT_REGISTRATION_FORM;
+
+            String emailToReply = request.getParameter(REQUEST_PARAM_EMAIL);
+            String subjectToReply = "Registration new client.";
+            String messageToReply = "Hello. " +
+                                    "You create new account in iPayWebApplication. " +
+                                    "To verify your account, click the link. " +
+                                    "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
+                                    " You can correct all information in your account.";
+            mailSender(request, emailToReply, subjectToReply, messageToReply);
+
+            return PagePathConstantPool.SUCCESS_REGISTRATION_VIEW;
 
         } else {
 
@@ -128,7 +142,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
             validateReturnData.put("returnMobilePhoneValidateError", request.getParameter(REQUEST_PARAM_MOBILE_PHONE));
         }
 
-        if (!validateAddress(request.getParameter(REQUEST_PARAM_ADDRESS))) {
+        if (request.getParameter(REQUEST_PARAM_ADDRESS) == null && !request.getParameter(REQUEST_PARAM_ADDRESS).isEmpty()) {
             validateErrorMap.put("addressValidateError", "Incorrect address.");
             validateReturnData.put("returnAddressValidateError", request.getParameter(REQUEST_PARAM_ADDRESS));
         } else {
