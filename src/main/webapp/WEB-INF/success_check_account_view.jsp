@@ -92,13 +92,13 @@
 <div class="container cont-form">
     <div class="row">
         <div class="col-md-6 order-md-1">
-            <h4 class="mb-3">SUCCESS CHECK ACCOUNT</h4>
+            <h4 class="mb-3">CHECK ACCOUNT</h4>
             <form action="ServletController" method="post">
                 <div class="form-row">
-                    Your account has been checked.
+                        <fmt:message key="${checkRegistrationMessage}"/>
                 </div>
                 <div class="form-row">
-                    <a class="navbar-brand" href="ServletController?command=greeting_page_view"><i class="fas fa-sign-out-alt"></i> Back</a>
+                    <a class="navbar-brand" href="ServletController?command=greeting_page_view" style="color: black;"><i class="fas fa-sign-out-alt"></i> Back</a>
                 </div>
             </form>
         </div>

@@ -22,6 +22,8 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SaveRegistrationCommandImpl implements BaseCommand {
 
+
+
     private IUserService iUserService = ServiceFactory.getUserService();
     private RebasePassword rebasePassword = new RebasePassword();
 
