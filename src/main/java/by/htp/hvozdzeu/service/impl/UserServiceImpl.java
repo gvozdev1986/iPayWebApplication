@@ -63,6 +63,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findByRegCode(String regCode) throws DAOException {
+        return iUserDAO.findByRegCode(regCode);
+    }
+
+    @Override
+    public boolean unblockUser(Long userId) throws DAOException {
+        return iUserDAO.unblockUser(userId);
+    }
+
+    @Override
 	public List<User> listBlockedClient() throws DAOException {
 		return iUserDAO.listBlockedClient();
 	}

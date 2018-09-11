@@ -12,6 +12,7 @@ public final class WebConstantDeclaration {
 	public static final String REQUEST_PARAM_LOGIN = "username";
 	public static final String REQUEST_PARAM_USER_TYPE = "user_type";
 	public static final String REQUEST_PARAM_INFO_MESSAGE = "info_message";
+    public static final String REQUEST_PARAM_INFO_MESSAGE_AVAILABLE = "info_message_available";
 	public static final String REQUEST_PARAM_COMMAND = "command";
 	public static final String REQUEST_PARAM_LOCALE = "locale";
 	public static final String COMMAND_START_PAGE = "start_page";

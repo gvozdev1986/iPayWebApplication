@@ -21,6 +21,7 @@ public class User extends Entity {
     private String email;
     private boolean available;
     private boolean isAdmin;
+    private String regCode;
 
     public User() {
 
@@ -40,6 +41,7 @@ public class User extends Entity {
         this.email = builder.email;
         this.available = builder.available;
         this.isAdmin = builder.isAdmin;
+        this.regCode = builder.regCode;
     }
 
     public String getLogin() {
@@ -88,7 +90,11 @@ public class User extends Entity {
     
     public boolean isAdmin() {
 		return isAdmin;
-	}   
+	}
+
+    public String getRegCode() {
+        return regCode;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -97,7 +103,7 @@ public class User extends Entity {
         if (!super.equals(o)) return false;
         User user = (User) o;
         return available == user.available &&
-        		isAdmin == user.isAdmin &&
+                isAdmin == user.isAdmin &&
                 Objects.equals(login, user.login) &&
                 Arrays.equals(password, user.password) &&
                 Objects.equals(firstName, user.firstName) &&
@@ -107,29 +113,16 @@ public class User extends Entity {
                 Objects.equals(phoneHome, user.phoneHome) &&
                 Objects.equals(phoneMobile, user.phoneMobile) &&
                 Objects.equals(address, user.address) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+                Objects.equals(regCode, user.regCode);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(
-                super.hashCode(), 
-                login, 
-                firstName, 
-                lastName, 
-                patronymic, 
-                dateBirth, 
-                phoneHome, 
-                phoneMobile, 
-                address, 
-                email, 
-                available, 
-                isAdmin
-        );
+        int result = Objects.hash(super.hashCode(), login, firstName, lastName, patronymic, dateBirth, phoneHome, phoneMobile, address, email, available, isAdmin, regCode);
         result = 31 * result + Arrays.hashCode(password);
         return result;
     }
-
 
     @Override
     public String toString() {
@@ -147,6 +140,7 @@ public class User extends Entity {
                 ", email='" + email + '\'' +
                 ", available=" + available +
                 ", isAdmin=" + isAdmin +
+                ", regCode=" + regCode +
                 '}';
     }
 
@@ -165,6 +159,7 @@ public class User extends Entity {
         private String email;
         private boolean available;
         private boolean isAdmin;
+        private String regCode;
 
         public Builder id(Long id) {
             this.id = id;
@@ -228,6 +223,11 @@ public class User extends Entity {
         
         public Builder isAdmin(boolean isAdmin) {
             this.isAdmin = isAdmin;
+            return this;
+        }
+
+        public Builder regCode(String regCode) {
+            this.regCode = regCode;
             return this;
         }
 

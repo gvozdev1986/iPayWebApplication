@@ -29,4 +29,8 @@ public interface IUserService {
 
 	User findByLogin(String login) throws DAOException;
 
+    User findByRegCode(String regCode) throws DAOException;
+
+    boolean unblockUser(Long userId) throws DAOException;
+
 }

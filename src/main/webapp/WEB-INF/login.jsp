@@ -96,6 +96,9 @@
                     <c:if test="${not empty info_message}">
                         <a><fmt:message key="invalid_login_or_password"/></a>
                     </c:if>
+                    <c:if test="${not empty info_message_available}">
+                        <a><fmt:message key="user_not_available"/></a>
+                    </c:if>
                     <div class="form-inline">
                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
                                 type="submit" name="command" value="log_out">

@@ -1,7 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.authorization;
 
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.resources.Resource;
 import by.htp.hvozdzeu.service.IUserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
@@ -17,6 +16,7 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 public class LogInCommandImpl implements BaseCommand {
 
     private static final String MESSAGE_VALUE = "invalid_login_or_password";
+    private static final String MESSAGE_VALUE_NOT_AVAILABLE = "user_not_available";
     private IUserService userService = ServiceFactory.getUserService();
 
     @Override
@@ -30,13 +30,18 @@ public class LogInCommandImpl implements BaseCommand {
     }
 
     private String checkReceivedUser(User user, HttpServletRequest request) {
-        if (user != null) {
+
+        if (user != null && !user.isAvailable()) {
+            request.setAttribute(REQUEST_PARAM_INFO_MESSAGE_AVAILABLE, MESSAGE_VALUE_NOT_AVAILABLE);
+            return LOGIN_PAGE_VIEW;
+        } else if (user != null && user.isAvailable()) {
             request.getSession().setAttribute(REQUEST_PARAM_USER, user);
             return identifyUserType(user, request);
         } else {
             request.setAttribute(REQUEST_PARAM_INFO_MESSAGE, MESSAGE_VALUE);
             return LOGIN_PAGE_VIEW;
         }
+
     }
 
     private String identifyUserType(User user, HttpServletRequest request) {
