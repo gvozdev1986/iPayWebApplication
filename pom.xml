@@ -25,6 +25,7 @@
 		<org.slf4j>1.7.25</org.slf4j>
         <gson.vertion>2.8.5</gson.vertion>
         <selenium.vertion>3.14.0</selenium.vertion>
+        <poi.vertion>4.0.0</poi.vertion>
 	</properties>
 
 	<build>
@@ -91,13 +92,19 @@
 
 	<dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.vertion}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.vertion}</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>

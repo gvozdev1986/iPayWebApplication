@@ -100,6 +100,22 @@
                                     id="search-Btn">
                                 <i class="fas fa-search"></i> Search
                             </button>
+                            <button class="btn btn-success"
+                                    style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
+                                    type="submit"
+                                    name="command"
+                                    value="payment_history_pagination"
+                                    id="print-Btn">
+                                <i class="far fa-file-powerpoint"></i> Print
+                            </button>
+                            <button class="btn btn-success"
+                                    style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
+                                    type="submit"
+                                    name="command"
+                                    value="report_payment_history_email"
+                                    id="email-Btn">
+                                <i class="far fa-envelope-open"></i> email
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -126,6 +142,7 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <span>${messageReport}</span>
             </div>
             <!-- PAGINATION -->
             <jsp:include page="pagination.jsp"/>

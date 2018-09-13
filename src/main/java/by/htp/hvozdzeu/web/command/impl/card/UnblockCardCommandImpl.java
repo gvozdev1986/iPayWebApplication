@@ -36,7 +36,7 @@ public class UnblockCardCommandImpl implements BaseCommand{
 		String subjectToReply = "Information about blocked credit card.";
 		String messageToReply = "Hello. Your card # " + creditCard.getCardNumber() + " has been unblocked. For additional information," +
 				" please return to administrator.";
-		mailSender(request, emailToReply, subjectToReply, messageToReply);
+		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 		request.getSession().setAttribute(COUNT_BLOCKED_CREDIT_CARD, countBlockedCreditCard);
 		request.getSession().setAttribute(LIST_BLOCKED_CREDIT_CARD, creditBlockedCards);		

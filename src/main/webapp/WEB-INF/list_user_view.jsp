@@ -58,7 +58,7 @@
 							    id="search-Btn">
 							<i class="fas fa-search"></i> Search
 						</button>
-						<button class="btn btn-success" 
+						<button class="btn btn-success"
 								type="submit" 
 								name="command"
 							    value="list_client_view" 

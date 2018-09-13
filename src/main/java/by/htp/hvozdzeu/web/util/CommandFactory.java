@@ -214,6 +214,9 @@ public class CommandFactory {
                 break;
 
 
+            case REPORT_PAYMENT_HISTORY_EMAIL:
+                command = new ReportPaymentHistorySendEmailCommandImpl();
+                break;
 
             default:
                 command = new GreetingPageViewCommandImpl();

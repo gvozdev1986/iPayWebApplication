@@ -86,7 +86,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                         "Your card # " + creditCard.getCardNumber() + " has been inserted. " +
                         "And create new bank account [" + nameAccount + "] with code your locale position. " +
                         "For additional information, please return to administrator.";
-                mailSender(request, emailToReply, subjectToReply, messageToReply);
+                mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
                 return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 

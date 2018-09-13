@@ -62,7 +62,7 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
          */
         Integer count = iPaymentService.read().size();
 
-        Integer countRow = iPaymentService.findPaynemtByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
+        Integer countRow = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
 
         /**
          * Count row on page
@@ -77,7 +77,7 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
         /**
          * get pagination
          */
-        List<PaymentReport> pagination = iPaymentService.findPaynemtByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
+        List<PaymentReport> pagination = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
 
         /**
          * write pagination to session

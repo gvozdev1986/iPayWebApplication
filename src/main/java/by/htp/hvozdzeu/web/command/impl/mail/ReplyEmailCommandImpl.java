@@ -33,7 +33,8 @@ public class ReplyEmailCommandImpl implements BaseCommand {
                     emailToReply,
                     subjectToReply,
                     messageToReply,
-                    properties
+                    properties,
+                    null
             );
             mailThread.start();
         } catch (IOException e) {
