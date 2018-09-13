@@ -41,6 +41,11 @@
     .text-center {
         /* text-align: center!important; */
     }
+
+    .validate{
+        font-size: 9px;
+        color: red;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -116,6 +121,7 @@
                                            placeholder="XXXX XXXX XXXX XXXX"
                                            autocomplete="off"
                                            required>
+                                    <span class="validate">${messageCheckCreditCard}</span>
                                 </div>
                                 <div class="form-group col-md-1 input-group-sm">
                                     <label for="cardValidMonth">Month</label>
@@ -170,13 +176,13 @@
                                 <a>${messageErrorInsertNewCreditCard}</a>
                             </div>
                             <div class="form-inline">
-                                <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
+                                <!--<button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
                                         id="cancel_btn"
                                         type="submit"
                                         name="command"
                                         value="">
                                     <i class="fas fa-angle-left"></i> Cancel
-                                </button>
+                                </button>-->
                                 <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
                                         id="save_new_btn"
                                         type="submit"

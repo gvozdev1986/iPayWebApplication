@@ -2,15 +2,16 @@
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="date" class="java.util.Date" />
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="head.jsp"/>
-<link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand"
            href="ServletController?command=greeting_page_view"> <img
-                src="img/logo.png" width="30" height="30"
+                src="${pageContext.request.contextPath}/img/logo.png" width="30" height="30"
                 class="d-inline-block align-top" alt=""> iPay
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -35,7 +36,10 @@
                     <fmt:message key="greeting_login"/>
                 </button>
                 <button class="btn btn-success form-control my-sm-0 my-2 btn-sm"
-                        type="submit" name="command" value="registration_page_view">
+                        id="registrationViewBtn"
+                        type="submit"
+                        name="command"
+                        value="registration_page_view">
                     <i class="fas fa-user-plus"></i>
                     <fmt:message key="greeting_registration"/>
                 </button>
@@ -59,21 +63,21 @@
                 <div class="row">
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (Доллар США)</div>
+                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (<fmt:message key="usd"/>)</div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align: right;">$ ${currencyMap.USD}<span
                                         style="font-size: 12px;">/1</span></h5>
-                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (Евро)</div>
+                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (<fmt:message key="eur"/>)</div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align: right;">&#8364; ${currencyMap.EUR}<span
                                         style="font-size: 12px;">/1</span></h5>
-                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
                             </div>
                         </div>
                     </div>
@@ -81,25 +85,23 @@
                 <div class="row">
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (Российский
-                                рубль)
+                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (<fmt:message key="rus"/>)
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align: right;">P ${currencyMap.RUB}<span
                                         style="font-size: 12px;">/100</span></h5>
-                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (Украинская
-                                гривна)
+                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (<fmt:message key="uah"/>)
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align: right;">&#8372; ${currencyMap.UAH}<span
                                         style="font-size: 12px;">/100</span></h5>
-                                <span class="card-text" style="font-size: 9px;">2018-09-11</span>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
                             </div>
                         </div>
                     </div>
@@ -121,25 +123,25 @@
                     <div class="progress pink">
                         <span class="progress-left"><span class="progress-bar"></span></span>
                         <span class="progress-right"><span class="progress-bar"></span></span>
-                        <div class="progress-value">${countUser}%</div>
+                        <div class="progress-value">${countUser}</div>
                     </div>
-                    <p style="width: 100%; text-align: center;">1</p>
+                    <p style="width: 100%; text-align: center;"><fmt:message key="count_user"/></p>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="progress blue">
                         <span class="progress-left"><span class="progress-bar"></span></span>
                         <span class="progress-right"><span class="progress-bar"></span></span>
-                        <div class="progress-value">${countOperation}%</div>
+                        <div class="progress-value">${countOperation}</div>
                     </div>
-                    <p style="width: 100%; text-align: center;">2</p>
+                    <p style="width: 100%; text-align: center;"><fmt:message key="count_operation"/></p>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="progress green">
                         <span class="progress-left"><span class="progress-bar"></span></span>
                         <span class="progress-right"><span class="progress-bar"></span></span>
-                        <div class="progress-value">5%</div>
+                        <div class="progress-value">17</div>
                     </div>
-                    <p style="width: 100%; text-align: center;">3</p>
+                    <p style="width: 100%; text-align: center;">Some content.</p>
                 </div>
             </div>
         </div>
