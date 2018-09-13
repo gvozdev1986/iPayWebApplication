@@ -24,6 +24,7 @@
 		<jstl-api.version>1.2</jstl-api.version>
 		<org.slf4j>1.7.25</org.slf4j>
         <gson.vertion>2.8.5</gson.vertion>
+        <selenium.vertion>3.14.0</selenium.vertion>
 	</properties>
 
 	<build>
@@ -90,7 +91,15 @@
 
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.vertion}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
