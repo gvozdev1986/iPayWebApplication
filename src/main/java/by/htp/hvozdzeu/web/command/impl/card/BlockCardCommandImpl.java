@@ -35,7 +35,7 @@ public class BlockCardCommandImpl implements BaseCommand {
 		String subjectToReply = "Information about blocked credit card.";
 		String messageToReply = "Hello. Your card # " + creditCard.getCardNumber() + " has been blocked. For additional information," +
 				" please return to administrator.";
-		mailSender(request, emailToReply, subjectToReply, messageToReply);
+		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 
 		request.setAttribute("cards", creditCards);

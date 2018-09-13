@@ -62,7 +62,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                                     "To verify your account, click the link. " +
                                     "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
                                     " You can correct all information in your account.";
-            mailSender(request, emailToReply, subjectToReply, messageToReply);
+            mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
             return PagePathConstantPool.SUCCESS_REGISTRATION_VIEW;
 

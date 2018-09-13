@@ -17,7 +17,7 @@ public class MailSender {
     private MailSender() {
     }
 
-    public static void mailSender(HttpServletRequest request, String emailToReply, String subjectToReply, String messageToReply){
+    public static void mailSender(HttpServletRequest request, String emailToReply, String subjectToReply, String messageToReply, String attachmentName){
         try {
             Properties properties = new Properties();
             ServletContext context = request.getServletContext();
@@ -27,7 +27,8 @@ public class MailSender {
                     emailToReply,
                     subjectToReply,
                     messageToReply,
-                    properties
+                    properties,
+                    attachmentName
             );
             mailThread.start();
         } catch (IOException e) {
