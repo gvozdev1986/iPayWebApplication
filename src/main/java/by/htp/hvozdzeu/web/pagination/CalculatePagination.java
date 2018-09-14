@@ -15,19 +15,19 @@ public class CalculatePagination {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalculatePagination.class);
 	public static final String COUNT_ROW_ON_PAGE = "countRowOnPage";
 	private static final Integer COUNT_ROW_ON_PAGE_DEFAULT = 10;
-	public static final String PAGE = "page";
-	public static final String COUNT_PAGE = "countPage";
+	static final String PAGE = "page";
+	static final String COUNT_PAGE = "countPage";
 	private static final Integer DEFAULT_PAGE = 0;
 	public static final String DISPLACEMENT = "displacement";
-	public static final String LAST_PAGE = "lastPage";
-	public static final Integer FIRST_PAGE_NAME_VALUE = 0;
-	public static final String FIRST_PAGE = "firstPage";
-	public static final String PAGINATION_BUTTON_ARRAY_ATTRIBUTE_NAME = "paginationBtns";
+	static final String LAST_PAGE = "lastPage";
+	static final Integer FIRST_PAGE_NAME_VALUE = 0;
+	static final String FIRST_PAGE = "firstPage";
+	static final String PAGINATION_BUTTON_ARRAY_ATTRIBUTE_NAME = "paginationBtns";
 
     private CalculatePagination() {
     }
 
-    public static Map<String, Integer> calculatePagination(HttpServletRequest request, Integer countRow){
+    static Map<String, Integer> calculatePagination(HttpServletRequest request, Integer countRow){
 		Map<String, Integer> calc = new HashMap<>();
 		calc.clear();
 		Integer countRowOnPage;

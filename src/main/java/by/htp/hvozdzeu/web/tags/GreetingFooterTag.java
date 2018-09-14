@@ -27,9 +27,4 @@ public class GreetingFooterTag extends TagSupport {
 		return super.doStartTag();
 	}
 
-	@Override
-	public int doEndTag() throws JspException {
-		return super.doEndTag();
-	}
-
 }

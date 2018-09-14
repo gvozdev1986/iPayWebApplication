@@ -36,7 +36,7 @@ public class WriteSessionPagination {
         request.getSession().setAttribute(LAST_PAGE, lastPage);
         request.getSession().setAttribute(COUNT_ROW_ON_PAGE, countRowOnPage);
         request.getSession().setAttribute(COUNT_PAGE, countPage);
-        request.getSession().setAttribute(paginationName, pagination); //NOSONAR
+        request.getSession().setAttribute(paginationName, pagination);
         request.getSession().setAttribute(PAGINATION_BUTTON_ARRAY_ATTRIBUTE_NAME, paginationBtn);
 
     }

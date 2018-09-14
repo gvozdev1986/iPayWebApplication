@@ -13,23 +13,26 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+
 public class TransferServiceViewCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 	private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+	private static final String MESSAGE_TRANSFER_REMOVE = "messageFromTransfer";
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
 		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
-		List<PaymentData> paymentDatas = iPaymentDataService.read();
+		List<PaymentData> paymentDates = iPaymentDataService.read();
 
-		request.getSession().setAttribute("user", user);
-		request.getSession().setAttribute("cards", creditCards);
-		request.getSession().setAttribute("groups", paymentDatas);
-		request.getSession().removeAttribute("messageFromTransfer");
+		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
+		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
+		request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);
+		request.getSession().removeAttribute(MESSAGE_TRANSFER_REMOVE);
 		return PagePathConstantPool.TRANSFER_VIEW;
 	}
 

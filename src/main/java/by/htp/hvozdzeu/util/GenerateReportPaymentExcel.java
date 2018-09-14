@@ -12,32 +12,42 @@ import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.FORMAT_FILE_EXCEL;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PATH_TO_SAVE_REPORT;
+
 public class GenerateReportPaymentExcel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenerateReportPaymentExcel.class);
+    private static final String HEAD_COLUMN_NO = "No.";
+    private static final String HEAD_COLUMN_DATE = "Date";
+    private static final String HEAD_COLUMN_TIME = "Time";
+    private static final String HEAD_COLUMN_BRIEF = "Brief about payment";
+    private static final String HEAD_COLUMN_GROUP = "Group";
+    private static final String HEAD_COLUMN_AMOUNT = "Amount";
+    private static final String RANGE_COLUMNS = "A1:F1";
 
     private GenerateReportPaymentExcel() {
     }
 
     public static void generateExcelReport(List<PaymentReport> paymentReportList, Long cardId, LocalDate dateStart, LocalDate dateEnd){
         try {
-            String filename = "E:/PaymentHistory_" + cardId + ".xls";
+            String filename = PATH_TO_SAVE_REPORT + cardId + FORMAT_FILE_EXCEL;
             FileOutputStream fileOut;
             try (HSSFWorkbook workbook = new HSSFWorkbook()) {
                 HSSFSheet sheet = workbook.createSheet("Payment report");
 
                 HSSFRow rowHeadTitleReport = sheet.createRow((short) 0);
-                CellRangeAddress region = CellRangeAddress.valueOf("A1:F1");
+                CellRangeAddress region = CellRangeAddress.valueOf(RANGE_COLUMNS);
                 sheet.addMergedRegion(region);
                 rowHeadTitleReport.createCell(0).setCellValue("Payment report from " + dateStart + " to " + dateEnd);
 
                 HSSFRow rowHead = sheet.createRow((short) 1);
-                rowHead.createCell(0).setCellValue("No.");
-                rowHead.createCell(1).setCellValue("Date");
-                rowHead.createCell(2).setCellValue("Time");
-                rowHead.createCell(3).setCellValue("Brief about payment");
-                rowHead.createCell(4).setCellValue("Group");
-                rowHead.createCell(5).setCellValue("Amount");
+                rowHead.createCell(0).setCellValue(HEAD_COLUMN_NO);
+                rowHead.createCell(1).setCellValue(HEAD_COLUMN_DATE);
+                rowHead.createCell(2).setCellValue(HEAD_COLUMN_TIME);
+                rowHead.createCell(3).setCellValue(HEAD_COLUMN_BRIEF);
+                rowHead.createCell(4).setCellValue(HEAD_COLUMN_GROUP);
+                rowHead.createCell(5).setCellValue(HEAD_COLUMN_AMOUNT);
 
                 for (int i = 0; i < paymentReportList.size(); i++) {
                     HSSFRow row = sheet.createRow((short) i + 2);

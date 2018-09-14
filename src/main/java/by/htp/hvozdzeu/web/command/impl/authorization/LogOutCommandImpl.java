@@ -2,13 +2,11 @@ package by.htp.hvozdzeu.web.command.impl.authorization;
 
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class LogOutCommandImpl implements BaseCommand {
 

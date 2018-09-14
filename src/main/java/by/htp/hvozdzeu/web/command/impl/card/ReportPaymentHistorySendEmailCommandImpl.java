@@ -36,7 +36,7 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Long cardId = Long.valueOf(request.getParameter(CARD_ID));
+        Long cardId = Long.valueOf(request.getParameter(REQUEST_CARD_ID));
         LocalDate dateStart = LocalDate.parse(request.getParameter(DATE_START));
         LocalDate dateEnd = LocalDate.parse(request.getParameter(DATE_END));
 
@@ -55,9 +55,6 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
 
         LOGGER.debug("Send email with attachment report");
         mailSender(request, emailToReply, subjectToReply, messageToReply, attachmentName);
-
-        //LOGGER.debug("Delete file report after sending");
-        //deleteFileAfterSending(attachmentName);
 
         request.getSession().setAttribute(MESSAGE_ATTR_NAME, MESSAGE_VALUE);
         return PagePathConstantPool.PAYMENT_HISTORY_PAGINATION;

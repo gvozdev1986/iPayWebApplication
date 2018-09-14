@@ -48,7 +48,7 @@ public class SaveChangePersonalDataCommandImpl implements BaseCommand {
 
         User clientUpdate = iUserService.findById(clientId);
 
-        request.getSession().setAttribute("user", clientUpdate);
+        request.getSession().setAttribute(REQUEST_PARAM_USER, clientUpdate);
         request.getSession().setAttribute(MSG_UPDATE_CLIENT_DATA, MSG_SUCCESS);
         return PagePathConstantPool.REDIRECT_PERSONAL_DATA_VIEW;
 

@@ -16,6 +16,7 @@ public class CheckNewAccountCommandImpl implements BaseCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(CheckNewAccountCommandImpl.class);
     private static final String MESSAGE_CHECK_REGISTRATION = "checkRegistrationMessage";
     private static final String MESSAGE_CHECK_SUCCESS = "success_check";
+    private static final String CHECK_CODE = "checkCode";
     private static final String MESSAGE_CHECK_UN_SUCCESS = "success_un_check";
     private static final String MESSAGE_ALREADY_CHECKED = "success_already_check";
     private IUserService iUserService = ServiceFactory.getUserService();
@@ -23,7 +24,7 @@ public class CheckNewAccountCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        String checkCode = request.getParameter("checkCode");
+        String checkCode = request.getParameter(CHECK_CODE);
 
         User user = iUserService.findByRegCode(checkCode);
         iUserService.unblockUser(user.getId());

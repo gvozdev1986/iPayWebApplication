@@ -31,6 +31,7 @@ public class AdminPanelViewCommandImpl implements BaseCommand {
 		request.getSession().setAttribute(COUNT_BLOCKED_CREDIT_CARD, countBlockedCreditCard);
 		request.getSession().setAttribute(COUNT_MESSAGES_ATTRIBUTE_NAME, countUnreadMessage);
 		return PagePathConstantPool.LOAD_ADMIN_PANEL;
+
 	}
 
 }

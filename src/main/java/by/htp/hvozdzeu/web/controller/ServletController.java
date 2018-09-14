@@ -20,12 +20,14 @@ public class ServletController extends HttpServlet {
     private static final long serialVersionUID = -4731601876679277122L;
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletController.class);
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.debug("SERVLET doGET");
         process(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.debug("SERVLET doPOST");
@@ -52,7 +54,7 @@ public class ServletController extends HttpServlet {
                 request.getRequestDispatcher(path).forward(request, response);
             }
         } catch (CommandException e) {
-            LOGGER.debug("SERVLET PAGE ERROR");
+            LOGGER.debug("SERVLET PAGE ERROR. {}", e.getMessage());
             request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
             LOGGER.error(e.getMessage(), e);
         }

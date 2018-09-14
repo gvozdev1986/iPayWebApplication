@@ -46,7 +46,7 @@ public class LogInCommandImpl implements BaseCommand {
 
     private String identifyUserType(User user, HttpServletRequest request) {
         if (user.isAdmin()) {
-            request.getSession().setAttribute(REQUEST_PARAM_USER_TYPE, UserTypeEnum.ADMIN); //user
+            request.getSession().setAttribute(REQUEST_PARAM_USER_TYPE, UserTypeEnum.ADMIN);
             request.getSession().setAttribute(SESSION_ATR_SESSION_PAGE_TYPE, PAGE_TYPE_ADMIN_PROFILE);
             return REDIRECT_ADMIN_URL;
         } else {

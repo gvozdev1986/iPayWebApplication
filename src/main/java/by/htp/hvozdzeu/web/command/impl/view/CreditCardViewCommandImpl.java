@@ -13,6 +13,10 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARDS;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_GROUPS;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_PARAM_USER;
+
 public class CreditCardViewCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
@@ -21,14 +25,14 @@ public class CreditCardViewCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
 		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);		
-		List<PaymentData> paymentDatas = iPaymentDataService.read();	
+		List<PaymentData> paymentDates = iPaymentDataService.read();
 
-		request.getSession().setAttribute("user", user);
-		request.getSession().setAttribute("cards", creditCards);
-		request.getSession().setAttribute("groups", paymentDatas);
+		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
+		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
+		request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);
 		return PagePathConstantPool.CREDIT_CARD_VIEW;
 	}
 

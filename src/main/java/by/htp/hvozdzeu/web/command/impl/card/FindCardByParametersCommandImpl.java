@@ -10,6 +10,9 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.CREDIT_CARDS;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PARAMETER;
+
 public class FindCardByParametersCommandImpl implements BaseCommand {
 	
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
@@ -17,11 +20,11 @@ public class FindCardByParametersCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		String param = request.getParameter("param");
+		String param = request.getParameter(PARAMETER);
 		
 		List<CreditCard> creditCards = iCreditCardService.findByParameter(param);
 		
-		request.getSession().setAttribute("creditCards", creditCards);
+		request.getSession().setAttribute(CREDIT_CARDS, creditCards);
 		return PagePathConstantPool.LIST_CARD_VIEW;
 	}
 

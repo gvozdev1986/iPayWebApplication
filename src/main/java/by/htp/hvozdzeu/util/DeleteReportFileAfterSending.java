@@ -9,6 +9,9 @@ public class DeleteReportFileAfterSending {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteReportFileAfterSending.class);
 
+    private DeleteReportFileAfterSending() {
+    }
+
     public static void deleteFileAfterSending(String fileName) {
 
         File file = new File(fileName);

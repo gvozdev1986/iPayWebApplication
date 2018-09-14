@@ -13,7 +13,6 @@ public final class HttpRequestParamValidator {
     private static final String LAST_MIDDLE_FIRST_NAME_REGEX = "^[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]{1,50}";
     private static final String EMAIL_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     private static final String DATE_REGEX = "((19|20)\\d\\d)\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])";
-    private static final String ADDRESS_REGEX = "^[а-яА-Яa-zA-Z0-9.,]{1,500}";
     private static final String PHONE_REGEX = ".*(8-[0-9]{3}-([0-9]{3}(-[0-9]{2}){2}))";
 
     private HttpRequestParamValidator() {
@@ -34,11 +33,6 @@ public final class HttpRequestParamValidator {
     public static boolean validatePhone(String phone) throws ValidateNullRequestParamException {
         validateParamNotNull(phone);
         return !matchToRegex(phone, PHONE_REGEX);
-    }
-
-    public static boolean validateAddress(String address) throws ValidateNullRequestParamException {
-        validateParamNotNull(address);
-        return matchToRegex(address, ADDRESS_REGEX);
     }
 
     public static boolean validatePassword(String pass) throws ValidateNullRequestParamException {

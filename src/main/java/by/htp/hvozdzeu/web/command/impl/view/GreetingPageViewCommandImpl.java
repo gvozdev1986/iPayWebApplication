@@ -22,6 +22,9 @@ public class GreetingPageViewCommandImpl implements BaseCommand {
     private Map<String, String> currencyMap = new HashMap<>();
     private IUserService iUserService = ServiceFactory.getUserService();
     private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
+    private static final String COUNT_USER = "countUser";
+    private static final String COUNT_OPERATION = "countOperation";
+    private static final String CURRENCY_MAP = "currencyMap";
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -35,9 +38,9 @@ public class GreetingPageViewCommandImpl implements BaseCommand {
         Integer countUser = iUserService.read().size();
         Integer countOperation = iPaymentService.read().size();
 
-        request.getSession().setAttribute("countUser", countUser);
-        request.getSession().setAttribute("countOperation", countOperation);
-        request.getSession().setAttribute("currencyMap", currencyMap);
+        request.getSession().setAttribute(COUNT_USER, countUser);
+        request.getSession().setAttribute(COUNT_OPERATION, countOperation);
+        request.getSession().setAttribute(CURRENCY_MAP, currencyMap);
         return PagePathConstantPool.GREETING_PAGE_VIEW;
 
     }

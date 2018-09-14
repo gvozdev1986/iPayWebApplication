@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 public class NewServiceDataCommandImpl implements BaseCommand {
 
     private IPaymentDataService iPaymentService = ServiceFactory.getPaymentDataService();
+    private static final String MESSAGE_ID_CODE_SAVE = "idCodeForSave";
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -18,7 +19,7 @@ public class NewServiceDataCommandImpl implements BaseCommand {
         Long maxId = iPaymentService.maxIndex();
         Long idCodeForSave = maxId + 1;
 
-        request.getSession().setAttribute("idCodeForSave", idCodeForSave);
+        request.getSession().setAttribute(MESSAGE_ID_CODE_SAVE, idCodeForSave);
         return PagePathConstantPool.NEW_SERVICE_DATA_VIEW;
     }
 }

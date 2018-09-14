@@ -11,17 +11,33 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
 
-public class SessionCreator {
+class SessionCreator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SessionCreator.class);
+
+    private static final String SMTP = "smtp";
+    private static final String STATUS_TRUE = "true";
+    private static final String STATUS_FALSE = "false";
+    private static final String PROPERTY_SMTP_HOST = "mail.smtp.host";
+    private static final String PROPERTY_SMTP_PORT = "mail.smtp.port";
+    private static final String PROPERTY_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+    private static final String PROPERTY_MAIL_HOST = "mail.host";
+    private static final String PROPERTY_SMTP_AUTH = "mail.smtp.auth";
+    private static final String PROPERTY_SMTP_SSL = "mail.smtp.ssl.enable";
+    private static final String PROPERTY_SMTP_SOCKET_FACTORY_PORT = "mail.smtp.socketFactory.port";
+    private static final String PROPERTY_SMTP_SOCKET_FACTORY_CLASS = "mail.smtp.socketFactory.class";
+    private static final String PROPERTY_SMTP_SOCKET_FACTORY_FALLBACK = "mail.smtp.socketFactory.fallback";
+    private static final String PROPERTY_SMTP_QUIT_WAIT = "mail.smtp.quitwait";
+    private static final String CLASS_JAVAX_NET_SSL_SOCKET_FACTORY = "javax.net.ssl.SSLSocketFactory";
+
     private IMailAccountService iMailAccountService = ServiceFactory.getiMailAccountService();
     private String userName;
     private String userPassword;
     private Properties sessionProperties;
 
-    public SessionCreator(Properties configProperties) {
-        String smtpHost = configProperties.getProperty("mail.smtp.host");
-        String smtpPost = configProperties.getProperty("mail.smtp.port");
+    SessionCreator(Properties configProperties) {
+        String smtpHost = configProperties.getProperty(PROPERTY_SMTP_HOST);
+        String smtpPost = configProperties.getProperty(PROPERTY_SMTP_PORT);
 
         try {
             userName = getMailLogin();
@@ -32,15 +48,15 @@ public class SessionCreator {
 
 
         sessionProperties = new Properties();
-        sessionProperties.setProperty("mail.transport.protocol", "smtp");
-        sessionProperties.setProperty("mail.host", smtpHost);
-        sessionProperties.put("mail.smtp.auth", "true");
-        sessionProperties.put("mail.smtp.port", smtpPost);
-        sessionProperties.put("mail.smtp.ssl.enable", "true");
-        sessionProperties.put("mail.smtp.socketFactory.port", smtpPost);
-        sessionProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        sessionProperties.put("mail.smtp.socketFactory.fallback", "false");
-        sessionProperties.put("mail.smtp.quitwait", "false");
+        sessionProperties.setProperty(PROPERTY_TRANSPORT_PROTOCOL, SMTP);
+        sessionProperties.setProperty(PROPERTY_MAIL_HOST, smtpHost);
+        sessionProperties.put(PROPERTY_SMTP_AUTH, STATUS_TRUE);
+        sessionProperties.put(PROPERTY_SMTP_PORT, smtpPost);
+        sessionProperties.put(PROPERTY_SMTP_SSL, STATUS_TRUE);
+        sessionProperties.put(PROPERTY_SMTP_SOCKET_FACTORY_PORT, smtpPost);
+        sessionProperties.put(PROPERTY_SMTP_SOCKET_FACTORY_CLASS, CLASS_JAVAX_NET_SSL_SOCKET_FACTORY);
+        sessionProperties.put(PROPERTY_SMTP_SOCKET_FACTORY_FALLBACK, STATUS_FALSE);
+        sessionProperties.put(PROPERTY_SMTP_QUIT_WAIT, STATUS_FALSE);
     }
 
 

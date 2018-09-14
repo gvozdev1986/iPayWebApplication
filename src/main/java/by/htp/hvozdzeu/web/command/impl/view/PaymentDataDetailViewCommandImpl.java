@@ -12,15 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 public class PaymentDataDetailViewCommandImpl implements BaseCommand {
 
     private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private static final String PAYMENT_DATA_SERVICE_ID = "paymentDataServiceId";
+    private static final String PAYMENT_DATA = "paymentData";
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Long paymentDataServiceId = Long.valueOf(request.getParameter("paymentDataServiceId"));
+        Long paymentDataServiceId = Long.valueOf(request.getParameter(PAYMENT_DATA_SERVICE_ID));
         PaymentData paymentData = iPaymentDataService.findById(paymentDataServiceId);
 
-        request.getSession().setAttribute("paymentData", paymentData);
-        request.getSession().setAttribute("paymentDataServiceId", paymentDataServiceId);
+        request.getSession().setAttribute(PAYMENT_DATA, paymentData);
+        request.getSession().setAttribute(PAYMENT_DATA_SERVICE_ID, paymentDataServiceId);
         return PagePathConstantPool.PAYMENT_DATA_DETAIL_VIEW;
     }
 }

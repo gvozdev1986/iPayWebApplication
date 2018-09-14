@@ -2,7 +2,9 @@ package by.htp.hvozdzeu.web.util;
 
 public enum CommandEnum {
 
-	//ALL ACCESS
+    /**
+     * Guest access
+     */
 	LOAD_GREETING_PAGE(UserTypeEnum.ALL),
 	CHANGE_LOCALE(UserTypeEnum.ALL),
     REGISTRATION_PAGE_VIEW(UserTypeEnum.ALL),
@@ -13,8 +15,10 @@ public enum CommandEnum {
     SAVE_MESSAGE_CONTACT(UserTypeEnum.ALL),
     LOG_OUT(UserTypeEnum.ALL),
     CHECK_NEW_ACCOUNT(UserTypeEnum.ALL),
-	
-	//USER ACCESS
+
+    /**
+     * User (client) access
+     */
 	REDIRECT_USER_URL(UserTypeEnum.USER),
     CLIENT_PANEL_VIEW(UserTypeEnum.USER),
     CREDIT_CARD_VIEW(UserTypeEnum.USER),
@@ -36,7 +40,9 @@ public enum CommandEnum {
     SUCCESS_REGISTRATION_VIEW(UserTypeEnum.USER),
     REPORT_PAYMENT_HISTORY_EMAIL(UserTypeEnum.USER),
 
-	//ADMIN ACCESS
+    /**
+     * Admin access
+     */
 	REDIRECT_ADMIN_URL(UserTypeEnum.ADMIN),
     ADMIN_PANEL_VIEW(UserTypeEnum.ADMIN),
     LIST_CARD_VIEW(UserTypeEnum.ADMIN),
@@ -68,7 +74,7 @@ public enum CommandEnum {
 
 	private UserTypeEnum userType;
 
-	private CommandEnum(UserTypeEnum userType) {
+	CommandEnum(UserTypeEnum userType) {
 		this.userType = userType;
 	}
 

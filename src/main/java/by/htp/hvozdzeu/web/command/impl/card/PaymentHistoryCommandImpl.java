@@ -17,14 +17,22 @@ import static by.htp.hvozdzeu.web.pagination.CalculatePagination.COUNT_ROW_ON_PA
 import static by.htp.hvozdzeu.web.pagination.CalculatePagination.DISPLACEMENT;
 import static by.htp.hvozdzeu.web.pagination.NavigationEvent.PAGINATION_LIST;
 import static by.htp.hvozdzeu.web.pagination.WriteSessionPagination.*;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARD_ID;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.DATE_END;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.DATE_START;
 
 public class PaymentHistoryCommandImpl implements BaseCommand {
 
     private static final String PAGINATION_NAME = "paymentHistory";
     private static final String PAGINATION_LIST_VALUE = "payment_history_pagination";
-    private static final String CARD_ID_PARAM = "cardId";
-    private static final String DATE_START_PARAM = "dateStart";
-    private static final String DATE_END_PARAM = "dateEnd";
+    private static final String PARAMETER_1 = "additional_param_1";
+    private static final String PARAMETER_2 = "additional_param_2";
+    private static final String PARAMETER_3 = "additional_param_3";
+    private static final String RETURN_CARD_NUMBER = "returnCardNumber";
+    private static final String RETURN_CARD_ID = "returnCardId";
+    private static final String RETURN_CARD_DATE_START = "returnDateStart";
+    private static final String RETURN_CARD_DATE_END = "returnDateEnd";
+
     private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
     private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 
@@ -32,64 +40,40 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
         Long cardId;
-        if(request.getParameter(CARD_ID_PARAM) != null && !request.getParameter(CARD_ID_PARAM).isEmpty()){
-            cardId = Long.valueOf(request.getParameter(CARD_ID_PARAM));
+        if (request.getParameter(REQUEST_CARD_ID) != null && !request.getParameter(REQUEST_CARD_ID).isEmpty()) {
+            cardId = Long.valueOf(request.getParameter(REQUEST_CARD_ID));
         } else {
-            cardId = Long.valueOf(request.getParameter("additional_param_1"));
+            cardId = Long.valueOf(request.getParameter(PARAMETER_1));
         }
 
         LocalDate dateStart;
-        if(request.getParameter(DATE_START_PARAM) != null && !request.getParameter(DATE_START_PARAM).isEmpty()){
-            dateStart = LocalDate.parse(request.getParameter(DATE_START_PARAM));
+        if (request.getParameter(DATE_START) != null && !request.getParameter(DATE_START).isEmpty()) {
+            dateStart = LocalDate.parse(request.getParameter(DATE_START));
         } else {
-            dateStart = LocalDate.parse(request.getParameter("additional_param_2"));
+            dateStart = LocalDate.parse(request.getParameter(PARAMETER_2));
         }
 
         LocalDate dateEnd;
-        if(request.getParameter(DATE_END_PARAM) != null && !request.getParameter(DATE_END_PARAM).isEmpty()){
-            dateEnd = LocalDate.parse(request.getParameter(DATE_END_PARAM));
+        if (request.getParameter(DATE_END) != null && !request.getParameter(DATE_END).isEmpty()) {
+            dateEnd = LocalDate.parse(request.getParameter(DATE_END));
         } else {
-            dateEnd = LocalDate.parse(request.getParameter("additional_param_3"));
+            dateEnd = LocalDate.parse(request.getParameter(PARAMETER_3));
         }
 
-         /**
-         * Get number of credit card
-         */
         CreditCard creditCard = iCreditCardService.findById(cardId);
-
-        /**
-         * Count row
-         */
         Integer count = iPaymentService.read().size();
-
         Integer countRow = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
-
-        /**
-         * Count row on page
-         */
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
-
-        /**
-         * Displacement for navigation buttons
-         */
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
-
-        /**
-         * get pagination
-         */
         List<PaymentReport> pagination = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
-
-        /**
-         * write pagination to session
-         */
         writeSessionPagination(request, countRow, PAGINATION_NAME, pagination);
 
 
         request.getSession().setAttribute(PAGINATION_LIST, PAGINATION_LIST_VALUE);
-        request.getSession().setAttribute("returnCardNumber", creditCard.getCardNumber());
-        request.getSession().setAttribute("returnCardId", cardId);
-        request.getSession().setAttribute("returnDateStart", dateStart);
-        request.getSession().setAttribute("returnDateEnd", dateEnd);
+        request.getSession().setAttribute(RETURN_CARD_NUMBER, creditCard.getCardNumber());
+        request.getSession().setAttribute(RETURN_CARD_ID, cardId);
+        request.getSession().setAttribute(RETURN_CARD_DATE_START, dateStart);
+        request.getSession().setAttribute(RETURN_CARD_DATE_END, dateEnd);
         return PagePathConstantPool.PAYMENT_HISTORY_PAGINATION;
     }
 

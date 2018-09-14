@@ -8,6 +8,8 @@ import java.util.List;
 public interface PaymentDataSpecification {
 
     List<PaymentData> pagination(Integer start, Integer count) throws DAOException;
+
     List<PaymentData> findByParameter(String param) throws DAOException;
+
     Long maxIndex() throws DAOException;
 }

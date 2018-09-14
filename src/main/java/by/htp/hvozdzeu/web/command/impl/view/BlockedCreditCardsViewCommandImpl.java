@@ -15,14 +15,14 @@ import static by.htp.hvozdzeu.web.pagination.NavigationEvent.PAGINATION_LIST;
 public class BlockedCreditCardsViewCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-
 	private static final String LIST_BLOCKED_CREDIT_CARD = "listBlockedCreditCard";
+	private static final String PAGINATION_LIST_VALUE = "blocked_credit_cards_view";
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 		List<CreditCard> creditBlockedCards = iCreditCardService.blockedCreditCard();
 
-		request.getSession().setAttribute(PAGINATION_LIST, "blocked_credit_cards_view");	
+		request.getSession().setAttribute(PAGINATION_LIST, PAGINATION_LIST_VALUE);
 		request.getSession().setAttribute(LIST_BLOCKED_CREDIT_CARD, creditBlockedCards);
 		return PagePathConstantPool.BLOCKED_CREDIT_CARDS;
 

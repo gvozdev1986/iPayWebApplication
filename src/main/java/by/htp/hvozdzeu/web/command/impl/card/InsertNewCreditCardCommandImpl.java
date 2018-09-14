@@ -17,32 +17,39 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InsertNewCreditCardCommandImpl.class);
+
+    private static final String MESSAGE_CHECK_CREDIT_CARD = "messageCheckCreditCard";
+    private static final String MESSAGE_CHECK_CREDIT_CARD_VALUE = "Such a credit card exists.";
+    private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD = "messageErrorInsertNewCreditCard";
+    private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD_VALUE = "Error insert credit cards";
+
     private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
     private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 
         Long userId = user.getId();
-        String firstNameCreditCard = request.getParameter("cardFirstName");
-        String lastNameCreditCard = request.getParameter("cardLastName");
-        String cardNumber = request.getParameter("cardNumber");
-        String cardValidMonth = request.getParameter("cardValidMonth");
-        String cardValidYear = request.getParameter("cardValidYear");
-        String creditCardType = request.getParameter("creditCardType");
-        String secretCode = request.getParameter("secretCode");
+        String firstNameCreditCard = request.getParameter(REQUEST_PARAM_CARD_FIRST_NAME);
+        String lastNameCreditCard = request.getParameter(REQUEST_PARAM_CARD_LAST_NAME);
+        String cardNumber = request.getParameter(REQUEST_PARAM_CARD_NUMBER);
+        String cardValidMonth = request.getParameter(REQUEST_PARAM_CARD_VALID_MONTH);
+        String cardValidYear = request.getParameter(REQUEST_PARAM_CARD_VALID_YEAR);
+        String creditCardType = request.getParameter(REQUEST_PARAM_CARD_TYPE);
+        String secretCode = request.getParameter(REQUEST_PARAM_CARD_SECRET_CODE);
 
         CreditCard checkCreditCard = iCreditCardService.findByCreditCardNumber(cardNumber);
 
         if (checkCreditCard != null) {
 
-            request.getSession().setAttribute("messageCheckCreditCard", "Such a credit card exists.");
+            request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_CHECK_CREDIT_CARD_VALUE);
 
             return PagePathConstantPool.ADD_NEW_CREDIT_CARD;
 
@@ -67,7 +74,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
                 String numberAccountFirstPart = cardNumber.split(" ")[0];
                 String numberAccountSecondPart = cardNumber.split(" ")[3];
-                String nameAccount = "BA_" + numberAccountFirstPart + numberAccountSecondPart;
+                String nameAccount = CODE_NAME_ACCOUNT + numberAccountFirstPart + numberAccountSecondPart;
 
                 LOGGER.debug("Second step. Create bank account.");
                 BankAccount bankAccount = new BankAccount.Builder()
@@ -91,7 +98,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                 return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 
             } else {
-                request.getSession().setAttribute("messageErrorInsertNewCreditCard", "Error insert credit cards");
+                request.getSession().setAttribute(MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD, MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD_VALUE);
                 return PagePathConstantPool.ADD_NEW_CREDIT_CARD;
             }
 

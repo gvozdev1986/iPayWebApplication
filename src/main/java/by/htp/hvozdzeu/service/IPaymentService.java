@@ -11,10 +11,16 @@ import java.util.List;
 public interface IPaymentService {
 
     Payment create(Payment payment) throws DAOException;
+
     Payment update(Payment payment, Long id) throws DAOException;
+
     Payment findById(Long id) throws DAOException;
+
     List<Payment> read() throws DAOException;
+
     boolean deleteById(Long id) throws DAOException;
+
     List<PaymentReport> findPaymentByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement) throws DAOException;
+
     List<SumPaymentReportChartPie> findPaymentByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException;
 }
