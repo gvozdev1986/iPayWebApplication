@@ -11,6 +11,7 @@ public class DAOFactory {
     private static IPaymentDAO iPaymentDAO;
     private static IPaymentDataDAO iPaymentDataDAO;
     private static IMessageContactDAO iMessageContactDAO;
+    private static IMailAccountDAO iMailAccountDAO;
 
     static {
         iUserDAO = new UserCrudImpl();
@@ -19,6 +20,7 @@ public class DAOFactory {
         iPaymentDAO = new PaymentCrudImpl();
         iPaymentDataDAO = new PaymentDataCrudImpl();
         iMessageContactDAO = new MessageContactCrudImpl();
+        iMailAccountDAO = new MailAccountCrudImpl();
     }
 
 
@@ -47,6 +49,10 @@ public class DAOFactory {
 
     public static IMessageContactDAO getMessageContactDAO() {
         return iMessageContactDAO;
+    }
+
+    public static IMailAccountDAO getiMailAccountDAO() {
+        return iMailAccountDAO;
     }
 
 }

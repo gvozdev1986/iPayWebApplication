@@ -1,6 +1,5 @@
 package by.htp.hvozdzeu.util;
 
-import by.htp.hvozdzeu.web.command.impl.mail.MailThread;
 import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +12,16 @@ import java.util.Properties;
 public class MailSender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReplyEmailCommandImpl.class);
+    private static final String INIT_MAIL_PARAMETER = "mail";
 
     private MailSender() {
     }
 
-    public static void mailSender(HttpServletRequest request, String emailToReply, String subjectToReply, String messageToReply, String attachmentName){
+    public static void mailSender(HttpServletRequest request, String emailToReply, String subjectToReply, String messageToReply, String attachmentName) {
         try {
             Properties properties = new Properties();
             ServletContext context = request.getServletContext();
-            String filename = context.getInitParameter("mail");
+            String filename = context.getInitParameter(INIT_MAIL_PARAMETER);
             properties.load(context.getResourceAsStream(filename));
             MailThread mailThread = new MailThread(
                     emailToReply,
@@ -35,7 +35,6 @@ public class MailSender {
             LOGGER.error(e.getMessage());
         }
     }
-
 
 
 }

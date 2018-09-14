@@ -11,6 +11,7 @@ public class ServiceFactory {
     private static IPaymentService iPaymentService;
     private static IPaymentDataService iPaymentDataService;
     private static IMessageContactService iMessageContactService;
+    private static IMailAccountService iMailAccountService;
 
     static{
         iUserService = new UserServiceImpl();
@@ -19,6 +20,7 @@ public class ServiceFactory {
         iPaymentService = new PaymentServiceImpl();
         iPaymentDataService = new PaymentDataServiceImpl();
         iMessageContactService = new MessageContactServiceImpl();
+        iMailAccountService = new MailAccountServiceImpl();
     }
 
     private ServiceFactory() {
@@ -46,6 +48,10 @@ public class ServiceFactory {
 
     public static IMessageContactService getMessageContactService() {
         return iMessageContactService;
+    }
+
+    public static IMailAccountService getiMailAccountService() {
+        return iMailAccountService;
     }
 
 }
