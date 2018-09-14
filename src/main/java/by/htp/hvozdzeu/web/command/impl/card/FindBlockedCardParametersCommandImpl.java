@@ -10,6 +10,8 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PARAMETER;
+
 public class FindBlockedCardParametersCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
@@ -19,7 +21,7 @@ public class FindBlockedCardParametersCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		String param = request.getParameter("param");
+		String param = request.getParameter(PARAMETER);
 		List<CreditCard> creditBlockedCards = iCreditCardService.findBlockedByParameter(param);
 		request.getSession().setAttribute(LIST_BLOCKED_CREDIT_CARD, creditBlockedCards);
 		return PagePathConstantPool.BLOCKED_CREDIT_CARDS;

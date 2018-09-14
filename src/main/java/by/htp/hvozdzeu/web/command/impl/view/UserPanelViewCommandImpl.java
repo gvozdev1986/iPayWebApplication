@@ -13,6 +13,8 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+
 public class UserPanelViewCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
@@ -21,14 +23,14 @@ public class UserPanelViewCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long userId = user.getId();
 		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(userId);
 		List<PaymentData> paymentDates = iPaymentDataService.read();
 		
-		request.getSession().setAttribute("user", user);
-		request.getSession().setAttribute("cards", creditCards);
-		request.getSession().setAttribute("groups", paymentDates);
+		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
+		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
+		request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);
 		return PagePathConstantPool.LOAD_CLIENT_PANEL;
 
 	}

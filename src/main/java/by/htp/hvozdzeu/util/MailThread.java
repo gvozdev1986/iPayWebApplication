@@ -12,6 +12,7 @@ import java.util.Properties;
 public class MailThread extends Thread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailThread.class);
+    private static final String TYPE_CONTEXT = "text/html";
 
     private MimeMessage message;
     private String sendToEmail;
@@ -34,7 +35,7 @@ public class MailThread extends Thread {
         message = new MimeMessage(mailSession);
         try {
             message.setSubject(mailSubject);
-            message.setContent(mailText, "text/html");
+            message.setContent(mailText, TYPE_CONTEXT);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
 
             if(attachmentName != null){

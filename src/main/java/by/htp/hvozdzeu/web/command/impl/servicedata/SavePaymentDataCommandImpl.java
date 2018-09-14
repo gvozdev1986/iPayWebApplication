@@ -9,6 +9,8 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+
 public class SavePaymentDataCommandImpl implements BaseCommand {
 
     private IPaymentDataService iPaymentService = ServiceFactory.getPaymentDataService();
@@ -16,13 +18,13 @@ public class SavePaymentDataCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        String literalCode = request.getParameter("codeLC");
-        String numericCode = request.getParameter("serviceDateCode");
+        String literalCode = request.getParameter(REQUEST_PARAM_CODE_LC);
+        String numericCode = request.getParameter(REQUEST_PARAM_SERVICE_DATA_CODE);
 
         String serviceDateCode = literalCode + numericCode;
-        String serviceDateName = request.getParameter("serviceDateName");
-        String serviceDateGroup = request.getParameter("serviceDateGroup");
-        String serviceDataDescription = request.getParameter("serviceDataDescription");
+        String serviceDateName = request.getParameter(REQUEST_PARAM_DATE_NAME);
+        String serviceDateGroup = request.getParameter(REQUEST_PARAM_DATE_GROUP);
+        String serviceDataDescription = request.getParameter(REQUEST_PARAM_DATA_DESCRIPTION);
 
         PaymentData paymentData = new PaymentData.Builder()
                 .paymentDataCode(serviceDateCode)

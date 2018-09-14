@@ -4,13 +4,16 @@ public final class PagePathConstantPool {
 
 	private PagePathConstantPool() {
 
-	}	
-		
+	}
+
+    /**
+     * Redirect URL
+     */
 	public static final String REDIRECT_ADMIN_URL = "/ServletController?command=admin_panel_view";
 	public static final String REDIRECT_USER_URL = "/ServletController?command=client_panel_view";
 	public static final String REDIRECT_GUEST_URL = "/ServletController?command=redirect_guest";
 	public static final String REDIRECT_PAYMENT_DATA_LIST = "/ServletController?command=list_services_view";
-    public static final String REDIRECT_REGISTRATION_FORM = "/ServletController?command=login_page_view";
+    static final String REDIRECT_REGISTRATION_FORM = "/ServletController?command=login_page_view";
     public static final String REDIRECT_LIST_CARD_CLIENT = "/ServletController?command=credit_card_view";
     public static final String REDIRECT_PERSONAL_DATA_VIEW = "/ServletController?command=personal_data_view";
     public static final String REDIRECT_SAVE_PAY_PAYMENT = "/ServletController?command=payment_service_view";
@@ -18,11 +21,12 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_UPDATE_CLIENT_PSWD = "/ServletController?command=update_client_password_view";
     public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
     public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
-    public static final String REDIRECT_SUCCESS_REGISTRATION = "/ServletController?command=success_registration_view";
-
     public static final String REDIRECT_UPDATE_ADMIN_PSWD = "/ServletController?command=update_admin_password_view";
     public static final String REDIRECT_ADMIN_PERSONAL_DATA_VIEW = "/ServletController?command=admin_personal_data_view";
 
+    /**
+     * Forward URL
+     */
     public static final String REDIRECT_CHECK_ACCOUNT_VIEW = "/WEB-INF/success_check_account_view.jsp";
     public static final String SUCCESS_REGISTRATION_VIEW = "/WEB-INF/success_registration_view.jsp";
     public static final String ADD_NEW_CREDIT_CARD = "/WEB-INF/add_new_credit_card.jsp";
@@ -51,8 +55,6 @@ public final class PagePathConstantPool {
 	public static final String BLOCKED_CREDIT_CARDS = "/WEB-INF/list_blocked_cards.jsp";
     public static final String PAGE_ERROR = "/error/error.jsp";
     public static final String MESSAGE_DETAIL_VIEW = "/WEB-INF/message_detail_view.jsp";
-
-
     public static final String PERSONAL_ADMIN_DATA_VIEW = "/WEB-INF/admin_personal_data.jsp";
     public static final String UPDATE_ADMIN_PSWD_VIEW = "/WEB-INF/change_password_admin.jsp";
 

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static by.htp.hvozdzeu.web.util.PagePathConstantPool.REDIRECT_MESSAGE_DETAIL;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class ReplyEmailCommandImpl implements BaseCommand {
 
@@ -20,15 +21,15 @@ public class ReplyEmailCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        String messageId = request.getParameter("messageId");
-        String emailToReply = request.getParameter("emailToReply");
-        String subjectToReply = request.getParameter("subjectToReply");
-        String messageToReply = request.getParameter("messageToReply");
+        String messageId = request.getParameter(MESSAGE_ID);
+        String emailToReply = request.getParameter(EMAIL_TO_REPLY);
+        String subjectToReply = request.getParameter(EMAIL_SUBJECT);
+        String messageToReply = request.getParameter(EMAIL_MESSAGE);
 
         try {
             Properties properties = new Properties();
             ServletContext context = request.getServletContext();
-            String filename = context.getInitParameter("mail");
+            String filename = context.getInitParameter(MAIL);
             properties.load(context.getResourceAsStream(filename));
             MailThread mailThread = new MailThread(
                     emailToReply,
@@ -42,7 +43,7 @@ public class ReplyEmailCommandImpl implements BaseCommand {
             LOGGER.error(e.getMessage());
         }
 
-        return REDIRECT_MESSAGE_DETAIL + "&messageId=" + messageId;
+        return REDIRECT_MESSAGE_DETAIL + PART_URL_PARAMETER + messageId;
 
     }
 }

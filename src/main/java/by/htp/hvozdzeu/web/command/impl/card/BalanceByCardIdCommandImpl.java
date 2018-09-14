@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+
 public class BalanceByCardIdCommandImpl implements BaseCommand {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(BalanceByCardIdCommandImpl.class);
@@ -25,19 +27,19 @@ public class BalanceByCardIdCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 		
-		Long cardId = Long.valueOf(request.getParameter("cardId"));
+		Long cardId = Long.valueOf(request.getParameter(REQUEST_CARD_ID));
 		LOGGER.info("GET BALANCE CARD BY ID {}", cardId);
 		
 		BankAccount bankAccount = iBankAccountService.findByCardId(cardId);
 		
 		LOGGER.info("BANK ACCOUNT {}", bankAccount);
 		
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
 		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
 
-		request.getSession().setAttribute("bankAccount", bankAccount);
-		request.setAttribute("cards", creditCards);
+		request.getSession().setAttribute(REQUEST_BANK_ACCOUNT, bankAccount);
+		request.setAttribute(REQUEST_CARDS, creditCards);
 		return PagePathConstantPool.CREDIT_CARD_VIEW;
 	}
 

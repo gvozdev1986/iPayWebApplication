@@ -10,6 +10,9 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PARAMETER;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_USERS;
+
 public class FindClientByParametersCommandImpl implements BaseCommand {
 
 	private IUserService iUsertService = ServiceFactory.getUserService();
@@ -17,9 +20,9 @@ public class FindClientByParametersCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		String param = request.getParameter("param");
+		String param = request.getParameter(PARAMETER);
 		List<User> creditCards = iUsertService.findByParameter(param);
-		request.getSession().setAttribute("users", creditCards);
+		request.getSession().setAttribute(REQUEST_USERS, creditCards);
 		return PagePathConstantPool.LIST_CLIENT_VIEW;
 
 	}

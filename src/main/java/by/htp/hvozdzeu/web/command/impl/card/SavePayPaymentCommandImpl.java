@@ -17,61 +17,69 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+
 public class SavePayPaymentCommandImpl implements BaseCommand {
 
-	private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
-	private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
-	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-	private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private static final String MESSAGE_SAVE_PAYMENT = "messageSavePayment";
 
-	@Override
-	public String executeCommand(HttpServletRequest request) throws CommandException {
+    private static final String MESSAGE_SAVE_SUCCESSFUL = "The operation was successful.";
+    private static final String MESSAGE_SAVE_INSUFFICIENT = "Insufficient funds.";
+    private static final String MESSAGE_SAVE_NOT_RIGHT_CODE = "Not right security code.";
 
-		Long cardId = Long.valueOf(request.getParameter("idCard"));
-		Long serviceId = Long.valueOf(request.getParameter("idService"));
-		BigDecimal sum = new BigDecimal(request.getParameter("sum"));
-		String description = request.getParameter("description");
-		String verifyCode = request.getParameter("code");
+    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
+    private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
+    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+    private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
 
-		CreditCard creditCard = iCreditCardService.findById(cardId);
-		String vCode = creditCard.getVerifyCode();
+    @Override
+    public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		BankAccount bankAccount = iBankAccountService.findByCardId(cardId);
-		BigDecimal balance = bankAccount.getBalanceBankAccount();
-		Long bankAccountId = bankAccount.getId();
+        Long cardId = Long.valueOf(request.getParameter(REQUEST_ID_CARD));
+        Long serviceId = Long.valueOf(request.getParameter(REQUEST_ID_SERVICE));
+        BigDecimal sum = new BigDecimal(request.getParameter(SUM));
+        String description = request.getParameter(DESCRIPTION);
+        String verifyCode = request.getParameter(CODE);
 
-		if (verifyCode.equals(vCode)) {
+        CreditCard creditCard = iCreditCardService.findById(cardId);
+        String vCode = creditCard.getVerifyCode();
 
-			if (balance.intValue() > sum.intValue()) {
-				Payment payment = new Payment.Builder().datePayment(new Date(System.currentTimeMillis()).toLocalDate())
-						.timePayment(new Time(System.currentTimeMillis()).toLocalTime()).descriptionPayment(description)
-						.paymentService(serviceId).amountPayment(sum).creditCard(cardId).build();
-				iPaymentService.create(payment);
+        BankAccount bankAccount = iBankAccountService.findByCardId(cardId);
+        BigDecimal balance = bankAccount.getBalanceBankAccount();
+        Long bankAccountId = bankAccount.getId();
 
-				BigDecimal newBalance = balance.subtract(sum);
+        if (verifyCode.equals(vCode)) {
 
-				iBankAccountService.updateBalance(newBalance, bankAccountId);
+            if (balance.intValue() > sum.intValue()) {
+                Payment payment = new Payment.Builder().datePayment(new Date(System.currentTimeMillis()).toLocalDate())
+                        .timePayment(new Time(System.currentTimeMillis()).toLocalTime()).descriptionPayment(description)
+                        .paymentService(serviceId).amountPayment(sum).creditCard(cardId).build();
+                iPaymentService.create(payment);
 
-				User user = (User) request.getSession().getAttribute("user");
-				Long clientId = user.getId();
-				List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
-				List<PaymentData> paymentDates = iPaymentDataService.read();
-				request.getSession().setAttribute("user", user);
-				request.getSession().setAttribute("cards", creditCards);
-				request.getSession().setAttribute("groups", paymentDates);
-				request.getSession().setAttribute("messageSavePayment", "The operation was successful.");
-				return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+                BigDecimal newBalance = balance.subtract(sum);
 
-			} else {
-				request.getSession().setAttribute("messageSavePayment", "Insufficient funds.");
-				return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
-			}
+                iBankAccountService.updateBalance(newBalance, bankAccountId);
 
-		} else {
-			request.getSession().setAttribute("messageSavePayment", "Not right security code.");
-		}
+                User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
+                Long clientId = user.getId();
+                List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
+                List<PaymentData> paymentDates = iPaymentDataService.read();
+                request.getSession().setAttribute(REQUEST_PARAM_USER, user);
+                request.getSession().setAttribute(REQUEST_CARDS, creditCards);
+                request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);
+                request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_SUCCESSFUL);
+                return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
 
-		return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
-	}
+            } else {
+                request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_INSUFFICIENT);
+                return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+            }
+
+        } else {
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_NOT_RIGHT_CODE);
+        }
+
+        return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+    }
 
 }

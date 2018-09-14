@@ -146,7 +146,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 	}
 
 	@Override
-	public List<PaymentReport> findPaynemtByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement)
+	public List<PaymentReport> findPaymentByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement)
 			throws DAOException {
 		List<PaymentReport> payments = new ArrayList<>();
 		PaymentReport paymentReport;
@@ -172,7 +172,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 	}
 
 	@Override
-	public List<SumPaymentReportChartPie> findPaynemtByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException {
+	public List<SumPaymentReportChartPie> findPaymentByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException {
 		List<SumPaymentReportChartPie> sumPaymentReportChartPies = new ArrayList<>();
 		SumPaymentReportChartPie sumPaymentReportChartPie;
 		Connection connection = dataBaseConnection.getConnection();

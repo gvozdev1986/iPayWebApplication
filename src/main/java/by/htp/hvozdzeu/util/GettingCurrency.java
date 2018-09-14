@@ -27,6 +27,8 @@ public class GettingCurrency {
     private static final String URL_API_EUR_CURRENCY = "http://www.nbrb.by/API/ExRates/Rates/EUR?ParamMode=2";
     private static final String URL_API_RUB_CURRENCY = "http://www.nbrb.by/API/ExRates/Rates/RUB?ParamMode=2";
     private static final String URL_API_UAH_CURRENCY = "http://www.nbrb.by/API/ExRates/Rates/UAH?ParamMode=2";
+    private static final String NODE_JSON_OBJECT_ABBREVIATION = "Cur_Abbreviation";
+    private static final String NODE_JSON_OBJECT_OFFICIAL_RATE = "Cur_OfficialRate";
 
     private static Map<String, String> currencyMap = new HashMap<>();
 
@@ -51,8 +53,8 @@ public class GettingCurrency {
             while ((inputLine = in.readLine()) != null) {
                 JsonElement jsonParser = new JsonParser().parse(inputLine);
                 JsonObject jsonObject = jsonParser.getAsJsonObject();
-                String currencyName = jsonObject.get("Cur_Abbreviation").getAsString();
-                String currencyValue = jsonObject.get("Cur_OfficialRate").getAsString();
+                String currencyName = jsonObject.get(NODE_JSON_OBJECT_ABBREVIATION).getAsString();
+                String currencyValue = jsonObject.get(NODE_JSON_OBJECT_OFFICIAL_RATE).getAsString();
                 LOGGER.debug("Getting currency {} with currency value {}", currencyName, currencyValue);
                 currencyMap.put(currencyName, currencyValue);
             }

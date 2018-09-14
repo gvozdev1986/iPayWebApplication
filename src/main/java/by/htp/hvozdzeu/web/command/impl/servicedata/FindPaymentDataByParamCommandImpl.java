@@ -10,16 +10,18 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PARAMETER;
+
 public class FindPaymentDataByParamCommandImpl implements BaseCommand {
 
     private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
-
+    private static final String MESSAGE_PAYMENT_DATE = "paymentData";
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        String param = request.getParameter("param");
+        String param = request.getParameter(PARAMETER);
         List<PaymentData> paymentData = iPaymentDataService.findByParameter(param);
-        request.getSession().setAttribute("paymentData", paymentData);
+        request.getSession().setAttribute(MESSAGE_PAYMENT_DATE, paymentData);
         return PagePathConstantPool.LIST_SERVICE_VIEW;
     }
 }

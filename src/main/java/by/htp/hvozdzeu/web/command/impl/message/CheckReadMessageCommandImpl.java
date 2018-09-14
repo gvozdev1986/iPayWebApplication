@@ -9,6 +9,7 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 
 import static by.htp.hvozdzeu.web.counting.CountUnreadMessage.countUnreadMessage;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.MESSAGE_ID;
 
 public class CheckReadMessageCommandImpl implements BaseCommand {
 
@@ -18,7 +19,7 @@ public class CheckReadMessageCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Long messageId = Long.valueOf(request.getParameter("messageId"));
+        Long messageId = Long.valueOf(request.getParameter(MESSAGE_ID));
         iMessageContactService.checkMessageAsRead(messageId);
 
         request.getSession().setAttribute(COUNT_MESSAGES_ATTRIBUTE_NAME, countUnreadMessage());

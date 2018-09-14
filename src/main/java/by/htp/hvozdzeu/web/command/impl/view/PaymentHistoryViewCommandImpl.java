@@ -9,8 +9,10 @@ import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.util.List;
+
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARDS;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_PARAM_USER;
 
 public class PaymentHistoryViewCommandImpl implements BaseCommand {
 
@@ -19,12 +21,12 @@ public class PaymentHistoryViewCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
 		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
 
-		request.getSession().setAttribute("user", user);
-		request.getSession().setAttribute("cards", creditCards);
+		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
+		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
 		return PagePathConstantPool.PAYMENT_HISTORY_VIEW;
 
 	}

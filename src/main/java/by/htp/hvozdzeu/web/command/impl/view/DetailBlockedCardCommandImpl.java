@@ -11,6 +11,9 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARD_ID;
+
 public class DetailBlockedCardCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
@@ -19,13 +22,13 @@ public class DetailBlockedCardCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		Long cardId = Long.valueOf(request.getParameter("cardId"));
+		Long cardId = Long.valueOf(request.getParameter(REQUEST_CARD_ID));
 
 		CreditCard creditCard = iCreditCardService.findById(cardId);
 		BankAccount bankAccount = iBankAccountService.findByCardId(cardId);
 
-		request.getSession().setAttribute("bankAccount", bankAccount);
-		request.getSession().setAttribute("creditCard", creditCard);
+		request.getSession().setAttribute(REQUEST_BANK_ACCOUNT, bankAccount);
+		request.getSession().setAttribute(CREDIT_CARD, creditCard);
 		return PagePathConstantPool.DETAIL_BLOCKED_CARD;
 	}
 
