@@ -17,6 +17,9 @@ import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.FORMAT_FILE_EXCEL;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PATH_TO_SAVE_REPORT;
+
 public class GenerateReportPaymentExcelTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenerateReportPaymentExcelTest.class);
@@ -41,7 +44,7 @@ public class GenerateReportPaymentExcelTest {
     @Test
     public void generateExcelReport() {
         try {
-            String filename = "E:/PaymentHistory_" + cardId + ".xls";
+            String filename = PATH_TO_SAVE_REPORT + cardId + FORMAT_FILE_EXCEL;
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("Payment report");
 

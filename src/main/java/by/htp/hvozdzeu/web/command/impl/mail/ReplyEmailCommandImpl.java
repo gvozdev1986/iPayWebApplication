@@ -1,5 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.mail;
 
+import by.htp.hvozdzeu.util.MailThread;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import org.slf4j.Logger;

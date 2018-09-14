@@ -28,5 +28,11 @@ public final class WebConstantDeclaration {
 	public static final String REQUEST_PARAM_MOBILE_PHONE = "mobile_phone";
 	public static final String REQUEST_PARAM_EMAIL = "email";
 	public static final String REQUEST_PARAM_ADDRESS = "address";
+	public static final String CARD_ID = "cardId";
+	public static final String DATE_START = "dateStart";
+	public static final String DATE_END = "dateEnd";
+
+	public static final String PATH_TO_SAVE_REPORT = "E:/PaymentHistory_";
+	public static final String FORMAT_FILE_EXCEL = ".xls";
 
 }

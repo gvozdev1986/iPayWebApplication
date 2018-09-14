@@ -1,4 +1,4 @@
-package by.htp.hvozdzeu.web.command.impl.mail;
+package by.htp.hvozdzeu.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,20 +37,15 @@ public class MailThread extends Thread {
             message.setContent(mailText, "text/html");
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
 
-
             if(attachmentName != null){
-                // Set the email attachment file
                 FileDataSource fileDataSource = new FileDataSource(attachmentName);
                 MimeBodyPart attachmentPart = new MimeBodyPart();
                 attachmentPart.setDataHandler(new DataHandler(fileDataSource));
                 attachmentPart.setFileName(fileDataSource.getName());
-                // Create Multipart E-Mail.
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(attachmentPart);
                 message.setContent(multipart);
             }
-
-
 
         } catch (AddressException e) {
             LOGGER.error("Invalid address: {} ", e.getMessage());

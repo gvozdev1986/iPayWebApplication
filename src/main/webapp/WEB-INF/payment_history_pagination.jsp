@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="user_navbar.jsp"/>
 <style>
     .btn-success {
@@ -32,6 +33,11 @@
         background: #eee
     }
 
+    .send-report {
+        font-size: 11px;
+        font-weight: 600;
+        color: #00ad7e;
+    }
     ​
 </style>
 <div class="container-fluid">
@@ -142,7 +148,7 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <span>${messageReport}</span>
+                <p class="send-report"><fmt:message key="${successful_send_report_email}"/></p>
             </div>
             <!-- PAGINATION -->
             <jsp:include page="pagination.jsp"/>
