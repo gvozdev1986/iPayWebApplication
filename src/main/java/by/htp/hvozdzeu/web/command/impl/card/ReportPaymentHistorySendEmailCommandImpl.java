@@ -17,21 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 
-import static by.htp.hvozdzeu.util.DeleteReportFileAfterSending.deleteFileAfterSending;
 import static by.htp.hvozdzeu.util.GenerateReportPaymentExcel.generateExcelReport;
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportPaymentHistorySendEmailCommandImpl.class);
-    private IUserService iUserService = ServiceFactory.getUserService();
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
     private static final Integer MAX_COUNT_ROW_REPORT = 1000000000;
     private static final Integer MIN_COUNT_ROW_REPORT = 0;
     private static final String MESSAGE_ATTR_NAME = "messageReport";
     private static final String MESSAGE_VALUE = "successful_send_report_email";
+    private IUserService iUserService = ServiceFactory.getUserService();
+    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -43,12 +43,13 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
         CreditCard creditCard = iCreditCardService.findById(cardId);
         User user = iUserService.findById(creditCard.getClient());
 
-        List<PaymentReport> paymentReports = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, MAX_COUNT_ROW_REPORT, MIN_COUNT_ROW_REPORT);
+        List<PaymentReport> paymentReports = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart,
+                dateEnd, MAX_COUNT_ROW_REPORT, MIN_COUNT_ROW_REPORT);
 
         generateExcelReport(paymentReports, cardId, dateStart, dateEnd);
 
         String emailToReply = user.getEmail();
-        String subjectToReply = generateSubjectEmail(dateStart, dateEnd);
+        String subjectToReply = generateSubjectEmail(dateStart, dateEnd, creditCard.getCardNumber());
         String messageToReply = "";
         String attachmentName = generateAttachmentName(cardId);
 
@@ -63,11 +64,12 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
 
     }
 
-    private String generateSubjectEmail(LocalDate dateStart, LocalDate dateEnd){
-        return "Payment history report from " + dateStart + " to " + dateEnd;
+    private String generateSubjectEmail(LocalDate dateStart, LocalDate dateEnd, String creditCardNumber) {
+        return "Payment history report from " + dateStart + " to " + dateEnd
+                + ". Card number # " + hideSymbolsCreditCard(creditCardNumber);
     }
 
-    private String generateAttachmentName(Long cardId){
+    private String generateAttachmentName(Long cardId) {
         return PATH_TO_SAVE_REPORT + cardId + FORMAT_FILE_EXCEL;
     }
 
