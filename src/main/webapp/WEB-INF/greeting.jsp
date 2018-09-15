@@ -2,7 +2,7 @@
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="date" class="java.util.Date" />
+<jsp:useBean id="date" class="java.util.Date"/>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="head.jsp"/>
@@ -58,65 +58,6 @@
 </div>
 <div class="container">
     <div class="card my-2" style="border: 1px solid #00ad7e;">
-        <div class="row" style="padding: 5px;">
-            <div class="col-xl-5">
-                <div class="row">
-                    <div class="col-lg-6 my-1">
-                        <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (<fmt:message key="usd"/>)</div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: right;">$ ${currencyMap.USD}<span
-                                        style="font-size: 12px;">/1</span></h5>
-                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 my-1">
-                        <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (<fmt:message key="eur"/>)</div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: right;">&#8364; ${currencyMap.EUR}<span
-                                        style="font-size: 12px;">/1</span></h5>
-                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 my-1">
-                        <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (<fmt:message key="rus"/>)
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: right;">P ${currencyMap.RUB}<span
-                                        style="font-size: 12px;">/100</span></h5>
-                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 my-1">
-                        <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (<fmt:message key="uah"/>)
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: right;">&#8372; ${currencyMap.UAH}<span
-                                        style="font-size: 12px;">/100</span></h5>
-                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd" /></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 my-1">
-                <div class="card" style="border: 1px solid #00ad7e;">
-                    <div class="card-body">
-                        Some information
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card my-2" style="border: 1px solid #00ad7e;">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 col-sm-6">
@@ -139,9 +80,80 @@
                     <div class="progress green">
                         <span class="progress-left"><span class="progress-bar"></span></span>
                         <span class="progress-right"><span class="progress-bar"></span></span>
-                        <div class="progress-value">17</div>
+                        <div class="progress-value">${countService}</div>
                     </div>
-                    <p style="width: 100%; text-align: center;">Some content.</p>
+                    <p style="width: 100%; text-align: center;">Count services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card my-2" style="border: 1px solid #00ad7e;">
+        <div class="row" style="padding: 5px;">
+            <div class="col-xl-5">
+                <div class="row">
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (<fmt:message
+                                    key="usd"/>)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: right;">$ ${currencyMap.USD}<span
+                                        style="font-size: 12px;">/1</span></h5>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}"
+                                                                                                pattern="yyyy-MM-dd"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (<fmt:message
+                                    key="eur"/>)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: right;">&#8364; ${currencyMap.EUR}<span
+                                        style="font-size: 12px;">/1</span></h5>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}"
+                                                                                                pattern="yyyy-MM-dd"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (<fmt:message
+                                    key="rus"/>)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: right;">P ${currencyMap.RUB}<span
+                                        style="font-size: 12px;">/100</span></h5>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}"
+                                                                                                pattern="yyyy-MM-dd"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 my-1">
+                        <div class="card widget-flat back-st">
+                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (<fmt:message
+                                    key="uah"/>)
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: right;">&#8372; ${currencyMap.UAH}<span
+                                        style="font-size: 12px;">/100</span></h5>
+                                <span class="card-text" style="font-size: 9px;"><fmt:formatDate value="${date}"
+                                                                                                pattern="yyyy-MM-dd"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 my-1">
+                <div class="card" style="border: 1px solid #00ad7e;">
+                    <div class="card-body">
+                        <div class="card-style">
+                            <div id='gmap_canvas' style='height:440px;width:700px;'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,8 +244,3 @@
     </div>
     <ctg:greeting_footer/>
 </footer>
-
-
-
-
-
