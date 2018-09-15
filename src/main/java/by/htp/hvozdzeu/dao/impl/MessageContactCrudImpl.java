@@ -88,11 +88,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     @Override
     public MessageContact create(MessageContact entity) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
-        try {
-            connection.setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        //connection.setAutoCommit(false);
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             preparedStatement.setString(1, entity.getNameContact());
             preparedStatement.setDate(2, Date.valueOf(LocalDate.now()));
@@ -104,11 +100,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            //connection.rollback();
             throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);

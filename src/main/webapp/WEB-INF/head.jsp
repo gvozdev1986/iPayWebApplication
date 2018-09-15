@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="css/anim.css">
 
+<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+
 <script src="js/Chart.js"></script>
 
 <script src="js/app.js"></script>
