@@ -12,10 +12,10 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
-import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARDS;
-import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_CARD_ID;
-import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_PARAM_USER;
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class BlockCardCommandImpl implements BaseCommand {
 
@@ -35,12 +35,14 @@ public class BlockCardCommandImpl implements BaseCommand {
         CreditCard creditCard = iCreditCardService.findById(cardId);
 
 		String emailToReply = user.getEmail();
-		String subjectToReply = "Information about blocked credit card.";
-		String messageToReply = "Hello. Your card # " + creditCard.getCardNumber()
-				+ " has been blocked. For additional information," +
-				" please return to administrator.";
-		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+		String subjectToReply = "Information about blocking credit card.";
 
+		String message = "Your card # " + hideSymbolsCreditCard(creditCard.getCardNumber())
+                + " has been blocked. For additional information," +
+                " please return to administrator.";
+
+		String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 		request.setAttribute(REQUEST_CARDS, creditCards);
 		return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;

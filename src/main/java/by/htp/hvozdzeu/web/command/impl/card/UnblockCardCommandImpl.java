@@ -12,6 +12,8 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 
 public class UnblockCardCommandImpl implements BaseCommand{
@@ -33,10 +35,12 @@ public class UnblockCardCommandImpl implements BaseCommand{
         User user = iUserService.findById(creditCard.getClient());
 
 		String emailToReply = user.getEmail();
-		String subjectToReply = "Information about blocked credit card.";
-		String messageToReply = "Hello. Your card # " + creditCard.getCardNumber()
-				+ " has been unblocked. For additional information," +
-				" please return to administrator.";
+		String subjectToReply = "Information about unblocking credit card.";
+		String message = "Your card # " + hideSymbolsCreditCard(creditCard.getCardNumber())
+				+ " has been unblocked. You can use you credit card in our system."
+                + " For additional information please return to administrator.";
+
+		String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
 		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 		request.getSession().setAttribute(COUNT_BLOCKED_CREDIT_CARD, countBlockedCreditCard);

@@ -18,6 +18,10 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
+import static by.htp.hvozdzeu.util.MailSender.mailSender;
+
 public class SaveTransferCommandImpl implements BaseCommand {
 
 	private static final String NON_ANOTHER_CARD = "0000 0000 0000 0000";
@@ -88,6 +92,14 @@ public class SaveTransferCommandImpl implements BaseCommand {
 							List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
 							List<PaymentData> paymentDatas = iPaymentDataService.read();
 
+							String emailToReply = user.getEmail();
+							String subjectToReply = "Information about the write-off of funds on your credit card.";
+							String message = "Hello. " +
+									"From your card # " + hideSymbolsCreditCard(cardFrom.getCardNumber()) + " has been wrote " +
+									"" + sum + " for " + description;
+							String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+							mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+
 							request.getSession().setAttribute("user", user);
 							request.getSession().setAttribute("cards", creditCards);
 							request.getSession().setAttribute("groups", paymentDatas);
@@ -156,6 +168,14 @@ public class SaveTransferCommandImpl implements BaseCommand {
 							Long clientId = user.getId();
 							List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
 							List<PaymentData> paymentDatas = iPaymentDataService.read();
+
+							String emailToReply = user.getEmail();
+							String subjectToReply = "Information about the write-off of funds on any credit card.";
+							String message = "Hello. " +
+									"From your card # " + hideSymbolsCreditCard(cardFrom.getCardNumber()) + " has been wrote " +
+									"" + sum + " for " + description;
+							String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+							mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 							request.getSession().setAttribute("user", user);
 							request.getSession().setAttribute("cards", creditCards);

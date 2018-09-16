@@ -9,6 +9,11 @@
     color: #ffffff;
 }
 
+.card-style-img {
+    width: 25px;
+    margin-top: -4px;
+}
+
 .card-style {
     overflow: hidden;
     height: 35%;
@@ -230,6 +235,63 @@
     background-color: #00ad7e;
     color: #ffffff;
 }
+
+
+.custome-flash {
+    box-shadow: 0 0 20px rgba(0, 173, 126, 5);
+    animation: myfirst 5s linear 0s infinite alternate;
+    -webkit-animation: myfirst 1s linear 0s infinite alternate;
+}
+
+@keyframes myfirst {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+    }
+    50% {
+        box-shadow: 0020 pxrgba(255, 255, 255, .5);
+    }
+    100% {
+        box-shadow: 0020 pxrgba(0, 173, 126, .5);
+    }
+}
+
+@-webkit-keyframes myfirst {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 173, 126, .5);
+    }
+    50% {
+        box-shadow: 0020 pxrgba(255, 255, 255, .5);
+    }
+    100% {
+        box-shadow: 0020 pxrgba(0, 173, 126, .5);
+    }
+}
+
+
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-button {
+    background: #ccc
+}
+
+::-webkit-scrollbar-track-piece {
+    background: #888
+}
+
+::-webkit-scrollbar-thumb {
+    background: #eee
+}
+
+.credit-card-form {
+    border-color: #00ad7e;
+    width: 100%;
+}
+
+​
 
 
 

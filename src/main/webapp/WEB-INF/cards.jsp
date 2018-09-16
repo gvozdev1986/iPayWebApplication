@@ -1,81 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
-<style>
-    .custome-flash {
-        box-shadow: 0 0 20px rgba(0, 173, 126, 5);
-        animation: myfirst 5s linear 0s infinite alternate;
-        -webkit-animation: myfirst 1s linear 0s infinite alternate;
-    }
-
-    @keyframes myfirst {
-        0% {
-            box-shadow: 0 0 20px rgba(0, 173, 126, .5);
-        }
-        50% {
-            box-shadow: 0020 pxrgba(255, 255, 255, .5);
-        }
-        100% {
-            box-shadow: 0020 pxrgba(0, 173, 126, .5);
-        }
-    }
-
-    @-webkit-keyframes myfirst {
-        0% {
-            box-shadow: 0 0 20px rgba(0, 173, 126, .5);
-        }
-        50% {
-            box-shadow: 0020 pxrgba(255, 255, 255, .5);
-        }
-        100% {
-            box-shadow: 0020 pxrgba(0, 173, 126, .5);
-        }
-    }
-
-    .card-style {
-        height: 20px;
-        width: 27px;
-        margin-top: -3px;
-    }
-
-    ::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
-    }
-
-    ::-webkit-scrollbar-button {
-        background: #ccc
-    }
-
-    ::-webkit-scrollbar-track-piece {
-        background: #888
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #eee
-    }
-
-    .credit-card-form {
-        border-color: #00ad7e;
-        width: 100%;
-    }
-
-    ​
-</style>
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
         <jsp:include page="user_menu.jsp"/>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">
                     <fmt:message key="credit_card_label"/>
                 </h1>
@@ -95,15 +30,12 @@
                     </div>
                 </div>
             </form>
-
             <div class="container" style="height: 60%; overflow-y: scroll;">
                 <div class="row">
                     <c:forEach items="${cards}" var="creditCards">
                         <div class="col-md-4">
-                            <div class="card mb-4 shadow-sm credit-card-form">
-                                <div class="card-header"
-                                     style="height: 150px; width: 100%; display: block; border-color: #00ad7e;"
-                                     data-holder-rendered="true">
+                            <div class="card mb-4 shadow-sm credit-card-form" style="border-color: #00ad7e;">
+                                <div class="card-header" style="height: 150px; width: 100%; display: block; border-color: #00ad7e;" data-holder-rendered="true">
                                     <div class="form-row" style="height: 25px;">
                                         <div class="form-group col-md-6">
                                             <c:if test="${creditCards.block}">
@@ -114,9 +46,7 @@
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label style="text-align: right; width: 100%;">${creditCards.typeCard}
-                                                <img class="card-style" src="img/${creditCards.typeCard}.png"
-                                                     alt="card"></label>
+                                            <label style="text-align: right; width: 100%;">${creditCards.typeCard}<img style="width: 25px; margin-top: -4px;" src="img/${creditCards.typeCard}.png" alt="card"></label>
                                         </div>
                                     </div>
                                     <div class="form-row" style="height: 50px;">

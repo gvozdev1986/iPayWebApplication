@@ -52,8 +52,7 @@
 				</tr>
 				<tr>
 					<td>Type of card</td>
-					<td><img class="card-style"
-						src="img/${creditCard.typeCard}.png" alt="card">
+					<td><img style="height: 20px; width: 28px; margin-top: -3px; margin-left: -2px;" src="img/${creditCard.typeCard}.png" alt="card">
 						${creditCard.typeCard}</td>
 				</tr>
 				<tr>

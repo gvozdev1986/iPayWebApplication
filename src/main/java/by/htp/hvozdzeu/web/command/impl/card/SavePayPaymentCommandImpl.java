@@ -17,6 +17,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
+import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SavePayPaymentCommandImpl implements BaseCommand {
@@ -59,8 +62,19 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
                 BigDecimal newBalance = balance.subtract(sum);
 
                 iBankAccountService.updateBalance(newBalance, bankAccountId);
-
                 User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
+
+
+                String emailToReply = user.getEmail();
+                String subjectToReply = "Information about the write-off of funds.";
+                String message = "Hello. " +
+                        "From your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been wrote " +
+                        "" + sum + " for " + description;
+
+                String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+                mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+
+
                 Long clientId = user.getId();
                 List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
                 List<PaymentData> paymentDates = iPaymentDataService.read();
