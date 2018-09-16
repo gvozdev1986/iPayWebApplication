@@ -101,7 +101,7 @@
                     </c:if>
                     <div class="form-inline">
                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
-                                type="submit" name="command" value="log_out">
+                                type="button" name="command" value="log_out">
                             <i class="fas fa-undo"></i>
                             <fmt:message key="login_cancel"/>
                         </button>

@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
@@ -89,11 +91,14 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
                 String emailToReply = user.getEmail();
                 String subjectToReply = "Information about insert new credit card.";
-                String messageToReply = "Hello. " +
-                        "Your card # " + creditCard.getCardNumber() + " has been inserted. " +
-                        "And create new bank account [" + nameAccount + "] with code your locale position. " +
+                String message = "Hello. " +
+                        "Your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been inserted. " +
+                        "And create new bank account [" + nameAccount + "]. " +
                         "For additional information, please return to administrator.";
+
+                String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
                 mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+
 
                 return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 

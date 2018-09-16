@@ -180,7 +180,7 @@
                         <input type="tel"
                                class="form-control"
                                id="home_phone"
-                               placeholder="<fmt:message key="form_home_phone" />"
+                               placeholder="0-000-000-00-00"
                                value="${returnValidateErrorMap.returnHomePhoneValidateError}"
                                name="home_phone"
                                required>
@@ -191,7 +191,7 @@
                         <input type="tel"
                                class="form-control"
                                id="mobile_phone"
-                               placeholder="<fmt:message key="form_mobile_phone" />"
+                               placeholder="0-000-000-00-00"
                                value="${returnValidateErrorMap.returnMobilePhoneValidateError}"
                                name="mobile_phone"
                                required>

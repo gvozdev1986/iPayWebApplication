@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.HttpRequestParamValidator.*;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SaveRegistrationCommandImpl implements BaseCommand {
-
-
 
     private IUserService iUserService = ServiceFactory.getUserService();
     private RebasePassword rebasePassword = new RebasePassword();
@@ -56,12 +56,17 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
             iUserService.create(user);
 
             String emailToReply = request.getParameter(REQUEST_PARAM_EMAIL);
+            String lastName = request.getParameter(REQUEST_PARAM_LAST_NAME);
+            String firstName = request.getParameter(REQUEST_PARAM_FIRST_NAME);
+            String patronymic = request.getParameter(REQUEST_PARAM_PATRONYMIC);
             String subjectToReply = "Registration new client.";
-            String messageToReply = "Hello. " +
-                                    "You create new account in iPayWebApplication. " +
-                                    "To verify your account, click the link. " +
-                                    "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
-                                    " You can correct all information in your account.";
+            String message = "Hello. " +
+                    "You create new account in iPayWebApplication. " +
+                    "To verify your account, click the link. " +
+                    "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
+                    " You can correct all information in your account.";
+
+            String messageToReply = mailConstructor(lastName, firstName, patronymic, message);
             mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
             return PagePathConstantPool.SUCCESS_REGISTRATION_VIEW;
