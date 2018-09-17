@@ -5,7 +5,7 @@ import by.htp.hvozdzeu.web.command.impl.authorization.LogInCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.authorization.LogOutCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.card.*;
 import by.htp.hvozdzeu.web.command.impl.locale.LocalizationCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.message.ReplyEmailCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.BackDetailMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.CheckReadMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;

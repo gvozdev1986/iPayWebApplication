@@ -26,49 +26,122 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
             + ") " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
-            + "`CardFirstName`= ?, `CardLastName`= ? WHERE  `Id`= ?;";
+            + "`CardFirstName`= ?, "
+            + "`CardLastName`= ? WHERE  `Id`= ?;";
 
-    private static final String SQL_READ = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, " + "`CardFirstName`, "
-            + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, " + "`Block`, " + "`Available` "
+    private static final String SQL_READ = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard`;";
 
-    private static final String SQL_FIND_BY_ID = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, "
-            + "`CardFirstName`, " + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, "
-            + "`Block`, " + "`Available` " + "FROM `ipaywebapplication`.`creditcard` WHERE `id` = ?;";
+    private static final String SQL_FIND_BY_ID = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
+            + "FROM `ipaywebapplication`.`creditcard` WHERE `id` = ?;";
 
-    private static final String SQL_FIND_BY_CREDIT_CARD_NUMBER = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, "
-            + "`CardFirstName`, " + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, "
-            + "`Block`, " + "`Available` " + "FROM `ipaywebapplication`.`creditcard` WHERE `CardNumber` = ?;";
+    private static final String SQL_FIND_BY_CREDIT_CARD_NUMBER = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
+            + "FROM `ipaywebapplication`.`creditcard` WHERE `CardNumber` = ?;";
 
     private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
             + "`Available`= 0 WHERE  `Id`= ?; ";
 
-    private static final String SQL_FIND_BY_CLIENT_ID = "SELECT " + "creditcard.Id, " + "CardNumber, "
-            + "CardFirstName, " + "CardLastName, " + "ValidDate, " + "TypeCard, " + "VerifyCode, " + "Block, "
-            + "BalanceBankAccount, " + "NameAccount "
+    private static final String SQL_FIND_BY_CLIENT_ID = "SELECT "
+            + "creditcard.Id, "
+            + "CardNumber, "
+            + "CardFirstName, "
+            + "CardLastName, "
+            + "ValidDate, "
+            + "TypeCard, "
+            + "VerifyCode, "
+            + "Block, "
+            + "BalanceBankAccount, "
+            + "NameAccount "
             + "FROM creditcard JOIN bankaccount ON bankaccount.CreditCard = creditcard.Id WHERE creditcard.Client = ?;";
 
     private static final String SQL_BLOCK_CARD = "UPDATE `ipaywebapplication`.`creditcard` SET `Block`='1' WHERE `Id`= ?;";
 
     private static final String SQL_UNBLOCK_CARD = "UPDATE `ipaywebapplication`.`creditcard` SET `Block`='0' WHERE `Id`= ?;";
 
-    private static final String SQL_LIST_BLOCKED_CARD = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, "
-            + "`CardFirstName`, " + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, "
-            + "`Block`, " + "`Available` "
+    private static final String SQL_LIST_BLOCKED_CARD = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard` WHERE `creditcard`.`Block` = true;";
 
-    private static final String SQL_FIND_BY_PARAMETER = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, "
-            + "`CardFirstName`, " + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, "
-            + "`Block`, " + "`Available` " + "FROM creditcard WHERE creditcard.CardFirstName = ? "
-            + "OR creditcard.CardLastName = ?" + "OR creditcard.CardNumber = ?;";
+    private static final String SQL_FIND_BY_PARAMETER = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
+            + "FROM creditcard WHERE creditcard.CardFirstName = ? "
+            + "OR creditcard.CardLastName = ?"
+            + "OR creditcard.CardNumber = ?;";
 
-    private static final String SQL_FIND_BLOCKED_BY_PARAMETER = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, "
-            + "`CardFirstName`, " + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, "
-            + "`Block`, " + "`Available` " + "FROM creditcard WHERE creditcard.CardFirstName = ? "
-            + "OR creditcard.CardLastName = ?" + "OR creditcard.CardNumber = ? AND creditcard.Block = true;";
+    private static final String SQL_FIND_BLOCKED_BY_PARAMETER = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
+            + "FROM creditcard WHERE creditcard.CardFirstName = ? "
+            + "OR creditcard.CardLastName = ?"
+            + "OR creditcard.CardNumber = ? AND creditcard.Block = true;";
 
-    private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`Client`, " + "`CardNumber`, " + "`CardFirstName`, "
-            + "`CardLastName`, " + "`ValidDate`, " + "`TypeCard`, " + "`VerifyCode`, " + "`Block`, " + "`Available` "
+    private static final String SQL_PAGINATION = "SELECT "
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard` LIMIT ?, ?;";
 
     private static final String ERROR_CREATE = "Error create message.";

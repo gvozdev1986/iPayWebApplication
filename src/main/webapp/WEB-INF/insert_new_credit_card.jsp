@@ -6,6 +6,18 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
+<style>
+    .card-head {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        position: relative;
+        background: url("/img/header-part.png") no-repeat center center;
+        width: 100%;
+        height: 12%;
+        background-size: 100% 100%;
+        color: #fff;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
@@ -19,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card text-center" style="height: 100%;">
-                            <div class="card-header">
+                            <div class="card-head">
                                 Rules of using a bank card.
                             </div>
                             <div class="card-body" style="text-align: justify; font-size: 12px; margin-left: -31px;">

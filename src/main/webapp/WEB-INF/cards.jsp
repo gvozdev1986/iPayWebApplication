@@ -5,6 +5,18 @@
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
+<style>
+    .card-head {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        position: relative;
+        background: url("/img/lg.png") no-repeat center center;
+        width: 100%;
+        height: 12%;
+        background-size: 100% 100%;
+        color: #fff;
+    }
+</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
@@ -25,7 +37,7 @@
                                 type="submit"
                                 name="command"
                                 value="new_credit_card">
-                            <i class="fas fa-plus"></i> Add
+                            <i class="fas fa-plus"></i> <fmt:message key="add_btn"/>
                         </button>
                     </div>
                 </div>
@@ -35,11 +47,11 @@
                     <c:forEach items="${cards}" var="creditCards">
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm credit-card-form" style="border-color: #00ad7e;">
-                                <div class="card-header" style="height: 150px; width: 100%; display: block; border-color: #00ad7e;" data-holder-rendered="true">
+                                <div class="card-head" style="height: 150px; width: 100%; display: block; border-color: #00ad7e;" data-holder-rendered="true">
                                     <div class="form-row" style="height: 25px;">
                                         <div class="form-group col-md-6">
                                             <c:if test="${creditCards.block}">
-                                                <i class="fas fa-lock"></i>
+                                                <i class="fas fa-lock" id="blink"></i>
                                             </c:if>
                                             <c:if test="${not creditCards.block}">
                                                 <i class="fas fa-lock-open"></i>
@@ -64,7 +76,9 @@
                                             <label style="width: 100%; text-align: left; font-size: 11px; line-height: 28px;">${creditCards.nameAccount}</label>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label style="width: 100%; text-align: center;">${creditCards.balanceBankAccount}</label>
+                                            <div style="background-color: #00ad7e; border-radius: 25px; height: 25px; width: auto;">
+                                                <label style="width: 100%; text-align: center;">${creditCards.balanceBankAccount}</label>
+                                            </div>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label style="width: 100%; text-align: right;">${creditCards.validDate}</label>
@@ -93,9 +107,7 @@
                                             </form>
                                         </div>
                                         <c:if test="${creditCards.block}">
-                                            <small class="text-muted" style="margin-top: -17px;">This card has been
-                                                blocked.
-                                            </small>
+                                            <small class="text-muted" style="margin-top: -17px;"><fmt:message key="this_card_has_been_blocked"/></small>
                                         </c:if>
                                     </div>
                                 </div>

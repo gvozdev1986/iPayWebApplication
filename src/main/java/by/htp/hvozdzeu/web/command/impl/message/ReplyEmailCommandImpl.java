@@ -1,4 +1,4 @@
-package by.htp.hvozdzeu.web.command.impl.mail;
+package by.htp.hvozdzeu.web.command.impl.message;
 
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
