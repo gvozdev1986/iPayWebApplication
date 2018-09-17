@@ -54,7 +54,7 @@ public final class PagePathConstantPool {
 	public static final String INDEX_PAGE_LOAD = "/index.jsp";
 	public static final String BLOCKED_CREDIT_CARDS = "/WEB-INF/list_blocked_cards.jsp";
     public static final String PAGE_ERROR = "/error/error.jsp";
-    public static final String PAGE_ACCESS_DENIED = "/error/access_denied.jsp";
+    public static final String PAGE_ACCESS_DENIED = "/error/403.jsp";
     public static final String MESSAGE_DETAIL_VIEW = "/WEB-INF/message_detail_view.jsp";
     public static final String PERSONAL_ADMIN_DATA_VIEW = "/WEB-INF/admin_personal_data.jsp";
     public static final String UPDATE_ADMIN_PSWD_VIEW = "/WEB-INF/change_password_admin.jsp";
