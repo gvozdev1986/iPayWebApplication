@@ -30,6 +30,12 @@
         <listener-class>by.htp.hvozdzeu.web.controller.SessionListener</listener-class>
     </listener>
 
+	<!-- ERROR PAGES -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404.jsp</location>
+	</error-page>
+
 	<filter>
 		<description>Encoding to UTF-8</description>
 		<filter-name>EncodingFilter</filter-name>
