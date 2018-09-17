@@ -31,6 +31,7 @@
                 <form action="ServletController" method="get">
                     <input type="hidden" name="messageId" value="${messageContact.id}">
                     <input type="hidden" name="messageEmailTo" value="${messageContact.emailContact}">
+                    <input type="hidden" name="contactToReply" value="${messageContact.nameContact}">
                     <div class="form-row">
                         <div class="form-group col-md-6 input-group-sm">
                             <label><fmt:message key="messages_table_contact_data"/>: ${messageContact.date} <fmt:message
