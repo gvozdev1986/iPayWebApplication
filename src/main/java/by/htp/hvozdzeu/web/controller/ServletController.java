@@ -55,7 +55,7 @@ public class ServletController extends HttpServlet {
             }
         } catch (CommandException e) {
             LOGGER.debug("SERVLET PAGE ERROR. {}", e.getMessage());
-            request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+            request.getRequestDispatcher(PAGE_ACCESS_DENIED).forward(request, response);
             LOGGER.error(e.getMessage(), e);
         }
     }

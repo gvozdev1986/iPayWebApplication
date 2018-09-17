@@ -278,7 +278,7 @@ public class MailHtmlConstructor {
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td valign=\"top\" bgcolor=\"#E1E1E1\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;\">\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div>Copyright &#169; 2018 <a href=\"https://github.com/gvozdev1986/iPayWebApplication.git\" target=\"_blank\" style=\"text-decoration:none;color:#828282;\"><span style=\"color:#828282;\">iPayWebApplication.GitHub</span></a>.</div>\n" +
-                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div>It's email not official</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div>It email is not official.</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
