@@ -31,6 +31,12 @@
         color: white;
         background-color: #00ad7e;
     }
+    .header-table-column {
+        vertical-align: middle;
+        font-weight: bold;
+        color: white;
+        background-color: #00ad7e;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -73,9 +79,9 @@
                 </div>
             </form>
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-hover table-sm table-striped"
+                <table class="table table-bordered table-sm"
                        style="width: 100%; font-size: 9pt;">
-                    <tr style="text-align: center; vertical-align: middle;">
+                    <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold;" class="header-table-column">#</td>
                         <td class="header-table-column"></td>
                         <td class="header-table-column" style="vertical-align: middle; font-weight: bold;"><fmt:message

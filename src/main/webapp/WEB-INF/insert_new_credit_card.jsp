@@ -6,47 +6,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
-
-<style>
-    .btn-success {
-        color: #fff;
-        background-color: #00ad7e;
-        border-color: #00ad7e;
-    }
-
-    ::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
-    }
-
-    ::-webkit-scrollbar-button {
-        background: #ccc
-    }
-
-    ::-webkit-scrollbar-track-piece {
-        background: #888
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #eee
-    }
-
-    ​
-    .btn-success:hover {
-        color: #fff;
-        background-color: #41c7a3;
-        border-color: #41c7a3;
-    }
-
-    .text-center {
-        /* text-align: center!important; */
-    }
-
-    .validate{
-        font-size: 9px;
-        color: red;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
         <jsp:include page="user_menu.jsp"/>

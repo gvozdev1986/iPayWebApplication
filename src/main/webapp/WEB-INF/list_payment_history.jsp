@@ -34,7 +34,12 @@
     ::-webkit-scrollbar-thumb {
         background: #eee
     }
-
+    .header-table-column {
+        vertical-align: middle;
+        font-weight: bold;
+        color: white;
+        background-color: #00ad7e;
+    }
     ​
 </style>
 <div class="container-fluid">
@@ -108,9 +113,9 @@
                 </div>
             </form>
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-hover table-sm table-striped"
+                <table class="table table-bordered table-sm"
                        style="width: 100%; font-size: 9pt;">
-                    <tr style="text-align: center; vertical-align: middle;">
+                    <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
                         <td style="vertical-align: middle; font-weight: bold; width: 8%;">Date</td>
                         <td style="vertical-align: middle; font-weight: bold; width: 6%;">Time</td>

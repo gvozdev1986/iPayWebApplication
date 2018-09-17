@@ -77,7 +77,7 @@
                 </div>
             </form>
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-hover table-sm"
+                <table class="table table-bordered table-sm"
                        style="width: 100%; font-size: 9pt;">
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold;">#</td>

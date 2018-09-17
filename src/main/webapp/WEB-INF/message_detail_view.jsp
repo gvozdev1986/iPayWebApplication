@@ -18,6 +18,12 @@
         background-color: #41c7a3;
         border-color: #41c7a3;
     }
+    .header-table-column {
+        vertical-align: middle;
+        font-weight: bold;
+        color: white;
+        background-color: #00ad7e;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">

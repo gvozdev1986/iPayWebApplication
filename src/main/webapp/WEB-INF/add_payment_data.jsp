@@ -5,10 +5,6 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="admin_navbar.jsp"/>
-
-<style>
-
-</style>
 <div class="container-fluid">
     <div class="row">
         <jsp:include page="admin_menu.jsp"/>
