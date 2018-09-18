@@ -25,7 +25,7 @@ public final class RedirectHelper {
         redirectSet.add(REDIRECT_LIST_CARD_CLIENT);
         redirectSet.add(REDIRECT_PERSONAL_DATA_VIEW);
         redirectSet.add(REDIRECT_SAVE_PAY_PAYMENT);
-        redirectSet.add(REDIRECT_SAVE_TRANSFER);
+        redirectSet.add(REDIRECT_SAVE_TRANSFER_HIS_CARD);
         redirectSet.add(REDIRECT_UPDATE_CLIENT_PSWD);
         redirectSet.add(REDIRECT_LIST_MESSAGE);
         redirectSet.add(REDIRECT_MESSAGE_DETAIL);

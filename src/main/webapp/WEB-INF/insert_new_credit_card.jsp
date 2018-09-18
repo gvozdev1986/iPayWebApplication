@@ -6,47 +6,19 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
-
 <style>
-    .btn-success {
+    .card-head {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        position: relative;
+        background: url("/img/header-part.png") no-repeat center center;
+        width: 100%;
+        height: 12%;
+        background-size: 100% 100%;
         color: #fff;
-        background-color: #00ad7e;
-        border-color: #00ad7e;
-    }
-
-    ::-webkit-scrollbar {
-        width: 0px;
-        height: 0px;
-    }
-
-    ::-webkit-scrollbar-button {
-        background: #ccc
-    }
-
-    ::-webkit-scrollbar-track-piece {
-        background: #888
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #eee
-    }
-
-    ​
-    .btn-success:hover {
-        color: #fff;
-        background-color: #41c7a3;
-        border-color: #41c7a3;
-    }
-
-    .text-center {
-        /* text-align: center!important; */
-    }
-
-    .validate{
-        font-size: 9px;
-        color: red;
     }
 </style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
         <jsp:include page="user_menu.jsp"/>
@@ -59,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card text-center" style="height: 100%;">
-                            <div class="card-header">
+                            <div class="card-head">
                                 Rules of using a bank card.
                             </div>
                             <div class="card-body" style="text-align: justify; font-size: 12px; margin-left: -31px;">

@@ -27,7 +27,7 @@ public enum CommandEnum {
     PAYMENT_HISTORY_VIEW(UserTypeEnum.USER),
     PAYMENT_HISTORY(UserTypeEnum.USER),
     PAYMENT_SERVICE_VIEW(UserTypeEnum.USER),
-    TRANSFER_VIEW(UserTypeEnum.USER),
+    //TRANSFER_VIEW(UserTypeEnum.USER),
     PERSONAL_DATA_VIEW(UserTypeEnum.USER),
     UPDATE_CLIENT_PASSWORD_VIEW(UserTypeEnum.USER),
     SAVE_CHANGED_PERSONAL_DATA(UserTypeEnum.USER),
@@ -39,6 +39,10 @@ public enum CommandEnum {
     SAVE_NEW_CREDIT_CARD(UserTypeEnum.USER),
     SUCCESS_REGISTRATION_VIEW(UserTypeEnum.USER),
     REPORT_PAYMENT_HISTORY_EMAIL(UserTypeEnum.USER),
+    SAVE_TRANSFER_HIS_CREDIT_CARD(UserTypeEnum.USER),
+    SAVE_TRANSFER_ALIEN_CREDIT_CARD(UserTypeEnum.USER),
+    TRANSFER_VIEW_HIS_CARD(UserTypeEnum.USER),
+    TRANSFER_VIEW_ALIEN_CARD(UserTypeEnum.USER),
 
     /**
      * Admin access

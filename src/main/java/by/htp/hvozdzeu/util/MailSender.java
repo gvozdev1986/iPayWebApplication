@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.util;
 
-import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.message.ReplyEmailCommandImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

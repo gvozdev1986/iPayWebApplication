@@ -23,7 +23,12 @@
     ::-webkit-scrollbar-thumb {
         background: #eee
     }
-
+    .header-table-column {
+        vertical-align: middle;
+        font-weight: bold;
+        color: white;
+        background-color: #00ad7e;
+    }
     ​
 </style>
 <div class="container-fluid">
@@ -56,9 +61,9 @@
                         </div>
                     </div>
                 </form>
-                <table class="table table-bordered table-hover table-sm table-striped"
+                <table class="table table-bordered table-sm"
                        style="width: 100%; font-size: 9pt;">
-                    <tr style="text-align: center; vertical-align: middle;">
+                    <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold;">#</td>
                         <td style="vertical-align: middle; font-weight: bold;">A</td>
                         <td style="vertical-align: middle; font-weight: bold;">First name</td>

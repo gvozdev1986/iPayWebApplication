@@ -31,6 +31,12 @@
 	background-color: #41c7a3;
 	border-color: #41c7a3;
 }
+.header-table-column {
+	vertical-align: middle;
+	font-weight: bold;
+	color: white;
+	background-color: #00ad7e;
+}
 </style>
 <div class="container-fluid">
 	<div class="row">
@@ -57,14 +63,14 @@
 							<i class="fas fa-search"></i> Search
 						</button>
 						<button class="btn btn-success" type="submit" name="command"
-							value="list_card_view" id="search-Btn">
+							value="list_card_view" id="clear-Btn">
 							<i class="fas fa-times"></i> Clear
 						</button>
 					</div>
 				</div>
 			</form>
-			<table class="table table-bordered table-hover table-sm table-striped" style="width: 100%; font-size: 9pt;">				
-				<tr style="text-align: center; vertical-align: middle;">
+			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
+				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
 					<td style="vertical-align: middle; font-weight: bold;">First name</td>
 					<td style="vertical-align: middle; font-weight: bold;">Last	name</td>

@@ -28,24 +28,39 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3 input-group-sm">
                             <label for="idCardPayment"><i class="far fa-credit-card"></i>
-                                Card</label> <select class="custom-select" id="idCardPayment"
-                                                     name="idCard" style="line-height: 14px; height: 31px;">
-                            <c:forEach items="${cards}" var="creditCards">
-                                <c:if test="${not creditCards.block}">
-                                    <option value="${creditCards.id}">${creditCards.cardNumber}
-                                        / ${creditCards.balanceBankAccount}</option>
-                                </c:if>
-                            </c:forEach>
-                        </select>
+                                Card</label>
+                            <select class="custom-select" id="idCardPayment" name="idCard"
+                                    style="line-height: 14px; height: 31px;">
+                                <c:forEach items="${cards}" var="creditCards">
+                                    <c:if test="${not creditCards.block}">
+                                        <option value="${creditCards.id}">${creditCards.cardNumber}
+                                            / ${creditCards.balanceBankAccount}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <div class="col-md-6 mb-3 input-group-sm">
-                            <label for="idService"><i class="fab fa-servicestack"></i>
-                                Service</label> <select class="custom-select" id="idService"
-                                                        name="idService" style="line-height: 14px; height: 31px;">
-                            <c:forEach items="${groups}" var="paymentDatas">
-                                <option value="${paymentDatas.id}">${paymentDatas.paymentDataName}</option>
-                            </c:forEach>
-                        </select>
+                        <div class="col-md-4 mb-3 input-group-sm">
+                            <label for="idService"><i class="fab fa-servicestack"></i> Service</label>
+                            <input class="custom-select"
+                                   id="idService"
+                                   style="line-height: 14px; height: 31px;"
+                                   list="services"
+                                   onblur="selectService();">
+                            <datalist id="services" style="width: 100%">
+                                <c:forEach items="${groups}" var="paymentDatas">
+                                    <option data-value="${paymentDatas.id}" value="${paymentDatas.paymentDataName} (${paymentDatas.paymentDataGroup})"></option>
+                                </c:forEach>
+                            </datalist>
+                            <input type="hidden" id="serviceId" name="idService">
+                        </div>
+                        <div class="col-md-2 mb-3 input-group-sm">
+                            <label for="code"><i class="fas fa-coins"></i> Order NO</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="orderNo"
+                                   placeholder="Order NO"
+                                   name="orderNo"
+                                   required>
                         </div>
                         <div class="col-md-2 mb-3 input-group-sm">
                             <label for="sum"><i class="fas fa-sort-numeric-up"></i>
@@ -78,11 +93,17 @@
                     </div>
                 </form>
                 <div class="message-box">
-                    <p style="margin: 2px;">${messageSavePayment}</p>
+                    ${messageSavePayment}
                 </div>
             </div>
         </main>
     </div>
 </div>
 <ctg:footer/>
+<script>
+    function selectService() {
+        var value = $('#idService').val();
+        document.getElementById("serviceId").value = $('#services [value="' + value + '"]').data('value');
+    }
+</script>
 

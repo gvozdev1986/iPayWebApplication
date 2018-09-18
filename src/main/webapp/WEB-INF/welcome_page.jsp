@@ -14,7 +14,7 @@
                 <table class="table table-bordered table-hover table-sm"
                        style="width: 100%; font-size: 9pt;">
                     <tr style="background-color: #00ad7e; color: #ffffff;">
-                        <td colspan="2" style="text-align: center; font-weight: 600;">Currency rates on <fmt:formatDate value="${date}" pattern="yyyy-MM-dd"/></td>
+                        <td colspan="2" style="text-align: center; font-weight: 600;"><fmt:message key="currency_rates"/> <fmt:formatDate value="${date}" pattern="yyyy-MM-dd"/></td>
                     </tr>
                     <tr>
                         <td>USD (<fmt:message key="usd"/> $)</td>

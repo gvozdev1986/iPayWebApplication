@@ -4,6 +4,8 @@ import by.htp.hvozdzeu.dao.IMessageContactDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.MessageContactRowMapper;
 import by.htp.hvozdzeu.model.MessageContact;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageContactCrudImpl extends MessageContactRowMapper implements IMessageContactDAO {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageContactCrudImpl.class);
 
     private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`messages` " +
             "(`NameContact`, " +
@@ -88,8 +92,9 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     @Override
     public MessageContact create(MessageContact entity) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
-        //connection.setAutoCommit(false);
+        Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, entity.getNameContact());
             preparedStatement.setDate(2, Date.valueOf(LocalDate.now()));
             preparedStatement.setTime(3, Time.valueOf(LocalTime.now()));
@@ -97,10 +102,15 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
             preparedStatement.setString(5, entity.getPhoneContact());
             preparedStatement.setString(6, entity.getMessageFromContact());
             preparedStatement.setBoolean(7, false);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            //connection.rollback();
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
@@ -111,15 +121,24 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     @Override
     public MessageContact update(MessageContact entity, Long id) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, entity.getNameContact());
             preparedStatement.setString(2, entity.getEmailContact());
             preparedStatement.setString(3, entity.getPhoneContact());
             preparedStatement.setString(4, entity.getMessageFromContact());
             preparedStatement.setBoolean(5, entity.isCheckRead());
             preparedStatement.setLong(6, entity.getId());
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
@@ -169,15 +188,25 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     @Override
     public boolean deleteById(Long id) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result = false;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
-            return true;
+            connection.commit();
+            result =  true;
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
+        return result;
     }
 
     @Override
@@ -204,15 +233,24 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     @Override
     public boolean checkMessageAsRead(Long messageId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result = false;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_READ)) {
             preparedStatement.setLong(1, messageId);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
-            return true;
+            connection.commit();
+            result = true;
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
+        return result;
     }
 
     @Override

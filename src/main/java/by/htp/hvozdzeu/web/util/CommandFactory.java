@@ -5,7 +5,7 @@ import by.htp.hvozdzeu.web.command.impl.authorization.LogInCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.authorization.LogOutCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.card.*;
 import by.htp.hvozdzeu.web.command.impl.locale.LocalizationCommandImpl;
-import by.htp.hvozdzeu.web.command.impl.mail.ReplyEmailCommandImpl;
+import by.htp.hvozdzeu.web.command.impl.message.ReplyEmailCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.BackDetailMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.CheckReadMessageCommandImpl;
 import by.htp.hvozdzeu.web.command.impl.message.WriteUsCommandImpl;
@@ -125,9 +125,6 @@ public class CommandFactory {
             case PAYMENT_SERVICE_VIEW:
                 command = new PaymentServiceViewCommandImpl();
                 break;
-            case TRANSFER_VIEW:
-                command = new TransferServiceViewCommandImpl();
-                break;
             case UPDATE_CLIENT_PASSWORD_VIEW:
                 command = new UpdateClientPasswordViewCommandImpl();
                 break;
@@ -167,9 +164,31 @@ public class CommandFactory {
             case SAVE_PAY_PAYMENT:
                 command = new SavePayPaymentCommandImpl();
                 break;
-            case SAVE_TRANSFER:
-                command = new SaveTransferCommandImpl();
+
+
+
+
+
+            case TRANSFER_VIEW_HIS_CARD:
+                command = new TransferServiceHisViewCommandImpl();
                 break;
+
+            case TRANSFER_VIEW_ALIEN_CARD:
+                command = new TransferServiceAlienViewCommandImpl();
+                break;
+
+
+            case SAVE_TRANSFER_HIS_CREDIT_CARD:
+                command = new SaveTransferHisCreditCardCommandImpl();
+                break;
+            case SAVE_TRANSFER_ALIEN_CREDIT_CARD:
+                command = new SaveTransferAlienCreditCardCommandImpl();
+                break;
+
+
+
+
+
             case VIEW_DETAIL_MESSAGE:
                 command = new MessageDetailViewCommandImpl();
                 break;
@@ -197,27 +216,21 @@ public class CommandFactory {
             case CHECK_NEW_ACCOUNT:
                 command = new CheckNewAccountCommandImpl();
                 break;
-
-
             case SAVE_CHANGED_ADMIN_PERSONAL_DATA:
                 command = new SaveChangePersonalAdminDataCommandImpl();
                 break;
             case UPDATE_ADMIN_PASSWORD:
                 command = new UpdateAdminPasswordCommandImpl();
                 break;
-
             case ADMIN_PERSONAL_DATA_VIEW:
                 command = new AdminPersonalDataViewCommandImpl();
                 break;
             case UPDATE_ADMIN_PASSWORD_VIEW:
                 command = new UpdateAdminPasswordViewCommandImpl();
                 break;
-
-
             case REPORT_PAYMENT_HISTORY_EMAIL:
                 command = new ReportPaymentHistorySendEmailCommandImpl();
                 break;
-
             default:
                 command = new GreetingPageViewCommandImpl();
                 break;

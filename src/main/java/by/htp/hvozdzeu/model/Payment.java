@@ -18,6 +18,7 @@ public class Payment extends Entity {
     private BigDecimal amountPayment;
     private Long creditCard;
     private boolean available;
+    private String orderNo;
 
     public Payment() {
     }
@@ -31,6 +32,7 @@ public class Payment extends Entity {
         this.amountPayment = builder.amountPayment;
         this.creditCard = builder.creditCard;
         this.available = builder.available;
+        this.orderNo = builder.orderNo;
     }
 
     public LocalDate getDatePayment() {
@@ -61,6 +63,10 @@ public class Payment extends Entity {
         return available;
     }
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,7 +79,8 @@ public class Payment extends Entity {
                 Objects.equals(descriptionPayment, payment.descriptionPayment) &&
                 Objects.equals(paymentService, payment.paymentService) &&
                 Objects.equals(amountPayment, payment.amountPayment) &&
-                Objects.equals(creditCard, payment.creditCard);
+                Objects.equals(creditCard, payment.creditCard) &&
+                Objects.equals(orderNo, payment.orderNo);
     }
 
     @Override
@@ -86,7 +93,8 @@ public class Payment extends Entity {
                 paymentService,
                 amountPayment,
                 creditCard,
-                available
+                available,
+                orderNo
         );
     }
 
@@ -101,6 +109,7 @@ public class Payment extends Entity {
                 ", amountPayment=" + amountPayment +
                 ", creditCard=" + creditCard +
                 ", available=" + available +
+                ", orderNo=" + orderNo +
                 '}';
     }
 
@@ -113,6 +122,7 @@ public class Payment extends Entity {
         private BigDecimal amountPayment;
         private Long creditCard;
         private boolean available;
+        private String orderNo;
 
         public Builder id(Long id) {
             this.id = id;
@@ -151,6 +161,11 @@ public class Payment extends Entity {
 
         public Builder available(Boolean available) {
             this.available = available;
+            return this;
+        }
+
+        public Builder orderNo(String orderNo) {
+            this.orderNo = orderNo;
             return this;
         }
 

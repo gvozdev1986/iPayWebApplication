@@ -61,46 +61,16 @@
         <c:if test="${sessionScope.locale == 'ru'}">
             RU
         </c:if>
-        <c:if test="${sessionScope.locale == 'de'}">
-            DE
-        </c:if>
-        <c:if test="${sessionScope.locale == 'by'}">
-            BY
-        </c:if>
     </button>
     <div id="locale_btn" class="dropdown-menu" aria-labelledby="dropdownMenuButton"
          style="width: 20px;">
         <c:if test="${locale == 'en'}">
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=by">
-                <img class="img-m-top" src="img/flug/by.png"> BY</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=de">
-                <img class="img-m-top" src="img/flug/de.png"> DE</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
+             <a class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
                 <img class="img-m-top" src="img/flug/ru.png"> RU</a>
         </c:if>
         <c:if test="${locale == 'ru'}">
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=by">
-                <img class="img-m-top" src="img/flug/by.png"> BY</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=de">
-                <img class="img-m-top" src="img/flug/de.png"> DE</a>
             <a class="dropdown-item" href="ServletController?command=change_locale&locale=en">
                 <img class="img-m-top" src="img/flug/gb.png"> EN</a>
-        </c:if>
-        <c:if test="${locale == 'de'}">
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=by">
-                <img class="img-m-top" src="img/flug/by.png"> BY</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=en">
-                <img class="img-m-top" src="img/flug/gb.png"> EN</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
-                <img class="img-m-top" src="img/flug/ru.png"> RU</a>
-        </c:if>
-        <c:if test="${locale == 'by'}">
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=de">
-                <img class="img-m-top" src="img/flug/de.png"> DE</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=en">
-                <img class="img-m-top" src="img/flug/gb.png"> EN</a>
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
-                <img class="img-m-top" src="img/flug/ru.png"> RU</a>
         </c:if>
     </div>
 </div>

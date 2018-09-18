@@ -1,16 +1,14 @@
-package by.htp.hvozdzeu.web.command.impl.mail;
+package by.htp.hvozdzeu.web.command.impl.message;
 
-import by.htp.hvozdzeu.util.MailThread;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Properties;
 
+import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
+import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.PagePathConstantPool.REDIRECT_MESSAGE_DETAIL;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
@@ -24,24 +22,13 @@ public class ReplyEmailCommandImpl implements BaseCommand {
         String messageId = request.getParameter(MESSAGE_ID);
         String emailToReply = request.getParameter(EMAIL_TO_REPLY);
         String subjectToReply = request.getParameter(EMAIL_SUBJECT);
-        String messageToReply = request.getParameter(EMAIL_MESSAGE);
+        String message = request.getParameter(EMAIL_MESSAGE);
+        String contactToReply = request.getParameter(NAME_CONTACT_TO_REPLY);
 
-        try {
-            Properties properties = new Properties();
-            ServletContext context = request.getServletContext();
-            String filename = context.getInitParameter(MAIL);
-            properties.load(context.getResourceAsStream(filename));
-            MailThread mailThread = new MailThread(
-                    emailToReply,
-                    subjectToReply,
-                    messageToReply,
-                    properties,
-                    null
-            );
-            mailThread.start();
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-        }
+        LOGGER.debug("Send email to client.");
+
+        String messageToReply = mailConstructor(contactToReply, " ", " ", message);
+        mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
         return REDIRECT_MESSAGE_DETAIL + PART_URL_PARAMETER + messageId;
 

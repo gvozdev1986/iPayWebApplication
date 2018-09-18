@@ -18,6 +18,12 @@
         background-color: #41c7a3;
         border-color: #41c7a3;
     }
+    .header-table-column {
+        vertical-align: middle;
+        font-weight: bold;
+        color: white;
+        background-color: #00ad7e;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -31,6 +37,7 @@
                 <form action="ServletController" method="get">
                     <input type="hidden" name="messageId" value="${messageContact.id}">
                     <input type="hidden" name="messageEmailTo" value="${messageContact.emailContact}">
+                    <input type="hidden" name="contactToReply" value="${messageContact.nameContact}">
                     <div class="form-row">
                         <div class="form-group col-md-6 input-group-sm">
                             <label><fmt:message key="messages_table_contact_data"/>: ${messageContact.date} <fmt:message

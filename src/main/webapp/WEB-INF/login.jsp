@@ -6,36 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
-
-<style>
-    .btn-success {
-        color: #fff;
-        background-color: #00ad7e;
-        border-color: #00ad7e;
-    }
-
-    .btn-success:hover {
-        color: #fff;
-        background-color: #41c7a3;
-        border-color: #41c7a3;
-    }
-
-    .custom_button {
-        min-width: 100px;
-        max-width: 200px;
-    }
-
-    .card-header {
-        padding: .75rem 1.25rem;
-        margin-bottom: 0;
-        position: relative;
-        background: url("/img/j.jpg") no-repeat center center;
-        width: 100%;
-        height: 6%;
-        background-size: 100% 100%;
-        color: #fff;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand"
@@ -51,15 +22,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="#"><i
-                        class="fa fa-home"></i> Home<span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i
-                        class="fas fa-pencil-alt"></i> Write us</a></li>
+
             </ul>
         </div>
-        <!-- <form class="form-inline my-2 my-lg-0" action="ServletController" method="post">
-			    <jsp:include page="localization_btn.jsp" />
-		</form> -->
     </nav>
 </header>
 <div class="container h-100">
@@ -92,10 +57,10 @@
                                                                       oninput="setCustomValidity('')">
                     </div>
                     <c:if test="${not empty info_message}">
-                        <a><fmt:message key="invalid_login_or_password"/></a>
+                        <p style="color: red;"><fmt:message key="invalid_login_or_password"/></p>
                     </c:if>
                     <c:if test="${not empty info_message_available}">
-                        <a><fmt:message key="user_not_available"/></a>
+                        <p style="color: red;"><fmt:message key="user_not_available"/></p>
                     </c:if>
                     <div class="form-inline">
                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"

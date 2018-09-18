@@ -14,18 +14,41 @@ import java.util.List;
 
 public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 
-	private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`payment` " + "(`DatePayment`, "
-			+ "`TimePayment`, " + "`DescriptionPayment`, " + "`PaymentData`, " + "`AmountPayment`, " + "`CreditCard`, "
-			+ "`Available`) " + "VALUES (?, ?, ?, ?, ?, ?, ?);";
+	private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`payment` "
+			+ "(`DatePayment`, "
+			+ "`TimePayment`, "
+			+ "`DescriptionPayment`, "
+            + "`PaymentData`, "
+            + "`AmountPayment`, "
+            + "`CreditCard`, "
+			+ "`Available`, "
+            + "`OrderNo`) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
 	private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`payment` SET `DescriptionPayment`=? WHERE `Id`=?;";
 
-	private static final String SQL_FIND_PAYMENT_BY_ID = "SELECT " + "`Id`, " + "`DatePayment`, " + "`TimePayment`, "
-			+ "`DescriptionPayment`, " + "`PaymentData`, " + "`AmountPayment`, " + "`CreditCard`, " + "`Available` "
+	private static final String SQL_FIND_PAYMENT_BY_ID = "SELECT "
+            + "`Id`, "
+            + "`DatePayment`, "
+            + "`TimePayment`, "
+			+ "`DescriptionPayment`, "
+            + "`PaymentData`, "
+            + "`AmountPayment`, "
+            + "`CreditCard`, "
+            + "`Available`, "
+            + "`OrderNo` "
 			+ "FROM `ipaywebapplication`.`payment` WHERE id = ?;";
 
-	private static final String SQL_READ = "SELECT " + "`Id`, " + "`DatePayment`, " + "`TimePayment`, "
-			+ "`DescriptionPayment`, " + "`PaymentData`, " + "`AmountPayment`, " + "`CreditCard`, " + "`Available` "
+	private static final String SQL_READ = "SELECT "
+            + "`Id`, "
+            + "`DatePayment`, "
+            + "`TimePayment`, "
+			+ "`DescriptionPayment`, "
+            + "`PaymentData`, "
+            + "`AmountPayment`, "
+            + "`CreditCard`, "
+            + "`Available`, "
+            + "`OrderNo` "
 			+ "FROM `ipaywebapplication`.`payment`;";
 
 	private static final String SQL_DELETE_PAYMENT_BY_ID = "UPDATE `ipaywebapplication`.`payment` SET `Available`= 0 WHERE `Id`=?;";
@@ -38,7 +61,8 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			+ "paymentdata.PaymentDataName, "
 			+ "paymentdata.PaymentDataGroup, "
 			+ "paymentdata.PaymentDataDescription, "
-			+ "payment.AmountPayment " 
+			+ "payment.AmountPayment, "
+            + "payment.OrderNo "
 			+ "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData " 
 			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? ORDER BY DatePayment, TimePayment LIMIT ?,?;";
 	
@@ -48,14 +72,6 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			+ "TRUNCATE(SUM(payment.AmountPayment), 2) AS Sum " 
 			+ "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData " 
 			+ "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? GROUP BY paymentdata.PaymentDataGroup;";
-	
-	private static final String ERROR_CREATE = "Error create payment.";
-	private static final String ERROR_UPDATE_BY_ID = "Error update payment by id.";
-	private static final String ERROR_FIND_ACCOUNT_BANK_BY_ID = "Error find payment by id.";
-	private static final String ERROR_READ = "Error read payments.";
-	private static final String ERROR_DELETE_BY_ID = "Error delete payment by id.";
-	private static final String ERROR_FIND_PAYMENT_BY_CARD_AND_DATE = "Error find payments by number card and date";
-	private static final String ERROR_FIND_PAYMENT_BY_CARD_AND_DATE_CHART_PIE = "Error find payments by number card and date - chart";
 	
 	@Override
 	public Payment create(Payment entity) throws DAOException {
@@ -68,9 +84,10 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			preparedStatement.setBigDecimal(5, entity.getAmountPayment());
 			preparedStatement.setLong(6, entity.getCreditCard());
 			preparedStatement.setBoolean(7, true);
+            preparedStatement.setString(8, entity.getOrderNo());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_CREATE, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -85,7 +102,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			preparedStatement.setString(2, entity.getDescriptionPayment());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_UPDATE_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -104,7 +121,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_FIND_ACCOUNT_BANK_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -124,7 +141,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_READ, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -139,7 +156,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_DELETE_BY_ID, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}
@@ -187,7 +204,7 @@ public class PaymentCrudImpl extends PaymentRowMapper implements IPaymentDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DAOException(ERROR_FIND_PAYMENT_BY_CARD_AND_DATE_CHART_PIE, e);
+			throw new DAOException(e.getMessage());
 		} finally {
 			dataBaseConnection.closeConnection(connection);
 		}

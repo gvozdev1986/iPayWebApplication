@@ -1,7 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
 import by.htp.hvozdzeu.dao.IPaymentDataDAO;
-import by.htp.hvozdzeu.dao.connection.exception.ConnectionException;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.PaymentDataRowMapper;
 import by.htp.hvozdzeu.model.PaymentData;
@@ -12,24 +11,46 @@ import java.util.List;
 
 public class PaymentDataCrudImpl extends PaymentDataRowMapper implements IPaymentDataDAO {
 
-	private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`paymentdata` " + "(`PaymentDataCode`, "
-			+ "`PaymentDataName`, " + "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available`) "
+	private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`paymentdata` "
+			+ "(`PaymentDataCode`, "
+			+ "`PaymentDataName`, "
+            + "`PaymentDataGroup`, "
+            + "`PaymentDataDescription`, "
+            + "`Available`) "
 			+ "VALUES (?, ?, ?, ?, ?);";
 
 	private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`paymentdata` SET "
-			+ "`PaymentDataCode`= ?, " + "`PaymentDataName`= ?, " + "`PaymentDataGroup`= ?, "
-			+ "`PaymentDataDescription`= ? " + "WHERE  `Id`= ?;";
+			+ "`PaymentDataCode`= ?, "
+            + "`PaymentDataName`= ?, "
+            + "`PaymentDataGroup`= ?, "
+			+ "`PaymentDataDescription`= ? "
+            + "WHERE  `Id`= ?;";
 
-	private static final String SQL_FIND_BY_ID = "SELECT " + "`Id`, " + "`PaymentDataCode`, " + "`PaymentDataName`, "
-			+ "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available` "
+	private static final String SQL_FIND_BY_ID = "SELECT "
+            + "`Id`, "
+            + "`PaymentDataCode`, "
+            + "`PaymentDataName`, "
+			+ "`PaymentDataGroup`, "
+            + "`PaymentDataDescription`, "
+            + "`Available` "
 			+ "FROM `ipaywebapplication`.`paymentdata` WHERE id = ?;";
 
-	private static final String SQL_READ = "SELECT " + "`Id`, " + "`PaymentDataCode`, " + "`PaymentDataName`, "
-			+ "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available` "
-			+ "FROM `ipaywebapplication`.`paymentdata`;";
+	private static final String SQL_READ = "SELECT "
+            + "`Id`, "
+            + "`PaymentDataCode`, "
+            + "`PaymentDataName`, "
+			+ "`PaymentDataGroup`, "
+            + "`PaymentDataDescription`, "
+            + "`Available` "
+			+ "FROM `ipaywebapplication`.`paymentdata` WHERE `id` <> 22;";
 
-    private static final String SQL_PAGINATION = "SELECT " + "`Id`, " + "`PaymentDataCode`, " + "`PaymentDataName`, "
-            + "`PaymentDataGroup`, " + "`PaymentDataDescription`, " + "`Available` "
+    private static final String SQL_PAGINATION = "SELECT "
+            + "`Id`, "
+            + "`PaymentDataCode`, "
+            + "`PaymentDataName`, "
+            + "`PaymentDataGroup`, "
+            + "`PaymentDataDescription`, "
+            + "`Available` "
             + "FROM `ipaywebapplication`.`paymentdata` LIMIT ?, ?;";
 
 	private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`paymentdata` SET `Available`='0' WHERE  `Id`= ?;";

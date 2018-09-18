@@ -6,11 +6,23 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="head.jsp"/>
+<style>
+    .card-head {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        position: relative;
+        background: url("/img/header-part.png") no-repeat center center;
+        width: 100%;
+        height: 7%;
+        background-size: 100% 100%;
+        color: #fff;
+    }
+</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand"
-           href="ServletController?command=greeting_page_view"> <img
+           href="http://localhost/"> <img
                 src="${pageContext.request.contextPath}/img/logo.png" width="30" height="30"
                 class="d-inline-block align-top" alt=""> iPay
         </a>
@@ -22,10 +34,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="#"><i
-                        class="fa fa-home"></i> Home<span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i
-                        class="fas fa-pencil-alt"></i> Write us</a></li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0" action="ServletController"
                   method="get">
@@ -93,7 +102,7 @@
                 <div class="row">
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">USD (<fmt:message
+                            <div class="card-head" style="text-align: center; font-size: 11px;">USD (<fmt:message
                                     key="usd"/>)
                             </div>
                             <div class="card-body">
@@ -106,7 +115,7 @@
                     </div>
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">EUR (<fmt:message
+                            <div class="card-head" style="text-align: center; font-size: 11px;">EUR (<fmt:message
                                     key="eur"/>)
                             </div>
                             <div class="card-body">
@@ -121,7 +130,7 @@
                 <div class="row">
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">RUB (<fmt:message
+                            <div class="card-head" style="text-align: center; font-size: 11px;">RUB (<fmt:message
                                     key="rus"/>)
                             </div>
                             <div class="card-body">
@@ -134,7 +143,7 @@
                     </div>
                     <div class="col-lg-6 my-1">
                         <div class="card widget-flat back-st">
-                            <div class="card-header" style="text-align: center; font-size: 11px;">UAH (<fmt:message
+                            <div class="card-head" style="text-align: center; font-size: 11px;">UAH (<fmt:message
                                     key="uah"/>)
                             </div>
                             <div class="card-body">
@@ -150,7 +159,7 @@
             <div class="col-xl-7 my-1">
                 <div class="card" style="border: 1px solid #00ad7e;">
                     <div class="card-body">
-                        <div class="card-style">
+                        <div class="card-style" style="height: 43.5%;">
                             <div id='gmap_canvas' style='height:440px;width:700px;'></div>
                         </div>
                     </div>
@@ -159,7 +168,7 @@
         </div>
     </div>
     <div class="card my-2" style="border: 1px solid #00ad7e;">
-        <div class="card-header">
+        <div class="card-head">
             <i class="fas fa-pencil-alt" data-toggle="collapse"
                href="#multiCollapseExample1" role="button" aria-expanded="false"
                aria-controls="multiCollapseExample1"></i>

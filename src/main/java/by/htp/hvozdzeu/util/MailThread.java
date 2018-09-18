@@ -21,7 +21,7 @@ public class MailThread extends Thread {
     private Properties properties;
     private String attachmentName;
 
-    public MailThread(String sendToEmail, String mailSubject, String mailText, Properties properties, String attachmentName) {
+    MailThread(String sendToEmail, String mailSubject, String mailText, Properties properties, String attachmentName) {
         this.sendToEmail = sendToEmail;
         this.mailSubject = mailSubject;
         this.mailText = mailText;

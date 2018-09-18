@@ -18,6 +18,13 @@
 	background-color: #41c7a3;
 	border-color: #41c7a3;
 }
+.header-table-column {
+    vertical-align: middle;
+    font-weight: bold;
+    color: white;
+    background-color: #00ad7e;
+}
+
 ::-webkit-scrollbar {
     width: 0px;
     height: 0px;
@@ -31,6 +38,7 @@
 ::-webkit-scrollbar-thumb {
     background: #eee
 }​
+
 </style>
 <div class="container-fluid">
 	<div class="row">
@@ -68,8 +76,8 @@
 					</div>
 				</div>
 			</form>
-			<table class="table table-bordered table-hover table-sm table-striped" style="width: 100%; font-size: 9pt;">				
-				<tr style="text-align: center; vertical-align: middle;">
+			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
+				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
 					<td style="vertical-align: middle; font-weight: bold;">S</td>
 					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="first_name_card_label" /></td>

@@ -10,12 +10,9 @@ public final class WebConstantDeclaration {
 	public static final String REQUEST_PARAM_USER = "user";
     public static final String REQUEST_PARAM_USER_ID = "userId";
 	public static final String REQUEST_PARAM_PASS = "password";
-
     public static final String REQUEST_CURRENT_PARAM_PSWD = "current_password";
     public static final String REQUEST_NEW_PARAM_PSWD = "new_password";
     public static final String REQUEST_VERIFY_NEW_PSWD = "verify_new_password";
-
-
     public static final String REQUEST_PARAM_LOGIN = "username";
 	public static final String REQUEST_PARAM_USER_TYPE = "user_type";
 	public static final String REQUEST_PARAM_INFO_MESSAGE = "info_message";
@@ -42,6 +39,7 @@ public final class WebConstantDeclaration {
     public static final String SUM = "sum";
     public static final String DESCRIPTION = "description";
     public static final String CODE = "code";
+    public static final String ORDER_NO = "orderNo";
 	public static final String DATE_START = "dateStart";
 	public static final String DATE_END = "dateEnd";
     public static final String REQUEST_CARDS = "cards";
@@ -51,14 +49,13 @@ public final class WebConstantDeclaration {
     public static final String PARAMETER = "param";
     public static final String CREDIT_CARDS = "creditCards";
     public static final String CREDIT_CARD = "creditCard";
-
     public static final String MAIL = "mail";
     public static final String MESSAGE_ID = "messageId";
     public static final String EMAIL_TO_REPLY = "emailToReply";
     public static final String EMAIL_SUBJECT = "subjectToReply";
+    public static final String NAME_CONTACT_TO_REPLY = "nameToReply";
     public static final String EMAIL_MESSAGE = "messageToReply";
     public static final String PART_URL_PARAMETER = "&messageId=";
-
     public static final String REQUEST_PARAM_CARD_FIRST_NAME = "cardFirstName";
     public static final String REQUEST_PARAM_CARD_LAST_NAME = "cardLastName";
     public static final String REQUEST_PARAM_CARD_NUMBER = "cardNumber";
@@ -67,13 +64,11 @@ public final class WebConstantDeclaration {
     public static final String REQUEST_PARAM_CARD_TYPE = "creditCardType";
     public static final String REQUEST_PARAM_CARD_SECRET_CODE = "secretCode";
     public static final String CODE_NAME_ACCOUNT = "BA_";
-
     public static final String REQUEST_PARAM_CODE_LC = "codeLC";
     public static final String REQUEST_PARAM_SERVICE_DATA_CODE = "serviceDateCode";
     public static final String REQUEST_PARAM_DATE_NAME = "serviceDateName";
     public static final String REQUEST_PARAM_DATE_GROUP = "serviceDateGroup";
     public static final String REQUEST_PARAM_DATA_DESCRIPTION = "serviceDataDescription";
-
   	public static final String PATH_TO_SAVE_REPORT = "E:/PaymentHistory_";
 	public static final String FORMAT_FILE_EXCEL = ".xls";
 

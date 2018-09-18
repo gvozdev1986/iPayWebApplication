@@ -1,12 +1,12 @@
 function getPage(page) {
-	var input = document.getElementById("pageHiddenInput");
-	input.value = page;
+    var input = document.getElementById("pageHiddenInput");
+    input.value = page;
 }
 
 function navigationBtnFunc(action) {
-	var actionBtn = action;
-	var input = document.getElementById("navigationBtnInput");
-	input.value = actionBtn;
+    var actionBtn = action;
+    var input = document.getElementById("navigationBtnInput");
+    input.value = actionBtn;
 }
 
 function init_map() {
@@ -20,10 +20,15 @@ function init_map() {
         map: map,
         position: new google.maps.LatLng(53.90453979999999, 27.561524400000053)
     });
-    var infowindow = new google.maps.InfoWindow({content: '<strong>Office "iPayWebApplication", Kalinovskogo 31</strong><br>Belarus, Minsk<br>'});
+    var infowindow = new google.maps.InfoWindow(
+        {
+            content: '<strong>Office "iPayWebApplication", Kalinovskogo 31</strong><br>Belarus, Minsk<br>'
+        }
+    );
     google.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
     });
     infowindow.open(map, marker);
 }
+
 google.maps.event.addDomListener(window, 'load', init_map);
