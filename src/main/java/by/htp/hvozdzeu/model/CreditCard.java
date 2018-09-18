@@ -115,7 +115,6 @@ public class CreditCard extends Entity {
                 ", cardLastName='" + cardLastName + '\'' +
                 ", validDate='" + validDate + '\'' +
                 ", typeCard='" + typeCard + '\'' +
-                ", verifyCode='" + verifyCode + '\'' +
                 ", block='" + block + '\'' +
                 ", available=" + available +
                 '}';

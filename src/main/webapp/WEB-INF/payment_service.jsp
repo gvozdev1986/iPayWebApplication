@@ -39,7 +39,7 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3 input-group-sm">
+                        <div class="col-md-4 mb-3 input-group-sm">
                             <label for="idService"><i class="fab fa-servicestack"></i> Service</label>
                             <input class="custom-select"
                                    id="idService"
@@ -48,10 +48,19 @@
                                    onblur="selectService();">
                             <datalist id="services" style="width: 100%">
                                 <c:forEach items="${groups}" var="paymentDatas">
-                                    <option data-value="${paymentDatas.id}" value="${paymentDatas.paymentDataName}"></option>
+                                    <option data-value="${paymentDatas.id}" value="${paymentDatas.paymentDataName} (${paymentDatas.paymentDataGroup})"></option>
                                 </c:forEach>
                             </datalist>
                             <input type="hidden" id="serviceId" name="idService">
+                        </div>
+                        <div class="col-md-2 mb-3 input-group-sm">
+                            <label for="code"><i class="fas fa-coins"></i> Order NO</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="orderNo"
+                                   placeholder="Order NO"
+                                   name="orderNo"
+                                   required>
                         </div>
                         <div class="col-md-2 mb-3 input-group-sm">
                             <label for="sum"><i class="fas fa-sort-numeric-up"></i>

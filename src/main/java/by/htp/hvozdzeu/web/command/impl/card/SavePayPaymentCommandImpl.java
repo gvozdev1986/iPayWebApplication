@@ -43,6 +43,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
         BigDecimal sum = new BigDecimal(request.getParameter(SUM));
         String description = request.getParameter(DESCRIPTION);
         String verifyCode = request.getParameter(CODE);
+        String orderNo = request.getParameter(ORDER_NO);
 
         CreditCard creditCard = iCreditCardService.findById(cardId);
         String vCode = creditCard.getVerifyCode();
@@ -56,12 +57,22 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
             return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
         }
 
+        if(orderNo.isEmpty()){
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, "Order number cannot be empty.");
+            return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+        }
+
         if (verifyCode.equals(vCode)) {
 
             if (balance.intValue() > sum.intValue()) {
-                Payment payment = new Payment.Builder().datePayment(new Date(System.currentTimeMillis()).toLocalDate())
-                        .timePayment(new Time(System.currentTimeMillis()).toLocalTime()).descriptionPayment(description)
-                        .paymentService(serviceId).amountPayment(sum).creditCard(cardId).build();
+                Payment payment = new Payment.Builder()
+                        .datePayment(new Date(System.currentTimeMillis()).toLocalDate())
+                        .timePayment(new Time(System.currentTimeMillis()).toLocalTime())
+                        .descriptionPayment(description)
+                        .paymentService(serviceId)
+                        .amountPayment(sum)
+                        .orderNo(orderNo)
+                        .creditCard(cardId).build();
                 iPaymentService.create(payment);
 
                 BigDecimal newBalance = balance.subtract(sum);
@@ -74,7 +85,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
                 String subjectToReply = "Information about the write-off of funds.";
                 String message = "Hello. " +
                         "From your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been wrote " +
-                        "" + sum + " for " + description;
+                        "" + sum + " for " + description + ". Order no: " + orderNo;
 
                 String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
                 mailSender(request, emailToReply, subjectToReply, messageToReply, null);

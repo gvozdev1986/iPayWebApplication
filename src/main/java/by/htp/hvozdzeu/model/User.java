@@ -129,7 +129,6 @@ public class User extends Entity {
         return "User{" +
                 "id='" + getId() + '\'' +
                 ", login='" + login + '\'' +
-                ", password=" + Arrays.toString(password) +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", patronymic='" + patronymic + '\'' +

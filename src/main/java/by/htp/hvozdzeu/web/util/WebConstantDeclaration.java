@@ -39,6 +39,7 @@ public final class WebConstantDeclaration {
     public static final String SUM = "sum";
     public static final String DESCRIPTION = "description";
     public static final String CODE = "code";
+    public static final String ORDER_NO = "orderNo";
 	public static final String DATE_START = "dateStart";
 	public static final String DATE_END = "dateEnd";
     public static final String REQUEST_CARDS = "cards";

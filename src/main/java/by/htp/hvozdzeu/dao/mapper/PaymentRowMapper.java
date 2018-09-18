@@ -31,6 +31,7 @@ public class PaymentRowMapper {
     private static final String PAYMENT_AMOUNT = "AmountPayment";
     private static final String PAYMENT_CREDIT_CARD = "CreditCard";
     private static final String PAYMENT_AVAILABLE = "Available";
+	private static final String PAYMENT_ORDER_NO = "OrderNo";
 
     protected Payment buildPaymentRowMapper(ResultSet resultSet) throws SQLException {
         return new Payment.Builder()
@@ -42,6 +43,7 @@ public class PaymentRowMapper {
                 .amountPayment(resultSet.getBigDecimal(PAYMENT_AMOUNT))
                 .creditCard(resultSet.getLong(PAYMENT_CREDIT_CARD))
                 .available(resultSet.getBoolean(PAYMENT_AVAILABLE))
+                .orderNo(resultSet.getString(PAYMENT_ORDER_NO))
                 .build();
 
     }

@@ -12,13 +12,13 @@ public class SessionListener implements HttpSessionListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(GreetingPageViewCommandImpl.class);
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        LOGGER.debug("Start session destroy");
-        redirectGreetingPage();
+    public void sessionCreated(final HttpSessionEvent event) {
+        LOGGER.debug("Session has been created.");
     }
 
-    private void redirectGreetingPage(){
-        LOGGER.debug("Session has been destroyed. Redirect on greeting page");
+    @Override
+    public void sessionDestroyed(final HttpSessionEvent event) {
+        LOGGER.debug("Session has been destroyed.");
     }
 
 }
