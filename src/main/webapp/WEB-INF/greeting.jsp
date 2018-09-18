@@ -159,7 +159,7 @@
             <div class="col-xl-7 my-1">
                 <div class="card" style="border: 1px solid #00ad7e;">
                     <div class="card-body">
-                        <div class="card-style">
+                        <div class="card-style" style="height: 43.5%;">
                             <div id='gmap_canvas' style='height:440px;width:700px;'></div>
                         </div>
                     </div>

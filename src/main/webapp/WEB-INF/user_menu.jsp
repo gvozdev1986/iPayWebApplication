@@ -98,12 +98,13 @@
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link"
 					href="ServletController?command=payment_service_view"
-					style="cursor: pointer"><i class="fas fa-shopping-cart"></i> <fmt:message
-							key="client_menu_pay_service" /></a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="ServletController?command=transfer_view"
-					style="cursor: pointer"><i class="fas fa-exchange-alt"></i> <fmt:message
-							key="client_menu_transfer_card" /></a></li>
+					style="cursor: pointer"><i class="fas fa-shopping-cart"></i> <fmt:message key="client_menu_pay_service" /></a></li>
+				<li class="nav-item">
+                    <a class="nav-link"
+                       style="cursor: pointer"
+                       data-toggle="modal"
+                       data-target="#typeOfTransfer">
+					<i class="fas fa-exchange-alt"></i> <fmt:message key="client_menu_transfer_card" /></a></li>
 			</ul>
 		</div>
 		<h6
@@ -125,7 +126,26 @@
 							key="client_menu_update_password" /></a></li>
 			</ul>
 		</div>
-
-
 	</div>
 </nav>
+<!-- Modal check type of transfer-->
+<div class="modal fade" id="typeOfTransfer" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle"><fmt:message key="type_transfer"/></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <fmt:message key="please_select_type_transfer"/>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-chevron-left"></i> <fmt:message key="login_cancel"/></a>
+                <a href="ServletController?command=transfer_view_his_card" class="btn btn-success"><i class="far fa-user"></i> <fmt:message key="your_card"/></a>
+                <a href="ServletController?command=transfer_view_alien_card" class="btn btn-success"><i class="fas fa-users"></i> <fmt:message key="alien_card"/></a>
+            </div>
+        </div>
+    </div>
+</div>

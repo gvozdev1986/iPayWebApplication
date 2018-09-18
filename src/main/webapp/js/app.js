@@ -20,7 +20,11 @@ function init_map() {
         map: map,
         position: new google.maps.LatLng(53.90453979999999, 27.561524400000053)
     });
-    var infowindow = new google.maps.InfoWindow({content: '<strong>Office "iPayWebApplication", Kalinovskogo 31</strong><br>Belarus, Minsk<br>'});
+    var infowindow = new google.maps.InfoWindow(
+            {
+                content: '<strong>Office "iPayWebApplication", Kalinovskogo 31</strong><br>Belarus, Minsk<br>'
+            }
+        );
     google.maps.event.addListener(marker, 'click', function () {
         infowindow.open(map, marker);
     });

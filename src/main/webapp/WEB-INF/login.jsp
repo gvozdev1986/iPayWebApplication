@@ -25,9 +25,6 @@
 
             </ul>
         </div>
-        <!-- <form class="form-inline my-2 my-lg-0" action="ServletController" method="post">
-			    <jsp:include page="localization_btn.jsp" />
-		</form> -->
     </nav>
 </header>
 <div class="container h-100">

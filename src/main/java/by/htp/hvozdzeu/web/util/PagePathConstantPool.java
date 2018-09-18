@@ -17,7 +17,8 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_LIST_CARD_CLIENT = "/ServletController?command=credit_card_view";
     public static final String REDIRECT_PERSONAL_DATA_VIEW = "/ServletController?command=personal_data_view";
     public static final String REDIRECT_SAVE_PAY_PAYMENT = "/ServletController?command=payment_service_view";
-    public static final String REDIRECT_SAVE_TRANSFER = "/ServletController?command=transfer_view";
+    public static final String REDIRECT_SAVE_TRANSFER_HIS_CARD = "/ServletController?command=transfer_view_his_card";
+    public static final String REDIRECT_SAVE_TRANSFER_ALIEN_CARD = "/ServletController?command=transfer_view_alien_card";
     public static final String REDIRECT_UPDATE_CLIENT_PSWD = "/ServletController?command=update_client_password_view";
     public static final String REDIRECT_LIST_MESSAGE = "/ServletController?command=list_message_view";
     public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
@@ -45,7 +46,8 @@ public final class PagePathConstantPool {
 	public static final String PAYMENT_HISTORY_VIEW = "/WEB-INF/list_payment_history.jsp";
 	public static final String CREDIT_CARD_VIEW = "/WEB-INF/cards.jsp";
 	public static final String PAYMENT_SERVICE_VIEW = "/WEB-INF/payment_service.jsp";
-	public static final String TRANSFER_VIEW = "/WEB-INF/card_money_transfer.jsp";
+	public static final String TRANSFER_VIEW_HIS_CARD = "/WEB-INF/card_money_transfer_his_card.jsp";
+    public static final String TRANSFER_VIEW_ALIEN_CARD = "/WEB-INF/card_money_transfer_alien_card.jsp";
 	public static final String PERSONAL_DATA_VIEW = "/WEB-INF/user_personal_data.jsp";
 	public static final String UPDATE_CLIENT_PSWD_VIEW = "/WEB-INF/change_password.jsp";
 	public static final String DETAIL_BLOCKED_CARD = "/WEB-INF/detail_blocked_card.jsp";

@@ -51,6 +51,11 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
         BigDecimal balance = bankAccount.getBalanceBankAccount();
         Long bankAccountId = bankAccount.getId();
 
+        if (sum.intValue() == 0 || sum.intValue() < 0) {
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, "The transfer amount can't be 0.");
+            return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+        }
+
         if (verifyCode.equals(vCode)) {
 
             if (balance.intValue() > sum.intValue()) {

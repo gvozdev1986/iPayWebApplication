@@ -15,7 +15,7 @@ import java.util.List;
 
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
-public class TransferServiceViewCommandImpl implements BaseCommand {
+public class TransferServiceHisViewCommandImpl implements BaseCommand {
 
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 	private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
@@ -32,8 +32,7 @@ public class TransferServiceViewCommandImpl implements BaseCommand {
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
 		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
 		request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);
-		request.getSession().removeAttribute(MESSAGE_TRANSFER_REMOVE);
-		return PagePathConstantPool.TRANSFER_VIEW;
+		return PagePathConstantPool.TRANSFER_VIEW_HIS_CARD;
 	}
 
 }
