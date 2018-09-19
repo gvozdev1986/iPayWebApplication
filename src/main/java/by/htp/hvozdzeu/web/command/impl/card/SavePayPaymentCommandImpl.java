@@ -80,7 +80,6 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
                 iBankAccountService.updateBalance(newBalance, bankAccountId);
                 User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 
-
                 String emailToReply = user.getEmail();
                 String subjectToReply = "Information about the write-off of funds.";
                 String message = "Hello. " +

@@ -5,12 +5,17 @@ import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.CreditCardRowMapper;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCardDAO {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreditCardCrudImpl.class);
+
 
     private static final String SQL_CREATE = "INSERT INTO `ipaywebapplication`.`creditcard` "
             + "("
@@ -161,7 +166,9 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
     @Override
     public CreditCard create(CreditCard entity) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, entity.getClient());
             preparedStatement.setString(2, entity.getCardNumber());
             preparedStatement.setString(3, entity.getCardFirstName());
@@ -170,8 +177,15 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
             preparedStatement.setString(6, "UNDEFINED");
             preparedStatement.setString(7, entity.getVerifyCode());
             preparedStatement.setBoolean(8, true);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(ERROR_CREATE, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
@@ -182,12 +196,21 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
     @Override
     public CreditCard update(CreditCard entity, Long id) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, entity.getCardFirstName());
             preparedStatement.setString(2, entity.getCardLastName());
             preparedStatement.setLong(3, id);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(ERROR_UPDATE_BY_ID, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
@@ -237,15 +260,25 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
     @Override
     public boolean deleteById(Long id) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-            return true;
+            connection.commit();
+            result = true;
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(ERROR_DELETE_BY_ID, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
+        return result;
     }
 
     @Override
@@ -291,29 +324,49 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
     @Override
     public boolean blockCreditCard(Long creditCardId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_BLOCK_CARD)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, creditCardId);
             preparedStatement.executeUpdate();
-            return true;
+            connection.commit();
+            result = true;
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(ERROR_BLOCK_CARD, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
+        return result;
     }
 
     @Override
     public boolean unblockCreditCard(Long creditCardId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UNBLOCK_CARD)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, creditCardId);
             preparedStatement.executeUpdate();
-            return true;
+            connection.commit();
+            result = true;
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(ERROR_UNBLOCK_CARD, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
+        return result;
     }
 
     @Override
@@ -408,7 +461,9 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
     public Long createReturnId(CreditCard creditCard) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Long creditCardId;
+        Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, creditCard.getClient());
             preparedStatement.setString(2, creditCard.getCardNumber());
             preparedStatement.setString(3, creditCard.getCardFirstName());
@@ -418,7 +473,9 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
             preparedStatement.setString(7, creditCard.getVerifyCode());
             preparedStatement.setBoolean(8, creditCard.isBlock());
             preparedStatement.setBoolean(9, true);
+            savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
+            connection.commit();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -429,6 +486,11 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCa
             }
 
         } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
             throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);

@@ -189,20 +189,21 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
     public boolean deleteById(Long id) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
-        boolean result = false;
+        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
-            result =  true;
+            result = true;
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
+            throw new DAOException(e.getMessage());
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -236,6 +237,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
         Savepoint savepoint = null;
         boolean result = false;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_READ)) {
+            connection.setAutoCommit(false);
             preparedStatement.setLong(1, messageId);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
@@ -259,6 +261,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements I
         MessageContact messageContact;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_PAGINATION)) {
+            connection.setAutoCommit(false);
             preparedStatement.setInt(1, count);
             preparedStatement.setInt(2, start);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
