@@ -19,6 +19,8 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class BlockCardCommandImpl implements BaseCommand {
 
+    private static final String MSG_EVENT_NAME = "eventMessage";
+    private static final String MSG_EVENT_VALUE = "blocked_card_message";
 	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
 
 	@Override
@@ -44,6 +46,7 @@ public class BlockCardCommandImpl implements BaseCommand {
 		String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
 		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
+		request.getSession().setAttribute(MSG_EVENT_NAME, MSG_EVENT_VALUE);
 		request.setAttribute(REQUEST_CARDS, creditCards);
 		return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 	}

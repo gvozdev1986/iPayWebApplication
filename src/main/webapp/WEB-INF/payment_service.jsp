@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
 <style>
     .message-box {
@@ -17,18 +19,16 @@
     <div class="row">
         <jsp:include page="user_menu.jsp"/>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Payment</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">PAYMENT SERVICE</div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"><fmt:message key="payment_label"/></h1>
+                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="payment_service_group"/></div>
             </div>
             <div class="container">
                 <form action="ServletController" method="post">
                     <input type="hidden" name="clientId" value="${client.id}"/>
                     <div class="form-row">
                         <div class="col-md-4 mb-3 input-group-sm">
-                            <label for="idCardPayment"><i class="far fa-credit-card"></i>
-                                Card</label>
+                            <label for="idCardPayment"><i class="far fa-credit-card"></i> <fmt:message key="card_field"/></label>
                             <select class="custom-select" id="idCardPayment" name="idCard"
                                     style="line-height: 14px; height: 31px;">
                                 <c:forEach items="${cards}" var="creditCards">
@@ -40,7 +40,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3 input-group-sm">
-                            <label for="idService"><i class="fab fa-servicestack"></i> Service</label>
+                            <label for="idService"><i class="fab fa-servicestack"></i> <fmt:message key="service_field"/></label>
                             <input class="custom-select"
                                    id="idService"
                                    style="line-height: 14px; height: 31px;"
@@ -48,46 +48,59 @@
                                    onblur="selectService();">
                             <datalist id="services" style="width: 100%">
                                 <c:forEach items="${groups}" var="paymentDatas">
-                                    <option data-value="${paymentDatas.id}" value="${paymentDatas.paymentDataName} (${paymentDatas.paymentDataGroup})"></option>
+                                    <option data-value="${paymentDatas.id}"
+                                            value="${paymentDatas.paymentDataName} (${paymentDatas.paymentDataGroup})"></option>
                                 </c:forEach>
                             </datalist>
                             <input type="hidden" id="serviceId" name="idService">
                         </div>
                         <div class="col-md-2 mb-3 input-group-sm">
-                            <label for="code"><i class="fas fa-coins"></i> Order NO</label>
+                            <label for="code"><i class="fas fa-coins"></i> <fmt:message key="order_field"/></label>
                             <input type="text"
                                    class="form-control"
                                    id="orderNo"
-                                   placeholder="Order NO"
+                                   placeholder=" <fmt:message key="order_field"/>"
                                    name="orderNo"
                                    required>
                         </div>
                         <div class="col-md-2 mb-3 input-group-sm">
-                            <label for="sum"><i class="fas fa-sort-numeric-up"></i>
-                                Sum</label> <input type="number" class="form-control" id="sum"
-                                                   placeholder="0.00" name="sum" step="0.01" required
-                                                   style="text-align: right;">
+                            <label for="sum"><i class="fas fa-sort-numeric-up"></i> <fmt:message key="sum_field"/></label>
+                            <input type="number"
+                                   class="form-control" id="sum"
+                                   placeholder="0.00"
+                                   name="sum"
+                                   step="0.01"
+                                   required
+                                   style="text-align: right;">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-10 mb-3 input-group-sm">
-                            <label for="description"><i class="far fa-comment-alt"></i>
-                                Description</label> <input type="text" class="form-control"
-                                                           id="description" placeholder="Description" name="description"
-                                                           required>
+                            <label for="description"><i class="far fa-comment-alt"></i> <fmt:message key="description_field"/></label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="description"
+                                   placeholder="<fmt:message key="description_field"/>"
+                                   name="description"
+                                   required>
                         </div>
                         <div class="col-md-1 mb-3 input-group-sm">
-                            <label for="code"><i class="fas fa-user-secret"></i> Code</label>
-                            <input type="password" class="form-control" id="code"
-                                   placeholder="Code" name="code" required>
+                            <label for="code"><i class="fas fa-user-secret"></i> <fmt:message key="code_field"/></label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="code"
+                                   placeholder="<fmt:message key="code_field"/>"
+                                   name="code"
+                                   required>
                         </div>
                         <div class="col-md-1 mb-3 input-group-sm">
                             <div style="margin-top: 31px;"></div>
-                            <button
-                                    class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
-                                    id="save_btn" type="submit" name="command"
+                            <button class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
+                                    id="save_btn"
+                                    type="submit"
+                                    name="command"
                                     value="save_pay_payment">
-                                <i class="fas fa-shopping-cart"></i> Pay
+                                <i class="fas fa-shopping-cart"></i> <fmt:message key="pay_btn"/>
                             </button>
                         </div>
                     </div>

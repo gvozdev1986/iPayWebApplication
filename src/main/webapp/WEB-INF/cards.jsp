@@ -16,6 +16,11 @@
         background-size: 100% 100%;
         color: #fff;
     }
+    .msgEvent {
+        margin-top: 3px;
+        color: #00ad7e;
+        font-size: 16px;
+    }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
@@ -39,6 +44,9 @@
                                 value="new_credit_card">
                             <i class="fas fa-plus"></i> <fmt:message key="add_btn"/>
                         </button>
+                        <c:if test = "${eventMessage != null}">
+                            <span class="msgEvent"><fmt:message key="${eventMessage}"/></span>
+                        </c:if>
                     </div>
                 </div>
             </form>

@@ -29,6 +29,8 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
     private static final String MESSAGE_CHECK_CREDIT_CARD_VALUE = "Such a credit card exists.";
     private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD = "messageErrorInsertNewCreditCard";
     private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD_VALUE = "Error insert credit cards";
+    private static final String MSG_EVENT_NAME = "eventMessage";
+    private static final String MSG_EVENT_VALUE = "insert_new_credit_card";
 
     private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
     private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
@@ -99,7 +101,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                 String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
                 mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
-
+                request.getSession().setAttribute(MSG_EVENT_NAME, MSG_EVENT_VALUE);
                 return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 
             } else {

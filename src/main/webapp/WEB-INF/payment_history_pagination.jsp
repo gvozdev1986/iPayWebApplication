@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
 <style>
     .btn-success {
@@ -54,8 +56,8 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"
               style="padding-bottom: 85px;">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Card history</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">CARD HISTORY</div>
+                <h1 class="h2"><fmt:message key="card_history_label"/></h1>
+                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="card_history_group"/></div>
             </div>
             <form action="ServletController" method="get" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
@@ -112,7 +114,7 @@
                                     name="command"
                                     value="payment_history_pagination"
                                     id="search-Btn">
-                                <i class="fas fa-search"></i> Search
+                                <i class="fas fa-search"></i> <fmt:message key="search_btn"/>
                             </button>
                             <button class="btn btn-success"
                                     style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
@@ -120,7 +122,7 @@
                                     name="command"
                                     value="payment_history_pagination"
                                     id="print-Btn">
-                                <i class="far fa-file-powerpoint"></i> Print
+                                <i class="far fa-file-powerpoint"></i> <fmt:message key="print_btn"/>
                             </button>
                             <button class="btn btn-success"
                                     style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
@@ -128,7 +130,7 @@
                                     name="command"
                                     value="report_payment_history_email"
                                     id="email-Btn">
-                                <i class="far fa-envelope-open"></i> email
+                                <i class="far fa-envelope-open"></i> <fmt:message key="email_btn"/>
                             </button>
                         </div>
                     </div>
@@ -139,11 +141,11 @@
                        style="width: 100%; font-size: 9pt;">
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 8%;">Date</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 6%;">Time</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 59%;">Brief about payment</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 20%;">Group</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 2%;">Amount</td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 8%;"><fmt:message key="date"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 6%;"><fmt:message key="time"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 59%;"><fmt:message key="brief"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
                     </tr>
                     <c:forEach items="${paymentHistory}" var="pagination">
                         <tr>
@@ -156,7 +158,6 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <p class="send-report"><fmt:message key="${successful_send_report_email}"/></p>
             </div>
             <!-- PAGINATION -->
             <jsp:include page="pagination.jsp"/>

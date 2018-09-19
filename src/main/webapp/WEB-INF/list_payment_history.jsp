@@ -12,6 +12,12 @@
         border-color: #00ad7e;
     }
 
+    .send-report {
+        font-size: 11px;
+        font-weight: 600;
+        color: #00ad7e;
+    }
+
     .btn-success:hover {
         color: #fff;
         background-color: #41c7a3;
@@ -48,8 +54,8 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"
               style="padding-bottom: 85px;">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Card history</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">CARD HISTORY</div>
+                <h1 class="h2"><fmt:message key="card_history_label"/></h1>
+                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="card_history_group"/></div>
             </div>
             <form action="ServletController" method="get" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
@@ -106,7 +112,7 @@
                                     name="command"
                                     value="payment_history"
                                     id="search-Btn">
-                                <i class="fas fa-search"></i> Search
+                                <i class="fas fa-search"></i> <fmt:message key="search_btn"/>
                             </button>
                         </div>
                     </div>
@@ -117,11 +123,11 @@
                        style="width: 100%; font-size: 9pt;">
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 8%;">Date</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 6%;">Time</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 59%;">Brief about payment</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 20%;">Group</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 2%;">Amount</td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 8%;"><fmt:message key="date"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 6%;"><fmt:message key="time"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 59%;"><fmt:message key="brief"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
+                        <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
                     </tr>
                     <c:forEach items="${paymentHistory}" var="pagination">
                         <tr>
@@ -134,6 +140,9 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <c:if test = "${messageReport != null}">
+                    <span class="send-report"><fmt:message key="${messageReport}"/></span>
+                </c:if>
             </div>
             <!-- PAGINATION -->
             <jsp:include page="pagination.jsp"/>
@@ -144,18 +153,6 @@
 <link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
 <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
 <script>
-
     $('.paymentHistoryDateFrom').datepicker();
     $('.paymentHistoryDateTo').datepicker();
-
-    // var start_date = document.getElementById("paymentHistoryDateFrom");
-    // var end_date = document.getElementById("paymentHistoryDateTo");
-    //
-    // if (start_date.value === "" && end_date.value === "") {
-    //     var date = new Date();
-    //     var formattedDate = moment(date).format('YYYY-MM-DD');
-    //     start_date.value = formattedDate;
-    //     end_date.value = formattedDate;
-    // }
-
 </script>
