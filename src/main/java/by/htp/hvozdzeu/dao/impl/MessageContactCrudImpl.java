@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.IMessageContactDAO;
+import by.htp.hvozdzeu.dao.MessageContactDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.MessageContactRowMapper;
 import by.htp.hvozdzeu.model.MessageContact;
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageContactCrudImpl extends MessageContactRowMapper implements IMessageContactDAO {
+public class MessageContactCrudImpl extends MessageContactRowMapper implements MessageContactDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageContactCrudImpl.class);
 

@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.IPaymentDataDAO;
+import by.htp.hvozdzeu.dao.PaymentDataDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.PaymentDataRowMapper;
 import by.htp.hvozdzeu.model.PaymentData;
@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentDataCrudImpl extends PaymentDataRowMapper implements IPaymentDataDAO {
+public class PaymentDataCrudImpl extends PaymentDataRowMapper implements PaymentDataDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDataCrudImpl.class);
 

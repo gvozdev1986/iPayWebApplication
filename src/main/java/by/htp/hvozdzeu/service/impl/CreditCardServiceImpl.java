@@ -1,85 +1,85 @@
 package by.htp.hvozdzeu.service.impl;
 
-import by.htp.hvozdzeu.dao.ICreditCardDAO;
+import by.htp.hvozdzeu.dao.CreditCardDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
-import by.htp.hvozdzeu.service.ICreditCardService;
+import by.htp.hvozdzeu.service.CreditCardService;
 
 import java.util.List;
 
-public class CreditCardServiceImpl implements ICreditCardService {
+public class CreditCardServiceImpl implements CreditCardService {
 
-	private ICreditCardDAO iCreditCardDAO = DAOFactory.getCreditCardDao();
+	private CreditCardDAO creditCardDAO = DAOFactory.getCreditCardDao();
 
 	@Override
 	public CreditCard create(CreditCard creditCard) throws DAOException {
-		return iCreditCardDAO.create(creditCard);
+		return creditCardDAO.create(creditCard);
 	}
 
 	@Override
 	public CreditCard update(CreditCard creditCard, Long id) throws DAOException {
-		return iCreditCardDAO.update(creditCard, id);
+		return creditCardDAO.update(creditCard, id);
 	}
 
 	@Override
 	public CreditCard findById(Long id) throws DAOException {
-		return iCreditCardDAO.findById(id);
+		return creditCardDAO.findById(id);
 	}
 
 	@Override
 	public List<CreditCard> read() throws DAOException {
-		return iCreditCardDAO.read();
+		return creditCardDAO.read();
 	}
 
 	@Override
 	public boolean deleteById(Long id) throws DAOException {
-		return iCreditCardDAO.deleteById(id);
+		return creditCardDAO.deleteById(id);
 	}
 
 	@Override
 	public CreditCard findByCreditCardNumber(String creditCard) throws DAOException {
-		return iCreditCardDAO.findByCreditCardNumber(creditCard);
+		return creditCardDAO.findByCreditCardNumber(creditCard);
 	}
 
 	@Override
 	public List<StatusCardReport> findCreditCardByIdClient(Long clientId) throws DAOException {
-		return iCreditCardDAO.findCreditCardByIdClient(clientId);
+		return creditCardDAO.findCreditCardByIdClient(clientId);
 	}
 
 	@Override
 	public boolean blockCreditCard(Long creditCardId) throws DAOException {
-		return iCreditCardDAO.blockCreditCard(creditCardId);
+		return creditCardDAO.blockCreditCard(creditCardId);
 	}
 
 	@Override
 	public boolean unblockCreditCard(Long creditCardId) throws DAOException {
-		return iCreditCardDAO.unblockCreditCard(creditCardId);
+		return creditCardDAO.unblockCreditCard(creditCardId);
 	}
 
 	@Override
 	public List<CreditCard> blockedCreditCard() throws DAOException {
-		return iCreditCardDAO.blockedCreditCard();
+		return creditCardDAO.blockedCreditCard();
 	}
 
 	@Override
 	public List<CreditCard> findByParameter(String param) throws DAOException {
-		return iCreditCardDAO.findByParameter(param);
+		return creditCardDAO.findByParameter(param);
 	}
 
 	@Override
 	public List<CreditCard> findBlockedByParameter(String param) throws DAOException {
-		return iCreditCardDAO.findBlockedByParameter(param);
+		return creditCardDAO.findBlockedByParameter(param);
 	}
 
 	@Override
 	public List<CreditCard> pagination(Integer start, Integer count) throws DAOException {
-		return iCreditCardDAO.pagination(start, count);
+		return creditCardDAO.pagination(start, count);
 	}
 
 	@Override
 	public Long createReturnId(CreditCard creditCard) throws DAOException {
-		return iCreditCardDAO.createReturnId(creditCard);
+		return creditCardDAO.createReturnId(creditCard);
 	}
 }

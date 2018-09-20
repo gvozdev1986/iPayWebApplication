@@ -9,14 +9,10 @@ public class SumPaymentReportChartPie {
 	private String group;
 	private BigDecimal sum;
 
-	public SumPaymentReportChartPie() {
+	private SumPaymentReportChartPie() {}
 
-	}
-
-	public SumPaymentReportChartPie(Builder builder) {
-		this.amount = builder.amount;
-		this.group = builder.group;
-		this.sum = builder.sum;
+	public static Builder getBuilder(){
+		return new SumPaymentReportChartPie().new Builder();
 	}
 
 	public Integer getAmount() {
@@ -52,28 +48,27 @@ public class SumPaymentReportChartPie {
 		return "SumPaymentReportChartPie{" + "amount=" + amount + ", group='" + group + '\'' + ", sum=" + sum + '}';
 	}
 
-	public static class Builder {
-		private Integer amount;
-		private String group;
-		private BigDecimal sum;
+	public class Builder {
+
+		private Builder(){}
 
 		public Builder amount(Integer amount) {
-			this.amount = amount;
+			SumPaymentReportChartPie.this.amount = amount;
 			return this;
 		}
 
 		public Builder group(String group) {
-			this.group = group;
+            SumPaymentReportChartPie.this.group = group;
 			return this;
 		}
 
 		public Builder sum(BigDecimal sum) {
-			this.sum = sum;
+            SumPaymentReportChartPie.this.sum = sum;
 			return this;
 		}
 
 		public SumPaymentReportChartPie build() {
-			return new SumPaymentReportChartPie(this);
+			return SumPaymentReportChartPie.this;
 		}
 
 	}

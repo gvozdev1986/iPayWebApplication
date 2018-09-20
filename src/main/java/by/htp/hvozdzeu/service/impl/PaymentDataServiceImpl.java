@@ -1,16 +1,16 @@
 package by.htp.hvozdzeu.service.impl;
 
-import by.htp.hvozdzeu.dao.IPaymentDataDAO;
+import by.htp.hvozdzeu.dao.PaymentDataDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.PaymentData;
-import by.htp.hvozdzeu.service.IPaymentDataService;
+import by.htp.hvozdzeu.service.PaymentDataService;
 
 import java.util.List;
 
-public class PaymentDataServiceImpl implements IPaymentDataService {
+public class PaymentDataServiceImpl implements PaymentDataService {
 
-	private IPaymentDataDAO iPaymentDataDAO = DAOFactory.getPaymentServiceDao();
+	private PaymentDataDAO iPaymentDataDAO = DAOFactory.getPaymentServiceDao();
 
 	@Override
 	public PaymentData create(PaymentData paymentData) throws DAOException {

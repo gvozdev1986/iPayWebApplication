@@ -13,7 +13,7 @@ public class MailAccountRowMapper {
 
 
     protected MailAccount buildMailAccountRowMapper(ResultSet resultSet) throws SQLException {
-        return new MailAccount.Builder()
+        return MailAccount.getBuilder()
                 .id(resultSet.getLong(MAIL_ACCOUNT_ID))
                 .mailLogin(resultSet.getString(MAIL_ACCOUNT_CLIENT))
                 .mailPswd(resultSet.getString(MAIL_ACCOUNT_PSWD))

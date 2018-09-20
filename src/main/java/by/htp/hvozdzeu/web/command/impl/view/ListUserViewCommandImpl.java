@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -20,24 +20,24 @@ import static by.htp.hvozdzeu.web.pagination.WriteSessionPagination.writeSession
 
 public class ListUserViewCommandImpl implements BaseCommand {
 
-	private static final String COUNT_BLOCKED_CLIENTS = "countBlockedClients";
+	private static final String COUNT_BLOCKED_CLIENTS = "countBlockedUsers";
 	private static final String PAGINATION_NAME = "clients";
 	private static final String PAGINATION_LIST_VALUE = "list_client_view";
-	private IUserService iClientService = ServiceFactory.getUserService();
+	private UserService userService = ServiceFactory.getUserService();
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		Integer countBlockedClients = iClientService.listBlockedClient().size();
-		Integer countRow = iClientService.read().size();
+		Integer countBlockedUsers = userService.listBlockedClient().size();
+		Integer countRow = userService.read().size();
 
 		Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
 		Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
-		List<User> pagination = iClientService.pagination(countRowOnPage, displacement);
+		List<User> pagination = userService.pagination(countRowOnPage, displacement);
 		writeSessionPagination(request, countRow, PAGINATION_NAME, pagination);
 
 		request.getSession().setAttribute(PAGINATION_LIST, PAGINATION_LIST_VALUE);
-		request.getSession().setAttribute(COUNT_BLOCKED_CLIENTS, countBlockedClients);
+		request.getSession().setAttribute(COUNT_BLOCKED_CLIENTS, countBlockedUsers);
 		return PagePathConstantPool.LIST_CLIENT_VIEW;
 	}
 

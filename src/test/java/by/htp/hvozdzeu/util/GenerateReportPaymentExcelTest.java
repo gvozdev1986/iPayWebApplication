@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.util;
 
 import by.htp.hvozdzeu.model.report.PaymentReport;
-import by.htp.hvozdzeu.service.IPaymentService;
+import by.htp.hvozdzeu.service.PaymentService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -23,7 +23,7 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PATH_TO_SAVE_REPOR
 public class GenerateReportPaymentExcelTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenerateReportPaymentExcelTest.class);
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
     private List<PaymentReport> paymentReports;
     private Long cardId;
     private LocalDate dateStart;
@@ -34,7 +34,7 @@ public class GenerateReportPaymentExcelTest {
         cardId = 17L;
         dateStart = LocalDate.of(2018, 8, 1);
         dateEnd = LocalDate.of(2018, 8, 31);
-        paymentReports = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, 100000000, 0);
+        paymentReports = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, 100000000, 0);
     }
 
     @After
@@ -74,10 +74,10 @@ public class GenerateReportPaymentExcelTest {
             FileOutputStream fileOut = new FileOutputStream(filename);
             workbook.write(fileOut);
             fileOut.close();
-            System.out.println("Your excel file has been generated!");
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
     }
+
 }

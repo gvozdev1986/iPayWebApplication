@@ -22,7 +22,7 @@ public class CreditCardRowMapper {
 
 
     protected CreditCard buildCreditCardRowMapper(ResultSet resultSet) throws SQLException {
-        return new CreditCard.Builder()
+        return CreditCard.getBuilder()
                 .id(resultSet.getLong(CREDIT_CARD_ID))
                 .client(resultSet.getLong(CREDIT_CARD_CLIENT))
                 .cardNumber(resultSet.getString(CREDIT_CARD_NUMBER))
@@ -49,7 +49,7 @@ public class CreditCardRowMapper {
 
 
     protected StatusCardReport buildStatusCreditCardRowMapper(ResultSet resultSet) throws SQLException {
-        return new StatusCardReport.Builder()
+        return StatusCardReport.getBuilder()
         		.id(resultSet.getLong(STATUS_CARD_ID))
         		.cardNumber(resultSet.getString(STATUS_CARD_NUMBER))
         		.cardFirstName(resultSet.getString(STATUS_CARD_FIRST_NAME))

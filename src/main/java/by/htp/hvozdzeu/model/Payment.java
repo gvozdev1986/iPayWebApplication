@@ -20,19 +20,10 @@ public class Payment extends Entity {
     private boolean available;
     private String orderNo;
 
-    public Payment() {
-    }
+    private Payment() {}
 
-    public Payment(Builder builder) {
-        this.setId(builder.id);
-        this.datePayment = builder.datePayment;
-        this.timePayment = builder.timePayment;
-        this.descriptionPayment = builder.descriptionPayment;
-        this.paymentService = builder.paymentService;
-        this.amountPayment = builder.amountPayment;
-        this.creditCard = builder.creditCard;
-        this.available = builder.available;
-        this.orderNo = builder.orderNo;
+    public static Builder getBuilder() {
+        return new Payment().new Builder();
     }
 
     public LocalDate getDatePayment() {
@@ -113,64 +104,57 @@ public class Payment extends Entity {
                 '}';
     }
 
-    public static class Builder {
-        private Long id;
-        private LocalDate datePayment;
-        private LocalTime timePayment;
-        private String descriptionPayment;
-        private Long paymentService;
-        private BigDecimal amountPayment;
-        private Long creditCard;
-        private boolean available;
-        private String orderNo;
+    public class Builder {
+
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            Payment.this.setId(id);
             return this;
         }
 
         public Builder datePayment(LocalDate datePayment) {
-            this.datePayment = datePayment;
+            Payment.this.datePayment = datePayment;
             return this;
         }
 
         public Builder timePayment(LocalTime timePayment) {
-            this.timePayment = timePayment;
+            Payment.this.timePayment = timePayment;
             return this;
         }
 
         public Builder descriptionPayment(String descriptionPayment) {
-            this.descriptionPayment = descriptionPayment;
+            Payment.this.descriptionPayment = descriptionPayment;
             return this;
         }
 
         public Builder paymentService(Long paymentService) {
-            this.paymentService = paymentService;
+            Payment.this.paymentService = paymentService;
             return this;
         }
 
         public Builder amountPayment(BigDecimal amountPayment) {
-            this.amountPayment = amountPayment;
+            Payment.this.amountPayment = amountPayment;
             return this;
         }
 
         public Builder creditCard(Long creditCard) {
-            this.creditCard = creditCard;
+            Payment.this.creditCard = creditCard;
             return this;
         }
 
         public Builder available(Boolean available) {
-            this.available = available;
+            Payment.this.available = available;
             return this;
         }
 
         public Builder orderNo(String orderNo) {
-            this.orderNo = orderNo;
+            Payment.this.orderNo = orderNo;
             return this;
         }
 
         public Payment build() {
-            return new Payment(this);
+            return Payment.this;
         }
     }
 }

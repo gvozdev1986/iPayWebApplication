@@ -5,7 +5,7 @@ import by.htp.hvozdzeu.model.PaymentData;
 
 import java.util.List;
 
-public interface IPaymentDataService {
+public interface PaymentDataService {
 
     PaymentData create(PaymentData paymentData) throws DAOException;
 

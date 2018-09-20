@@ -3,10 +3,10 @@ package by.htp.hvozdzeu.web.command.impl.card;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.model.*;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
-import by.htp.hvozdzeu.service.IBankAccountService;
-import by.htp.hvozdzeu.service.ICreditCardService;
-import by.htp.hvozdzeu.service.IPaymentDataService;
-import by.htp.hvozdzeu.service.IPaymentService;
+import by.htp.hvozdzeu.service.BankAccountService;
+import by.htp.hvozdzeu.service.CreditCardService;
+import by.htp.hvozdzeu.service.PaymentDataService;
+import by.htp.hvozdzeu.service.PaymentService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -24,10 +24,10 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
 
     private static final Long CODE_TRANSFER = 22L;
     private static final String MESSAGE_TRANSFER_INFORMATION = "messageFromTransfer";
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-    private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
-    private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
+    private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
+    private BankAccountService bankAccountService = ServiceFactory.getBankAccountService();
+    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -38,7 +38,7 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
         String description = request.getParameter("descriptionCardTransf");
         String code = request.getParameter("code");
 
-        CreditCard cardFromVerifyCode = iCreditCardService.findById(cardNumberFromId);
+        CreditCard cardFromVerifyCode = creditCardService.findById(cardNumberFromId);
         String vCode = cardFromVerifyCode.getVerifyCode();
 
 
@@ -54,16 +54,16 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
 
         if (code.equals(vCode)) {
 
-            BankAccount bankAccountFrom = iBankAccountService.findByCardId(cardNumberFromId);
+            BankAccount bankAccountFrom = bankAccountService.findByCardId(cardNumberFromId);
             BigDecimal balanceFrom = bankAccountFrom.getBalanceBankAccount();
             Long bankAccountFromId = bankAccountFrom.getId();
 
-            BankAccount bankAccountTo = iBankAccountService.findByCardId(cardNumberToId);
+            BankAccount bankAccountTo = bankAccountService.findByCardId(cardNumberToId);
             BigDecimal balanceTo = bankAccountTo.getBalanceBankAccount();
             Long bankAccountToId = bankAccountTo.getId();
 
-            CreditCard cardFrom = iCreditCardService.findById(cardNumberFromId);
-            CreditCard cardTo = iCreditCardService.findById(cardNumberToId);
+            CreditCard cardFrom = creditCardService.findById(cardNumberFromId);
+            CreditCard cardTo = creditCardService.findById(cardNumberToId);
 
             if (balanceFrom.intValue() > sum.intValue()) {
                 String fullWriteOffDescription = description
@@ -86,15 +86,15 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
                 reFillBalance(fullReFillDescription, sum, cardNumberToId);
 
                 BigDecimal newBalanceMinus = balanceFrom.subtract(sum);
-                iBankAccountService.updateBalance(newBalanceMinus, bankAccountFromId);
+                bankAccountService.updateBalance(newBalanceMinus, bankAccountFromId);
 
                 BigDecimal newBalancePlus = balanceTo.add(sum);
-                iBankAccountService.updateBalance(newBalancePlus, bankAccountToId);
+                bankAccountService.updateBalance(newBalancePlus, bankAccountToId);
 
                 User user = (User) request.getSession().getAttribute("user");
                 Long clientId = user.getId();
-                List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
-                List<PaymentData> paymentDates = iPaymentDataService.read();
+                List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
+                List<PaymentData> paymentDates = paymentDataService.read();
 
                 sendEmailAboutTransfer(request, user, sum, cardFrom, description);
 
@@ -115,23 +115,23 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
 
     private void writeOffBalance(String fullWriteOffDescription, BigDecimal sum, Long cardNumberFromId)
             throws DAOException {
-        Payment paymentWriteOff = new Payment.Builder()
+        Payment paymentWriteOff = Payment.getBuilder()
                 .datePayment(new Date(System.currentTimeMillis()).toLocalDate())
                 .timePayment(new Time(System.currentTimeMillis()).toLocalTime())
                 .descriptionPayment(fullWriteOffDescription)
                 .paymentService(CODE_TRANSFER).amountPayment(sum)
                 .creditCard(cardNumberFromId).build();
-        iPaymentService.create(paymentWriteOff);
+        paymentService.create(paymentWriteOff);
     }
 
     private void reFillBalance(String fullReFillDescription, BigDecimal sum, Long cardNumberToId) throws DAOException {
-        Payment paymentReFill = new Payment.Builder()
+        Payment paymentReFill = Payment.getBuilder()
                 .datePayment(new Date(System.currentTimeMillis()).toLocalDate())
                 .timePayment(new Time(System.currentTimeMillis()).toLocalTime())
                 .descriptionPayment(fullReFillDescription)
                 .paymentService(CODE_TRANSFER).amountPayment(sum)
                 .creditCard(cardNumberToId).build();
-        iPaymentService.create(paymentReFill);
+        paymentService.create(paymentReFill);
     }
 
 }

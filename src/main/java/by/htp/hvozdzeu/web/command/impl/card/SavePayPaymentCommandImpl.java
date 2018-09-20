@@ -2,10 +2,10 @@ package by.htp.hvozdzeu.web.command.impl.card;
 
 import by.htp.hvozdzeu.model.*;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
-import by.htp.hvozdzeu.service.IBankAccountService;
-import by.htp.hvozdzeu.service.ICreditCardService;
-import by.htp.hvozdzeu.service.IPaymentDataService;
-import by.htp.hvozdzeu.service.IPaymentService;
+import by.htp.hvozdzeu.service.BankAccountService;
+import by.htp.hvozdzeu.service.CreditCardService;
+import by.htp.hvozdzeu.service.PaymentDataService;
+import by.htp.hvozdzeu.service.PaymentService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -30,10 +30,10 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
     private static final String MESSAGE_SAVE_INSUFFICIENT = "Insufficient funds.";
     private static final String MESSAGE_SAVE_NOT_RIGHT_CODE = "Not right security code.";
 
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
-    private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-    private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
+    private BankAccountService bankAccountService = ServiceFactory.getBankAccountService();
+    private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
+    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -45,10 +45,10 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
         String verifyCode = request.getParameter(CODE);
         String orderNo = request.getParameter(ORDER_NO);
 
-        CreditCard creditCard = iCreditCardService.findById(cardId);
+        CreditCard creditCard = creditCardService.findById(cardId);
         String vCode = creditCard.getVerifyCode();
 
-        BankAccount bankAccount = iBankAccountService.findByCardId(cardId);
+        BankAccount bankAccount = bankAccountService.findByCardId(cardId);
         BigDecimal balance = bankAccount.getBalanceBankAccount();
         Long bankAccountId = bankAccount.getId();
 
@@ -65,7 +65,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
         if (verifyCode.equals(vCode)) {
 
             if (balance.intValue() > sum.intValue()) {
-                Payment payment = new Payment.Builder()
+                Payment payment = Payment.getBuilder()
                         .datePayment(new Date(System.currentTimeMillis()).toLocalDate())
                         .timePayment(new Time(System.currentTimeMillis()).toLocalTime())
                         .descriptionPayment(description)
@@ -73,11 +73,11 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
                         .amountPayment(sum)
                         .orderNo(orderNo)
                         .creditCard(cardId).build();
-                iPaymentService.create(payment);
+                paymentService.create(payment);
 
                 BigDecimal newBalance = balance.subtract(sum);
 
-                iBankAccountService.updateBalance(newBalance, bankAccountId);
+                bankAccountService.updateBalance(newBalance, bankAccountId);
                 User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 
                 String emailToReply = user.getEmail();
@@ -91,8 +91,8 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
 
 
                 Long clientId = user.getId();
-                List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
-                List<PaymentData> paymentDates = iPaymentDataService.read();
+                List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
+                List<PaymentData> paymentDates = paymentDataService.read();
                 request.getSession().setAttribute(REQUEST_PARAM_USER, user);
                 request.getSession().setAttribute(REQUEST_CARDS, creditCards);
                 request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);

@@ -4,8 +4,8 @@ import by.htp.hvozdzeu.model.BankAccount;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.enums.TypeCard;
-import by.htp.hvozdzeu.service.IBankAccountService;
-import by.htp.hvozdzeu.service.ICreditCardService;
+import by.htp.hvozdzeu.service.BankAccountService;
+import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -32,8 +32,8 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
     private static final String MSG_EVENT_NAME = "eventMessage";
     private static final String MSG_EVENT_VALUE = "insert_new_credit_card";
 
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-    private IBankAccountService iBankAccountService = ServiceFactory.getBankAccountService();
+    private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
+    private BankAccountService bankAccountService = ServiceFactory.getBankAccountService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -49,7 +49,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
         String creditCardType = request.getParameter(REQUEST_PARAM_CARD_TYPE);
         String secretCode = request.getParameter(REQUEST_PARAM_CARD_SECRET_CODE);
 
-        CreditCard checkCreditCard = iCreditCardService.findByCreditCardNumber(cardNumber);
+        CreditCard checkCreditCard = creditCardService.findByCreditCardNumber(cardNumber);
 
         if (checkCreditCard != null) {
 
@@ -61,7 +61,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
             LOGGER.debug("First step. Create credit card.");
             String validDate = cardValidMonth + "/" + cardValidYear;
-            CreditCard creditCard = new CreditCard.Builder()
+            CreditCard creditCard = CreditCard.getBuilder()
                     .client(userId)
                     .cardNumber(cardNumber)
                     .cardFirstName(firstNameCreditCard)
@@ -72,7 +72,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                     .block(false)
                     .build();
 
-            Long newCreditCardId = iCreditCardService.createReturnId(creditCard);
+            Long newCreditCardId = creditCardService.createReturnId(creditCard);
 
             if (newCreditCardId != null && newCreditCardId != 0) {
 
@@ -81,7 +81,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                 String nameAccount = CODE_NAME_ACCOUNT + numberAccountFirstPart + numberAccountSecondPart;
 
                 LOGGER.debug("Second step. Create bank account.");
-                BankAccount bankAccount = new BankAccount.Builder()
+                BankAccount bankAccount = BankAccount.getBuilder()
                         .creditCard(newCreditCardId)
                         .nameAccount(nameAccount)
                         .statusBankAccount(false)
@@ -89,7 +89,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                         .available(false)
                         .build();
 
-                iBankAccountService.create(bankAccount);
+                bankAccountService.create(bankAccount);
 
                 String emailToReply = user.getEmail();
                 String subjectToReply = "Information about insert new credit card.";

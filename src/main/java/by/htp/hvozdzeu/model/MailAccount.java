@@ -7,13 +7,14 @@ import java.util.Objects;
 public class MailAccount extends Entity {
 
     private static final long serialVersionUID = 5032771536878953565L;
+
     private String mailLogin;
     private String mailPswd;
 
-    private MailAccount(Builder builder) {
-        this.setId(builder.id);
-        this.mailLogin = builder.mailLogin;
-        this.mailPswd = builder.mailPswd;
+    private MailAccount(){}
+
+    public static Builder getBuilder(){
+        return new MailAccount().new Builder();
     }
 
     public String getMailLogin() {
@@ -48,28 +49,27 @@ public class MailAccount extends Entity {
                 '}';
     }
 
-    public static class Builder {
-        private Long id;
-        private String mailLogin;
-        private String mailPswd;
+    public class Builder {
+
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            MailAccount.this.setId(id);
             return this;
         }
 
         public Builder mailLogin(String mailLogin) {
-            this.mailLogin = mailLogin;
+            MailAccount.this.mailLogin = mailLogin;
             return this;
         }
 
         public Builder mailPswd(String mailPswd) {
-            this.mailPswd = mailPswd;
+            MailAccount.this.mailPswd = mailPswd;
             return this;
         }
 
         public MailAccount build() {
-            return new MailAccount(this);
+            return MailAccount.this;
         }
 
     }

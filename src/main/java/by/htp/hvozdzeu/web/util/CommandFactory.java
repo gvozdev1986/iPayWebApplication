@@ -164,31 +164,24 @@ public class CommandFactory {
             case SAVE_PAY_PAYMENT:
                 command = new SavePayPaymentCommandImpl();
                 break;
-
-
-
-
-
             case TRANSFER_VIEW_HIS_CARD:
                 command = new TransferServiceHisViewCommandImpl();
                 break;
-
             case TRANSFER_VIEW_ALIEN_CARD:
                 command = new TransferServiceAlienViewCommandImpl();
                 break;
-
-
             case SAVE_TRANSFER_HIS_CREDIT_CARD:
                 command = new SaveTransferHisCreditCardCommandImpl();
                 break;
             case SAVE_TRANSFER_ALIEN_CREDIT_CARD:
                 command = new SaveTransferAlienCreditCardCommandImpl();
                 break;
-
-
-
-
-
+            case UNBLOCK_USER:
+                command = new UnblockUserCommandImpl();
+                break;
+            case BLOCK_USER:
+                command = new BlockUserCommandImpl();
+                break;
             case VIEW_DETAIL_MESSAGE:
                 command = new MessageDetailViewCommandImpl();
                 break;
@@ -230,6 +223,9 @@ public class CommandFactory {
                 break;
             case REPORT_PAYMENT_HISTORY_EMAIL:
                 command = new ReportPaymentHistorySendEmailCommandImpl();
+                break;
+            case USER_LIST:
+                command = new ListUserViewCommandImpl();
                 break;
             default:
                 command = new GreetingPageViewCommandImpl();

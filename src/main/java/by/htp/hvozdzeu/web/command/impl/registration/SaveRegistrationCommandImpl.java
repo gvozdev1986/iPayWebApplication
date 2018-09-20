@@ -3,7 +3,7 @@ package by.htp.hvozdzeu.web.command.impl.registration;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.util.RebasePassword;
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
 import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.HttpRequestParamValidator.*;
@@ -24,7 +23,7 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SaveRegistrationCommandImpl implements BaseCommand {
 
-    private IUserService iUserService = ServiceFactory.getUserService();
+    private UserService userService = ServiceFactory.getUserService();
     private RebasePassword rebasePassword = new RebasePassword();
 
     private Map<String, String> validateErrorMap = new HashMap<>();
@@ -39,7 +38,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
 
             UUID uuid = UUID.randomUUID();
 
-            User user = new User.Builder()
+            User user = User.getBuilder()
                     .login(request.getParameter(REQUEST_PARAM_LOGIN))
                     .password(rebasePassword.rebasePSWD(request.getParameter(REQUEST_PARAM_PASS)))
                     .firstName(request.getParameter(REQUEST_PARAM_FIRST_NAME))
@@ -53,7 +52,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                     .regCode(String.valueOf(uuid))
                     .build();
 
-            iUserService.create(user);
+            userService.create(user);
 
             String emailToReply = request.getParameter(REQUEST_PARAM_EMAIL);
             String lastName = request.getParameter(REQUEST_PARAM_LAST_NAME);
@@ -85,7 +84,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
 
         String verifyPswd = request.getParameter(REQUEST_VERIFY_PSWD);
         String username = request.getParameter(REQUEST_PARAM_LOGIN);
-        User userCheckLogin = iUserService.findByLogin(username);
+        User userCheckLogin = userService.findByLogin(username);
 
         if (userCheckLogin == null) {
             if (!validateLogin(request.getParameter(REQUEST_PARAM_LOGIN))) {

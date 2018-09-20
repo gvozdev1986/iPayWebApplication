@@ -27,8 +27,8 @@ public final class RedirectHelper {
         redirectSet.add(REDIRECT_SAVE_PAY_PAYMENT);
         redirectSet.add(REDIRECT_SAVE_TRANSFER_HIS_CARD);
         redirectSet.add(REDIRECT_UPDATE_CLIENT_PSWD);
-        redirectSet.add(REDIRECT_LIST_MESSAGE);
         redirectSet.add(REDIRECT_MESSAGE_DETAIL);
+        redirectSet.add(REDIRECT_USER_LIST);
     }
 
     public static boolean getRedirectUrl(String path){

@@ -15,13 +15,10 @@ public class BankAccount extends Entity {
     private BigDecimal balanceBankAccount;
     private boolean available;
 
-    private BankAccount(Builder builder) {
-        this.setId(builder.id);
-        this.nameAccount = builder.nameAccount;
-        this.creditCard = builder.creditCard;
-        this.statusBankAccount = builder.statusBankAccount;
-        this.available = builder.available;
-        this.balanceBankAccount = builder.balanceBankAccount;
+    private BankAccount(){}
+
+    public static Builder getBuilder() {
+        return new BankAccount().new Builder();
     }
 
     public Long getCreditCard() {
@@ -81,46 +78,42 @@ public class BankAccount extends Entity {
                 '}';
     }
 
-    public static class Builder {
-        private Long id;
-        private String nameAccount;
-        private Long creditCard;
-        private boolean statusBankAccount;
-        private BigDecimal balanceBankAccount;
-        private boolean available;
+    public class Builder {
+
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            BankAccount.this.setId(id);
             return this;
         }
         
         public Builder nameAccount(String nameAccount) {
-            this.nameAccount = nameAccount;
+            BankAccount.this.nameAccount = nameAccount;
             return this;
         }
 
         public Builder creditCard(Long creditCard) {
-            this.creditCard = creditCard;
+            BankAccount.this.creditCard = creditCard;
             return this;
         }
 
         public Builder statusBankAccount(boolean statusBankAccount) {
-            this.statusBankAccount = statusBankAccount;
+            BankAccount.this.statusBankAccount = statusBankAccount;
             return this;
         }
 
         public Builder balanceBankAccount(BigDecimal balanceBankAccount) {
-            this.balanceBankAccount = balanceBankAccount;
+            BankAccount.this.balanceBankAccount = balanceBankAccount;
             return this;
         }
 
         public Builder available(boolean available) {
-            this.available = available;
+            BankAccount.this.available = available;
             return this;
         }
 
         public BankAccount build() {
-            return new BankAccount(this);
+            return BankAccount.this;
         }
 
     }

@@ -1,15 +1,16 @@
 package by.htp.hvozdzeu.model.report;
 
+import by.htp.hvozdzeu.model.entity.Entity;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class PaymentReport {
+public class PaymentReport extends Entity {
 
-    private static final long serialVersionUID = -1497682454960981508L;
+    private static final long serialVersionUID = 5541088875758793592L;
 
-	private Long id;
 	private LocalDate datePayment;
 	private LocalTime timePayment;
 	private String descriptionPayment;
@@ -18,60 +19,50 @@ public class PaymentReport {
 	private String paymentDataGroup;
 	private String paymentDataDescription;
 
-	public PaymentReport() {
+	private PaymentReport() {
 
 	}
 
-	public PaymentReport(Builder builder) {
-		this.id = builder.id;
-		this.datePayment = builder.datePayment;
-		this.timePayment = builder.timePayment;
-		this.descriptionPayment = builder.descriptionPayment;
-		this.amountPayment = builder.amountPayment;
-		this.paymentDataName = builder.paymentDataName;
-		this.paymentDataGroup = builder.paymentDataGroup;
-		this.paymentDataDescription = builder.paymentDataDescription;
+	public static Builder getBuilder(){
+		return new PaymentReport().new Builder();
 	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public LocalDate getDatePayment() {
-		return datePayment;
-	}
+    public LocalDate getDatePayment() {
+        return datePayment;
+    }
 
-	public LocalTime getTimePayment() {
-		return timePayment;
-	}
+    public LocalTime getTimePayment() {
+        return timePayment;
+    }
 
-	public String getDescriptionPayment() {
-		return descriptionPayment;
-	}
+    public String getDescriptionPayment() {
+        return descriptionPayment;
+    }
 
-	public BigDecimal getAmountPayment() {
-		return amountPayment;
-	}
+    public BigDecimal getAmountPayment() {
+        return amountPayment;
+    }
 
-	public String getPaymentDataName() {
-		return paymentDataName;
-	}
+    public String getPaymentDataName() {
+        return paymentDataName;
+    }
 
-	public String getPaymentDataGroup() {
-		return paymentDataGroup;
-	}
+    public String getPaymentDataGroup() {
+        return paymentDataGroup;
+    }
 
-	public String getPaymentDataDescription() {
-		return paymentDataDescription;
-	}
+    public String getPaymentDataDescription() {
+        return paymentDataDescription;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         PaymentReport that = (PaymentReport) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(datePayment, that.datePayment) &&
+        return Objects.equals(datePayment, that.datePayment) &&
                 Objects.equals(timePayment, that.timePayment) &&
                 Objects.equals(descriptionPayment, that.descriptionPayment) &&
                 Objects.equals(amountPayment, that.amountPayment) &&
@@ -83,7 +74,7 @@ public class PaymentReport {
     @Override
     public int hashCode() {
         return Objects.hash(
-                id,
+                super.hashCode(),
                 datePayment,
                 timePayment,
                 descriptionPayment,
@@ -94,11 +85,11 @@ public class PaymentReport {
         );
     }
 
+
     @Override
     public String toString() {
         return "PaymentReport{" +
-                "id=" + id +
-                ", datePayment=" + datePayment +
+                "datePayment=" + datePayment +
                 ", timePayment=" + timePayment +
                 ", descriptionPayment='" + descriptionPayment + '\'' +
                 ", amountPayment=" + amountPayment +
@@ -108,58 +99,52 @@ public class PaymentReport {
                 '}';
     }
 
-    public static class Builder {
-		private Long id;
-		private LocalDate datePayment;
-		private LocalTime timePayment;
-		private String descriptionPayment;
-		private BigDecimal amountPayment;
-		private String paymentDataName;
-		private String paymentDataGroup;
-		private String paymentDataDescription;
+    public class Builder {
+
+		private Builder(){}
 		
 		public Builder id(Long id) {
-			this.id = id;
+			PaymentReport.this.setId(id);
 			return this;
 		}
 
 		public Builder datePayment(LocalDate datePayment) {
-			this.datePayment = datePayment;
+            PaymentReport.this.datePayment = datePayment;
 			return this;
 		}
 
 		public Builder timePayment(LocalTime timePayment) {
-			this.timePayment = timePayment;
+            PaymentReport.this.timePayment = timePayment;
 			return this;
 		}
 
 		public Builder descriptionPayment(String descriptionPayment) {
-			this.descriptionPayment = descriptionPayment;
+            PaymentReport.this.descriptionPayment = descriptionPayment;
 			return this;
 		}
 
 		public Builder amountPayment(BigDecimal amountPayment) {
-			this.amountPayment = amountPayment;
+            PaymentReport.this.amountPayment = amountPayment;
 			return this;
 		}
 
 		public Builder paymentDataName(String paymentDataName) {
-			this.paymentDataName = paymentDataName;
+            PaymentReport.this.paymentDataName = paymentDataName;
 			return this;
 		}
 
 		public Builder paymentDataGroup(String paymentDataGroup) {
-			this.paymentDataGroup = paymentDataGroup;
+            PaymentReport.this.paymentDataGroup = paymentDataGroup;
 			return this;
 		}
 
 		public Builder paymentDataDescription(String paymentDataDescription) {
-			this.paymentDataDescription = paymentDataDescription;
+            PaymentReport.this.paymentDataDescription = paymentDataDescription;
 			return this;
 		}
 
 		public PaymentReport build() {
-			return new PaymentReport(this);
+			return PaymentReport.this;
 		}
 	}
 

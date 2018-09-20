@@ -5,7 +5,7 @@ import by.htp.hvozdzeu.model.User;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
 
     User create(User client) throws DAOException;
 
@@ -32,5 +32,7 @@ public interface IUserService {
     User findByRegCode(String regCode) throws DAOException;
 
     boolean unblockUser(Long userId) throws DAOException;
+
+    boolean blockUser(Long userId) throws DAOException;
 
 }

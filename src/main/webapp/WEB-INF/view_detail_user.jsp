@@ -93,9 +93,8 @@
 				</tr>
 			</table>
 			<form action="ServletController" method="post">
-				<input type="hidden" id="cardIdModal" name="cardId"	value="${clientDetail.id}" />
+				<input type="hidden" id="cardId" name="userId"	value="${clientDetail.id}" />
 				<div class="form-inline">
-					<input type="hidden" name="cardId" value="" />
 					<button
 						class="btn btn-sm btn-secondary form-control mr-sm-2 custom_button"
 						type="submit" 
@@ -103,38 +102,24 @@
 						value="list_client_view">
 						<i class="fas fa-arrow-left"></i> Back
 					</button>
-					
-					
 					<c:if test="${not clientDetail.available}">
 						<button
 							class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
 							type="submit" 
 							name="command" 
-							value="unblock_card">
+							value="unblock_user">
 							<i class="fas fa-lock-open"></i> Unblock
 						</button>
-					</c:if>			
-					
+					</c:if>
 					<c:if test="${clientDetail.available}">
 						<button
 							class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
 							type="submit" 
 							name="command" 
-							value="unblock_card">
+							value="block_user">
 							<i class="fas fa-lock"></i> Block
 						</button>
 					</c:if>
-					
-					
-					
-					
-					<button
-						class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
-						type="submit" 
-						name="command" 
-						value="">
-						<i class="far fa-file"></i> Print
-					</button>
 				</div>
 			</form>
 			</div>

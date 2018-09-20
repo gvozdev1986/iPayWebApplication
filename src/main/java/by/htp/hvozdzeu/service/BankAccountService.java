@@ -6,7 +6,7 @@ import by.htp.hvozdzeu.model.BankAccount;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface IBankAccountService {
+public interface BankAccountService {
 
     BankAccount create(BankAccount bankAccount) throws DAOException;
 

@@ -17,7 +17,7 @@ public class MessageContactRowMapper {
     private static final String CONTACT_MESSAGE_IS_READY = "CheckRead";
 
     protected MessageContact buildMessageContactRowMapper(ResultSet resultSet) throws SQLException {
-        return new MessageContact.Builder()
+        return MessageContact.getBuilder()
                 .id(resultSet.getLong(CONTACT_MESSAGE_ID))
                 .nameContact(resultSet.getString(CONTACT_MESSAGE_NAME))
                 .date(resultSet.getDate(CONTACT_MESSAGE_DATE).toLocalDate())

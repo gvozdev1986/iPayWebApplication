@@ -2,8 +2,8 @@ package by.htp.hvozdzeu.web.command.impl.card;
 
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.report.PaymentReport;
-import by.htp.hvozdzeu.service.ICreditCardService;
-import by.htp.hvozdzeu.service.IPaymentService;
+import by.htp.hvozdzeu.service.CreditCardService;
+import by.htp.hvozdzeu.service.PaymentService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -33,8 +33,8 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
     private static final String RETURN_CARD_DATE_START = "returnDateStart";
     private static final String RETURN_CARD_DATE_END = "returnDateEnd";
 
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
+    private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -60,12 +60,12 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
             dateEnd = LocalDate.parse(request.getParameter(PARAMETER_3));
         }
 
-        CreditCard creditCard = iCreditCardService.findById(cardId);
-        Integer count = iPaymentService.read().size();
-        Integer countRow = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
+        CreditCard creditCard = creditCardService.findById(cardId);
+        Integer count = paymentService.read().size();
+        Integer countRow = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
-        List<PaymentReport> pagination = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
+        List<PaymentReport> pagination = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
         writeSessionPagination(request, countRow, PAGINATION_NAME, pagination);
 
 

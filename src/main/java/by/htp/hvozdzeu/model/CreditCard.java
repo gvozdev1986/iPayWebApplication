@@ -19,21 +19,10 @@ public class CreditCard extends Entity {
     private boolean block;
     private boolean available;
 
-    public CreditCard() {
+    private CreditCard() {}
 
-    }
-
-    public CreditCard(Builder builder) {
-        this.setId(builder.id);
-        this.client = builder.client;
-        this.cardNumber = builder.cardNumber;
-        this.cardFirstName = builder.cardFirstName;
-        this.cardLastName = builder.cardLastName;
-        this.validDate = builder.validDate;
-        this.typeCard = builder.typeCard;
-        this.verifyCode = builder.verifyCode;
-        this.block = builder.block;
-        this.available = builder.available;
+    public static Builder getBuilder() {
+        return new CreditCard().new Builder();
     }
 
     public Long getClient() {
@@ -120,71 +109,62 @@ public class CreditCard extends Entity {
                 '}';
     }
 
-    public static class Builder {
+    public class Builder {
 
-        private Long id;
-        private Long client;
-        private String cardNumber;
-        private String cardFirstName;
-        private String cardLastName;
-        private String validDate;
-        private TypeCard typeCard;
-        private String verifyCode;
-        private boolean block;
-        private boolean available;
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            CreditCard.this.setId(id);
             return this;
         }
 
         public Builder client(Long client) {
-            this.client = client;
+            CreditCard.this.client = client;
             return this;
         }
 
         public Builder cardNumber(String cardNumber) {
-            this.cardNumber = cardNumber;
+            CreditCard.this.cardNumber = cardNumber;
             return this;
         }
 
         public Builder cardFirstName(String cardFirstName) {
-            this.cardFirstName = cardFirstName;
+            CreditCard.this.cardFirstName = cardFirstName;
             return this;
         }
 
         public Builder cardLastName(String cardLastName) {
-            this.cardLastName = cardLastName;
+            CreditCard.this.cardLastName = cardLastName;
             return this;
         }
 
         public Builder validDate(String validDate) {
-            this.validDate = validDate;
+            CreditCard.this.validDate = validDate;
             return this;
         }
 
         public Builder typeCard(TypeCard typeCard) {
-            this.typeCard = typeCard;
+            CreditCard.this.typeCard = typeCard;
             return this;
         }
 
         public Builder verifyCode(String verifyCode) {
-            this.verifyCode = verifyCode;
+            CreditCard.this.verifyCode = verifyCode;
             return this;
         }
         
         public Builder block(boolean block) {
-            this.block = block;
+            CreditCard.this.block = block;
             return this;
         }
 
         public Builder available(boolean available) {
-            this.available = available;
+            CreditCard.this.available = available;
             return this;
         }
 
         public CreditCard build() {
-            return new CreditCard(this);
+            return CreditCard.this;
         }
 
     }

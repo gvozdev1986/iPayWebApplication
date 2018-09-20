@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
 import by.htp.hvozdzeu.model.PaymentData;
-import by.htp.hvozdzeu.service.IPaymentDataService;
+import by.htp.hvozdzeu.service.PaymentDataService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -20,15 +20,15 @@ public class ListPaymentServiceViewCommandImpl implements BaseCommand {
 
     private static final String PAGINATION_NAME = "paymentData";
     private static final String PAGINATION_LIST_VALUE = "list_services_view";
-    private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Integer countRow = iPaymentDataService.read().size();
+        Integer countRow = paymentDataService.read().size();
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
-        List<PaymentData> pagination = iPaymentDataService.pagination(countRowOnPage, displacement);
+        List<PaymentData> pagination = paymentDataService.pagination(countRowOnPage, displacement);
         writeSessionPagination(request, countRow, PAGINATION_NAME, pagination);
         request.getSession().setAttribute(PAGINATION_LIST, PAGINATION_LIST_VALUE);
         return PagePathConstantPool.LIST_SERVICE_VIEW;

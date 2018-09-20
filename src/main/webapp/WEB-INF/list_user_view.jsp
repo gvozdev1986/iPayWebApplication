@@ -13,6 +13,12 @@
 	background-color: #00ad7e;
 	border-color: #00ad7e;
 }
+
+.msg-event-user{
+    font-size: 16px;
+    color: #00ad7e;
+}
+
 .btn-success:hover {
 	color: #fff;
 	background-color: #41c7a3;
@@ -50,32 +56,32 @@
 		</div>
 		<div class="container"
 			style="height: 70%; overflow-y: scroll; padding: 5px;">
-			<form>
-				<div class="input-group input-group-sm mb-3">
-					<input type="text" 
-						   name="param" 
-						   class="form-control"
-						   placeholder="Search..." 
-						   aria-label="search input"
-						   aria-describedby="inputGroup-sizing-sm">
-					<div class="input-group-append">
-						<button class="btn btn-success" 
-								type="submit" 
-								name="command"
-							    value="find_client_by_param" 
-							    id="search-Btn">
-							<i class="fas fa-search"></i> Search
-						</button>
-						<button class="btn btn-success"
-								type="submit" 
-								name="command"
-							    value="list_client_view" 
-							    id="clear-Btn">
-							<i class="fas fa-times"></i> Clear
-						</button>
-					</div>
-				</div>
-			</form>
+            <!--<form>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text"
+                           name="param"
+                           class="form-control"
+                           placeholder="Search..."
+                           aria-label="search input"
+                           aria-describedby="inputGroup-sizing-sm">
+                    <div class="input-group-append">
+                        <button class="btn btn-success"
+                                type="submit"
+                                name="command"
+                                value="find_client_by_param"
+                                id="search-Btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <button class="btn btn-success"
+                                type="submit"
+                                name="command"
+                                value="list_client_view"
+                                id="clear-Btn">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </form>-->
 			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
 				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
@@ -110,7 +116,8 @@
 						</c:if>	
 					</tr>
 				</c:forEach>
-			</table>				
+			</table>
+			<span class="msg-event-user">${messageEventUser}</span>
 			<!-- PAGINATION -->
 				<jsp:include page="pagination.jsp" />			
 			</div>

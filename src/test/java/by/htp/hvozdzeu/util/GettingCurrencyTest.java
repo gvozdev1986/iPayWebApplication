@@ -3,6 +3,7 @@ package by.htp.hvozdzeu.util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -23,7 +24,6 @@ public class GettingCurrencyTest {
         urlApiList.add("http://www.nbrb.by/API/ExRates/Rates/EUR?ParamMode=2");
         urlApiList.add("http://www.nbrb.by/API/ExRates/Rates/RUB?ParamMode=2");
 
-
         for (String anUrlApiList : urlApiList) {
             URL api = new URL(anUrlApiList);
             URLConnection urlConnection = api.openConnection();
@@ -40,7 +40,10 @@ public class GettingCurrencyTest {
                 String currencyName = jsonObject.get("Cur_Abbreviation").getAsString();
                 String currencyValue = jsonObject.get("Cur_OfficialRate").getAsString();
                 String currencyScale = jsonObject.get("Cur_Scale").getAsString();
-                System.out.println(currencyName + ": " + currencyValue + ", " + currencyScale);
+
+                Assert.assertNotNull(currencyName);
+                Assert.assertNotNull(currencyValue);
+                Assert.assertNotNull(currencyScale);
             }
             in.close();
         }
