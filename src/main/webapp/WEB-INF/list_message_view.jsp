@@ -50,7 +50,7 @@
                 <h1 class="h2">Messages</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">LIST OF MESSAGE</div>
             </div>
-            <form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
+            <!--<form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
                     <div class="input-group input-group-sm mb-2">
                         <input type="text"
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </form>-->
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
                 <table class="table table-bordered table-sm"
                        style="width: 100%; font-size: 9pt;">

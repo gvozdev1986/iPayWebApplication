@@ -55,7 +55,7 @@
                                 value="new_service_data_view">
                             <i class="fas fa-plus"></i> Add
                         </button>
-                        <input type="text"
+                        <!--<input type="text"
                                name="param"
                                class="form-control"
                                placeholder="Search...">
@@ -74,7 +74,7 @@
                                     id="clear-Btn">
                                 <i class="fas fa-times"></i> Clear
                             </button>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </form>

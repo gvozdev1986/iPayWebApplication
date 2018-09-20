@@ -8,7 +8,7 @@ import by.htp.hvozdzeu.model.report.SumPaymentReportChartPie;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface IPaymentService {
+public interface PaymentService {
 
     Payment create(Payment payment) throws DAOException;
 

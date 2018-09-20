@@ -7,5 +7,5 @@ import by.htp.hvozdzeu.model.Payment;
  * Interface for Payment entity with extends parameterized
  * interface CRUD DAO as Payment and specification for Payment.
  */
-public interface IPaymentDAO extends ICrudDAO<Payment>, PaymentSpecification {
+public interface PaymentDAO extends CrudDAO<Payment>, PaymentSpecification {
 }

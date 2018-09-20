@@ -7,5 +7,5 @@ import by.htp.hvozdzeu.model.MessageContact;
  * Interface for MessageContact entity with extends parameterized
  * interface CRUD DAO as MessageContact and specification for MessageContact.
  */
-public interface IMessageContactDAO extends ICrudDAO<MessageContact>, MessageContactSpecification {
+public interface MessageContactDAO extends CrudDAO<MessageContact>, MessageContactSpecification {
 }

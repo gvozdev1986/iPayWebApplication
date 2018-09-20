@@ -1,16 +1,16 @@
 package by.htp.hvozdzeu.service.impl;
 
-import by.htp.hvozdzeu.dao.IMessageContactDAO;
+import by.htp.hvozdzeu.dao.MessageContactDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.MessageContact;
-import by.htp.hvozdzeu.service.IMessageContactService;
+import by.htp.hvozdzeu.service.MessageContactService;
 
 import java.util.List;
 
-public class MessageContactServiceImpl implements IMessageContactService {
+public class MessageContactServiceImpl implements MessageContactService {
 
-    private IMessageContactDAO iMessageContactDAO = DAOFactory.getMessageContactDAO();
+    private MessageContactDAO iMessageContactDAO = DAOFactory.getMessageContactDAO();
 
     @Override
     public MessageContact create(MessageContact messageContact) throws DAOException {

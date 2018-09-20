@@ -23,25 +23,10 @@ public class User extends Entity {
     private boolean isAdmin;
     private String regCode;
 
-    public User() {
+    private User() {}
 
-    }
-
-    public User(Builder builder) {
-        this.setId(builder.id);
-        this.login = builder.login;
-        this.password = builder.password;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.patronymic = builder.patronymic;
-        this.dateBirth = builder.dateBirth;
-        this.phoneHome = builder.phoneHome;
-        this.phoneMobile = builder.phoneMobile;
-        this.address = builder.address;
-        this.email = builder.email;
-        this.available = builder.available;
-        this.isAdmin = builder.isAdmin;
-        this.regCode = builder.regCode;
+    public static Builder getBuilder() {
+        return new User().new Builder();
     }
 
     public String getLogin() {
@@ -143,95 +128,82 @@ public class User extends Entity {
                 '}';
     }
 
-    public static class Builder {
+    public class Builder {
 
-        private Long id;
-        private String login;
-        private char[] password;
-        private String firstName;
-        private String lastName;
-        private String patronymic;
-        private LocalDate dateBirth;
-        private String phoneHome;
-        private String phoneMobile;
-        private String address;
-        private String email;
-        private boolean available;
-        private boolean isAdmin;
-        private String regCode;
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            User.this.setId(id);
             return this;
         }
 
         public Builder login(String login) {
-            this.login = login;
+            User.this.login = login;
             return this;
         }
 
         public Builder password(char[] password) {
-            this.password = password;
+            User.this.password = password;
             return this;
         }
 
         public Builder firstName(String firstName) {
-            this.firstName = firstName;
+            User.this.firstName = firstName;
             return this;
         }
 
         public Builder lastName(String lastName) {
-            this.lastName = lastName;
+            User.this.lastName = lastName;
             return this;
         }
 
         public Builder patronymic(String patronymic) {
-            this.patronymic = patronymic;
+            User.this.patronymic = patronymic;
             return this;
         }
 
         public Builder dateBirth(LocalDate dateBirth) {
-            this.dateBirth = dateBirth;
+            User.this.dateBirth = dateBirth;
             return this;
         }
 
         public Builder phoneHome(String phoneHome) {
-            this.phoneHome = phoneHome;
+            User.this.phoneHome = phoneHome;
             return this;
         }
 
         public Builder phoneMobile(String phoneMobile) {
-            this.phoneMobile = phoneMobile;
+            User.this.phoneMobile = phoneMobile;
             return this;
         }
 
         public Builder address(String address) {
-            this.address = address;
+            User.this.address = address;
             return this;
         }
 
         public Builder email(String email) {
-            this.email = email;
+            User.this.email = email;
             return this;
         }
 
         public Builder available(boolean available) {
-            this.available = available;
+            User.this.available = available;
             return this;
         }
         
         public Builder isAdmin(boolean isAdmin) {
-            this.isAdmin = isAdmin;
+            User.this.isAdmin = isAdmin;
             return this;
         }
 
         public Builder regCode(String regCode) {
-            this.regCode = regCode;
+            User.this.regCode = regCode;
             return this;
         }
 
         public User build() {
-            return new User(this);
+            return User.this;
         }
 
     }

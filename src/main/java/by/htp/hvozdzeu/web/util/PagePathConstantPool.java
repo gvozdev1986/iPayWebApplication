@@ -24,6 +24,7 @@ public final class PagePathConstantPool {
     public static final String REDIRECT_MESSAGE_DETAIL = "/ServletController?command=view_detail_message";
     public static final String REDIRECT_UPDATE_ADMIN_PSWD = "/ServletController?command=update_admin_password_view";
     public static final String REDIRECT_ADMIN_PERSONAL_DATA_VIEW = "/ServletController?command=admin_personal_data_view";
+    public static final String REDIRECT_USER_LIST = "/ServletController?command=user_list";
 
     /**
      * Forward URL

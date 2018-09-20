@@ -7,5 +7,5 @@ import by.htp.hvozdzeu.model.BankAccount;
  * Interface for BankAccount entity with extends parameterized
  * interface CRUD DAO as BankAccount and specification for BankAccount.
  */
-public interface IBankAccountDAO extends ICrudDAO<BankAccount>, BankAccountSpecification {
+public interface BankAccountDAO extends CrudDAO<BankAccount>, BankAccountSpecification {
 }

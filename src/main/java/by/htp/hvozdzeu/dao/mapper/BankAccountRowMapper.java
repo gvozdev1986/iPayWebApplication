@@ -15,7 +15,7 @@ public class BankAccountRowMapper {
     private static final String BANK_ACCOUNT_AVAILABLE = "Available";
 
     protected BankAccount buildBankAccountRowMapper(ResultSet resultSet) throws SQLException {
-        return new BankAccount.Builder()
+        return BankAccount.getBuilder()
                 .id(resultSet.getLong(BANK_ACCOUNT_ID))
                 .nameAccount(resultSet.getString(BANK_ACCOUNT_NAME))
                 .creditCard(resultSet.getLong(BANK_ACCOUNT_CREDIT_CARD))

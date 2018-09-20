@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.IUserDAO;
+import by.htp.hvozdzeu.dao.UserDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.UserRowMapper;
 import by.htp.hvozdzeu.model.User;
@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserCrudImpl extends UserRowMapper implements IUserDAO {
+public class UserCrudImpl extends UserRowMapper implements UserDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserCrudImpl.class);
 
@@ -190,6 +190,9 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
 
     private static final String SQL_UNBLOCK_USER = "UPDATE `ipaywebapplication`.`usr` " +
             "SET `Available`='1' WHERE  `Id`=?;";
+
+    private static final String SQL_BLOCK_USER = "UPDATE `ipaywebapplication`.`usr` " +
+            "SET `Available`='0' WHERE  `Id`=?;";
 
     @Override
     public User create(User entity) throws DAOException {
@@ -414,6 +417,30 @@ public class UserCrudImpl extends UserRowMapper implements IUserDAO {
         Savepoint savepoint = null;
         boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UNBLOCK_USER)) {
+            connection.setAutoCommit(false);
+            preparedStatement.setLong(1, userId);
+            preparedStatement.executeUpdate();
+            connection.commit();
+            result = true;
+        } catch (SQLException e) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e1) {
+                LOGGER.error(e1.getMessage());
+            }
+            throw new DAOException(e.getMessage());
+        } finally {
+            dataBaseConnection.closeConnection(connection);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean blockUser(Long userId) throws DAOException {
+        Connection connection = dataBaseConnection.getConnection();
+        Savepoint savepoint = null;
+        boolean result;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_BLOCK_USER)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();

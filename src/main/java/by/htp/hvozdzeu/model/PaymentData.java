@@ -14,17 +14,10 @@ public class PaymentData extends Entity {
     private String paymentDataDescription;
     private boolean available;
 
-    public PaymentData() {
+    private PaymentData() {}
 
-    }
-
-    private PaymentData(Builder builder) {
-        this.setId(builder.id);
-        this.paymentDataCode = builder.paymentDataCode;
-        this.paymentDataName = builder.paymentDataName;
-        this.paymentDataGroup = builder.paymentDataGroup;
-        this.paymentDataDescription = builder.paymentDataDescription;
-        this.available = builder.available;
+    public static Builder getBuilder() {
+        return new PaymentData().new Builder();
     }
 
     public String getPaymentDataCode() {
@@ -84,46 +77,42 @@ public class PaymentData extends Entity {
                 '}';
     }
 
-    public static class Builder {
-        private Long id;
-        private String paymentDataCode;
-        private String paymentDataName;
-        private String paymentDataGroup;
-        private String paymentDataDescription;
-        private boolean available;
+    public class Builder {
+
+        private Builder(){}
 
         public Builder id(Long id) {
-            this.id = id;
+            PaymentData.this.setId(id);
             return this;
         }
 
         public Builder paymentDataCode(String paymentDataCode) {
-            this.paymentDataCode = paymentDataCode;
+            PaymentData.this.paymentDataCode = paymentDataCode;
             return this;
         }
 
         public Builder paymentDataName(String paymentDataName) {
-            this.paymentDataName = paymentDataName;
+            PaymentData.this.paymentDataName = paymentDataName;
             return this;
         }
 
         public Builder paymentDataGroup(String paymentDataGroup) {
-            this.paymentDataGroup = paymentDataGroup;
+            PaymentData.this.paymentDataGroup = paymentDataGroup;
             return this;
         }
 
         public Builder paymentDataDescription(String paymentDataDescription) {
-            this.paymentDataDescription = paymentDataDescription;
+            PaymentData.this.paymentDataDescription = paymentDataDescription;
             return this;
         }
 
         public Builder available(boolean available) {
-            this.available = available;
+            PaymentData.this.available = available;
             return this;
         }
 
         public PaymentData build() {
-            return new PaymentData(this);
+            return PaymentData.this;
         }
 
     }

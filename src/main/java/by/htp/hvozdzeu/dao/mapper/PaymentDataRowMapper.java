@@ -15,7 +15,7 @@ public class PaymentDataRowMapper {
     private static final String PAYMENT_SERVICE_AVAILABLE = "Available";
 
     protected PaymentData buildPaymentServiceRowMapper(ResultSet resultSet) throws SQLException {
-        return new PaymentData.Builder()
+        return PaymentData.getBuilder()
                 .id(resultSet.getLong(PAYMENT_SERVICE_ID))
                 .paymentDataCode(resultSet.getString(PAYMENT_SERVICE_CODE))
                 .paymentDataName(resultSet.getString(PAYMENT_SERVICE_NAME))

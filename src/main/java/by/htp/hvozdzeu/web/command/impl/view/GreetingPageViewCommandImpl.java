@@ -1,11 +1,10 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
-import by.htp.hvozdzeu.service.IPaymentDataService;
-import by.htp.hvozdzeu.service.IPaymentService;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.PaymentDataService;
+import by.htp.hvozdzeu.service.PaymentService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
-import by.htp.hvozdzeu.web.controller.SessionListener;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 import org.slf4j.Logger;
@@ -22,9 +21,9 @@ public class GreetingPageViewCommandImpl implements BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GreetingPageViewCommandImpl.class);
     private Map<String, String> currencyMap = new HashMap<>();
-    private IUserService iUserService = ServiceFactory.getUserService();
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
-    private IPaymentDataService iPaymentDataService = ServiceFactory.getPaymentDataService();
+    private UserService userService = ServiceFactory.getUserService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
+    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
     private static final String COUNT_USER = "countUser";
     private static final String COUNT_OPERATION = "countOperation";
     private static final String CURRENCY_MAP = "currencyMap";
@@ -39,9 +38,9 @@ public class GreetingPageViewCommandImpl implements BaseCommand {
             LOGGER.error(e.getMessage());
         }
 
-        Integer countUser = iUserService.read().size();
-        Integer countOperation = iPaymentService.read().size();
-        Integer countService = iPaymentDataService.read().size();
+        Integer countUser = userService.read().size();
+        Integer countOperation = paymentService.read().size();
+        Integer countService = paymentDataService.read().size();
 
         request.getSession().setAttribute(COUNT_USER, countUser);
         request.getSession().setAttribute(COUNT_OPERATION, countOperation);

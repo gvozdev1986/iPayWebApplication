@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.message;
 
 import by.htp.hvozdzeu.model.MessageContact;
-import by.htp.hvozdzeu.service.IMessageContactService;
+import by.htp.hvozdzeu.service.MessageContactService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -22,7 +22,7 @@ public class WriteUsCommandImpl implements BaseCommand {
     private static final String MESSAGE_CONTACT = "message_contact";
     private static final String MESSAGE_SUCCESS_SEND = "message_has_been_sending";
     private static final String MESSAGE_ERROR_SEND = "message_has_not_been_sending";
-    private IMessageContactService iMessageContactService = ServiceFactory.getMessageContactService();
+    private MessageContactService messageContactService = ServiceFactory.getMessageContactService();
     private Map<String, String> validateErrorMap = new HashMap<>();
     private Map<String, String> validateReturnData = new HashMap<>();
 
@@ -32,14 +32,14 @@ public class WriteUsCommandImpl implements BaseCommand {
         Integer sizeErrorMap = validate(validateErrorMap, validateReturnData, request);
 
         if (sizeErrorMap == 0) {
-            MessageContact messageContact = new MessageContact.Builder()
+            MessageContact messageContact = MessageContact.getBuilder()
                     .nameContact(request.getParameter(NAME_CONTACT))
                     .emailContact(request.getParameter(EMAIL_CONTACT))
                     .phoneContact(request.getParameter(PHONE_CONTACT))
                     .messageFromContact(request.getParameter(MESSAGE_CONTACT))
                     .build();
 
-            iMessageContactService.create(messageContact);
+            messageContactService.create(messageContact);
             request.getSession().removeAttribute("validateErrorMap");
             request.getSession().removeAttribute("returnValidateErrorMap");
             request.getSession().setAttribute("messageEvent", MESSAGE_SUCCESS_SEND);

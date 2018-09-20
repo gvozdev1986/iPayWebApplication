@@ -22,6 +22,8 @@ public interface UserSpecification {
 
     boolean unblockUser(Long userId) throws DAOException;
 
+    boolean blockUser(Long userId) throws DAOException;
+
     List<User> pagination(Integer start, Integer count) throws DAOException;
 
     List<User> findByParameter(String param) throws DAOException;

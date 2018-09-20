@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.IMailAccountDAO;
+import by.htp.hvozdzeu.dao.MailAccountDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.MailAccountRowMapper;
 import by.htp.hvozdzeu.model.MailAccount;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-public class MailAccountCrudImpl extends MailAccountRowMapper implements IMailAccountDAO {
+public class MailAccountCrudImpl extends MailAccountRowMapper implements MailAccountDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailAccountCrudImpl.class);
 

@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.IBankAccountDAO;
+import by.htp.hvozdzeu.dao.BankAccountDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.BankAccountRowMapper;
 import by.htp.hvozdzeu.model.BankAccount;
@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankAccountCrudImpl extends BankAccountRowMapper implements IBankAccountDAO {
+public class BankAccountCrudImpl extends BankAccountRowMapper implements BankAccountDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BankAccountCrudImpl.class);
 

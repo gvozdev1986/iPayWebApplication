@@ -1,19 +1,19 @@
 package by.htp.hvozdzeu.service.impl;
 
-import by.htp.hvozdzeu.dao.IPaymentDAO;
+import by.htp.hvozdzeu.dao.PaymentDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.Payment;
 import by.htp.hvozdzeu.model.report.PaymentReport;
 import by.htp.hvozdzeu.model.report.SumPaymentReportChartPie;
-import by.htp.hvozdzeu.service.IPaymentService;
+import by.htp.hvozdzeu.service.PaymentService;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class PaymentServiceImpl implements IPaymentService {
+public class PaymentServiceImpl implements PaymentService {
 
-	private IPaymentDAO iPaymentDAO = DAOFactory.getPaymentDao();
+	private PaymentDAO iPaymentDAO = DAOFactory.getPaymentDao();
 
 	@Override
 	public Payment create(Payment payment) throws DAOException {

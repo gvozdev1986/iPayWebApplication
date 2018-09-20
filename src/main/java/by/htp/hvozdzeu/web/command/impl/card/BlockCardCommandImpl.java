@@ -3,7 +3,7 @@ package by.htp.hvozdzeu.web.command.impl.card;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
-import by.htp.hvozdzeu.service.ICreditCardService;
+import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -21,20 +21,20 @@ public class BlockCardCommandImpl implements BaseCommand {
 
     private static final String MSG_EVENT_NAME = "eventMessage";
     private static final String MSG_EVENT_VALUE = "blocked_card_message";
-	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
 		Long cardId = Long.valueOf(request.getParameter(REQUEST_CARD_ID));
 
-		iCreditCardService.blockCreditCard(cardId);
+		creditCardService.blockCreditCard(cardId);
 		
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
-		List<StatusCardReport> creditCards = iCreditCardService.findCreditCardByIdClient(clientId);
+		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
 
-        CreditCard creditCard = iCreditCardService.findById(cardId);
+        CreditCard creditCard = creditCardService.findById(cardId);
 
 		String emailToReply = user.getEmail();
 		String subjectToReply = "Information about blocking credit card.";

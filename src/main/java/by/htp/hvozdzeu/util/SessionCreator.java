@@ -2,7 +2,7 @@ package by.htp.hvozdzeu.util;
 
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.model.MailAccount;
-import by.htp.hvozdzeu.service.IMailAccountService;
+import by.htp.hvozdzeu.service.MailAccountService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ class SessionCreator {
     private static final String PROPERTY_SMTP_QUIT_WAIT = "mail.smtp.quitwait";
     private static final String CLASS_JAVAX_NET_SSL_SOCKET_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-    private IMailAccountService iMailAccountService = ServiceFactory.getiMailAccountService();
+    private MailAccountService mailAccountService = ServiceFactory.getMailAccountService();
     private String userName;
     private String userPassword;
     private Properties sessionProperties;
@@ -61,12 +61,12 @@ class SessionCreator {
 
 
     private String getMailLogin() throws DAOException {
-        MailAccount mailAccount = iMailAccountService.read();
+        MailAccount mailAccount = mailAccountService.read();
         return mailAccount.getMailLogin();
     }
 
     private String getMailPswd() throws DAOException {
-        MailAccount mailAccount = iMailAccountService.read();
+        MailAccount mailAccount = mailAccountService.read();
         return mailAccount.getMailPswd();
     }
 

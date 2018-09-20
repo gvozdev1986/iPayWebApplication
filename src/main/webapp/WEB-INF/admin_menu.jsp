@@ -110,7 +110,7 @@
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_client_view"
 					style="cursor: pointer"><i class="fas fa-user-tag"></i> Клиенты
-						<sup><span class="badge badge-danger">${countBlockedClients}</span></sup></a></li>
+						<sup><span class="badge badge-danger">${countBlockedUsers}</span></sup></a></li>
 			</ul>
 		</div>
 		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"

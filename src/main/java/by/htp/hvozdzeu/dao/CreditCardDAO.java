@@ -7,5 +7,5 @@ import by.htp.hvozdzeu.model.CreditCard;
  * Interface for CreditCard entity with extends parameterized
  * interface CRUD DAO as CreditCard and specification for CreditCard.
  */
-public interface ICreditCardDAO extends ICrudDAO<CreditCard>, CreditCardSpecification {
+public interface CreditCardDAO extends CrudDAO<CreditCard>, CreditCardSpecification {
 }

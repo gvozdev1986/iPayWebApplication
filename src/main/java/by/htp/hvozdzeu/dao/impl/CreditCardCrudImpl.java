@@ -1,6 +1,6 @@
 package by.htp.hvozdzeu.dao.impl;
 
-import by.htp.hvozdzeu.dao.ICreditCardDAO;
+import by.htp.hvozdzeu.dao.CreditCardDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.CreditCardRowMapper;
 import by.htp.hvozdzeu.model.CreditCard;
@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreditCardCrudImpl extends CreditCardRowMapper implements ICreditCardDAO {
+public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCardDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreditCardCrudImpl.class);
 

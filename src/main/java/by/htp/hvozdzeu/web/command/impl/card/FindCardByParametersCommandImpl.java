@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.card;
 
 import by.htp.hvozdzeu.model.CreditCard;
-import by.htp.hvozdzeu.service.ICreditCardService;
+import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -15,14 +15,14 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.PARAMETER;
 
 public class FindCardByParametersCommandImpl implements BaseCommand {
 	
-	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
+	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
 		String param = request.getParameter(PARAMETER);
 		
-		List<CreditCard> creditCards = iCreditCardService.findByParameter(param);
+		List<CreditCard> creditCards = creditCardService.findByParameter(param);
 		
 		request.getSession().setAttribute(CREDIT_CARDS, creditCards);
 		return PagePathConstantPool.LIST_CARD_VIEW;

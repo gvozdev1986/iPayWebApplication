@@ -6,7 +6,7 @@ import by.htp.hvozdzeu.model.report.StatusCardReport;
 
 import java.util.List;
 
-public interface ICreditCardService {
+public interface CreditCardService {
 
     CreditCard create(CreditCard creditCard) throws DAOException;
 

@@ -1,22 +1,22 @@
 package by.htp.hvozdzeu.service.impl;
 
-import by.htp.hvozdzeu.dao.IMailAccountDAO;
+import by.htp.hvozdzeu.dao.MailAccountDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.MailAccount;
-import by.htp.hvozdzeu.service.IMailAccountService;
+import by.htp.hvozdzeu.service.MailAccountService;
 
-public class MailAccountServiceImpl implements IMailAccountService {
+public class MailAccountServiceImpl implements MailAccountService {
 
-    private IMailAccountDAO iMailAccountDAO = DAOFactory.getiMailAccountDAO();
+    private MailAccountDAO mailAccountDAO = DAOFactory.getMailAccountDAO();
 
     @Override
     public void update(String mailLogin, String mailPswd) throws DAOException {
-        iMailAccountDAO.update(mailLogin, mailPswd);
+        mailAccountDAO.update(mailLogin, mailPswd);
     }
 
     @Override
     public MailAccount read() throws DAOException {
-        return iMailAccountDAO.read();
+        return mailAccountDAO.read();
     }
 }

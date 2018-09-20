@@ -18,18 +18,11 @@ public class MessageContact extends Entity {
     private String messageFromContact;
     private boolean checkRead;
 
-    public MessageContact() {
+    private MessageContact() {
     }
 
-    public MessageContact(Builder builder) {
-        this.setId(builder.id);
-        this.nameContact = builder.nameContact;
-        this.date = builder.date;
-        this.time = builder.time;
-        this.emailContact = builder.emailContact;
-        this.phoneContact = builder.phoneContact;
-        this.messageFromContact = builder.messageFromContact;
-        this.checkRead = builder.checkRead;
+    public static Builder getBuilder() {
+        return new MessageContact().new Builder();
     }
 
     public String getNameContact() {
@@ -102,61 +95,54 @@ public class MessageContact extends Entity {
                 '}';
     }
 
-    public static class Builder {
+    public class Builder {
 
-        private Long id;
-        private String nameContact;
-        private LocalDate date;
-        private LocalTime time;
-        private String emailContact;
-        private String phoneContact;
-        private String messageFromContact;
-        private boolean checkRead;
+        private Builder() {
+        }
 
 
         public Builder id(Long id) {
-            this.id = id;
+            MessageContact.this.setId(id);
             return this;
         }
 
         public Builder nameContact(String nameContact) {
-            this.nameContact = nameContact;
+            MessageContact.this.nameContact = nameContact;
             return this;
         }
 
         public Builder date(LocalDate date) {
-            this.date = date;
+            MessageContact.this.date = date;
             return this;
         }
 
         public Builder time(LocalTime time) {
-            this.time = time;
+            MessageContact.this.time = time;
             return this;
         }
 
         public Builder emailContact(String emailContact) {
-            this.emailContact = emailContact;
+            MessageContact.this.emailContact = emailContact;
             return this;
         }
 
         public Builder phoneContact(String phoneContact) {
-            this.phoneContact = phoneContact;
+            MessageContact.this.phoneContact = phoneContact;
             return this;
         }
 
         public Builder messageFromContact(String messageFromContact) {
-            this.messageFromContact = messageFromContact;
+            MessageContact.this.messageFromContact = messageFromContact;
             return this;
         }
 
         public Builder checkRead(boolean checkRead) {
-            this.checkRead = checkRead;
+            MessageContact.this.checkRead = checkRead;
             return this;
         }
 
-
         public MessageContact build() {
-            return new MessageContact(this);
+            return MessageContact.this;
         }
 
     }

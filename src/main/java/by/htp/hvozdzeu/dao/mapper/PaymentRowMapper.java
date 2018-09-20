@@ -15,7 +15,7 @@ public class PaymentRowMapper {
     private static final String CHART_PIE_SUM = "Sum";
     
     protected SumPaymentReportChartPie buildChartPiePaymentRowMapper(ResultSet resultSet) throws SQLException {
-        return new SumPaymentReportChartPie.Builder()
+        return SumPaymentReportChartPie.getBuilder()
                 .amount(resultSet.getInt(CHART_PIE_AMOUNT))
                 .group(resultSet.getString(CHART_PIE_GROUP))
                 .sum(resultSet.getBigDecimal(CHART_PIE_SUM))               
@@ -34,7 +34,7 @@ public class PaymentRowMapper {
 	private static final String PAYMENT_ORDER_NO = "OrderNo";
 
     protected Payment buildPaymentRowMapper(ResultSet resultSet) throws SQLException {
-        return new Payment.Builder()
+        return Payment.getBuilder()
                 .id(resultSet.getLong(PAYMENT_ID))
                 .datePayment(resultSet.getDate(PAYMENT_DATE).toLocalDate())
                 .timePayment(resultSet.getTime(PAYMENT_TIME).toLocalTime())
@@ -58,14 +58,16 @@ public class PaymentRowMapper {
 	private static final String PAYMENT_REPORT_DATA_DESCRIPTION = "PaymentDataDescription";
     
 	protected PaymentReport buildPaymentReportRowMapper(ResultSet resultSet) throws SQLException {
-		return new PaymentReport.Builder().id(resultSet.getLong(PAYMENT_REPORT_ID))
+		return PaymentReport.getBuilder()
+                .id(resultSet.getLong(PAYMENT_REPORT_ID))
 				.datePayment(resultSet.getDate(PAYMENT_REPORT_DATE).toLocalDate())
 				.timePayment(resultSet.getTime(PAYMENT_REPORT_TIME).toLocalTime())
 				.descriptionPayment(resultSet.getString(PAYMENT_REPORT_DESCRIPTION))
 				.amountPayment(resultSet.getBigDecimal(PAYMENT_REPORT_AMOUNT))
 				.paymentDataName(resultSet.getString(PAYMENT_REPORT_DATA_NAME))
 				.paymentDataGroup(resultSet.getString(PAYMENT_REPORT_DATA_GROUP))
-				.paymentDataDescription(resultSet.getString(PAYMENT_REPORT_DATA_DESCRIPTION)).build();
+				.paymentDataDescription(resultSet.getString(PAYMENT_REPORT_DATA_DESCRIPTION))
+                .build();
 
 	}
     

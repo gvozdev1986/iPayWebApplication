@@ -7,7 +7,7 @@ import by.htp.hvozdzeu.model.MailAccount;
 /**
  * Interface for MailAccount entity
  */
-public interface IMailAccountDAO {
+public interface MailAccountDAO {
 
     /**
      * Instance Connection pool for use in implementation

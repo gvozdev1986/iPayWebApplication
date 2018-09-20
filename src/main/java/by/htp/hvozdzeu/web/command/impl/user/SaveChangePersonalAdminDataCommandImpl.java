@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.user;
 
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -17,7 +17,7 @@ public class SaveChangePersonalAdminDataCommandImpl implements BaseCommand {
 
     private static final String MSG_SUCCESS = "Update was successful.";
     private static final String MSG_UPDATE_CLIENT_DATA = "messageUpdateClient";
-    private IUserService iUserService = ServiceFactory.getUserService();
+    private UserService userService = ServiceFactory.getUserService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -33,7 +33,7 @@ public class SaveChangePersonalAdminDataCommandImpl implements BaseCommand {
         String address = request.getParameter(REQUEST_PARAM_ADDRESS);
 
 
-        User user = new User.Builder()
+        User user = User.getBuilder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .patronymic(patronymic)
@@ -44,9 +44,9 @@ public class SaveChangePersonalAdminDataCommandImpl implements BaseCommand {
                 .address(address)
                 .build();
 
-        iUserService.update(user, clientId);
+        userService.update(user, clientId);
 
-        User clientUpdate = iUserService.findById(clientId);
+        User clientUpdate = userService.findById(clientId);
 
         request.getSession().setAttribute(REQUEST_PARAM_USER, clientUpdate);
         request.getSession().setAttribute(MSG_UPDATE_CLIENT_DATA, MSG_SUCCESS);

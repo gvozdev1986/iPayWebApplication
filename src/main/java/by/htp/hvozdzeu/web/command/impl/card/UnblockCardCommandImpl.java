@@ -2,8 +2,8 @@ package by.htp.hvozdzeu.web.command.impl.card;
 
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.ICreditCardService;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.CreditCardService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -18,8 +18,8 @@ import static by.htp.hvozdzeu.util.MailSender.mailSender;
 
 public class UnblockCardCommandImpl implements BaseCommand{
 	
-	private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-	private IUserService iUserService = ServiceFactory.getUserService();
+	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
+	private UserService userService = ServiceFactory.getUserService();
 	
 	private static final String COUNT_BLOCKED_CREDIT_CARD = "countBlockedCreditCard";
 	private static final String LIST_BLOCKED_CREDIT_CARD = "listBlockedCreditCard";
@@ -27,12 +27,12 @@ public class UnblockCardCommandImpl implements BaseCommand{
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 		Long cardId = Long.valueOf(request.getParameter("cardId"));
-		iCreditCardService.unblockCreditCard(cardId);
-		List<CreditCard> creditBlockedCards = iCreditCardService.blockedCreditCard();
-		Integer countBlockedCreditCard = iCreditCardService.blockedCreditCard().size();
+		creditCardService.unblockCreditCard(cardId);
+		List<CreditCard> creditBlockedCards = creditCardService.blockedCreditCard();
+		Integer countBlockedCreditCard = creditCardService.blockedCreditCard().size();
 
-        CreditCard creditCard = iCreditCardService.findById(cardId);
-        User user = iUserService.findById(creditCard.getClient());
+        CreditCard creditCard = creditCardService.findById(cardId);
+        User user = userService.findById(creditCard.getClient());
 
 		String emailToReply = user.getEmail();
 		String subjectToReply = "Information about unblocking credit card.";

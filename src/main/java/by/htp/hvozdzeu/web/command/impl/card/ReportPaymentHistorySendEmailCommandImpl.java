@@ -3,9 +3,9 @@ package by.htp.hvozdzeu.web.command.impl.card;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.report.PaymentReport;
-import by.htp.hvozdzeu.service.ICreditCardService;
-import by.htp.hvozdzeu.service.IPaymentService;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.CreditCardService;
+import by.htp.hvozdzeu.service.PaymentService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -29,9 +29,9 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
     private static final Integer MIN_COUNT_ROW_REPORT = 0;
     private static final String MESSAGE_ATTR_NAME = "messageReport";
     private static final String MESSAGE_VALUE = "successful_send_report_email";
-    private IUserService iUserService = ServiceFactory.getUserService();
-    private ICreditCardService iCreditCardService = ServiceFactory.getCreditCardService();
-    private IPaymentService iPaymentService = ServiceFactory.getPaymentService();
+    private UserService userService = ServiceFactory.getUserService();
+    private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -40,10 +40,10 @@ public class ReportPaymentHistorySendEmailCommandImpl implements BaseCommand {
         LocalDate dateStart = LocalDate.parse(request.getParameter(DATE_START));
         LocalDate dateEnd = LocalDate.parse(request.getParameter(DATE_END));
 
-        CreditCard creditCard = iCreditCardService.findById(cardId);
-        User user = iUserService.findById(creditCard.getClient());
+        CreditCard creditCard = creditCardService.findById(cardId);
+        User user = userService.findById(creditCard.getClient());
 
-        List<PaymentReport> paymentReports = iPaymentService.findPaymentByCardAndBetweenDate(cardId, dateStart,
+        List<PaymentReport> paymentReports = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart,
                 dateEnd, MAX_COUNT_ROW_REPORT, MIN_COUNT_ROW_REPORT);
 
         generateExcelReport(paymentReports, cardId, dateStart, dateEnd);

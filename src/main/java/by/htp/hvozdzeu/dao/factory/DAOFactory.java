@@ -5,54 +5,54 @@ import by.htp.hvozdzeu.dao.impl.*;
 
 public class DAOFactory {
 
-    private static IUserDAO iUserDAO;
-    private static IBankAccountDAO iBankAccountDAO;
-    private static ICreditCardDAO iCreditCardDAO;
-    private static IPaymentDAO iPaymentDAO;
-    private static IPaymentDataDAO iPaymentDataDAO;
-    private static IMessageContactDAO iMessageContactDAO;
-    private static IMailAccountDAO iMailAccountDAO;
+    private static UserDAO userDAO;
+    private static BankAccountDAO bankAccountDAO;
+    private static CreditCardDAO creditCardDAO;
+    private static PaymentDAO paymentDAO;
+    private static PaymentDataDAO paymentDataDAO;
+    private static MessageContactDAO messageContactDAO;
+    private static MailAccountDAO mailAccountDAO;
 
     static {
-        iUserDAO = new UserCrudImpl();
-        iBankAccountDAO = new BankAccountCrudImpl();
-        iCreditCardDAO = new CreditCardCrudImpl();
-        iPaymentDAO = new PaymentCrudImpl();
-        iPaymentDataDAO = new PaymentDataCrudImpl();
-        iMessageContactDAO = new MessageContactCrudImpl();
-        iMailAccountDAO = new MailAccountCrudImpl();
+        userDAO = new UserCrudImpl();
+        bankAccountDAO = new BankAccountCrudImpl();
+        creditCardDAO = new CreditCardCrudImpl();
+        paymentDAO = new PaymentCrudImpl();
+        paymentDataDAO = new PaymentDataCrudImpl();
+        messageContactDAO = new MessageContactCrudImpl();
+        mailAccountDAO = new MailAccountCrudImpl();
     }
 
 
     private DAOFactory() {
     }
 
-    public static IUserDAO getClientDao() {
-        return iUserDAO;
+    public static UserDAO getClientDao() {
+        return userDAO;
     }
 
-    public static IBankAccountDAO getBankAccountDao() {
-        return iBankAccountDAO;
+    public static BankAccountDAO getBankAccountDao() {
+        return bankAccountDAO;
     }
 
-    public static ICreditCardDAO getCreditCardDao() {
-        return iCreditCardDAO;
+    public static CreditCardDAO getCreditCardDao() {
+        return creditCardDAO;
     }
 
-    public static IPaymentDAO getPaymentDao() {
-        return iPaymentDAO;
+    public static PaymentDAO getPaymentDao() {
+        return paymentDAO;
     }
 
-    public static IPaymentDataDAO getPaymentServiceDao() {
-        return iPaymentDataDAO;
+    public static PaymentDataDAO getPaymentServiceDao() {
+        return paymentDataDAO;
     }
 
-    public static IMessageContactDAO getMessageContactDAO() {
-        return iMessageContactDAO;
+    public static MessageContactDAO getMessageContactDAO() {
+        return messageContactDAO;
     }
 
-    public static IMailAccountDAO getiMailAccountDAO() {
-        return iMailAccountDAO;
+    public static MailAccountDAO getMailAccountDAO() {
+        return mailAccountDAO;
     }
 
 }

@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.user;
 
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -19,15 +19,15 @@ public class CheckNewAccountCommandImpl implements BaseCommand {
     private static final String CHECK_CODE = "checkCode";
     private static final String MESSAGE_CHECK_UN_SUCCESS = "success_un_check";
     private static final String MESSAGE_ALREADY_CHECKED = "success_already_check";
-    private IUserService iUserService = ServiceFactory.getUserService();
+    private UserService userService = ServiceFactory.getUserService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
         String checkCode = request.getParameter(CHECK_CODE);
 
-        User user = iUserService.findByRegCode(checkCode);
-        iUserService.unblockUser(user.getId());
+        User user = userService.findByRegCode(checkCode);
+        userService.unblockUser(user.getId());
 
         if (!user.isAvailable()) {
             request.getSession().setAttribute(MESSAGE_CHECK_REGISTRATION, MESSAGE_CHECK_SUCCESS);

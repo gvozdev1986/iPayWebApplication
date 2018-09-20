@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.authorization;
 
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.service.IUserService;
+import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
@@ -17,7 +17,7 @@ public class LogInCommandImpl implements BaseCommand {
 
     private static final String MESSAGE_VALUE = "invalid_login_or_password";
     private static final String MESSAGE_VALUE_NOT_AVAILABLE = "user_not_available";
-    private IUserService userService = ServiceFactory.getUserService();
+    private UserService userService = ServiceFactory.getUserService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {

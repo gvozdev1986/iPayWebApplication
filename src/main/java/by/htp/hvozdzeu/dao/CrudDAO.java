@@ -10,7 +10,7 @@ import java.util.List;
  * Interface for CRUD with generic as entity
  * @param <T> generic with entity
  */
-public interface ICrudDAO<T extends Entity> {
+public interface CrudDAO<T extends Entity> {
 
     /**
      * Instance Connection pool for use in implementation

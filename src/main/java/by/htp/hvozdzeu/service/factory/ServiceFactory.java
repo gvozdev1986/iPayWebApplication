@@ -5,53 +5,53 @@ import by.htp.hvozdzeu.service.impl.*;
 
 public class ServiceFactory {
 
-    private static IUserService iUserService;
-    private static IBankAccountService iBankAccountService;
-    private static ICreditCardService iCreditCardService;
-    private static IPaymentService iPaymentService;
-    private static IPaymentDataService iPaymentDataService;
-    private static IMessageContactService iMessageContactService;
-    private static IMailAccountService iMailAccountService;
+    private static UserService userService;
+    private static BankAccountService bankAccountService;
+    private static CreditCardService creditCardService;
+    private static PaymentService paymentService;
+    private static PaymentDataService paymentDataService;
+    private static MessageContactService messageContactService;
+    private static MailAccountService mailAccountService;
 
     static{
-        iUserService = new UserServiceImpl();
-        iBankAccountService = new BankAccountServiceImpl();
-        iCreditCardService = new CreditCardServiceImpl();
-        iPaymentService = new PaymentServiceImpl();
-        iPaymentDataService = new PaymentDataServiceImpl();
-        iMessageContactService = new MessageContactServiceImpl();
-        iMailAccountService = new MailAccountServiceImpl();
+        userService = new UserServiceImpl();
+        bankAccountService = new BankAccountServiceImpl();
+        creditCardService = new CreditCardServiceImpl();
+        paymentService = new PaymentServiceImpl();
+        paymentDataService = new PaymentDataServiceImpl();
+        messageContactService = new MessageContactServiceImpl();
+        mailAccountService = new MailAccountServiceImpl();
     }
 
     private ServiceFactory() {
     }
 
-    public static IUserService getUserService() {
-        return iUserService;
+    public static UserService getUserService() {
+        return userService;
     }
 
-    public static IBankAccountService getBankAccountService() {
-        return iBankAccountService;
+    public static BankAccountService getBankAccountService() {
+        return bankAccountService;
     }
 
-    public static ICreditCardService getCreditCardService() {
-        return iCreditCardService;
+    public static CreditCardService getCreditCardService() {
+        return creditCardService;
     }
 
-    public static IPaymentService getPaymentService() {
-        return iPaymentService;
+    public static PaymentService getPaymentService() {
+        return paymentService;
     }
 
-    public static IPaymentDataService getPaymentDataService() {
-        return iPaymentDataService;
+    public static PaymentDataService getPaymentDataService() {
+        return paymentDataService;
     }
 
-    public static IMessageContactService getMessageContactService() {
-        return iMessageContactService;
+    public static MessageContactService getMessageContactService() {
+        return messageContactService;
     }
 
-    public static IMailAccountService getiMailAccountService() {
-        return iMailAccountService;
+    public static MailAccountService getMailAccountService() {
+        return mailAccountService;
     }
 
 }

@@ -44,9 +44,12 @@ public enum CommandEnum {
     TRANSFER_VIEW_HIS_CARD(UserTypeEnum.USER),
     TRANSFER_VIEW_ALIEN_CARD(UserTypeEnum.USER),
 
+
     /**
      * Admin access
      */
+    BLOCK_USER(UserTypeEnum.ADMIN),
+    UNBLOCK_USER(UserTypeEnum.ADMIN),
 	REDIRECT_ADMIN_URL(UserTypeEnum.ADMIN),
     ADMIN_PANEL_VIEW(UserTypeEnum.ADMIN),
     LIST_CARD_VIEW(UserTypeEnum.ADMIN),
@@ -73,6 +76,7 @@ public enum CommandEnum {
     UPDATE_ADMIN_PASSWORD_VIEW(UserTypeEnum.ADMIN),
     SAVE_CHANGED_ADMIN_PERSONAL_DATA(UserTypeEnum.ADMIN),
     UPDATE_ADMIN_PASSWORD(UserTypeEnum.ADMIN),
+    USER_LIST(UserTypeEnum.ADMIN),
     BACK_LIST_MESSAGE_VIEW(UserTypeEnum.ADMIN);
 
 

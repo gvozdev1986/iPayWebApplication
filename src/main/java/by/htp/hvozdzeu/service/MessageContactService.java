@@ -5,7 +5,7 @@ import by.htp.hvozdzeu.model.MessageContact;
 
 import java.util.List;
 
-public interface IMessageContactService {
+public interface MessageContactService {
 
     MessageContact create(MessageContact messageContact) throws DAOException;
 

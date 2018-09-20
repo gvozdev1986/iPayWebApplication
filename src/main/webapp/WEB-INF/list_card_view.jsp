@@ -49,7 +49,7 @@
 		</div>
 		<div class="container"
 			style="height: 70%; overflow-y: scroll; padding: 5px;">
-			<form>
+			<!--<form>
 				<div class="input-group input-group-sm mb-3">
 					<input type="text" name="param" class="form-control"
 						placeholder="Search..." aria-label="search input"
@@ -68,7 +68,7 @@
 						</button>
 					</div>
 				</div>
-			</form>
+			</form>-->
 			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
 				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
