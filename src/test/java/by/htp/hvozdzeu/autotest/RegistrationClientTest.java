@@ -9,12 +9,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationClientTest {
 
     private static WebDriver driver;
-
+    private static List<String[]> bdContent = new ArrayList<>();
 
     @BeforeClass
     public static void setup() {
@@ -77,5 +80,4 @@ public class RegistrationClientTest {
     public static void tearDown() {
 //        driver.quit();
     }
-
 }
