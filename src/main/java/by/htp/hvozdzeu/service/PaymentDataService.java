@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface PaymentDataService {
 
-    PaymentData create(PaymentData paymentData) throws DAOException;
+    PaymentData save(PaymentData paymentData) throws DAOException;
 
-    PaymentData update(PaymentData paymentData, Long id) throws DAOException;
+    PaymentData update(PaymentData paymentData, Long paymentDataId) throws DAOException;
 
     PaymentData findById(Long id) throws DAOException;
 
-    List<PaymentData> read() throws DAOException;
+    List<PaymentData> getAllPaymentsData() throws DAOException;
 
-    boolean deleteById(Long id) throws DAOException;
+    boolean deleteById(Long paymentDataId) throws DAOException;
 
     List<PaymentData> pagination(Integer start, Integer count) throws DAOException;
 

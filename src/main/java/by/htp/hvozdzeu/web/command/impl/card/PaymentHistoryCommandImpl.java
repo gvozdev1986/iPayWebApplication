@@ -61,7 +61,7 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
         }
 
         CreditCard creditCard = creditCardService.findById(cardId);
-        Integer count = paymentService.read().size();
+        Integer count = paymentService.getAllPayments().size();
         Integer countRow = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, count, 0).size();
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);

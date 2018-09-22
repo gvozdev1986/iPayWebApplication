@@ -8,6 +8,8 @@ import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_PARAM_USER_ID;
+
 public class UnblockUserCommandImpl implements BaseCommand {
 
     private UserService userService = ServiceFactory.getUserService();
@@ -18,7 +20,7 @@ public class UnblockUserCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Long userId = Long.valueOf(request.getParameter("userId"));
+        Long userId = Long.valueOf(request.getParameter(REQUEST_PARAM_USER_ID));
         userService.unblockUser(userId);
 
         Integer countBlockedClients = userService.listBlockedClient().size();

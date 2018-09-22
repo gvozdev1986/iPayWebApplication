@@ -5,7 +5,6 @@ import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.mapper.PaymentRowMapper;
 import by.htp.hvozdzeu.model.Payment;
 import by.htp.hvozdzeu.model.report.PaymentReport;
-import by.htp.hvozdzeu.model.report.SumPaymentReportChartPie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +27,6 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
             + "`Available`, "
             + "`OrderNo`) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-
-    private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`payment` SET `DescriptionPayment`=? WHERE `Id`=?;";
 
     private static final String SQL_FIND_PAYMENT_BY_ID = "SELECT "
             + "`Id`, "
@@ -71,27 +68,20 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
             + "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData "
             + "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? ORDER BY DatePayment, TimePayment LIMIT ?,?;";
 
-    private static final String SQL_FIND_PAYMENT_BY_CARD_ID_AND_DATE_CHART_PIE = "SELECT "
-            + "COUNT(*) AS Amount, "
-            + "paymentdata.PaymentDataGroup, "
-            + "TRUNCATE(SUM(payment.AmountPayment), 2) AS Sum "
-            + "FROM payment JOIN paymentdata ON paymentdata.id = payment.PaymentData "
-            + "WHERE CreditCard = ? AND DatePayment BETWEEN ? AND ? GROUP BY paymentdata.PaymentDataGroup;";
-
     @Override
-    public Payment create(Payment entity) throws DAOException {
+    public Payment create(Payment payment) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             connection.setAutoCommit(false);
-            preparedStatement.setDate(1, Date.valueOf(entity.getDatePayment()));
-            preparedStatement.setTime(2, Time.valueOf(entity.getTimePayment()));
-            preparedStatement.setString(3, entity.getDescriptionPayment());
-            preparedStatement.setLong(4, entity.getPaymentService());
-            preparedStatement.setBigDecimal(5, entity.getAmountPayment());
-            preparedStatement.setLong(6, entity.getCreditCard());
+            preparedStatement.setDate(1, Date.valueOf(payment.getDatePayment()));
+            preparedStatement.setTime(2, Time.valueOf(payment.getTimePayment()));
+            preparedStatement.setString(3, payment.getDescriptionPayment());
+            preparedStatement.setLong(4, payment.getPaymentService());
+            preparedStatement.setBigDecimal(5, payment.getAmountPayment());
+            preparedStatement.setLong(6, payment.getCreditCard());
             preparedStatement.setBoolean(7, true);
-            preparedStatement.setString(8, entity.getOrderNo());
+            preparedStatement.setString(8, payment.getOrderNo());
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
@@ -105,39 +95,20 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return payment;
     }
 
     @Override
-    public Payment update(Payment entity, Long id) throws DAOException {
-        Connection connection = dataBaseConnection.getConnection();
-        Savepoint savepoint = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
-            connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getDescriptionPayment());
-            preparedStatement.setString(2, entity.getDescriptionPayment());
-            savepoint = connection.setSavepoint();
-            preparedStatement.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback(savepoint);
-            } catch (SQLException e1) {
-                LOGGER.error(e1.getMessage());
-            }
-            throw new DAOException(e.getMessage());
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return entity;
+    public Payment update(Payment payment, Long paymentId) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public Payment findById(Long id) throws DAOException {
+    public Payment findById(Long paymentId) throws DAOException {
         Payment payment = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAYMENT_BY_ID)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, paymentId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     payment = buildPaymentRowMapper(resultSet);
@@ -172,13 +143,13 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
+    public boolean deleteById(Long paymentId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_PAYMENT_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, paymentId);
             preparedStatement.executeUpdate();
             connection.commit();
             result = true;
@@ -196,13 +167,14 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
     }
 
     @Override
-    public List<PaymentReport> findPaymentByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate, Integer countRowOnPage, Integer displacement)
+    public List<PaymentReport> findPaymentByCardAndBetweenDate(Long creditCardId, LocalDate startDate, LocalDate endDate,
+                                                               Integer countRowOnPage, Integer displacement)
             throws DAOException {
         List<PaymentReport> payments = new ArrayList<>();
         PaymentReport paymentReport;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAYMENT_BY_CARD_ID_AND_DATE)) {
-            preparedStatement.setLong(1, cardId);
+            preparedStatement.setLong(1, creditCardId);
             preparedStatement.setDate(2, Date.valueOf(startDate.toString()));
             preparedStatement.setDate(3, Date.valueOf(endDate.toString()));
             preparedStatement.setInt(4, displacement);
@@ -220,29 +192,4 @@ public class PaymentCrudImpl extends PaymentRowMapper implements PaymentDAO {
         }
         return payments;
     }
-
-    @Override
-    public List<SumPaymentReportChartPie> findPaymentByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate, LocalDate endDate) throws DAOException {
-        List<SumPaymentReportChartPie> sumPaymentReportChartPies = new ArrayList<>();
-        SumPaymentReportChartPie sumPaymentReportChartPie;
-        Connection connection = dataBaseConnection.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAYMENT_BY_CARD_ID_AND_DATE_CHART_PIE)) {
-            preparedStatement.setLong(1, cardId);
-            preparedStatement.setDate(2, Date.valueOf(startDate.toString()));
-            preparedStatement.setDate(3, Date.valueOf(endDate.toString()));
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    sumPaymentReportChartPie = buildChartPiePaymentRowMapper(resultSet);
-                    sumPaymentReportChartPies.add(sumPaymentReportChartPie);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return sumPaymentReportChartPies;
-    }
-
-
 }

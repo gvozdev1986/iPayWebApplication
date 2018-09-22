@@ -61,12 +61,12 @@ class SessionCreator {
 
 
     private String getMailLogin() throws DAOException {
-        MailAccount mailAccount = mailAccountService.read();
+        MailAccount mailAccount = mailAccountService.getMailAccount();
         return mailAccount.getMailLogin();
     }
 
     private String getMailPswd() throws DAOException {
-        MailAccount mailAccount = mailAccountService.read();
+        MailAccount mailAccount = mailAccountService.getMailAccount();
         return mailAccount.getMailPswd();
     }
 

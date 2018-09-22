@@ -14,28 +14,28 @@ public class CreditCardServiceImpl implements CreditCardService {
 	private CreditCardDAO creditCardDAO = DAOFactory.getCreditCardDao();
 
 	@Override
-	public CreditCard create(CreditCard creditCard) throws DAOException {
+	public CreditCard save(CreditCard creditCard) throws DAOException {
 		return creditCardDAO.create(creditCard);
 	}
 
 	@Override
-	public CreditCard update(CreditCard creditCard, Long id) throws DAOException {
-		return creditCardDAO.update(creditCard, id);
+	public CreditCard update(CreditCard creditCard, Long creditCardId) throws DAOException {
+		return creditCardDAO.update(creditCard, creditCardId);
 	}
 
 	@Override
-	public CreditCard findById(Long id) throws DAOException {
-		return creditCardDAO.findById(id);
+	public CreditCard findById(Long creditCardId) throws DAOException {
+		return creditCardDAO.findById(creditCardId);
 	}
 
 	@Override
-	public List<CreditCard> read() throws DAOException {
+	public List<CreditCard> getAllCreditCards() throws DAOException {
 		return creditCardDAO.read();
 	}
 
 	@Override
-	public boolean deleteById(Long id) throws DAOException {
-		return creditCardDAO.deleteById(id);
+	public boolean deleteById(Long creditCardId) throws DAOException {
+		return creditCardDAO.deleteById(creditCardId);
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class CreditCardServiceImpl implements CreditCardService {
 	}
 
 	@Override
-	public List<StatusCardReport> findCreditCardByIdClient(Long clientId) throws DAOException {
-		return creditCardDAO.findCreditCardByIdClient(clientId);
+	public List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException {
+		return creditCardDAO.findCreditCardByIdClient(userId);
 	}
 
 	@Override

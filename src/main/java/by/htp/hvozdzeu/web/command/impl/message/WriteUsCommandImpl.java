@@ -39,7 +39,7 @@ public class WriteUsCommandImpl implements BaseCommand {
                     .messageFromContact(request.getParameter(MESSAGE_CONTACT))
                     .build();
 
-            messageContactService.create(messageContact);
+            messageContactService.save(messageContact);
             request.getSession().removeAttribute("validateErrorMap");
             request.getSession().removeAttribute("returnValidateErrorMap");
             request.getSession().setAttribute("messageEvent", MESSAGE_SUCCESS_SEND);

@@ -25,7 +25,7 @@ public class ListMessageViewCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        List<MessageContact> messageContacts = messageContactService.read();
+        List<MessageContact> messageContacts = messageContactService.getAllMessages();
 
         Integer countRow = messageContacts.size();
 

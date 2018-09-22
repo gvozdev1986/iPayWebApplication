@@ -33,7 +33,7 @@ public class SavePaymentDataCommandImpl implements BaseCommand {
                 .paymentDataDescription(serviceDataDescription)
                 .build();
 
-        paymentService.create(paymentData);
+        paymentService.save(paymentData);
 
 
         return PagePathConstantPool.REDIRECT_PAYMENT_DATA_LIST;

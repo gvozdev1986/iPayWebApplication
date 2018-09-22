@@ -89,13 +89,13 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                         .available(false)
                         .build();
 
-                bankAccountService.create(bankAccount);
+                bankAccountService.save(bankAccount);
 
                 String emailToReply = user.getEmail();
                 String subjectToReply = "Information about insert new credit card.";
                 String message = "Hello. " +
                         "Your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been inserted. " +
-                        "And create new bank account [" + nameAccount + "]. " +
+                        "And save new bank account [" + nameAccount + "]. " +
                         "For additional information, please return to administrator.";
 
                 String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);

@@ -7,19 +7,17 @@ import java.util.List;
 
 public interface UserService {
 
-    User create(User client) throws DAOException;
+    User save(User user) throws DAOException;
 
-    User update(User client, Long id) throws DAOException;
+    User update(User user, Long userId) throws DAOException;
 
     User findById(Long id) throws DAOException;
 
-    List<User> read() throws DAOException;
+    List<User> getAllUsers() throws DAOException;
 
-    boolean deleteById(Long id) throws DAOException;
+    boolean deleteById(Long userId) throws DAOException;
 
     User checkUser(String login, String pswd) throws DAOException;
-
-    boolean updatePassword(Long id, String password) throws DAOException;
 
     List<User> listBlockedClient() throws DAOException;
 
@@ -31,8 +29,10 @@ public interface UserService {
 
     User findByRegCode(String regCode) throws DAOException;
 
-    boolean unblockUser(Long userId) throws DAOException;
+    void updatePswd(Long userId, String password) throws DAOException;
 
-    boolean blockUser(Long userId) throws DAOException;
+    void unblockUser(Long userId) throws DAOException;
+
+    void blockUser(Long userId) throws DAOException;
 
 }

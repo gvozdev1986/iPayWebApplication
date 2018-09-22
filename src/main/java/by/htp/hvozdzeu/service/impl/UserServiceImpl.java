@@ -13,28 +13,28 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO = DAOFactory.getClientDao();
 
     @Override
-    public User create(User user) throws DAOException {
+    public User save(User user) throws DAOException {
         return userDAO.create(user);
     }
 
     @Override
-    public User update(User user, Long id) throws DAOException {
-        return userDAO.update(user, id);
+    public User update(User user, Long userId) throws DAOException {
+        return userDAO.update(user, userId);
     }
 
     @Override
-    public User findById(Long id) throws DAOException {
-        return userDAO.findById(id);
+    public User findById(Long userId) throws DAOException {
+        return userDAO.findById(userId);
     }
 
     @Override
-    public List<User> read() throws DAOException {
+    public List<User> getAllUsers() throws DAOException {
         return userDAO.read();
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
-        return userDAO.deleteById(id);
+    public boolean deleteById(Long userId) throws DAOException {
+        return userDAO.deleteById(userId);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(Long id, String password) throws DAOException {
-        return userDAO.updatePassword(id, password);
+    public void updatePswd(Long userId, String password) throws DAOException {
+        userDAO.updatePassword(userId, password);
     }
 
 	@Override
@@ -68,13 +68,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean unblockUser(Long userId) throws DAOException {
-        return userDAO.unblockUser(userId);
+    public void unblockUser(Long userId) throws DAOException {
+        userDAO.unblockUser(userId);
     }
 
     @Override
-    public boolean blockUser(Long userId) throws DAOException {
-        return userDAO.blockUser(userId);
+    public void blockUser(Long userId) throws DAOException {
+        userDAO.blockUser(userId);
     }
 
     @Override

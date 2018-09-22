@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class XSSRequestWrapper extends HttpServletRequestWrapper{
 
-    public static final String NOT_VALID_DATE_MSG = "Not valid date";
+    private static final String NOT_VALID_DATE_MSG = "Not valid date";
 
     private static Pattern[] patterns = new Pattern[]{
             Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE),

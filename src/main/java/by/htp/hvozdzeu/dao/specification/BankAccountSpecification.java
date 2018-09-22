@@ -7,11 +7,11 @@ import by.htp.hvozdzeu.model.BankAccount;
 
 public interface BankAccountSpecification {
 
-    boolean bankAccountBlock(Long id) throws DAOException;
+    boolean bankAccountBlock(Long bankAccountId) throws DAOException;
 
-    boolean bankAccountUnBlock(Long id) throws DAOException;
+    boolean bankAccountUnBlock(Long bankAccountId) throws DAOException;
 
-    BankAccount findByCardId(Long cardId) throws DAOException;
+    BankAccount findByCardId(Long creditCardId) throws DAOException;
 
     void updateBalance(BigDecimal newBalance, Long bankAccountId) throws DAOException;
 

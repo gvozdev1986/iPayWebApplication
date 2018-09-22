@@ -73,23 +73,23 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
 
     private static final String SQL_MAX_ID = "SELECT MAX(`id`) AS MaxID FROM `paymentdata`;";
 
-    private static final String ERROR_CREATE = "Error create payment data.";
+    private static final String ERROR_CREATE = "Error save payment data.";
     private static final String ERROR_UPDATE_BY_ID = "Error update payment data by id.";
     private static final String ERROR_FIND_BY_ID = "Error find payment data by id.";
-    private static final String ERROR_READ = "Error read payment dates.";
+    private static final String ERROR_READ = "Error getAllUsers payment dates.";
     private static final String ERROR_DELETE_BY_ID = "Error delete payment data by id.";
 
 
     @Override
-    public PaymentData create(PaymentData entity) throws DAOException {
+    public PaymentData create(PaymentData paymentData) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getPaymentDataCode());
-            preparedStatement.setString(2, entity.getPaymentDataName());
-            preparedStatement.setString(3, entity.getPaymentDataGroup());
-            preparedStatement.setString(4, entity.getPaymentDataDescription());
+            preparedStatement.setString(1, paymentData.getPaymentDataCode());
+            preparedStatement.setString(2, paymentData.getPaymentDataName());
+            preparedStatement.setString(3, paymentData.getPaymentDataGroup());
+            preparedStatement.setString(4, paymentData.getPaymentDataDescription());
             preparedStatement.setBoolean(5, true);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
@@ -104,20 +104,20 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return paymentData;
     }
 
     @Override
-    public PaymentData update(PaymentData entity, Long id) throws DAOException {
+    public PaymentData update(PaymentData paymentData, Long paymentDataId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getPaymentDataCode());
-            preparedStatement.setString(2, entity.getPaymentDataName());
-            preparedStatement.setString(3, entity.getPaymentDataGroup());
-            preparedStatement.setString(4, entity.getPaymentDataDescription());
-            preparedStatement.setLong(5, id);
+            preparedStatement.setString(1, paymentData.getPaymentDataCode());
+            preparedStatement.setString(2, paymentData.getPaymentDataName());
+            preparedStatement.setString(3, paymentData.getPaymentDataGroup());
+            preparedStatement.setString(4, paymentData.getPaymentDataDescription());
+            preparedStatement.setLong(5, paymentDataId);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
@@ -131,15 +131,15 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return paymentData;
     }
 
     @Override
-    public PaymentData findById(Long id) throws DAOException {
+    public PaymentData findById(Long paymentDataId) throws DAOException {
         PaymentData paymentData = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, paymentDataId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     paymentData = buildPaymentServiceRowMapper(resultSet);
@@ -174,13 +174,13 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
+    public boolean deleteById(Long paymentDataId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, paymentDataId);
             preparedStatement.executeUpdate();
             connection.commit();
             result = true;

@@ -13,28 +13,28 @@ public class PaymentDataServiceImpl implements PaymentDataService {
 	private PaymentDataDAO iPaymentDataDAO = DAOFactory.getPaymentServiceDao();
 
 	@Override
-	public PaymentData create(PaymentData paymentData) throws DAOException {
+	public PaymentData save(PaymentData paymentData) throws DAOException {
 		return iPaymentDataDAO.create(paymentData);
 	}
 
 	@Override
-	public PaymentData update(PaymentData paymentData, Long id) throws DAOException {
-		return iPaymentDataDAO.update(paymentData, id);
+	public PaymentData update(PaymentData paymentData, Long paymentDataId) throws DAOException {
+		return iPaymentDataDAO.update(paymentData, paymentDataId);
 	}
 
 	@Override
-	public PaymentData findById(Long id) throws DAOException {
-		return iPaymentDataDAO.findById(id);
+	public PaymentData findById(Long paymentDataId) throws DAOException {
+		return iPaymentDataDAO.findById(paymentDataId);
 	}
 
 	@Override
-	public List<PaymentData> read() throws DAOException {
+	public List<PaymentData> getAllPaymentsData() throws DAOException {
 		return iPaymentDataDAO.read();
 	}
 
 	@Override
-	public boolean deleteById(Long id) throws DAOException {
-		return iPaymentDataDAO.deleteById(id);
+	public boolean deleteById(Long paymentDataId) throws DAOException {
+		return iPaymentDataDAO.deleteById(paymentDataId);
 	}
 
 	@Override

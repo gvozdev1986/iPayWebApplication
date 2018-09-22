@@ -30,10 +30,6 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             + "`Available` "
             + ") " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-    private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
-            + "`CardFirstName`= ?, "
-            + "`CardLastName`= ? WHERE  `Id`= ?;";
-
     private static final String SQL_READ = "SELECT "
             + "`Id`, "
             + "`Client`, "
@@ -73,7 +69,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard` WHERE `CardNumber` = ?;";
 
-    private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
+    private static final String SQL_DELETE_DO_AVAILABLE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
             + "`Available`= 0 WHERE  `Id`= ?; ";
 
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT "
@@ -149,9 +145,8 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard` LIMIT ?, ?;";
 
-    private static final String ERROR_CREATE = "Error create message.";
-    private static final String ERROR_UPDATE_BY_ID = "Error update message.";
-    private static final String ERROR_READ = "Error read from clients table.";
+    private static final String ERROR_CREATE = "Error save message.";
+    private static final String ERROR_READ = "Error getAllUsers from clients table.";
     private static final String ERROR_FIND_BY_ID = "Error find message by id.";
     private static final String ERROR_DELETE_BY_ID = "Error delete message by id.";
     private static final String ERROR_FIND_BY_CARD_NUMBER = "Error find message by card number.";
@@ -164,18 +159,18 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
     private static final String ERROR_PAGINATION = "Error view pagination";
 
     @Override
-    public CreditCard create(CreditCard entity) throws DAOException {
+    public CreditCard create(CreditCard creditCard) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, entity.getClient());
-            preparedStatement.setString(2, entity.getCardNumber());
-            preparedStatement.setString(3, entity.getCardFirstName());
-            preparedStatement.setString(4, entity.getCardLastName());
-            preparedStatement.setString(5, entity.getValidDate());
+            preparedStatement.setLong(1, creditCard.getClient());
+            preparedStatement.setString(2, creditCard.getCardNumber());
+            preparedStatement.setString(3, creditCard.getCardFirstName());
+            preparedStatement.setString(4, creditCard.getCardLastName());
+            preparedStatement.setString(5, creditCard.getValidDate());
             preparedStatement.setString(6, "UNDEFINED");
-            preparedStatement.setString(7, entity.getVerifyCode());
+            preparedStatement.setString(7, creditCard.getVerifyCode());
             preparedStatement.setBoolean(8, true);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
@@ -190,40 +185,20 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return creditCard;
     }
 
     @Override
-    public CreditCard update(CreditCard entity, Long id) throws DAOException {
-        Connection connection = dataBaseConnection.getConnection();
-        Savepoint savepoint = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
-            connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getCardFirstName());
-            preparedStatement.setString(2, entity.getCardLastName());
-            preparedStatement.setLong(3, id);
-            savepoint = connection.setSavepoint();
-            preparedStatement.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback(savepoint);
-            } catch (SQLException e1) {
-                LOGGER.error(e1.getMessage());
-            }
-            throw new DAOException(ERROR_UPDATE_BY_ID, e);
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return entity;
+    public CreditCard update(CreditCard creditCard, Long id) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public CreditCard findById(Long id) throws DAOException {
+    public CreditCard findById(Long creditCardId) throws DAOException {
         CreditCard creditCard = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, creditCardId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     creditCard = buildCreditCardRowMapper(resultSet);
@@ -258,13 +233,13 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
+    public boolean deleteById(Long creditCardId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         boolean result;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DO_AVAILABLE_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, creditCardId);
             preparedStatement.executeUpdate();
             connection.commit();
             result = true;
@@ -282,14 +257,14 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
     }
 
     @Override
-    public CreditCard findByCreditCardNumber(String creditCard) throws DAOException {
-        CreditCard card = null;
+    public CreditCard findByCreditCardNumber(String creditCardNumber) throws DAOException {
+        CreditCard creditCard = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CREDIT_CARD_NUMBER)) {
-            preparedStatement.setString(1, creditCard);
+            preparedStatement.setString(1, creditCardNumber);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    card = buildCreditCardRowMapper(resultSet);
+                    creditCard = buildCreditCardRowMapper(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -297,16 +272,16 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return card;
+        return creditCard;
     }
 
     @Override
-    public List<StatusCardReport> findCreditCardByIdClient(Long clientId) throws DAOException {
+    public List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException {
         List<StatusCardReport> statusCardReports = new ArrayList<>();
         StatusCardReport statusCardReport;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID)) {
-            preparedStatement.setLong(1, clientId);
+            preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     statusCardReport = buildStatusCreditCardRowMapper(resultSet);

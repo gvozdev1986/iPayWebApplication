@@ -33,7 +33,7 @@ public class UpdateAdminPasswordCommandImpl implements BaseCommand {
         String currentPswd = new String(user.getPassword());
 
         if (newPassword.equals(verifyPassword) && currentPswd.equals(currentPassword)) {
-            userService.updatePassword(userId, newPassword);
+            userService.updatePswd(userId, newPassword);
             User userAfterUpdate = userService.findById(userId);
             request.getSession().setAttribute(REQUEST_PARAM_USER, userAfterUpdate);
             request.getSession().setAttribute(MESSAGE_ERROR_SAVE_PSWD, MESSAGE_ERROR_SAVE_PSWD_SUCCESS);

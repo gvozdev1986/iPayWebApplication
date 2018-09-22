@@ -94,7 +94,7 @@ public class SaveTransferHisCreditCardCommandImpl implements BaseCommand {
                 User user = (User) request.getSession().getAttribute("user");
                 Long clientId = user.getId();
                 List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
-                List<PaymentData> paymentDates = paymentDataService.read();
+                List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
 
                 sendEmailAboutTransfer(request, user, sum, cardFrom, description);
 

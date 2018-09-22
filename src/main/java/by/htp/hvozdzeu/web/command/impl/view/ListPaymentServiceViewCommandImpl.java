@@ -25,7 +25,7 @@ public class ListPaymentServiceViewCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
-        Integer countRow = paymentDataService.read().size();
+        Integer countRow = paymentDataService.getAllPaymentsData().size();
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
         List<PaymentData> pagination = paymentDataService.pagination(countRowOnPage, displacement);

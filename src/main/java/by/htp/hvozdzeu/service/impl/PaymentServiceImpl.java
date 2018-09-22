@@ -5,7 +5,6 @@ import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.Payment;
 import by.htp.hvozdzeu.model.report.PaymentReport;
-import by.htp.hvozdzeu.model.report.SumPaymentReportChartPie;
 import by.htp.hvozdzeu.service.PaymentService;
 
 import java.time.LocalDate;
@@ -21,23 +20,18 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Payment update(Payment payment, Long id) throws DAOException {
-		return iPaymentDAO.update(payment, id);
+	public Payment findById(Long paymentId) throws DAOException {
+		return iPaymentDAO.findById(paymentId);
 	}
 
 	@Override
-	public Payment findById(Long id) throws DAOException {
-		return iPaymentDAO.findById(id);
-	}
-
-	@Override
-	public List<Payment> read() throws DAOException {
+	public List<Payment> getAllPayments() throws DAOException {
 		return iPaymentDAO.read();
 	}
 
 	@Override
-	public boolean deleteById(Long id) throws DAOException {
-		return iPaymentDAO.deleteById(id);
+	public boolean deleteById(Long paymentId) throws DAOException {
+		return iPaymentDAO.deleteById(paymentId);
 	}
 
 	@Override
@@ -45,12 +39,6 @@ public class PaymentServiceImpl implements PaymentService {
 															   Integer countRowOnPage, Integer displacement)
 			throws DAOException {
 		return iPaymentDAO.findPaymentByCardAndBetweenDate(cardId, startDate, endDate, countRowOnPage, displacement);
-	}
-
-	@Override
-	public List<SumPaymentReportChartPie> findPaymentByCardAndBetweenDateChartPie(Long cardId, LocalDate startDate,
-																				  LocalDate endDate) throws DAOException {
-		return iPaymentDAO.findPaymentByCardAndBetweenDateChartPie(cardId, startDate, endDate);
 	}
 
 }

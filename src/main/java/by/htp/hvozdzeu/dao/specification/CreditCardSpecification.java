@@ -8,9 +8,9 @@ import by.htp.hvozdzeu.model.report.StatusCardReport;
 
 public interface CreditCardSpecification {
 
-    CreditCard findByCreditCardNumber(String creditCard) throws DAOException;
+    CreditCard findByCreditCardNumber(String creditCardNumber) throws DAOException;
 
-    List<StatusCardReport> findCreditCardByIdClient(Long clientId) throws DAOException;
+    List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException;
 
     boolean blockCreditCard(Long creditCardId) throws DAOException;
 
