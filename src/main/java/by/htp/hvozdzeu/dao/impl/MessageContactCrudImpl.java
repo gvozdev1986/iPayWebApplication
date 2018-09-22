@@ -60,10 +60,6 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             "`messages`.`CheckRead` " +
             "FROM `ipaywebapplication`.`messages` ORDER BY `messages`.`CheckRead` ASC;";
 
-    private static final String SQL_DELETE_BY_ID = "DELETE " +
-            "FROM `ipaywebapplication`.`messages` " +
-            "WHERE `id`=?;";
-
     private static final String SQL_UNREAD_MESSAGE = "SELECT "
             + "messages.Id, "
             + "messages.NameContact, "
@@ -120,30 +116,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
 
     @Override
     public MessageContact update(MessageContact entity, Long id) throws DAOException {
-        Connection connection = dataBaseConnection.getConnection();
-        Savepoint savepoint = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
-            connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getNameContact());
-            preparedStatement.setString(2, entity.getEmailContact());
-            preparedStatement.setString(3, entity.getPhoneContact());
-            preparedStatement.setString(4, entity.getMessageFromContact());
-            preparedStatement.setBoolean(5, entity.isCheckRead());
-            preparedStatement.setLong(6, entity.getId());
-            savepoint = connection.setSavepoint();
-            preparedStatement.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback(savepoint);
-            } catch (SQLException e1) {
-                LOGGER.error(e1.getMessage());
-            }
-            throw new DAOException(e.getMessage());
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return entity;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -187,27 +160,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
 
     @Override
     public boolean deleteById(Long id) throws DAOException {
-        Connection connection = dataBaseConnection.getConnection();
-        Savepoint savepoint = null;
-        boolean result;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
-            connection.setAutoCommit(false);
-            preparedStatement.setLong(1, id);
-            savepoint = connection.setSavepoint();
-            preparedStatement.executeUpdate();
-            connection.commit();
-            result = true;
-        } catch (SQLException e) {
-            try {
-                connection.rollback(savepoint);
-            } catch (SQLException e1) {
-                LOGGER.error(e1.getMessage());
-            }
-            throw new DAOException(e.getMessage());
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return result;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -232,17 +185,15 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
     }
 
     @Override
-    public boolean checkMessageAsRead(Long messageId) throws DAOException {
+    public void checkMessageAsRead(Long messageId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
-        boolean result = false;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_READ)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, messageId);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
-            result = true;
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
@@ -252,7 +203,6 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return result;
     }
 
     @Override

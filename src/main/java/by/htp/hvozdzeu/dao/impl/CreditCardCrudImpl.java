@@ -73,7 +73,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             + "`Available` "
             + "FROM `ipaywebapplication`.`creditcard` WHERE `CardNumber` = ?;";
 
-    private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
+    private static final String SQL_DELETE_DO_AVAILABLE_BY_ID = "UPDATE `ipaywebapplication`.`creditcard` SET "
             + "`Available`= 0 WHERE  `Id`= ?; ";
 
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT "
@@ -262,7 +262,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         boolean result;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_DO_AVAILABLE_BY_ID)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();

@@ -13,8 +13,8 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.MESSAGE_ID;
 
 public class CheckReadMessageCommandImpl implements BaseCommand {
 
-    private MessageContactService messageContactService = ServiceFactory.getMessageContactService();
     private static final String COUNT_MESSAGES_ATTRIBUTE_NAME = "countUnreadMessage";
+    private MessageContactService messageContactService = ServiceFactory.getMessageContactService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -24,5 +24,6 @@ public class CheckReadMessageCommandImpl implements BaseCommand {
 
         request.getSession().setAttribute(COUNT_MESSAGES_ATTRIBUTE_NAME, countUnreadMessage());
         return PagePathConstantPool.REDIRECT_LIST_MESSAGE;
+
     }
 }

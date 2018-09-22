@@ -96,7 +96,7 @@
                         <span class="progress-right"><span class="progress-bar"></span></span>
                         <div class="progress-value">${countService}</div>
                     </div>
-                    <p style="width: 100%; text-align: center;">Count services.</p>
+                    <p style="width: 100%; text-align: center;"><fmt:message key="count_services"/></p>
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
                 <div class="card" style="border: 1px solid #00ad7e;">
                     <div class="card-body">
                         <div class="card-style" style="height: 43.5%;">
-                            <div id='gmap_canvas' style='height:440px;width:700px;'></div>
+                            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A293654bbcc42abb45ce28f809716e17f93437bd8c01ba0cce4b8a98f88e2f26e&amp;source=constructor" width="100%" height="100%" frameborder="0"></iframe>
                         </div>
                     </div>
                 </div>

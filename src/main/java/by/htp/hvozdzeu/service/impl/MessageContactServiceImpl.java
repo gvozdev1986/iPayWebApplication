@@ -18,18 +18,8 @@ public class MessageContactServiceImpl implements MessageContactService {
     }
 
     @Override
-    public MessageContact update(MessageContact messageContact, Long id) throws DAOException {
-        return iMessageContactDAO.update(messageContact, id);
-    }
-
-    @Override
     public MessageContact findById(Long id) throws DAOException {
         return iMessageContactDAO.findById(id);
-    }
-
-    @Override
-    public boolean deleteById(Long id) throws DAOException {
-        return iMessageContactDAO.deleteById(id);
     }
 
     @Override
@@ -43,8 +33,8 @@ public class MessageContactServiceImpl implements MessageContactService {
 	}
 
     @Override
-    public boolean checkMessageAsRead(Long messageId) throws DAOException {
-        return iMessageContactDAO.checkMessageAsRead(messageId);
+    public void checkMessageAsRead(Long messageId) throws DAOException {
+        iMessageContactDAO.checkMessageAsRead(messageId);
     }
 
     @Override

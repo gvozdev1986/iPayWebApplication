@@ -9,7 +9,7 @@ public interface MessageContactSpecification {
 
     List<MessageContact> unreadMessages(boolean status) throws DAOException;
 
-    boolean checkMessageAsRead(Long messageId) throws DAOException;
+    void checkMessageAsRead(Long messageId) throws DAOException;
 
     List<MessageContact> pagination(Integer start, Integer count) throws DAOException;
 
