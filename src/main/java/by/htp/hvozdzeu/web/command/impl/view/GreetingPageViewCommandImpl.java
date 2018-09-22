@@ -20,14 +20,14 @@ import static by.htp.hvozdzeu.util.GettingCurrency.currencyOnline;
 public class GreetingPageViewCommandImpl implements BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GreetingPageViewCommandImpl.class);
-    private Map<String, String> currencyMap = new HashMap<>();
-    private UserService userService = ServiceFactory.getUserService();
-    private PaymentService paymentService = ServiceFactory.getPaymentService();
-    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
     private static final String COUNT_USER = "countUser";
     private static final String COUNT_OPERATION = "countOperation";
     private static final String CURRENCY_MAP = "currencyMap";
     private static final String COUNT_SERVICE = "countService";
+    private Map<String, String> currencyMap = new HashMap<>();
+    private UserService userService = ServiceFactory.getUserService();
+    private PaymentService paymentService = ServiceFactory.getPaymentService();
+    private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -38,9 +38,9 @@ public class GreetingPageViewCommandImpl implements BaseCommand {
             LOGGER.error(e.getMessage());
         }
 
-        Integer countUser = userService.read().size();
-        Integer countOperation = paymentService.read().size();
-        Integer countService = paymentDataService.read().size();
+        Integer countUser = userService.getAllUsers().size();
+        Integer countOperation = paymentService.getAllPayments().size();
+        Integer countService = paymentDataService.getAllPaymentsData().size();
 
         request.getSession().setAttribute(COUNT_USER, countUser);
         request.getSession().setAttribute(COUNT_OPERATION, countOperation);

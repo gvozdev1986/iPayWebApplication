@@ -56,7 +56,7 @@ public class CalculatePagination {
 		calc.put(DISPLACEMENT, displacement);
 		calc.put(LAST_PAGE, countPage);
 		
-		LOGGER.debug("Get paggination data: PAGE-{} COUNT_PAGE-{} COUNT_ROW_ON_PAGE-{} DISPLACEMENT-{} LAST_PAGE-{}", page, countPage, countRowOnPage, displacement, countPage);
+		LOGGER.debug("Get pagination data: PAGE-{} COUNT_PAGE-{} COUNT_ROW_ON_PAGE-{} DISPLACEMENT-{} LAST_PAGE-{}", page, countPage, countRowOnPage, displacement, countPage);
 		
 		return calc;
 	}

@@ -16,13 +16,11 @@ public interface UserSpecification {
 
     User findByLogin(String login) throws DAOException;
 
-    boolean updatePassword(Long id, String password) throws DAOException;
+    void updatePassword(Long userId, String password) throws DAOException;
 
-    List<User> blockedUser() throws DAOException;
+    void unblockUser(Long userId) throws DAOException;
 
-    boolean unblockUser(Long userId) throws DAOException;
-
-    boolean blockUser(Long userId) throws DAOException;
+    void blockUser(Long userId) throws DAOException;
 
     List<User> pagination(Integer start, Integer count) throws DAOException;
 

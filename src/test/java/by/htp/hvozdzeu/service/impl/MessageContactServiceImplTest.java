@@ -53,7 +53,7 @@ public class MessageContactServiceImplTest {
     @Test
     public void testCreateMessageContact_returnNewMessage() throws DAOException {
         when(daoMock.create(messageContact)).thenReturn(messageContact);
-        assertThat(service.create(messageContact), is(notNullValue()));
+        assertThat(service.save(messageContact), is(notNullValue()));
         assertNotNull(messageContact.getNameContact());
         assertNotNull(messageContact.getDate());
         assertNotNull(messageContact.getTime());
@@ -74,7 +74,7 @@ public class MessageContactServiceImplTest {
             }
             return null;
         });
-        assertThat(service.create(messageContact), is(notNullValue()));
+        assertThat(service.save(messageContact), is(notNullValue()));
         assertNotNull(messageContact.getNameContact());
         assertNotNull(messageContact.getDate());
         assertNotNull(messageContact.getTime());
@@ -88,7 +88,7 @@ public class MessageContactServiceImplTest {
     public void testCreateMessageContact_throwsException() throws DAOException {
         when(daoMock.create(MessageContact.getBuilder().build())).thenThrow(RuntimeException.class);
         MessageContact messageContact = MessageContact.getBuilder().build();
-        service.create(messageContact);
+        service.save(messageContact);
     }
 
     @Test
@@ -101,8 +101,8 @@ public class MessageContactServiceImplTest {
     public void testReadMessageContact_returnListMessageContact() throws DAOException {
         when(daoMock.read()).thenReturn(Arrays.asList(messageContact));
 
-        assertThat(service.read(), is(notNullValue()));
-        List<MessageContact> allMessages = service.read();
+        assertThat(service.getAllMessages(), is(notNullValue()));
+        List<MessageContact> allMessages = service.getAllMessages();
         assertEquals(1, allMessages.size());
         MessageContact message = allMessages.get(0);
 

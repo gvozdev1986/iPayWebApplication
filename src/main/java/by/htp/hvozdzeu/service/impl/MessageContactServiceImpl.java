@@ -13,17 +13,17 @@ public class MessageContactServiceImpl implements MessageContactService {
     private MessageContactDAO iMessageContactDAO = DAOFactory.getMessageContactDAO();
 
     @Override
-    public MessageContact create(MessageContact messageContact) throws DAOException {
+    public MessageContact save(MessageContact messageContact) throws DAOException {
         return iMessageContactDAO.create(messageContact);
     }
 
     @Override
-    public MessageContact findById(Long id) throws DAOException {
-        return iMessageContactDAO.findById(id);
+    public MessageContact findById(Long messageContactId) throws DAOException {
+        return iMessageContactDAO.findById(messageContactId);
     }
 
     @Override
-    public List<MessageContact> read() throws DAOException {
+    public List<MessageContact> getAllMessages() throws DAOException {
         return iMessageContactDAO.read();
     }
 
@@ -33,8 +33,8 @@ public class MessageContactServiceImpl implements MessageContactService {
 	}
 
     @Override
-    public void checkMessageAsRead(Long messageId) throws DAOException {
-        iMessageContactDAO.checkMessageAsRead(messageId);
+    public void checkMessageAsRead(Long messageContactId) throws DAOException {
+        iMessageContactDAO.checkMessageAsRead(messageContactId);
     }
 
     @Override

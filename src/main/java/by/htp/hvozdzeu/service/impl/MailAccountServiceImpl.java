@@ -16,7 +16,7 @@ public class MailAccountServiceImpl implements MailAccountService {
     }
 
     @Override
-    public MailAccount read() throws DAOException {
+    public MailAccount getMailAccount() throws DAOException {
         return mailAccountDAO.read();
     }
 }

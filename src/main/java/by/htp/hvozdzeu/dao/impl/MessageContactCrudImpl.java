@@ -11,7 +11,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MessageContactCrudImpl extends MessageContactRowMapper implements MessageContactDAO {
 
@@ -86,17 +88,17 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             "FROM messages ORDER BY messages.CheckRead ASC LIMIT ?,?;";
 
     @Override
-    public MessageContact create(MessageContact entity) throws DAOException {
+    public MessageContact create(MessageContact messageContact) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
             connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getNameContact());
+            preparedStatement.setString(1, messageContact.getNameContact());
             preparedStatement.setDate(2, Date.valueOf(LocalDate.now()));
             preparedStatement.setTime(3, Time.valueOf(LocalTime.now()));
-            preparedStatement.setString(4, entity.getEmailContact());
-            preparedStatement.setString(5, entity.getPhoneContact());
-            preparedStatement.setString(6, entity.getMessageFromContact());
+            preparedStatement.setString(4, messageContact.getEmailContact());
+            preparedStatement.setString(5, messageContact.getPhoneContact());
+            preparedStatement.setString(6, messageContact.getMessageFromContact());
             preparedStatement.setBoolean(7, false);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
@@ -111,20 +113,20 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return messageContact;
     }
 
     @Override
-    public MessageContact update(MessageContact entity, Long id) throws DAOException {
+    public MessageContact update(MessageContact messageContact, Long messageContactId) throws DAOException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public MessageContact findById(Long id) throws DAOException {
+    public MessageContact findById(Long messageContactId) throws DAOException {
         MessageContact messageContact = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, messageContactId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     messageContact = buildMessageContactRowMapper(resultSet);
@@ -159,7 +161,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
+    public boolean deleteById(Long messageContactId) {
         throw new UnsupportedOperationException();
     }
 
@@ -185,12 +187,12 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
     }
 
     @Override
-    public void checkMessageAsRead(Long messageId) throws DAOException {
+    public void checkMessageAsRead(Long messageContactId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_READ)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, messageId);
+            preparedStatement.setLong(1, messageContactId);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();

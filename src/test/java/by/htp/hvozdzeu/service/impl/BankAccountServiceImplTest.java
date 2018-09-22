@@ -50,7 +50,7 @@ public class BankAccountServiceImplTest {
     @Test
     public void testCreateBankAccount_returnNewBankAccount() throws DAOException {
         when(daoMock.create(bankAccount)).thenReturn(bankAccount);
-        assertThat(service.create(bankAccount), is(notNullValue()));
+        assertThat(service.save(bankAccount), is(notNullValue()));
         assertNotNull(bankAccount.getCreditCard());
         assertTrue(bankAccount.isStatusBankAccount());
         assertNotNull(bankAccount.getBalanceBankAccount());
@@ -69,7 +69,7 @@ public class BankAccountServiceImplTest {
             }
             return null;
         });
-        assertThat(service.create(bankAccount), is(notNullValue()));
+        assertThat(service.save(bankAccount), is(notNullValue()));
         assertNotNull(bankAccount.getCreditCard());
         assertTrue(bankAccount.isStatusBankAccount());
         assertNotNull(bankAccount.getBalanceBankAccount());
@@ -81,7 +81,7 @@ public class BankAccountServiceImplTest {
     public void testCreateBankAccount_throwsException() throws DAOException {
         when(daoMock.create(BankAccount.getBuilder().build())).thenThrow(RuntimeException.class);
         BankAccount bankAccount = BankAccount.getBuilder().build();
-        service.create(bankAccount);
+        service.save(bankAccount);
     }
 
     @Test
@@ -116,8 +116,8 @@ public class BankAccountServiceImplTest {
     @Test
     public void testReadBankAccount_returnListBankAccount() throws DAOException {
         when(daoMock.read()).thenReturn(Arrays.asList(bankAccount));
-        assertThat(service.read(), is(notNullValue()));
-        List<BankAccount> allBankAccount = service.read();
+        assertThat(service.getAllBankAccounts(), is(notNullValue()));
+        List<BankAccount> allBankAccount = service.getAllBankAccounts();
         assertEquals(1, allBankAccount.size());
         BankAccount account = allBankAccount.get(0);
         assertEquals(Long.valueOf(1L), account.getCreditCard());

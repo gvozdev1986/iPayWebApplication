@@ -7,6 +7,6 @@ public interface MailAccountService {
 
     void update(String mailLogin, String mailPswd) throws DAOException;
 
-    MailAccount read() throws DAOException;
+    MailAccount getMailAccount() throws DAOException;
 
 }

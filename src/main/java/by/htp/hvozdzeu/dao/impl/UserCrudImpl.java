@@ -195,25 +195,25 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             "SET `Available`='0' WHERE  `Id`=?;";
 
     @Override
-    public User create(User entity) throws DAOException {
+    public User create(User user) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE)) {
-            String encodedPassword = passwordEncoder.getEncodeData(rebasePassword.rebasePSWD(entity.getPassword()));
+            String encodedPassword = passwordEncoder.getEncodeData(rebasePassword.rebasePSWD(user.getPassword()));
             connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getLogin());
+            preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, encodedPassword);
-            preparedStatement.setString(3, entity.getFirstName());
-            preparedStatement.setString(4, entity.getLastName());
-            preparedStatement.setString(5, entity.getPatronymic());
-            preparedStatement.setDate(6, Date.valueOf(entity.getDateBirth()));
-            preparedStatement.setString(7, entity.getPhoneHome());
-            preparedStatement.setString(8, entity.getPhoneMobile());
-            preparedStatement.setString(9, entity.getAddress());
-            preparedStatement.setString(10, entity.getEmail());
+            preparedStatement.setString(3, user.getFirstName());
+            preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getPatronymic());
+            preparedStatement.setDate(6, Date.valueOf(user.getDateBirth()));
+            preparedStatement.setString(7, user.getPhoneHome());
+            preparedStatement.setString(8, user.getPhoneMobile());
+            preparedStatement.setString(9, user.getAddress());
+            preparedStatement.setString(10, user.getEmail());
             preparedStatement.setBoolean(11, false);
             preparedStatement.setBoolean(12, false);
-            preparedStatement.setString(13, entity.getRegCode());
+            preparedStatement.setString(13, user.getRegCode());
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
@@ -227,24 +227,24 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return user;
     }
 
     @Override
-    public User update(User entity, Long id) throws DAOException {
+    public User update(User user, Long userId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setString(1, entity.getFirstName());
-            preparedStatement.setString(2, entity.getLastName());
-            preparedStatement.setString(3, entity.getPatronymic());
-            preparedStatement.setString(4, entity.getPhoneHome());
-            preparedStatement.setDate(5, Date.valueOf(entity.getDateBirth()));
-            preparedStatement.setString(6, entity.getPhoneMobile());
-            preparedStatement.setString(7, entity.getAddress());
-            preparedStatement.setString(8, entity.getEmail());
-            preparedStatement.setLong(9, id);
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getPatronymic());
+            preparedStatement.setString(4, user.getPhoneHome());
+            preparedStatement.setDate(5, Date.valueOf(user.getDateBirth()));
+            preparedStatement.setString(6, user.getPhoneMobile());
+            preparedStatement.setString(7, user.getAddress());
+            preparedStatement.setString(8, user.getEmail());
+            preparedStatement.setLong(9, userId);
             savepoint = connection.setSavepoint();
             preparedStatement.executeUpdate();
             connection.commit();
@@ -258,15 +258,15 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return entity;
+        return user;
     }
 
     @Override
-    public User findById(Long id) throws DAOException {
+    public User findById(Long userId) throws DAOException {
         User user = null;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = buildUserRowMapper(resultSet);
@@ -301,13 +301,13 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
+    public boolean deleteById(Long userId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
         boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID)) {
             connection.setAutoCommit(false);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
             connection.commit();
             result = true;
@@ -365,19 +365,17 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     }
 
     @Override
-    public boolean updatePassword(Long id, String password) throws DAOException {
+    public void updatePassword(Long userId, String password) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         PasswordEncoder encoder = new PasswordEncoder();
         Savepoint savepoint = null;
-        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PSWD)) {
             connection.setAutoCommit(false);
             preparedStatement.setString(1, String.valueOf(
                     rebasePassword.rebasePSWD(encoder.getEncodeData(password))));
-            preparedStatement.setLong(2, id);
+            preparedStatement.setLong(2, userId);
             preparedStatement.executeUpdate();
             connection.commit();
-            result = true;
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
@@ -388,40 +386,17 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return result;
     }
 
     @Override
-    public List<User> blockedUser() throws DAOException {
-        List<User> users = new ArrayList<>();
-        User user;
-        Connection connection = dataBaseConnection.getConnection();
-        try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(SQL_LIST_BLOCKED_CLIENT)) {
-                while (resultSet.next()) {
-                    user = buildUserRowMapper(resultSet);
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
-        } finally {
-            dataBaseConnection.closeConnection(connection);
-        }
-        return users;
-    }
-
-    @Override
-    public boolean unblockUser(Long userId) throws DAOException {
+    public void unblockUser(Long userId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
-        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UNBLOCK_USER)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
             connection.commit();
-            result = true;
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
@@ -432,20 +407,17 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return result;
     }
 
     @Override
-    public boolean blockUser(Long userId) throws DAOException {
+    public void blockUser(Long userId) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
         Savepoint savepoint = null;
-        boolean result;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_BLOCK_USER)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
             connection.commit();
-            result = true;
         } catch (SQLException e) {
             try {
                 connection.rollback(savepoint);
@@ -456,7 +428,6 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return result;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class ListCardViewCommandImpl implements BaseCommand {
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
-		Integer countRow = creditCardService.read().size();
+		Integer countRow = creditCardService.getAllCreditCards().size();
 
 		Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
 		Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);

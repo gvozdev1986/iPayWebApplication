@@ -22,10 +22,10 @@ public class LogInCommandImpl implements BaseCommand {
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
         String login = request.getParameter(REQUEST_PARAM_LOGIN);
-        String pass = request.getParameter(REQUEST_PARAM_PASS);
+        String pswd = request.getParameter(REQUEST_PARAM_PASS);
         validateParamNotNull(login);
-        validateParamNotNull(pass);
-        User user = userService.checkUser(login, pass);
+        validateParamNotNull(pswd);
+        User user = userService.checkUser(login, pswd);
         return checkReceivedUser(user, request);
     }
 

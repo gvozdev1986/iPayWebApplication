@@ -26,7 +26,7 @@ public class UserPanelViewCommandImpl implements BaseCommand {
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long userId = user.getId();
 		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(userId);
-		List<PaymentData> paymentDates = paymentDataService.read();
+		List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
 		
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
 		request.getSession().setAttribute(REQUEST_CARDS, creditCards);

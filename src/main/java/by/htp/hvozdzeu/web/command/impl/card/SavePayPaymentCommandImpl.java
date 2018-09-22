@@ -92,7 +92,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
 
                 Long clientId = user.getId();
                 List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
-                List<PaymentData> paymentDates = paymentDataService.read();
+                List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
                 request.getSession().setAttribute(REQUEST_PARAM_USER, user);
                 request.getSession().setAttribute(REQUEST_CARDS, creditCards);
                 request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);

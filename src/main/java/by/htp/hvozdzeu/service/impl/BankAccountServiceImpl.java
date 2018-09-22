@@ -14,43 +14,43 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountDAO bankAccountDAO = DAOFactory.getBankAccountDao();
 
     @Override
-    public BankAccount create(BankAccount bankAccount) throws DAOException {
+    public BankAccount save(BankAccount bankAccount) throws DAOException {
         return bankAccountDAO.create(bankAccount);
     }
 
     @Override
-    public BankAccount update(BankAccount bankAccount, Long id) throws DAOException {
-        return bankAccountDAO.update(bankAccount, id);
+    public BankAccount update(BankAccount bankAccount, Long bankAccountId) throws DAOException {
+        return bankAccountDAO.update(bankAccount, bankAccountId);
     }
 
     @Override
-    public BankAccount findById(Long id) throws DAOException {
-        return bankAccountDAO.findById(id);
+    public BankAccount findById(Long bankAccountId) throws DAOException {
+        return bankAccountDAO.findById(bankAccountId);
     }
 
     @Override
-    public List<BankAccount> read() throws DAOException {
+    public List<BankAccount> getAllBankAccounts() throws DAOException {
         return bankAccountDAO.read();
     }
 
     @Override
-    public boolean deleteById(Long id) throws DAOException {
-        return bankAccountDAO.deleteById(id);
+    public boolean deleteById(Long bankAccountId) throws DAOException {
+        return bankAccountDAO.deleteById(bankAccountId);
     }
 
     @Override
-    public boolean bankAccountBlock(Long id) throws DAOException {
-        return bankAccountDAO.bankAccountBlock(id);
+    public boolean bankAccountBlock(Long bankAccountId) throws DAOException {
+        return bankAccountDAO.bankAccountBlock(bankAccountId);
     }
 
     @Override
-    public boolean bankAccountUnBlock(Long id) throws DAOException {
-        return bankAccountDAO.bankAccountUnBlock(id);
+    public boolean bankAccountUnBlock(Long bankAccountId) throws DAOException {
+        return bankAccountDAO.bankAccountUnBlock(bankAccountId);
     }
 
 	@Override
-	public BankAccount findByCardId(Long cardId) throws DAOException {
-		return bankAccountDAO.findByCardId(cardId);
+	public BankAccount findByCardId(Long creditCardId) throws DAOException {
+		return bankAccountDAO.findByCardId(creditCardId);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public final class WebConstantDeclaration {
     public static final String REQUEST_PARAM_INFO_MESSAGE_AVAILABLE = "info_message_available";
 	public static final String REQUEST_PARAM_COMMAND = "command";
 	public static final String REQUEST_PARAM_LOCALE = "locale";
-	public static final String COMMAND_START_PAGE = "start_page";
+	static final String COMMAND_START_PAGE = "start_page";
 	public static final String SESSION_ATR_SESSION_PAGE_TYPE = "session_page_type";
 	public static final String PAGE_TYPE_ADMIN_PROFILE = "admin_profile_page";
 	public static final String PAGE_TYPE_USER_PROFILE = "user_profile_page";
@@ -49,7 +49,6 @@ public final class WebConstantDeclaration {
     public static final String PARAMETER = "param";
     public static final String CREDIT_CARDS = "creditCards";
     public static final String CREDIT_CARD = "creditCard";
-    public static final String MAIL = "mail";
     public static final String MESSAGE_ID = "messageId";
     public static final String EMAIL_TO_REPLY = "emailToReply";
     public static final String EMAIL_SUBJECT = "subjectToReply";

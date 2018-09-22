@@ -52,7 +52,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                     .regCode(String.valueOf(uuid))
                     .build();
 
-            userService.create(user);
+            userService.save(user);
 
             String emailToReply = request.getParameter(REQUEST_PARAM_EMAIL);
             String lastName = request.getParameter(REQUEST_PARAM_LAST_NAME);
@@ -60,7 +60,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
             String patronymic = request.getParameter(REQUEST_PARAM_PATRONYMIC);
             String subjectToReply = "Registration new client.";
             String message = "Hello. " +
-                    "You create new account in iPayWebApplication. " +
+                    "You save new account in iPayWebApplication. " +
                     "To verify your account, click the link. " +
                     "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
                     " You can correct all information in your account.";

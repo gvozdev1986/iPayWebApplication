@@ -29,7 +29,7 @@ public class ListUserViewCommandImpl implements BaseCommand {
 	public String executeCommand(HttpServletRequest request) throws CommandException {
 
 		Integer countBlockedUsers = userService.listBlockedClient().size();
-		Integer countRow = userService.read().size();
+		Integer countRow = userService.getAllUsers().size();
 
 		Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
 		Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);

@@ -3,12 +3,10 @@ package by.htp.hvozdzeu.service.impl;
 import by.htp.hvozdzeu.dao.CreditCardDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
-import by.htp.hvozdzeu.model.BankAccount;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.enums.TypeCard;
 import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +74,7 @@ public class CreditCardServiceImplTest {
     @Test
     public void testCreateCreditCard_returnNewCreditCard() throws DAOException {
         when(daoMock.create(creditCard)).thenReturn(creditCard);
-        assertThat(service.create(creditCard), is(notNullValue()));
+        assertThat(service.save(creditCard), is(notNullValue()));
         assertNotNull(creditCard.getClient());
         assertNotNull(creditCard.getCardNumber());
         assertNotNull(creditCard.getCardFirstName());
@@ -100,7 +97,7 @@ public class CreditCardServiceImplTest {
             }
             return null;
         });
-        assertThat(service.create(creditCard), is(notNullValue()));
+        assertThat(service.save(creditCard), is(notNullValue()));
         assertNotNull(creditCard.getClient());
         assertNotNull(creditCard.getCardNumber());
         assertNotNull(creditCard.getCardFirstName());
@@ -116,7 +113,7 @@ public class CreditCardServiceImplTest {
     public void testCreateCreditCard_throwsException() throws DAOException {
         when(daoMock.create(CreditCard.getBuilder().build())).thenThrow(RuntimeException.class);
         CreditCard creditCard = CreditCard.getBuilder().build();
-        service.create(creditCard);
+        service.save(creditCard);
     }
 
     @Test
@@ -164,8 +161,8 @@ public class CreditCardServiceImplTest {
     @Test
     public void testReadCreditCard_returnListCreditCard() throws DAOException {
         when(daoMock.read()).thenReturn(Arrays.asList(creditCard));
-        assertThat(service.read(), is(notNullValue()));
-        List<CreditCard> allCreditCard = service.read();
+        assertThat(service.getAllCreditCards(), is(notNullValue()));
+        List<CreditCard> allCreditCard = service.getAllCreditCards();
         assertEquals(1, allCreditCard.size());
         CreditCard creditCard = allCreditCard.get(0);
         assertEquals(Long.valueOf(1L), creditCard.getClient());
@@ -236,7 +233,7 @@ public class CreditCardServiceImplTest {
     public void testBlockedCreditCard_returnBoolean() throws DAOException {
         when(daoMock.blockedCreditCard()).thenReturn(Arrays.asList(blockedCreditCard));
         assertThat(service.blockedCreditCard(), is(notNullValue()));
-        List<CreditCard> allBlockedCreditCard = service.read();
+        List<CreditCard> allBlockedCreditCard = service.getAllCreditCards();
         assertEquals(1, allBlockedCreditCard.size());
         CreditCard creditCard = allBlockedCreditCard.get(0);
         assertEquals(Long.valueOf(1L), creditCard.getClient());

@@ -8,19 +8,19 @@ import java.util.List;
 
 public interface CreditCardService {
 
-    CreditCard create(CreditCard creditCard) throws DAOException;
+    CreditCard save(CreditCard creditCard) throws DAOException;
 
-    CreditCard update(CreditCard creditCard, Long id) throws DAOException;
+    CreditCard update(CreditCard creditCard, Long creditCardId) throws DAOException;
 
-    CreditCard findById(Long id) throws DAOException;
+    CreditCard findById(Long creditCardId) throws DAOException;
 
-    List<CreditCard> read() throws DAOException;
+    List<CreditCard> getAllCreditCards() throws DAOException;
 
-    boolean deleteById(Long id) throws DAOException;
+    boolean deleteById(Long creditCardId) throws DAOException;
 
     CreditCard findByCreditCardNumber(String creditCard) throws DAOException;
 
-    List<StatusCardReport> findCreditCardByIdClient(Long clientId) throws DAOException;
+    List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException;
 
     boolean blockCreditCard(Long creditCardId) throws DAOException;
 

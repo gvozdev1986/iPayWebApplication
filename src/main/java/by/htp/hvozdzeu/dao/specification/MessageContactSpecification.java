@@ -7,9 +7,9 @@ import by.htp.hvozdzeu.model.MessageContact;
 
 public interface MessageContactSpecification {
 
-    List<MessageContact> unreadMessages(boolean status) throws DAOException;
+    List<MessageContact> unreadMessages(boolean statusUnreadMessage) throws DAOException;
 
-    void checkMessageAsRead(Long messageId) throws DAOException;
+    void checkMessageAsRead(Long messageContactId) throws DAOException;
 
     List<MessageContact> pagination(Integer start, Integer count) throws DAOException;
 
