@@ -1,4 +1,4 @@
-package by.htp.hvozdzeu.web.controller;
+package by.htp.hvozdzeu.web.util;
 
 import by.htp.hvozdzeu.web.command.impl.view.GreetingPageViewCommandImpl;
 import org.slf4j.Logger;

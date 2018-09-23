@@ -11,9 +11,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MessageContactCrudImpl extends MessageContactRowMapper implements MessageContactDAO {
 
@@ -28,16 +26,6 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             "`MessageContact`, " +
             "`CheckRead`) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-    private static final String SQL_UPDATE_BY_ID = "UPDATE `ipaywebapplication`.`messages` SET " +
-            "`messages`.`NameContact`=?, " +
-            "`messages`.`Date`=?, " +
-            "`messages`.`Time`=?, " +
-            "`messages`.`EmailContact`=?, " +
-            "`messages`.`PhoneContact`=?, " +
-            "`messages`.`MessageContact`=?, " +
-            "`messages`.`CheckRead`=? " +
-            "WHERE `Id`=?;";
 
     private static final String SQL_FIND_BY_ID = "SELECT " +
             "`messages`.`Id`, " +

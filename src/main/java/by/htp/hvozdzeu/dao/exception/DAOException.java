@@ -2,11 +2,19 @@ package by.htp.hvozdzeu.dao.exception;
 
 import by.htp.hvozdzeu.service.exception.ServiceException;
 
+/**
+ * @author Aliaksandr Hvozdzeu
+ * @see by.htp.hvozdzeu.service.exception.ServiceException;
+ *         <code>DAOException</code>
+ *         <p/>
+ *         Exception class created specifically to describe the exceptional
+ *         situation arises in the DAO layer application.
+ */
 public class DAOException extends ServiceException {
 
-	private static final long serialVersionUID = 6851824836990831221L;
+    private static final long serialVersionUID = 1878492385282757535L;
 
-	public DAOException() {
+    public DAOException() {
         super();
     }
 

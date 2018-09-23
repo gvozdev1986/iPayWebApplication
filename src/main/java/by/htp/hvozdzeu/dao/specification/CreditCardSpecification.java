@@ -6,6 +6,9 @@ import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
 
+/**
+ * Interface with additional methods for CreditCard implements
+ */
 public interface CreditCardSpecification {
 
     CreditCard findByCreditCardNumber(String creditCardNumber) throws DAOException;

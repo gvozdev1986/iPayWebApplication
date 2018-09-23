@@ -62,15 +62,14 @@
             RU
         </c:if>
     </button>
-    <div id="locale_btn" class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-         style="width: 20px;">
-        <c:if test="${locale == 'en'}">
-             <a class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
-                <img class="img-m-top" src="img/flug/ru.png"> RU</a>
-        </c:if>
-        <c:if test="${locale == 'ru'}">
-            <a class="dropdown-item" href="ServletController?command=change_locale&locale=en">
-                <img class="img-m-top" src="img/flug/gb.png"> EN</a>
-        </c:if>
+    <div id="locale_btn" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 20px;">
+            <c:if test="${locale == 'en'}">
+                <a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
+                    <img class="img-m-top" src="img/flug/ru.png"> RU</a>
+            </c:if>
+            <c:if test="${locale == 'ru'}">
+                <a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=en">
+                    <img class="img-m-top" src="img/flug/gb.png"> EN</a>
+            </c:if>
     </div>
 </div>

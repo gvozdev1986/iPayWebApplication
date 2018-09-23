@@ -3,7 +3,6 @@ package by.htp.hvozdzeu.web.command.impl.user;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
-import by.htp.hvozdzeu.util.PasswordEncoder;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
@@ -21,8 +20,6 @@ public class UpdateAdminPasswordCommandImpl implements BaseCommand {
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
-
-        PasswordEncoder passwordEncoder = new PasswordEncoder();
 
         Long userId = Long.valueOf(request.getParameter(REQUEST_PARAM_USER_ID));
         String currentPassword = passwordEncoder.getEncodeData(request.getParameter(REQUEST_CURRENT_PARAM_PSWD));

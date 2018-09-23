@@ -11,10 +11,18 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * The class <code>ConnectionPool</code>
+ * provides connections to the database.
+ */
 public class ConnectionPool {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionPool.class);
 
+
+    /**
+     * Configuration constants for the need to create a pool
+     */
     private static final String DB_CONNECT_PROPERTY = "db_config";
     private static final String RESOURCE_DRIVER_NAME = "db.driver.name";
     private static final String RESOURCE_URL = "db.url";
@@ -23,7 +31,11 @@ public class ConnectionPool {
     private static final String MAX_CONNECTION_COUNT = "db.min.connect.size";
     private static final String MIN_CONNECTION_COUNT = "db.min.connect.size";
 
+    /**
+     * Singleton instance
+     */
     private static volatile ConnectionPool instance;
+
     private static String url;
     private static String login;
     private static String pswd;
@@ -43,6 +55,10 @@ public class ConnectionPool {
 
     private BlockingQueue<Connection> pool = new ArrayBlockingQueue<>(maxCountConnect, true);
 
+    /**
+     * The constructor creates an instance of the pool.
+     * Initializes a constant number of connections = 5.
+     */
     private ConnectionPool() {
         try {
             Class.forName(driverName);
@@ -58,6 +74,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Singleton of connection pool
+     *
+     * @return instance
+     */
     public static ConnectionPool getInstance() {
         LOGGER.info("Method getInstance has been created.");
         if (instance == null) {
@@ -70,6 +91,12 @@ public class ConnectionPool {
         return instance;
     }
 
+    /**
+     * The method provides the user with a copy of connection from pool
+     *
+     * @return Connection
+     * @throws ConnectionException Exception
+     */
     public Connection getConnection() throws ConnectionException {
         LOGGER.info("Method getConnection has been created.");
         Connection connection;
@@ -83,6 +110,12 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * The method return the connection back to the pool
+     * when you are finished work with him.
+     *
+     * @throws ConnectionException exception
+     */
     public void closeConnection(Connection connection) throws ConnectionException {
         LOGGER.info("Method closeConnection has been created.");
         if (connection != null) {

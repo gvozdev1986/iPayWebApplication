@@ -1,7 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.registration;
 
 import by.htp.hvozdzeu.dao.exception.DAOException;
-import by.htp.hvozdzeu.dao.util.RebasePassword;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.service.UserService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
@@ -24,7 +23,6 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 public class SaveRegistrationCommandImpl implements BaseCommand {
 
     private UserService userService = ServiceFactory.getUserService();
-    private RebasePassword rebasePassword = new RebasePassword();
 
     private Map<String, String> validateErrorMap = new HashMap<>();
     private Map<String, String> validateReturnData = new HashMap<>();
@@ -156,7 +154,7 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
             validateReturnData.put("returnAddressValidateError", request.getParameter(REQUEST_PARAM_ADDRESS));
         }
 
-        if (!validateEmail(request.getParameter(REQUEST_PARAM_EMAIL))) {
+        if (validateEmail(request.getParameter(REQUEST_PARAM_EMAIL))) {
             validateErrorMap.put("emailValidateError", "Incorrect email.");
             validateReturnData.put("returnEmailValidateError", request.getParameter(REQUEST_PARAM_EMAIL));
         } else {

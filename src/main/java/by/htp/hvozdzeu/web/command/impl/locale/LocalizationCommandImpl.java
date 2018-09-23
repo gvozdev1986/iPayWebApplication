@@ -17,10 +17,13 @@ public class LocalizationCommandImpl implements BaseCommand {
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
+
         String locale = request.getParameter(REQUEST_PARAM_LOCALE);
+
         LOGGER.debug("CHANGE LOCALE ON {}", locale);
 
         request.getSession().setAttribute(REQUEST_PARAM_LOCALE, locale);
+
         UserTypeEnum userType = (UserTypeEnum) request.getSession().getAttribute(REQUEST_PARAM_USER_TYPE);
 
         if (userType == UserTypeEnum.ADMIN) {

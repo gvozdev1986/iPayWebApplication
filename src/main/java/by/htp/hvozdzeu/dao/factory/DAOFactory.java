@@ -3,6 +3,9 @@ package by.htp.hvozdzeu.dao.factory;
 import by.htp.hvozdzeu.dao.*;
 import by.htp.hvozdzeu.dao.impl.*;
 
+/**
+ * Class that provides instances of DAO
+ */
 public class DAOFactory {
 
     private static UserDAO userDAO;

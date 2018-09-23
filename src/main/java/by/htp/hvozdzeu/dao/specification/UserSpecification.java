@@ -1,16 +1,14 @@
 package by.htp.hvozdzeu.dao.specification;
 
+import by.htp.hvozdzeu.dao.exception.DAOException;
+import by.htp.hvozdzeu.model.User;
+
 import java.util.List;
 
-import by.htp.hvozdzeu.dao.exception.DAOException;
-import by.htp.hvozdzeu.dao.util.RebasePassword;
-import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.util.PasswordEncoder;
-
+/**
+ * Interface with additional methods for User implements
+ */
 public interface UserSpecification {
-
-    RebasePassword rebasePassword = new RebasePassword();
-    PasswordEncoder passwordEncoder = new PasswordEncoder();
 
     User checkAccount(String login, String pswd) throws DAOException;
 

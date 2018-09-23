@@ -2,9 +2,18 @@ package by.htp.hvozdzeu.dao.connection.exception;
 
 import by.htp.hvozdzeu.dao.exception.DAOException;
 
+/**
+ * @author Aliaksandr Hvozdzeu
+ * @see by.htp.hvozdzeu.dao.exception.DAOException;
+ * <p/>
+ * <code>ConnectionException</code>
+ * <p/>
+ * Exception class created specifically to describe the exceptional
+ * situation arises in the Connection pool layer application.
+ */
 public class ConnectionException extends DAOException {
 
-	private static final long serialVersionUID = 1703971928147603734L;
+    private static final long serialVersionUID = 5140953181953392722L;
 
 	public ConnectionException() {
     }

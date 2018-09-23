@@ -328,7 +328,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     public User checkAccount(String login, String pswd) throws DAOException {
         User user = null;
         Connection connection = dataBaseConnection.getConnection();
-        PasswordEncoder passwordEncoder = new PasswordEncoder();
+        PasswordEncoder passwordEncoder = PasswordEncoder.getInstance();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, passwordEncoder.getEncodeData(pswd));
@@ -367,7 +367,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     @Override
     public void updatePassword(Long userId, String password) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
-        PasswordEncoder encoder = new PasswordEncoder();
+        PasswordEncoder encoder = PasswordEncoder.getInstance();
         Savepoint savepoint = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PSWD)) {
             connection.setAutoCommit(false);
