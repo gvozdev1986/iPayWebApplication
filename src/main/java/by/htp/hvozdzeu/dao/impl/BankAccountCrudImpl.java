@@ -24,10 +24,6 @@ public class BankAccountCrudImpl extends BankAccountRowMapper implements BankAcc
             + "`BalanceBankAccount`, "
             + "`Available`) VALUES (?, ?, ?, ?, ?);";
 
-    private static final String SQL_UPDATE_BY_ID = "UPDATE "
-            + "`ipaywebapplication`.`bankaccount` "
-            + "SET `CreditCard`= ? WHERE  `Id`= ?;";
-
     private static final String SQL_UPDATE_BALANCE_BY_ACCOUNT_ID = "UPDATE "
             + "`ipaywebapplication`.`bankaccount` "
             + "SET `BalanceBankAccount`=? WHERE  `Id`=?;";

@@ -27,7 +27,7 @@
 	</session-config>
 
     <listener>
-        <listener-class>by.htp.hvozdzeu.web.controller.SessionListener</listener-class>
+        <listener-class>by.htp.hvozdzeu.web.util.SessionListener</listener-class>
     </listener>
 
 	<!-- ERROR PAGES -->

@@ -24,7 +24,7 @@ public class UserRowMapper {
 
 
     protected User buildUserRowMapper(ResultSet resultSet) throws SQLException {
-        RebasePassword rebasePassword = new RebasePassword();
+        RebasePassword rebasePassword = RebasePassword.getInstance();
         return User.getBuilder()
                 .id(resultSet.getLong(USER_ID))
                 .login(resultSet.getString(USER_LOGIN))

@@ -3,6 +3,9 @@ package by.htp.hvozdzeu.service.factory;
 import by.htp.hvozdzeu.service.*;
 import by.htp.hvozdzeu.service.impl.*;
 
+/**
+ * Class that provides instances of service
+ */
 public class ServiceFactory {
 
     private static UserService userService;

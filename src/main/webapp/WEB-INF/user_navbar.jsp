@@ -47,7 +47,7 @@
 			method="post">
 			<jsp:include page="localization_btn.jsp" />
 			<button class="btn btn-success form-control my-sm-0 my-2 btn-sm"
-				type="submit" name="command" value="log_out">
+				type="submit" id="logOutBtn" name="command" value="log_out">
 				<i class="fas fa-sign-out-alt"></i>
 				<fmt:message key="log_out" />
 			</button>

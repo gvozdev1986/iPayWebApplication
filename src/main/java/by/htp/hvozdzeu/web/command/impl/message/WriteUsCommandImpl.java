@@ -72,7 +72,7 @@ public class WriteUsCommandImpl implements BaseCommand {
             validateReturnData.put("returnPhoneValidateError", phoneContact);
         }
 
-        if (!validateEmail(emailContact)) {
+        if (validateEmail(emailContact)) {
             validateErrorMap.put("emailValidateError", "Incorrect email.");
             validateReturnData.put("returnEmailValidateError", emailContact);
         } else {

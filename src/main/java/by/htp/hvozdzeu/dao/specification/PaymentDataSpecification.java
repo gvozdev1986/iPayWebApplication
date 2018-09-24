@@ -5,6 +5,9 @@ import by.htp.hvozdzeu.model.PaymentData;
 
 import java.util.List;
 
+/**
+ * Interface with additional methods for PaymentData implements
+ */
 public interface PaymentDataSpecification {
 
     List<PaymentData> pagination(Integer start, Integer count) throws DAOException;

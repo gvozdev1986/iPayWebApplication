@@ -1,6 +1,7 @@
 package by.htp.hvozdzeu.util;
 
 import by.htp.hvozdzeu.exception.DataException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,7 +11,7 @@ import static org.junit.Assert.*;
 public class PasswordEncoderTest {
 
     @Mock
-    PasswordEncoder passwordEncoder = new PasswordEncoder();
+    PasswordEncoder passwordEncoder = PasswordEncoder.getInstance();
 
     @Test
     public void getEncodeData() {

@@ -6,6 +6,9 @@ import by.htp.hvozdzeu.model.report.PaymentReport;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Interface with additional methods for Payment implements
+ */
 public interface PaymentSpecification {
 
     List<PaymentReport> findPaymentByCardAndBetweenDate(Long cardId, LocalDate startDate, LocalDate endDate,
