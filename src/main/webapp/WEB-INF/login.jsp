@@ -69,7 +69,10 @@
                             <fmt:message key="login_cancel"/>
                         </button>
                         <button class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
-                                type="submit" name="command" value="authorization_user">
+                                type="submit"
+                                name="command"
+                                id="okBtn"
+                                value="authorization_user">
                             <i class="fas fa-check"></i>
                             <fmt:message key="login_ok"/>
                         </button>

@@ -44,8 +44,12 @@
             <form class="form-inline my-2 my-lg-0" action="ServletController"
                   method="get">
                 <jsp:include page="localization_btn.jsp"/>
-                <button style="width: auto;" class="btn btn-success form-control mr-sm-2 btn-sm"
-                        type="submit" name="command" value="login_page_view">
+                <button style="width: auto;"
+                        class="btn btn-success form-control mr-sm-2 btn-sm"
+                        type="submit"
+                        name="command"
+                        id="loginBtn"
+                        value="login_page_view">
                     <i class="fa fa-user"></i>
                     <fmt:message key="greeting_login"/>
                 </button>

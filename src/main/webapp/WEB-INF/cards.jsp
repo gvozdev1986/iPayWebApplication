@@ -41,6 +41,7 @@
                         <button class="btn btn-sm btn-success mr-sm-2"
                                 type="submit"
                                 name="command"
+                                id="addBtn"
                                 value="new_credit_card">
                             <i class="fas fa-plus"></i> <fmt:message key="add_btn"/>
                         </button>

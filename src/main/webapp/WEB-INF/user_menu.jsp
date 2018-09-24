@@ -78,7 +78,7 @@
 				class="fas fa-calculator"></i></a>
 		</h6>
 		<ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item"><a class="nav-link" id="creditCardView"
 				href="ServletController?command=credit_card_view"
 				style="cursor: pointer"><i class="far fa-credit-card"></i> <fmt:message
 						key="client_menu_credit_cards" /></a></li>
