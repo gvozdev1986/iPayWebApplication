@@ -22,6 +22,9 @@ public class MailAccountCrudImpl extends MailAccountRowMapper implements MailAcc
             "`ipaywebapplication`.`mailsettings` " +
             "WHERE  `Id`= ?;";
 
+    private static final String ERROR_SQL_UPDATE_MAIL_ACCOUNT = "Error update mail account.";
+    private static final String ERROR_SQL_READ_MAIL_ACCOUNT = "Error get mail account.";
+
     @Override
     public void update(String mailLogin, String mailPswd) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
@@ -39,7 +42,7 @@ public class MailAccountCrudImpl extends MailAccountRowMapper implements MailAcc
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_UPDATE_MAIL_ACCOUNT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -57,7 +60,7 @@ public class MailAccountCrudImpl extends MailAccountRowMapper implements MailAcc
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_READ_MAIL_ACCOUNT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }

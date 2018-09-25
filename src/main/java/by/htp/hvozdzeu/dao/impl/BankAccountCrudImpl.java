@@ -74,6 +74,7 @@ public class BankAccountCrudImpl extends BankAccountRowMapper implements BankAcc
     private static final String ERROR_BLOCK_ACCOUNT_BY_ID = "Error block bank account by id.";
     private static final String ERROR_UNBLOCK_ACCOUNT_BY_ID = "Error unblock bank account by id.";
     private static final String ERROR_FIND_ACCOUNT_BY_CARD_ID = "Error find account by card id.";
+    private static final String ERROR_UPDATE_BALANCE = "Error update balance at credit card.";
 
     @Override
     public BankAccount create(BankAccount bankAccount) throws DAOException {
@@ -254,7 +255,7 @@ public class BankAccountCrudImpl extends BankAccountRowMapper implements BankAcc
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_UPDATE_BALANCE);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }

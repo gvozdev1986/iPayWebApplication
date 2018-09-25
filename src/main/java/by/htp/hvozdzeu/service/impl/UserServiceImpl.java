@@ -79,6 +79,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
 	public List<User> listBlockedClient() throws DAOException {
-		return userDAO.listBlockedClient();
+		return userDAO.listBlockedUser();
 	}
 }

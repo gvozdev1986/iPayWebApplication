@@ -29,7 +29,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + ")"
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -58,7 +58,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` WHERE `id` = ?";
 
     private static final String SQL_FIND_BY_REGISTRATION_CODE = "SELECT "
@@ -75,8 +75,8 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
-            + "FROM `ipaywebapplication`.`usr` WHERE `regCode` = ?";
+            + "`RegCode` "
+            + "FROM `ipaywebapplication`.`usr` WHERE `RegCode` = ?";
 
     private static final String SQL_FIND_BY_LOGIN = "SELECT "
             + "`Id`, "
@@ -92,7 +92,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` WHERE `Login` = ?";
 
     private static final String CHECK_ACCOUNT = "SELECT "
@@ -109,7 +109,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` WHERE `Login` = ? AND `Password` = ?;";
 
     private static final String SQL_READ = "SELECT "
@@ -126,7 +126,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` WHERE `isAdmin` = false;";
 
     private static final String SQL_DELETE_BY_ID = "UPDATE `ipaywebapplication`.`usr` SET"
@@ -149,7 +149,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` WHERE `usr`.`Available` = false;";
 
     private static final String SQL_PAGINATION = "SELECT "
@@ -166,7 +166,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr`  WHERE `isAdmin` = false LIMIT ?, ?;";
 
     private static final String SQL_FIND_BY_PARAMETER = "SELECT "
@@ -183,7 +183,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             + "`Email`, "
             + "`Available`, "
             + "`isAdmin`, "
-            + "`regCode` "
+            + "`RegCode` "
             + "FROM `ipaywebapplication`.`usr` "
             + "WHERE concat(usr.FirstName, usr.LastName, usr.Patronymic, "
             + "usr.PhoneHome, usr.PhoneMobile, usr.Address) like ?;";
@@ -193,6 +193,22 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
 
     private static final String SQL_BLOCK_USER = "UPDATE `ipaywebapplication`.`usr` " +
             "SET `Available`='0' WHERE  `Id`=?;";
+
+
+    private static final String ERROR_SQL_CREATE_USER = "Error create user.";
+    private static final String ERROR_SQL_UPDATE_USER = "Error update user.";
+    private static final String ERROR_SQL_FIND_USER_BY_ID = "Error find user by id.";
+    private static final String ERROR_SQL_READ_USERS = "Error getting users list.";
+    private static final String ERROR_SQL_DELETE_USER_BY_ID = "Error delete user by id.";
+    private static final String ERROR_SQL_CHECK_ACCOUNT = "Error check user.";
+    private static final String ERROR_SQL_FIND_BY_LOGIN = "Error find by id.";
+    private static final String ERROR_SQL_UPDATE_PSWD = "Error update password";
+    private static final String ERROR_SQL_UNBLOCK_USER = "Error unblock user.";
+    private static final String ERROR_SQL_BLOCK_USER = "Error block user.";
+    private static final String ERROR_SQL_PAGINATION = "Error create pagination.";
+    private static final String ERROR_SQL_FIND_USER_BY_PARAMETER = "Error find user by parameter.";
+    private static final String ERROR_SQL_LIST_BLOCKED_USER = "Error getting list of users.";
+    private static final String ERROR_SQL_FIND_USER_BY_REGISTRATION_CODE = "Error find user by registration code from email.";
 
     @Override
     public User create(User user) throws DAOException {
@@ -223,7 +239,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_CREATE_USER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -254,7 +270,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_UPDATE_USER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -273,7 +289,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_FIND_USER_BY_ID);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -293,7 +309,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_READ_USERS);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -317,7 +333,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_DELETE_USER_BY_ID);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -338,7 +354,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_CHECK_ACCOUNT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -357,7 +373,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_FIND_BY_LOGIN);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -382,7 +398,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_UPDATE_PSWD);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -403,7 +419,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_UNBLOCK_USER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -424,7 +440,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_BLOCK_USER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -445,7 +461,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_PAGINATION);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -466,7 +482,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage()); // ERROR_FIND_BY_PARAMETER
+            throw new DAOException(ERROR_SQL_FIND_USER_BY_PARAMETER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -474,7 +490,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     }
 
     @Override
-    public List<User> listBlockedClient() throws DAOException {
+    public List<User> listBlockedUser() throws DAOException {
         List<User> users = new ArrayList<>();
         User user;
         Connection connection = dataBaseConnection.getConnection();
@@ -486,7 +502,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_LIST_BLOCKED_USER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -505,7 +521,7 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_FIND_USER_BY_REGISTRATION_CODE);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
