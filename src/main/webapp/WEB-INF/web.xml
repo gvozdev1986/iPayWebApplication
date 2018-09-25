@@ -15,6 +15,11 @@
         <param-value>/WEB-INF/config/mail.properties</param-value>
     </context-param>
 
+	<context-param>
+		<param-name>imposition</param-name>
+		<param-value>/WEB-INF/config/imposition.html</param-value>
+	</context-param>
+
 	<jsp-config>
 		<taglib>
 			<taglib-uri>customtags</taglib-uri>

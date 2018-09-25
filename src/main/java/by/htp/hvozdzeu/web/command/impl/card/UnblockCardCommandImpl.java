@@ -8,8 +8,11 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
@@ -17,7 +20,9 @@ import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 
 public class UnblockCardCommandImpl implements BaseCommand{
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UnblockCardCommandImpl.class);
+
 	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 	private UserService userService = ServiceFactory.getUserService();
 	
@@ -40,7 +45,12 @@ public class UnblockCardCommandImpl implements BaseCommand{
 				+ " has been unblocked. You can use you credit card in our system."
                 + " For additional information please return to administrator.";
 
-		String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+		String messageToReply = null;
+		try {
+			messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+		} catch (IOException e) {
+			LOGGER.error("Error send email.");
+		}
 		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 		request.getSession().setAttribute(COUNT_BLOCKED_CREDIT_CARD, countBlockedCreditCard);

@@ -11,8 +11,11 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
@@ -22,6 +25,7 @@ import static by.htp.hvozdzeu.web.command.impl.card.helper.TransferHelper.sendEm
 
 public class SaveTransferAlienCreditCardCommandImpl implements BaseCommand {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SaveTransferAlienCreditCardCommandImpl.class);
     private static final Long CODE_TRANSFER = 22L;
     private static final String MESSAGE_TRANSFER_INFORMATION = "messageFromTransfer";
     private PaymentService paymentService = ServiceFactory.getPaymentService();
@@ -107,7 +111,11 @@ public class SaveTransferAlienCreditCardCommandImpl implements BaseCommand {
                 List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
                 List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
 
-                sendEmailAboutTransfer(request, user, sum, cardFrom, description);
+                try {
+                    sendEmailAboutTransfer(request, user, sum, cardFrom, description);
+                } catch (IOException e) {
+                    LOGGER.error("Error send email.");
+                }
 
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("cards", creditCards);

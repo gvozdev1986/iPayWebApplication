@@ -10,8 +10,11 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
@@ -24,8 +27,9 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SavePayPaymentCommandImpl implements BaseCommand {
 
-    private static final String MESSAGE_SAVE_PAYMENT = "messageSavePayment";
+    private static final Logger LOGGER = LoggerFactory.getLogger(SavePayPaymentCommandImpl.class);
 
+    private static final String MESSAGE_SAVE_PAYMENT = "messageSavePayment";
     private static final String MESSAGE_SAVE_SUCCESSFUL = "The operation was successful.";
     private static final String MESSAGE_SAVE_INSUFFICIENT = "Insufficient funds.";
     private static final String MESSAGE_SAVE_NOT_RIGHT_CODE = "Not right security code.";
@@ -86,7 +90,12 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
                         "From your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been wrote " +
                         "" + sum + " for " + description + ". Order no: " + orderNo;
 
-                String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+                String messageToReply = null;
+                try {
+                    messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+                } catch (IOException e) {
+                    LOGGER.error("Error send email.");
+                }
                 mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 

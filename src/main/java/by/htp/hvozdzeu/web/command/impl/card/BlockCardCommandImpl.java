@@ -8,8 +8,11 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
@@ -19,6 +22,7 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class BlockCardCommandImpl implements BaseCommand {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BlockCardCommandImpl.class);
     private static final String MSG_EVENT_NAME = "eventMessage";
     private static final String MSG_EVENT_VALUE = "blocked_card_message";
 	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
@@ -43,8 +47,13 @@ public class BlockCardCommandImpl implements BaseCommand {
                 + " has been blocked. For additional information," +
                 " please return to administrator.";
 
-		String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
-		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+        String messageToReply = null;
+        try {
+            messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+        } catch (IOException e) {
+            LOGGER.error("Error send email");
+        }
+        mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
 		request.getSession().setAttribute(MSG_EVENT_NAME, MSG_EVENT_VALUE);
 		request.setAttribute(REQUEST_CARDS, creditCards);
