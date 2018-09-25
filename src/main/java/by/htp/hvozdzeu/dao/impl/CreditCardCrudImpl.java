@@ -157,6 +157,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
     private static final String ERROR_FIND_BY_PARAMETER = "Error find credit card by parameter";
     private static final String ERROR_FIND_BLOCKED_BY_PARAMETER = "Error find bloked credit card by parameter";
     private static final String ERROR_PAGINATION = "Error view pagination";
+    private static final String ERROR_SQL_RETURN_ID = "Erorr return id.";
 
     @Override
     public CreditCard create(CreditCard creditCard) throws DAOException {
@@ -466,7 +467,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_RETURN_ID);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }

@@ -33,6 +33,7 @@
 			src="/img/logo.png" width="30" height="30"
 			class="d-inline-block align-top" alt=""> iPay
 		</a>
+		${messageStatus}
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"

@@ -24,7 +24,7 @@ public interface UserSpecification {
 
     List<User> findByParameter(String param) throws DAOException;
 
-    List<User> listBlockedClient() throws DAOException;
+    List<User> listBlockedUser() throws DAOException;
 
     User findByRegCode(String regCode) throws DAOException;
 

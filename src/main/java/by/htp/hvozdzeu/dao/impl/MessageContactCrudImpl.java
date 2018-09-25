@@ -75,6 +75,14 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             "messages.CheckRead " +
             "FROM messages ORDER BY messages.CheckRead ASC LIMIT ?,?;";
 
+
+    private static final String ERROR_SQL_CREATE_MESSAGE_CONTACT = "Error create message.";
+    private static final String ERROR_SQL_FIND_MESSAGE_CONTACT_BY_ID = "Error find message by id.";
+    private static final String ERROR_SQL_READ_MESSAGE_CONTACT = "Error get list messages.";
+    private static final String ERROR_SQL_READ_UNREAD_MESSAGE_CONTACT = "Error get unread messages.";
+    private static final String ERROR_SQL_CHECK_MESSAGE_CONTACT_AS_READ = "Error check message as read.";
+    private static final String ERROR_SQL_PAGINATION = "Error create pagination.";
+
     @Override
     public MessageContact create(MessageContact messageContact) throws DAOException {
         Connection connection = dataBaseConnection.getConnection();
@@ -97,7 +105,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_CREATE_MESSAGE_CONTACT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -121,7 +129,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_FIND_MESSAGE_CONTACT_BY_ID);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -141,7 +149,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_READ_MESSAGE_CONTACT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -167,7 +175,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_READ_UNREAD_MESSAGE_CONTACT);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -188,7 +196,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
             try {
                 connection.rollback(savepoint);
             } catch (SQLException e1) {
-                LOGGER.error(e1.getMessage());
+                throw new DAOException(ERROR_SQL_CHECK_MESSAGE_CONTACT_AS_READ);
             }
         } finally {
             dataBaseConnection.closeConnection(connection);
@@ -211,7 +219,7 @@ public class MessageContactCrudImpl extends MessageContactRowMapper implements M
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_PAGINATION);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }

@@ -73,12 +73,14 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
 
     private static final String SQL_MAX_ID = "SELECT MAX(`id`) AS MaxID FROM `paymentdata`;";
 
-    private static final String ERROR_CREATE = "Error save payment data.";
-    private static final String ERROR_UPDATE_BY_ID = "Error update payment data by id.";
-    private static final String ERROR_FIND_BY_ID = "Error find payment data by id.";
-    private static final String ERROR_READ = "Error getAllUsers payment dates.";
-    private static final String ERROR_DELETE_BY_ID = "Error delete payment data by id.";
-
+    private static final String ERROR_SQL_CREATE = "Error save payment data.";
+    private static final String ERROR_SQL_UPDATE_BY_ID = "Error update payment data by id.";
+    private static final String ERROR_SQL_FIND_BY_ID = "Error find payment data by id.";
+    private static final String ERROR_SQL_READ = "Error getAllUsers payment dates.";
+    private static final String ERROR_SQL_DELETE_BY_ID = "Error delete payment data by id.";
+    private static final String ERROR_SQL_FIND_BY_PARAMETER = "Error find by parameter.";
+    private static final String ERROR_SQL_CREATE_PAGINATION = "Error create pagination.";
+    private static final String ERROR_SQL_GET_MAX_ID = "Error getting max id.";
 
     @Override
     public PaymentData create(PaymentData paymentData) throws DAOException {
@@ -100,7 +102,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(ERROR_CREATE, e);
+            throw new DAOException(ERROR_SQL_CREATE, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -127,7 +129,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(ERROR_UPDATE_BY_ID, e);
+            throw new DAOException(ERROR_SQL_UPDATE_BY_ID, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -146,7 +148,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(ERROR_FIND_BY_ID, e);
+            throw new DAOException(ERROR_SQL_FIND_BY_ID, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -166,7 +168,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(ERROR_READ, e);
+            throw new DAOException(ERROR_SQL_READ, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -190,7 +192,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             } catch (SQLException e1) {
                 LOGGER.error(e1.getMessage());
             }
-            throw new DAOException(ERROR_DELETE_BY_ID, e);
+            throw new DAOException(ERROR_SQL_DELETE_BY_ID, e);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -212,7 +214,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_CREATE_PAGINATION);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -233,7 +235,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_FIND_BY_PARAMETER);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
@@ -251,7 +253,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DAOException(ERROR_SQL_GET_MAX_ID);
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
