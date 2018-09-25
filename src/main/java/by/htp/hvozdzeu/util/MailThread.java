@@ -9,6 +9,9 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
+/**
+ * The class for prepare thread for send email
+ */
 public class MailThread extends Thread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailThread.class);
@@ -21,6 +24,14 @@ public class MailThread extends Thread {
     private Properties properties;
     private String attachmentName;
 
+    /**
+     * Constructor with parameters for prepare email
+     * @param sendToEmail String email for recipient
+     * @param mailSubject String subject of email
+     * @param mailText String message of email
+     * @param properties Properties for settings emailSender
+     * @param attachmentName String path for file of email (attachment)
+     */
     MailThread(String sendToEmail, String mailSubject, String mailText, Properties properties, String attachmentName) {
         this.sendToEmail = sendToEmail;
         this.mailSubject = mailSubject;
@@ -29,6 +40,9 @@ public class MailThread extends Thread {
         this.attachmentName = attachmentName;
     }
 
+    /**
+     * The method for initialization email
+     */
     private void init() {
         Session mailSession = (new SessionCreator(properties)).createSession();
         mailSession.setDebug(true);
@@ -55,6 +69,9 @@ public class MailThread extends Thread {
         }
     }
 
+    /**
+     * Override method for start thread and transport email
+     */
     @Override
     public void run() {
         init();
