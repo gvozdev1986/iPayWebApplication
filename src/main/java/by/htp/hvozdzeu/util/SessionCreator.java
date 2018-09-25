@@ -7,6 +7,7 @@ import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
@@ -72,7 +73,7 @@ class SessionCreator {
 
 
     Session createSession() {
-        return Session.getInstance(sessionProperties, new javax.mail.Authenticator() {
+        return Session.getInstance(sessionProperties, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {

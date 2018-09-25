@@ -8,8 +8,11 @@ import by.htp.hvozdzeu.web.command.BaseCommand;
 import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.exception.ValidateNullRequestParamException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +24,8 @@ import static by.htp.hvozdzeu.web.util.HttpRequestParamValidator.*;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class SaveRegistrationCommandImpl implements BaseCommand {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SaveRegistrationCommandImpl.class);
 
     private UserService userService = ServiceFactory.getUserService();
 
@@ -63,7 +68,12 @@ public class SaveRegistrationCommandImpl implements BaseCommand {
                     "http://localhost/ServletController?command=check_new_account&checkCode=" + uuid +
                     " You can correct all information in your account.";
 
-            String messageToReply = mailConstructor(lastName, firstName, patronymic, message);
+            String messageToReply = null;
+            try {
+                messageToReply = mailConstructor(request, lastName, firstName, patronymic, message);
+            } catch (IOException e) {
+                LOGGER.error("Error send email.");
+            }
             mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
             return PagePathConstantPool.SUCCESS_REGISTRATION_VIEW;

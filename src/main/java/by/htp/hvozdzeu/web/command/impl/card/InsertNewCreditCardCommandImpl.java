@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
@@ -98,7 +99,12 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                         "And save new bank account [" + nameAccount + "]. " +
                         "For additional information, please return to administrator.";
 
-                String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+                String messageToReply = null;
+                try {
+                    messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+                } catch (IOException e) {
+                    LOGGER.error("Error send email");
+                }
                 mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
                 request.getSession().setAttribute(MSG_EVENT_NAME, MSG_EVENT_VALUE);

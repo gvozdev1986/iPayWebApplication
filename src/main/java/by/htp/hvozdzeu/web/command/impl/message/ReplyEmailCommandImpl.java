@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
+
 import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
 import static by.htp.hvozdzeu.util.MailSender.mailSender;
 import static by.htp.hvozdzeu.web.util.PagePathConstantPool.REDIRECT_MESSAGE_DETAIL;
@@ -27,7 +29,12 @@ public class ReplyEmailCommandImpl implements BaseCommand {
 
         LOGGER.debug("Send email to client.");
 
-        String messageToReply = mailConstructor(contactToReply, " ", " ", message);
+        String messageToReply = null;
+        try {
+            messageToReply = mailConstructor(request, contactToReply, " ", " ", message);
+        } catch (IOException e) {
+            LOGGER.error("Error send email.");
+        }
         mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
         return REDIRECT_MESSAGE_DETAIL + PART_URL_PARAMETER + messageId;

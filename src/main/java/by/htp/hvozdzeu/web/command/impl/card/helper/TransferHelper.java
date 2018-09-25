@@ -4,6 +4,7 @@ import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
@@ -26,7 +27,7 @@ public class TransferHelper {
      * @param cardFrom      CreditCard - Entity credit card
      * @param description   Description - Brief about write-off
      */
-    public static void sendEmailAboutTransfer(HttpServletRequest request, User user, BigDecimal sum, CreditCard cardFrom, String description) {
+    public static void sendEmailAboutTransfer(HttpServletRequest request, User user, BigDecimal sum, CreditCard cardFrom, String description) throws IOException {
         String emailToReply = user.getEmail();
         String subjectToReply = "Information about the write-off of funds on your credit card.";
         String message = "Hello. "
@@ -36,7 +37,7 @@ public class TransferHelper {
                 + sum
                 + " for "
                 + description;
-        String messageToReply = mailConstructor(user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
+        String messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
         mailSender(request, emailToReply, subjectToReply, messageToReply, null);
     }
 

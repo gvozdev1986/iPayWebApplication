@@ -53,7 +53,7 @@
             </div>
             <div class="card-body">
                 <h1>500</h1>
-                <p>Oooooops....</p>
+                <p>Oooooops.... Something went wrong.</p>
                 <div class="card-footer text-muted" style="text-align: right; background-color: #ffffff;">
                     <a href="ServletController?command=greeting_page_view"
                        class="btn btn-success"><i class="fas fa-angle-left"></i> Back</a>
