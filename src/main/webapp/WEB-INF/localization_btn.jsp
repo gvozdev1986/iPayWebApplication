@@ -64,24 +64,14 @@
     </button>
     <div id="locale_btn" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 20px;">
         <c:if test="${locale == 'en'}">
-            <!--<a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
-            <img class="img-m-top" src="img/flug/ru.png"> RU</a>-->
-            <a id="urlLocale" class="dropdown-item" href="">
-
-                <c:set var="locale" value="ru" scope="session" />
-
-                <img class="img-m-top" src="img/flug/ru.png"> RU
-            </a>
+            <a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=ru">
+                <c:set var="currentPage" value="${pageContext.request.requestURI}" scope="session"/>
+                <img class="img-m-top" src="img/flug/ru.png"> RU</a>
         </c:if>
         <c:if test="${locale == 'ru'}">
-            <!--<a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=en">
-            <img class="img-m-top" src="img/flug/gb.png"> EN</a>-->
-            <a id="urlLocale" class="dropdown-item" href="">
-
-                <c:set var="locale" value="en" scope="session" />
-
-                <img class="img-m-top" src="img/flug/gb.png"> EN
-            </a>
+            <a id="urlLocale" class="dropdown-item" href="ServletController?command=change_locale&locale=en">
+                <c:set var="currentPage" value="${pageContext.request.requestURI}" scope="session"/>
+                <img class="img-m-top" src="img/flug/gb.png"> EN</a>
         </c:if>
     </div>
 </div>
