@@ -10,8 +10,7 @@ import static org.junit.Assert.*;
 
 public class PasswordEncoderTest {
 
-    @Mock
-    PasswordEncoder passwordEncoder = PasswordEncoder.getInstance();
+    private PasswordEncoder passwordEncoder = PasswordEncoder.getInstance();
 
     @Test
     public void getEncodeData() {

@@ -5,6 +5,9 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
+<link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
+<script type="text/javascript" src="../js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../js/bootstrap-datepicker.ru.js" charset="UTF-8"></script>
 <style>
     .btn-success {
         color: #fff;
@@ -80,15 +83,15 @@
                         </select>
                         <label for="paymentHistoryDateFrom">From&nbsp</label>
                         <div class="input-group date mr-sm-2">
-                            <input type="text" class="form-control"
+                            <input type="text"
                                    name="dateStart"
-                                   data-date-format="yyyy-mm-dd"
-                                   placeholder="yyyy-mm-dd"
+                                   placeholder="<fmt:message key="date_format"/>"
                                    value="${returnDateStart}"
-                                   data-provide="datepicker"
+                                   class="form-control datepicker"
                                    id="paymentHistoryDateFrom"
                                    style="height: 31px; width: 124px; border-radius: .25rem;"
-                                   required>
+                                   required
+                                   autocomplete="off">
                             <div class="input-group-addon">
                             </div>
                         </div>
@@ -97,13 +100,12 @@
                             <input type="text"
                                    name="dateEnd"
                                    id="paymentHistoryDateTo"
-                                   data-date-format="yyyy-mm-dd"
-                                   placeholder="yyyy-mm-dd"
+                                   placeholder="<fmt:message key="date_format"/>"
                                    value="${returnDateEnd}"
-                                   data-provide="datepicker"
-                                   class="form-control"
+                                   class="form-control datepicker"
                                    style="height: 31px; width: 124px; border-radius: .25rem;"
-                                   required>
+                                   required
+                                   autocomplete="off">
                             <div class="input-group-addon">
                             </div>
                         </div>
@@ -165,11 +167,11 @@
     </div>
 </div>
 <ctg:footer/>
-<link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
-<script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
 <script>
-
-    $('.paymentHistoryDateFrom').datepicker();
-    $('.paymentHistoryDateTo').datepicker();
-
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            language: '${locale}'
+        });
+    });
 </script>
