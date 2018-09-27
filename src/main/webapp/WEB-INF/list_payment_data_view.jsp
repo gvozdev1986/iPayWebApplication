@@ -94,9 +94,9 @@
                                 key="service_data_description"/></td>
                         <td class="header-table-column" style="vertical-align: middle; font-weight: bold;">A</td>
                     </tr>
-                    <c:forEach items="${paymentData}" var="pagination">
+                    <c:forEach items="${paymentData}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="vertical-align: middle; text-align: right; max-width: 10px;">${pagination.id}</td>
+                            <td style="vertical-align: middle; text-align: right; max-width: 10px;">${loop.index + 1}</td>
                             <td style="vertical-align: middle; width: 25px;">
                                 <a href="ServletController?command=payment_data_detail_view&paymentDataServiceId=${pagination.id}"
                                    style="cursor: pointer;

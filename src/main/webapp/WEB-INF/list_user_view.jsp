@@ -93,9 +93,9 @@
 					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_home_phone" /></td>
 					<td style="vertical-align: middle; font-weight: bold;">A</td>
 				</tr>
-				<c:forEach items="${clients}" var="pagination">
+				<c:forEach items="${clients}" var="pagination" varStatus="loop">
 					<tr>
-						<td style="vertical-align: middle; text-align: right;">${pagination.id}</td>
+						<td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
 						<td style="vertical-align: middle; width: 25px;">
 							<a href="ServletController?command=view_detail_client&clientId=${pagination.id}"
 							   style="cursor: pointer; 

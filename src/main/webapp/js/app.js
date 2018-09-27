@@ -8,3 +8,4 @@ function navigationBtnFunc(action) {
     var input = document.getElementById("navigationBtnInput");
     input.value = actionBtn;
 }
+

@@ -44,8 +44,8 @@
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Credit cards</h1>
-			<div class="btn-toolbar mb-2 mb-md-0">LIST OF CREDIT CARDS</div>
+			<h1 class="h2"><fmt:message key="credit_card_label"/></h1>
+			<div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="list_credit_cards"/></div>
 		</div>
 		<div class="container"
 			style="height: 70%; overflow-y: scroll; padding: 5px;">
@@ -72,17 +72,17 @@
 			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
 				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
 					<td style="vertical-align: middle; font-weight: bold;">#</td>
-					<td style="vertical-align: middle; font-weight: bold;">First name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Last	name</td>
-					<td style="vertical-align: middle; font-weight: bold;">Credit card number</td>
-					<td style="vertical-align: middle; font-weight: bold;">Valid</td>
-					<td style="vertical-align: middle; font-weight: bold;">Type of card</td>
+					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_first_name"/></td>
+					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="last_name_card_label"/></td>
+					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="credit_card_number_label"/></td>
+					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="valid_card_label"/></td>
+					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="type_card_label"/></td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">B</td>
 					<td style="vertical-align: middle; font-weight: bold; width: 5px;">A</td>
 				</tr>
-				<c:forEach items="${creditCard}" var="pagination">
+				<c:forEach items="${creditCard}" var="pagination" varStatus="loop">
 					<tr>
-						<td style="vertical-align: middle; text-align: right;">${pagination.id}</td>
+						<td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
 						<td>${pagination.cardFirstName}</td>
 						<td>${pagination.cardLastName}</td>
 						<td>${pagination.cardNumber}</td>

@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="admin_navbar.jsp"/>
@@ -37,9 +36,8 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Blocked cards</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">LIST OF BLOCKED CREDIT
-                    CARDS
+                <h1 class="h2"><fmt:message key="blocked_cards"/></h1>
+                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="list_blocked_cards"/>
                 </div>
             </div>
             <div class="container"
@@ -66,14 +64,14 @@
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold;">#</td>
                         <td style="vertical-align: middle; font-weight: bold;">A</td>
-                        <td style="vertical-align: middle; font-weight: bold;">First name</td>
-                        <td style="vertical-align: middle; font-weight: bold;">Last name</td>
-                        <td style="vertical-align: middle; font-weight: bold;">Card number</td>
-                        <td style="vertical-align: middle; font-weight: bold;">Valid</td>
+                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_first_name"/></td>
+                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_last_name"/></td>
+                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="credit_card_number_label"/></td>
+                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="valid_card_label"/></td>
                     </tr>
-                    <c:forEach items="${listBlockedCreditCard}" var="creditBlockedCards">
+                    <c:forEach items="${listBlockedCreditCard}" var="creditBlockedCards" varStatus="loop">
                         <tr>
-                            <td style="vertical-align: middle; text-align: right;">${creditBlockedCards.id}</td>
+                            <td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
                             <td style="vertical-align: middle; width: 25px;">
                                 <a href="ServletController?command=view_detail_blocked_card&cardId=${creditBlockedCards.id}"
                                    style="cursor: pointer; margin-top: -7px; color: black"> <i

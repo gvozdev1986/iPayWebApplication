@@ -10,6 +10,7 @@ import by.htp.hvozdzeu.web.exception.CommandException;
 import by.htp.hvozdzeu.web.util.PagePathConstantPool;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +24,18 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.DATE_START;
 
 public class PaymentHistoryCommandImpl implements BaseCommand {
 
+    /**
+     * Max rows in report
+     */
+    private static final Integer MAX_COUNT_ROW_REPORT = 1000000000;
+
+    /**
+     * Min rows in report
+     */
+    private static final Integer MIN_COUNT_ROW_REPORT = 0;
+
+    private static final String PAGINATION_REPORT = "paginationReport";
+    private static final String SUM_REPORT = "sumReport";
     private static final String PAGINATION_NAME = "paymentHistory";
     private static final String PAGINATION_LIST_VALUE = "payment_history_pagination";
     private static final String PARAMETER_1 = "additional_param_1";
@@ -66,9 +79,17 @@ public class PaymentHistoryCommandImpl implements BaseCommand {
         Integer countRowOnPage = getSessionPaginationAttribute(request, countRow, COUNT_ROW_ON_PAGE);
         Integer displacement = getSessionPaginationAttribute(request, countRow, DISPLACEMENT);
         List<PaymentReport> pagination = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, countRowOnPage, displacement);
+        List<PaymentReport> paymentReports = paymentService.findPaymentByCardAndBetweenDate(cardId, dateStart, dateEnd, MAX_COUNT_ROW_REPORT, MIN_COUNT_ROW_REPORT);
+
+        BigDecimal sum = new BigDecimal(0);
+        for (int i = 0; i < paymentReports.size(); i++) {
+            sum = sum.add(paymentReports.get(i).getAmountPayment());
+        }
+
         writeSessionPagination(request, countRow, PAGINATION_NAME, pagination);
 
-
+        request.getSession().setAttribute(SUM_REPORT, sum);
+        request.getSession().setAttribute(PAGINATION_REPORT, paymentReports);
         request.getSession().setAttribute(PAGINATION_LIST, PAGINATION_LIST_VALUE);
         request.getSession().setAttribute(RETURN_CARD_NUMBER, creditCard.getCardNumber());
         request.getSession().setAttribute(RETURN_CARD_ID, cardId);

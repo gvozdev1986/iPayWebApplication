@@ -131,9 +131,9 @@
                         <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
                         <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
                     </tr>
-                    <c:forEach items="${paymentHistory}" var="pagination">
+                    <c:forEach items="${paymentHistory}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="text-align: right;">${pagination.id}</td>
+                            <td style="text-align: right;">${loop.index + 1}</td>
                             <td style="text-align: center;">${pagination.datePayment}</td>
                             <td style="text-align: center;">${pagination.timePayment}</td>
                             <td>${pagination.descriptionPayment}</td>

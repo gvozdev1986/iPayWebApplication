@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${locale}" />
@@ -73,56 +72,55 @@
 	<div class="sidebar-sticky">
 		<h6
 			class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-			<span>Рассылка</span> <a class="d-flex align-items-center text-muted"
+			<span><fmt:message key="messages_group"/></span> <a class="d-flex align-items-center text-muted"
 				href="#"><i class="fas fa-envelope-open"></i></a>
 		</h6>
 		<ul class="nav flex-column">
 			<li class="nav-item"><a class="nav-link" href="ServletController?command=list_message_view"
 				style="cursor: pointer"><i class="fas fa-envelope"></i>
-					Сообщения <sup><span class="badge badge-danger">${countUnreadMessage}</span></sup></a></li>
+				<fmt:message key="messages"/> <sup><span class="badge badge-danger">${countUnreadMessage}</span></sup></a></li>
 		</ul>
 		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			style="cursor: pointer" >
-			<span>КАРТЫ</span> <a class="d-flex align-items-center text-muted"><i
+			<span><fmt:message key="cards_group"/></span> <a class="d-flex align-items-center text-muted"><i
 				class="fas fa-credit-card"></i></a>
 		</h6>
 		<div>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link"
 					href="ServletController?command=blocked_credit_cards_view"
-					style="cursor: pointer"> <i class="fas fa-ban"></i> Blocked
-						credit card<sup> <span class="badge badge-danger">${countBlockedCreditCard}</span></sup></a></li>
+					style="cursor: pointer"> <i class="fas fa-ban"></i> <fmt:message key="blocked_cards"/><sup> <span class="badge badge-danger">${countBlockedCreditCard}</span></sup></a></li>
 			</ul>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link"
 					href="ServletController?command=list_card_view"
 					style="cursor: pointer"> <i class="fas fa-credit-card"></i>
-						List of cards
+					<fmt:message key="list_cards"/>
 				</a></li>
 			</ul>
 		</div>
 		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			style="cursor: pointer" data-toggle="collapse">
-			<span>Клиеты</span> <a class="d-flex align-items-center text-muted"><i
+			<span><fmt:message key="clients_group"/></span> <a class="d-flex align-items-center text-muted"><i
 				class="fas fa-users"></i></a>
 		</h6>
 		<div>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_client_view"
-					style="cursor: pointer"><i class="fas fa-user-tag"></i> Клиенты
+					style="cursor: pointer"><i class="fas fa-user-tag"></i> <fmt:message key="clients"/>
 						<sup><span class="badge badge-danger">${countBlockedUsers}</span></sup></a></li>
 			</ul>
 		</div>
 		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			style="cursor: pointer">
-			<span>Справочник</span> <a
+			<span><fmt:message key="directory_group"/></span> <a
 				class="d-flex align-items-center text-muted"><i
 				class="fas fa-book"></i></a>
 		</h6>
 		<div>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item"><a class="nav-link" href="ServletController?command=list_services_view"
-					style="cursor: pointer"><i class="fab fa-servicestack"></i>	Сервисы</a></li>
+					style="cursor: pointer"><i class="fab fa-servicestack"></i>	<fmt:message key="services"/></a></li>
 			</ul>
 		</div>
         <h6
