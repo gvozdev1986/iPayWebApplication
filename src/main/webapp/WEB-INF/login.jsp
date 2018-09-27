@@ -37,24 +37,26 @@
                 <form action="ServletController" method="post">
                     <div class="form-group input-group-sm">
                         <label for="loginInput"><i class="fas fa-user"></i> <fmt:message
-                                key="login_login"/></label> <input type="text" class="form-control"
-                                                                   id="loginInput" name="username" value=""
-                                                                   autocomplete="off"
-                                                                   placeholder="<fmt:message key="login_login" />"
-                                                                   required
-                                                                   oninvalid="this.setCustomValidity('Please fill login field')"
-                                                                   oninput="setCustomValidity('')">
+                                key="login_login"/></label>
+                        <input type="text" class="form-control"
+                               id="loginInput" name="username" value=""
+                               autocomplete="off"
+                               placeholder="<fmt:message key="login_login" />"
+                               required
+                               oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_login" />')"
+                               oninput="setCustomValidity('')">
                     </div>
                     <div class="form-group input-group-sm">
                         <label for="pswInput"><i class="fas fa-key"></i> <fmt:message
-                                key="login_password"/></label> <input type="password"
-                                                                      class="form-control" id="pswInput" name="password"
-                                                                      value=""
-                                                                      autocomplete="off"
-                                                                      placeholder="<fmt:message key="login_password" />"
-                                                                      required
-                                                                      oninvalid="this.setCustomValidity('Please fill password field')"
-                                                                      oninput="setCustomValidity('')">
+                                key="login_password"/></label>
+                        <input type="password"
+                               class="form-control" id="pswInput" name="password"
+                               value=""
+                               autocomplete="off"
+                               placeholder="<fmt:message key="login_password" />"
+                               required
+                               oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_password" />')"
+                               oninput="setCustomValidity('')">
                     </div>
                     <c:if test="${not empty info_message}">
                         <p style="color: red;"><fmt:message key="invalid_login_or_password"/></p>

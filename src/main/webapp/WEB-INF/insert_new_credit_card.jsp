@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -24,25 +23,19 @@
         <jsp:include page="user_menu.jsp"/>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">New credit card</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">NEW CREDIT CARD</div>
+                <h1 class="h2"><fmt:message key="new_credit_card_label"/></h1>
+                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="client_menu_accounting"/></div>
             </div>
             <div class="container" style="height: 60%; overflow-y: scroll; padding: 5px;">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card text-center" style="height: 100%;">
                             <div class="card-head">
-                                Rules of using a bank card.
+                                <fmt:message key="rule_use_credit_card"/>
                             </div>
                             <div class="card-body" style="text-align: justify; font-size: 12px; margin-left: -31px;">
                                 <ol>
-                                    <li>Only the cardholder can use this card.</li>
-                                    <li>In case of doubtful actions, the card will be blocked.</li>
-                                    <li>The holder does not have the right to transfer data to a third party.</li>
-                                    <li>The secret password must be only from you and no one else.</li>
-                                    <li>In case of any suspicions about the card, it is necessary to immediately block
-                                        it, informing the administrator or in the personal account.
-                                    </li>
+                                    <fmt:message key="rules"/>
                                 </ol>
                             </div>
                             <div class="card-footer text-muted">
@@ -53,7 +46,7 @@
                                            onclick="agreeTerms();"
                                            required>
                                     <label class="form-check-label"
-                                           for="anotherCardCheck"> I agree with the terms.</label>
+                                           for="anotherCardCheck"> <fmt:message key="agree_with_rule"/></label>
                                 </div>
                             </div>
                         </div>
@@ -62,29 +55,33 @@
                         <form autocomplete="off" action="ServletController" method="post" name="createCreditCard">
                             <div class="form-row">
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardFirstName"><i class="fas fa-user"></i> First name</label>
+                                    <label for="cardFirstName"><i class="fas fa-user"></i> <fmt:message key="first_name_card_label"/></label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardFirstName"
                                            name="cardFirstName"
-                                           placeholder="First name"
+                                           placeholder="<fmt:message key="first_name_card_label"/>"
                                            autocomplete="off"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_first_name"/>')"
+                                           oninput="setCustomValidity('')"
                                            required>
                                 </div>
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardLastName"><i class="fas fa-user"></i> Last name</label>
+                                    <label for="cardLastName"><i class="fas fa-user"></i> <fmt:message key="last_name_card_label"/></label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardLastName"
                                            name="cardLastName"
-                                           placeholder="Last name"
+                                           placeholder="<fmt:message key="last_name_card_label"/>"
                                            autocomplete="off"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_last_name"/>')"
+                                           oninput="setCustomValidity('')"
                                            required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="cardNumber"><i class="far fa-credit-card"></i> Card number</label>
+                                    <label for="cardNumber"><i class="far fa-credit-card"></i> <fmt:message key="credit_card_number_label"/></label>
                                     <input type="text"
                                            style="text-align: center;"
                                            class="form-control"
@@ -92,11 +89,13 @@
                                            name="cardNumber"
                                            placeholder="XXXX XXXX XXXX XXXX"
                                            autocomplete="off"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_card_number"/>')"
+                                           oninput="setCustomValidity('')"
                                            required>
                                     <span class="validate">${messageCheckCreditCard}</span>
                                 </div>
                                 <div class="form-group col-md-1 input-group-sm">
-                                    <label for="cardValidMonth">Month</label>
+                                    <label for="cardValidMonth"><fmt:message key="month"/></label>
                                     <input type="text"
                                            style="text-align: center;"
                                            maxlength="2"
@@ -108,7 +107,7 @@
                                            required>
                                 </div>
                                 <div class="form-group col-md-1 input-group-sm">
-                                    <label for="cardValidYear">Year</label>
+                                    <label for="cardValidYear"><fmt:message key="year"/></label>
                                     <input type="text"
                                            style="text-align: center;"
                                            maxlength="2"
@@ -121,7 +120,7 @@
                                 </div>
                                 <div class="form-group col-md-4 input-group-sm">
                                     <label for="creditCardType">
-                                        <i class="fas fa-list"></i> Card type</label>
+                                        <i class="fas fa-list"></i> <fmt:message key="type_card_label"/></label>
                                     <select class="custom-select"
                                             id="creditCardType"
                                             name="creditCardType"
@@ -134,13 +133,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="secretCode"><i class="fas fa-user-secret"></i> Secret code</label>
+                                    <label for="secretCode"><i class="fas fa-user-secret"></i> <fmt:message key="secret_code"/></label>
                                     <input type="password"
                                            class="form-control"
                                            id="secretCode"
                                            name="secretCode"
                                            placeholder="Secret code"
-                                           autocomplete="false"
+                                           autocomplete="off"
                                            required>
                                 </div>
                             </div>
@@ -161,7 +160,7 @@
                                         name="command"
                                         value="save_new_credit_card"
                                         disabled>
-                                    <i class="fas fa-check"></i> Save
+                                    <i class="fas fa-check"></i> <fmt:message key="save_btn"/>
                                 </button>
                             </div>
                         </form>

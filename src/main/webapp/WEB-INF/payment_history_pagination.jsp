@@ -28,7 +28,6 @@
         background-color: #00ad7e;
     }
 
-
     ::-webkit-scrollbar {
         width: 0px;
         height: 0px;
@@ -51,6 +50,7 @@
         font-weight: 600;
         color: #00ad7e;
     }
+
     ​
 </style>
 <div class="container-fluid">
@@ -118,11 +118,11 @@
                                     id="search-Btn">
                                 <i class="fas fa-search"></i> <fmt:message key="search_btn"/>
                             </button>
+                            <!-- PRINT BUTTON -->
                             <button class="btn btn-success"
                                     style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
-                                    type="submit"
-                                    name="command"
-                                    value="payment_history_pagination"
+                                    type="button"
+                                    onclick="PrintReport('#tableReport');"
                                     id="print-Btn">
                                 <i class="far fa-file-powerpoint"></i> <fmt:message key="print_btn"/>
                             </button>
@@ -149,9 +149,9 @@
                         <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
                         <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
                     </tr>
-                    <c:forEach items="${paymentHistory}" var="pagination">
+                    <c:forEach items="${paymentHistory}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="text-align: right;">${pagination.id}</td>
+                            <td style="text-align: right;">${loop.index + 1}</td>
                             <td style="text-align: center;">${pagination.datePayment}</td>
                             <td style="text-align: center;">${pagination.timePayment}</td>
                             <td>${pagination.descriptionPayment}</td>
@@ -167,6 +167,31 @@
     </div>
 </div>
 <ctg:footer/>
+<div id="tableReport" style="visibility: hidden;">
+    <table id="tablePrintReport">
+        <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
+            <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
+            <td style="vertical-align: middle; font-weight: bold; width: 15%;"><fmt:message key="date"/></td>
+            <td style="vertical-align: middle; font-weight: bold; width: 60%;"><fmt:message key="brief"/></td>
+            <td style="vertical-align: middle; font-weight: bold; width: 15%;"><fmt:message key="group"/></td>
+            <td style="vertical-align: middle; font-weight: bold; width: 5%;"><fmt:message key="amount"/></td>
+        </tr>
+        <c:forEach items="${paginationReport}" var="paginationPrint" varStatus="loop">
+            <tr>
+                <td style="text-align: right;">${loop.index + 1}</td>
+                <td style="text-align: center;">${paginationPrint.datePayment}<br>${paginationPrint.timePayment}</td>
+                <td>${paginationPrint.descriptionPayment}</td>
+                <td>${paginationPrint.paymentDataGroup}</td>
+                <td style="text-align: right;">${paginationPrint.amountPayment}</td>
+            </tr>
+        </c:forEach>
+        <tr>
+            <td colspan="5" style="text-align: right;">
+                <fmt:message key="sum_report"/> ${sumReport}
+            </td>
+        </tr>
+    </table>
+</div>
 <script>
     $(document).ready(function () {
         $('.datepicker').datepicker({
@@ -174,4 +199,21 @@
             language: '${locale}'
         });
     });
+
+    function PrintReport(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var printReportWindow = window.open('', 'tableReport');
+        printReportWindow.document.write('<html><head><title><fmt:message key="report"/></title>');
+        printReportWindow.document.write('<link rel="stylesheet" href="../css/report.css" type="text/css" />');
+        printReportWindow.document.write('</head><body>');
+        printReportWindow.document.write(data);
+        printReportWindow.document.write('</body></html>');
+        printReportWindow.document.close();
+        printReportWindow.focus();
+        printReportWindow.print();
+        printReportWindow.close();
+    }
 </script>

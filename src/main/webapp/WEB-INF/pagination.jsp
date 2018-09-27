@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="Resource"/>
 <c:if test="${countPage >= 1}">
     <form action="ServletController" method="get">
         <input id="pageHiddenInput" type="hidden" name="page" value="${page}"/>
@@ -8,7 +10,7 @@
         <input id="additional_param_1" type="hidden" name="additional_param_1" value="${returnCardId}">
         <input id="additional_param_2" type="hidden" name="additional_param_2" value="${returnDateStart}">
         <input id="additional_param_3" type="hidden" name="additional_param_3" value="${returnDateEnd}">
-        <label for="pag">Page ${page + 1} from ${countPage}</label>
+        <label for="pag"><fmt:message key="page"/> ${page + 1} <fmt:message key="from"/> ${countPage}</label>
         <nav id="pag" aria-label="Page navigation example">
             <ul class="pagination pagination-sm">
                 <div class="form-group input-group-sm">
@@ -32,7 +34,8 @@
                                 name="command"
                                 value="${paginationList}"
                                 id="previous_btn"
-                                style="height: 31px; width: 70px; vertical-align: middle; text-align: center;">Previous
+                                style="height: 31px; width: 70px; vertical-align: middle; text-align: center;">
+                            <fmt:message key="revious_btn"/>
                         </button>
                     </c:when>
                     <c:otherwise>
@@ -40,7 +43,7 @@
                                 type="button"
                                 id="previous_btn"
                                 style="height: 31px; width: 70px; vertical-align: middle; text-align: center;" disabled>
-                            Previous
+                            <fmt:message key="revious_btn"/>
                         </button>
                     </c:otherwise>
                 </c:choose>
@@ -77,16 +80,17 @@
                                 name="command"
                                 onclick="navigationBtnFunc('${next}');"
                                 value="${paginationList}"
-                                style="height: 31px; width: 60px; vertical-align: middle; text-align: center;">Next
+                                style="height: 31px; width: 80px; vertical-align: middle; text-align: center;">
+                            <fmt:message key="next_btn"/>
                         </button>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-outline-secondary form-control btn-sm"
                                 type="button"
                                 id="next_btn"
-                                style="height: 31px; width: 60px; vertical-align: middle; text-align: center;"
+                                style="height: 31px; width: 80px; vertical-align: middle; text-align: center;"
                                 disabled>
-                            Next
+                            <fmt:message key="next_btn"/>
                         </button>
                     </c:otherwise>
                 </c:choose>

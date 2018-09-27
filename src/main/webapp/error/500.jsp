@@ -49,11 +49,11 @@
     <div class="row h-100 justify-content-center align-items-center">
         <div class="card" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); width: 40%;">
             <div class="card-header">
-                ERROR
+				<fmt:message key="error"/>
             </div>
             <div class="card-body">
                 <h1>500</h1>
-                <p>Oooooops.... Something went wrong.</p>
+				<fmt:message key="wrong"/>
                 <div class="card-footer text-muted" style="text-align: right; background-color: #ffffff;">
                     <a href="ServletController?command=greeting_page_view"
                        class="btn btn-success"><i class="fas fa-angle-left"></i> Back</a>
