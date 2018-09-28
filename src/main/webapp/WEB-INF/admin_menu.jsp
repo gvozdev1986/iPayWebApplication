@@ -70,16 +70,6 @@
 </style>
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
 	<div class="sidebar-sticky">
-		<h6
-			class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-			<span><fmt:message key="messages_group"/></span> <a class="d-flex align-items-center text-muted"
-				href="#"><i class="fas fa-envelope-open"></i></a>
-		</h6>
-		<ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href="ServletController?command=list_message_view"
-				style="cursor: pointer"><i class="fas fa-envelope"></i>
-				<fmt:message key="messages"/> <sup><span class="badge badge-danger">${countUnreadMessage}</span></sup></a></li>
-		</ul>
 		<h6	class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			style="cursor: pointer" >
 			<span><fmt:message key="cards_group"/></span> <a class="d-flex align-items-center text-muted"><i

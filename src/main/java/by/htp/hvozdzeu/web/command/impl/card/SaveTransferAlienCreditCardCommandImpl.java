@@ -46,6 +46,12 @@ public class SaveTransferAlienCreditCardCommandImpl implements BaseCommand {
         String vCode = cardFromVerifyCode.getVerifyCode();
 
         CreditCard anotherCreditCard = creditCardService.findByCreditCardNumber(anotherCardNumber);
+
+        if(anotherCreditCard == null){
+            request.getSession().setAttribute(MESSAGE_TRANSFER_INFORMATION, "Alien credit card not found!");
+            return PagePathConstantPool.REDIRECT_SAVE_TRANSFER_ALIEN_CARD;
+        }
+
         Long anotherCardNumberId = anotherCreditCard.getId();
 
         if (cardNumberFromId.equals(anotherCardNumberId)) {

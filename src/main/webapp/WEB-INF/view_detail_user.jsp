@@ -94,12 +94,6 @@
                 <form action="ServletController" method="post">
                     <input type="hidden" id="cardId" name="userId" value="${clientDetail.id}"/>
                     <div class="form-inline">
-                        <button class="btn btn-sm btn-secondary form-control custom_button"
-                                type="submit"
-                                name="command"
-                                value="list_client_view">
-                            <i class="fas fa-arrow-left"></i> Back
-                        </button>
                         <!-- PRINT BUTTON -->
                         <button class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
                                 style="border-radius: 0px; border-radius: .25rem; margin-left: 5px;"
