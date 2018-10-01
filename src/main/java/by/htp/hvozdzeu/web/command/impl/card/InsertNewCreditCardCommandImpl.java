@@ -1,10 +1,9 @@
 package by.htp.hvozdzeu.web.command.impl.card;
 
-import by.htp.hvozdzeu.model.BankAccount;
 import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.enums.TypeCard;
-import by.htp.hvozdzeu.service.BankAccountService;
+import by.htp.hvozdzeu.model.response.Response;
 import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
@@ -14,109 +13,134 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
-import static by.htp.hvozdzeu.util.HideSymbolsCreditCard.hideSymbolsCreditCard;
-import static by.htp.hvozdzeu.util.MailHtmlConstructor.mailConstructor;
-import static by.htp.hvozdzeu.util.MailSender.mailSender;
+import static by.htp.hvozdzeu.rest.ParameterConstantDeclaration.*;
+import static by.htp.hvozdzeu.rest.ResponseManager.getResponse;
+import static by.htp.hvozdzeu.rest.URLConstantPool.URL_CHECK_CREDIT_CARD;
+import static by.htp.hvozdzeu.rest.URLConstantPool.URL_GET_TOKEN;
+import static by.htp.hvozdzeu.util.ApplicationCodeProperties.getAppCode;
+import static by.htp.hvozdzeu.util.Decoder.encrypt;
+import static by.htp.hvozdzeu.util.DecoderProperties.getSecretKey;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentInformation.refillBalance;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentInformation.writeOffBalance;
+import static by.htp.hvozdzeu.web.command.impl.message.MessageCreateCreditCard.sendNotificationCreateCreditCard;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
+/**
+ * The class for work with create new credit card in system.
+ * The class has some steps:
+ * 1. Send query with parameters and get token.
+ * 2. Send query with parameters and get response with status checking.
+ */
 public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InsertNewCreditCardCommandImpl.class);
 
     private static final String MESSAGE_CHECK_CREDIT_CARD = "messageCheckCreditCard";
-    private static final String MESSAGE_CHECK_CREDIT_CARD_VALUE = "Such a credit card exists.";
-    private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD = "messageErrorInsertNewCreditCard";
-    private static final String MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD_VALUE = "Error insert credit cards";
+    private static final String MESSAGE_CHECK_CREDIT_CARD_ERROR = "Error check credit card.";
+    private static final String MESSAGE_ERROR_CHECK_CREDIT_CARD = "Error check credit card.";
+    private static final String MESSAGE_CHECK_CREDIT_CARD_SUCCESS = "Checking card has been success.";
+    private static final String MESSAGE_CREDIT_CARD_ALREADY_EXIST = "This credit card has been already created.";
     private static final String MSG_EVENT_NAME = "eventMessage";
-    private static final String MSG_EVENT_VALUE = "insert_new_credit_card";
+    private static final Long CODE_SERVICE_DATA = 154L;
 
+    /**
+     * Instance for CreditCardService
+     */
     private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
-    private BankAccountService bankAccountService = ServiceFactory.getBankAccountService();
 
+    /**
+     * The (command) method for checking credit card in server and creating credit card in system
+     *
+     * @param request HttpServletRequest getting parameters
+     * @return String URL for redirect or forward with information
+     * @throws CommandException Exception
+     */
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
         User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 
-        Long userId = user.getId();
-        String firstNameCreditCard = request.getParameter(REQUEST_PARAM_CARD_FIRST_NAME);
-        String lastNameCreditCard = request.getParameter(REQUEST_PARAM_CARD_LAST_NAME);
-        String cardNumber = request.getParameter(REQUEST_PARAM_CARD_NUMBER);
-        String cardValidMonth = request.getParameter(REQUEST_PARAM_CARD_VALID_MONTH);
-        String cardValidYear = request.getParameter(REQUEST_PARAM_CARD_VALID_YEAR);
+        String creditCardNumber = request.getParameter(REQUEST_PARAM_CARD_NUMBER);
+        String cvCode = request.getParameter(REQUEST_PARAM_CARD_SECRET_CODE);
+        String firstName = request.getParameter(REQUEST_PARAM_CARD_FIRST_NAME);
+        String lastName = request.getParameter(REQUEST_PARAM_CARD_LAST_NAME);
+        String monthValid = request.getParameter(REQUEST_PARAM_CARD_VALID_MONTH);
+        String yearValid = request.getParameter(REQUEST_PARAM_CARD_VALID_YEAR);
         String creditCardType = request.getParameter(REQUEST_PARAM_CARD_TYPE);
-        String secretCode = request.getParameter(REQUEST_PARAM_CARD_SECRET_CODE);
 
-        CreditCard checkCreditCard = creditCardService.findByCreditCardNumber(cardNumber);
-
-        if (checkCreditCard != null) {
-
-            request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_CHECK_CREDIT_CARD_VALUE);
-
+        if (creditCardService.findByCreditCardNumber(creditCardNumber) != null) {
+            request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_CREDIT_CARD_ALREADY_EXIST);
             return PagePathConstantPool.ADD_NEW_CREDIT_CARD;
+        }
 
-        } else {
+        Map<Object, Object> parameters = new HashMap<>();
+        parameters.put(PARAMETER_CREDIT_CARD_NUMBER, encrypt(creditCardNumber, getSecretKey()));
+        parameters.put(PARAMETER_VC_CODE, encrypt(cvCode, getSecretKey()));
+        parameters.put(PARAMETER_FIRST_NAME, encrypt(firstName, getSecretKey()));
+        parameters.put(PARAMETER_LAST_NAME, encrypt(lastName, getSecretKey()));
+        parameters.put(PARAMETER_MONTH_VALID, encrypt(monthValid, getSecretKey()));
+        parameters.put(PARAMETER_YEAR_VALID, encrypt(yearValid, getSecretKey()));
+        parameters.put(PARAMETER_APP_SECRET_CODE, getAppCode());
 
-            LOGGER.debug("First step. Create credit card.");
-            String validDate = cardValidMonth + "/" + cardValidYear;
-            CreditCard creditCard = CreditCard.getBuilder()
-                    .client(userId)
-                    .cardNumber(cardNumber)
-                    .cardFirstName(firstNameCreditCard)
-                    .cardLastName(lastNameCreditCard)
-                    .validDate(validDate)
-                    .typeCard(TypeCard.valueOf(creditCardType))
-                    .verifyCode(secretCode)
-                    .block(false)
-                    .build();
+        Response responseGetToken = getResponse(URL_GET_TOKEN, parameters);
+        LOGGER.debug("Get token: {}", responseGetToken.getMessage());
 
-            Long newCreditCardId = creditCardService.createReturnId(creditCard);
+        Map<Object, Object> checkCardMap = new HashMap<>();
+        checkCardMap.put(PARAMETER_TOKEN_REST, responseGetToken.getMessage());
+        checkCardMap.put(PARAMETER_CARD_NUMBER, encrypt(creditCardNumber, getSecretKey()));
+        checkCardMap.put(PARAMETER_VC_CODE, encrypt(cvCode, getSecretKey()));
+        checkCardMap.put(PARAMETER_APP_SECRET_CODE, getAppCode());
 
-            if (newCreditCardId != null && newCreditCardId != 0) {
+        LOGGER.debug("Start process check credit card to server.");
 
-                String numberAccountFirstPart = cardNumber.split(" ")[0];
-                String numberAccountSecondPart = cardNumber.split(" ")[3];
-                String nameAccount = CODE_NAME_ACCOUNT + numberAccountFirstPart + numberAccountSecondPart;
+        if (responseGetToken.isStatus()) {
 
-                LOGGER.debug("Second step. Create bank account.");
-                BankAccount bankAccount = BankAccount.getBuilder()
-                        .creditCard(newCreditCardId)
-                        .nameAccount(nameAccount)
-                        .statusBankAccount(false)
-                        .balanceBankAccount(BigDecimal.valueOf(0.00))
-                        .available(false)
+            Response responseCheckCreditCard = getResponse(URL_CHECK_CREDIT_CARD, checkCardMap);
+            LOGGER.debug("Get status check credit card: {}", responseCheckCreditCard.getMessage());
+
+            if (responseCheckCreditCard.isStatus()) {
+
+                LOGGER.debug("Create credit card.");
+                String validDate = monthValid + "/" + yearValid;
+                CreditCard creditCard = CreditCard.getBuilder()
+                        .client(user.getId())
+                        .cardNumber(creditCardNumber)
+                        .cardFirstName(firstName)
+                        .cardLastName(lastName)
+                        .validDate(validDate)
+                        .typeCard(TypeCard.valueOf(creditCardType))
+                        .verifyCode(cvCode)
+                        .block(false)
                         .build();
 
-                bankAccountService.save(bankAccount);
+                LOGGER.debug("Save credit card.");
+                creditCardService.createReturnId(creditCard);
 
-                String emailToReply = user.getEmail();
-                String subjectToReply = "Information about insert new credit card.";
-                String message = "Hello. " +
-                        "Your card # " + hideSymbolsCreditCard(creditCard.getCardNumber()) + " has been inserted. " +
-                        "And save new bank account [" + nameAccount + "]. " +
-                        "For additional information, please return to administrator.";
+                sendNotificationCreateCreditCard(request, user, creditCardNumber);
+                LOGGER.debug("Send information about create new credit card.");
 
-                String messageToReply = null;
-                try {
-                    messageToReply = mailConstructor(request, user.getLastName(), user.getFirstName(), user.getPatronymic(), message);
-                } catch (IOException e) {
-                    LOGGER.error("Error send email");
-                }
-                mailSender(request, emailToReply, subjectToReply, messageToReply, null);
+                writeOffBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA);
+                refillBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA);
+                LOGGER.debug("Save transaction in system about write-off and refill balance.");
 
-                request.getSession().setAttribute(MSG_EVENT_NAME, MSG_EVENT_VALUE);
+                request.getSession().setAttribute(MSG_EVENT_NAME, MESSAGE_CHECK_CREDIT_CARD_SUCCESS);
                 return PagePathConstantPool.REDIRECT_LIST_CARD_CLIENT;
 
             } else {
-                request.getSession().setAttribute(MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD, MESSAGE_ERROR_INSERT_NEW_CREDIT_CARD_VALUE);
+                request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_ERROR_CHECK_CREDIT_CARD);
                 return PagePathConstantPool.ADD_NEW_CREDIT_CARD;
             }
 
+        } else {
+            LOGGER.debug("Error getting status check credit card");
+            request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_CHECK_CREDIT_CARD_ERROR);
+            return PagePathConstantPool.ADD_NEW_CREDIT_CARD;
         }
 
-
     }
+
 }
