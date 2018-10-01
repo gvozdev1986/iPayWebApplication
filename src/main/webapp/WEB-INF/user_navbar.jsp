@@ -18,11 +18,6 @@
 	border-color: #00ad7e;
 }
 
-.dropdown-toggle {
-	color: #fff;
-	background-color: #00ad7e;
-	border-color: #00ad7e;
-}
 </style>
 <header>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

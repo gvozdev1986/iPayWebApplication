@@ -28,7 +28,7 @@ public class ConnectionPool {
     private static final String RESOURCE_URL = "db.url";
     private static final String RESOURCE_LOGIN = "db.login";
     private static final String RESOURCE_PASS = "db.pswd";
-    private static final String MAX_CONNECTION_COUNT = "db.min.connect.size";
+    private static final String MAX_CONNECTION_COUNT = "db.max.connect.size";
     private static final String MIN_CONNECTION_COUNT = "db.min.connect.size";
 
     /**

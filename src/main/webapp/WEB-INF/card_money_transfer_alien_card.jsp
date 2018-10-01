@@ -50,7 +50,8 @@
                                    placeholder="XXXX XXXX XXXX XXXX"
                                    name="anotherCardInput"
                                    pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}"
-                                   required>
+                                   required
+                                   autocomplete="off">
                         </div>
                         <div class="col-md-2 mb-3 input-group-sm">
                             <label for="sumCardTransf"><i class="fas fa-sort-numeric-up"></i> <fmt:message key="sum_transaction"/></label>
@@ -61,7 +62,8 @@
                                    name="sumCardTransf"
                                    step="0.01"
                                    required
-                                   style="text-align: right;">
+                                   style="text-align: right;"
+                                   autocomplete="off">
                         </div>
                     </div>
                     <div class="form-row">
@@ -72,7 +74,8 @@
                                    id="descriptionCardTransf"
                                    placeholder="<fmt:message key="description_field"/>"
                                    name="descriptionCardTransf"
-                                   required>
+                                   required
+                                   autocomplete="off">
                         </div>
                         <div class="col-md-1 mb-3 input-group-sm">
                             <label for="code"><i class="fas fa-user-secret"></i> <fmt:message key="code_field"/></label>
@@ -81,7 +84,8 @@
                                    id="code"
                                    placeholder="<fmt:message key="code_field"/>"
                                    name="code"
-                                   required>
+                                   required
+                                   autocomplete="off">
                         </div>
                         <div class="col-md-1 mb-3 input-group-sm">
                             <div style="margin-top: 31px;"></div>
