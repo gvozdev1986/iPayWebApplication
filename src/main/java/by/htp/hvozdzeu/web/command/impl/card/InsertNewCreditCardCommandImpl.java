@@ -19,13 +19,12 @@ import java.util.Map;
 
 import static by.htp.hvozdzeu.rest.ParameterConstantDeclaration.*;
 import static by.htp.hvozdzeu.rest.ResponseManager.getResponse;
-import static by.htp.hvozdzeu.rest.URLConstantPool.URL_CHECK_CREDIT_CARD;
-import static by.htp.hvozdzeu.rest.URLConstantPool.URL_GET_TOKEN;
+import static by.htp.hvozdzeu.rest.URLConstantPool.*;
 import static by.htp.hvozdzeu.util.ApplicationCodeProperties.getAppCode;
 import static by.htp.hvozdzeu.util.Decoder.encrypt;
 import static by.htp.hvozdzeu.util.DecoderProperties.getSecretKey;
-import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentInformation.refillBalance;
-import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentInformation.writeOffBalance;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SendPaymentInformationHelper.refillBalance;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SendPaymentInformationHelper.writeOffBalance;
 import static by.htp.hvozdzeu.web.command.impl.message.MessageCreateCreditCard.sendNotificationCreateCreditCard;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
@@ -71,6 +70,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
         String monthValid = request.getParameter(REQUEST_PARAM_CARD_VALID_MONTH);
         String yearValid = request.getParameter(REQUEST_PARAM_CARD_VALID_YEAR);
         String creditCardType = request.getParameter(REQUEST_PARAM_CARD_TYPE);
+        String orderNo = "N/A";
 
         if (creditCardService.findByCreditCardNumber(creditCardNumber) != null) {
             request.getSession().setAttribute(MESSAGE_CHECK_CREDIT_CARD, MESSAGE_CREDIT_CARD_ALREADY_EXIST);
@@ -86,7 +86,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
         parameters.put(PARAMETER_YEAR_VALID, encrypt(yearValid, getSecretKey()));
         parameters.put(PARAMETER_APP_SECRET_CODE, getAppCode());
 
-        Response responseGetToken = getResponse(URL_GET_TOKEN, parameters);
+        Response responseGetToken = getResponse(URL_GET_TOKEN, parameters, QUERY_TYPE_GET);
         LOGGER.debug("Get token: {}", responseGetToken.getMessage());
 
         Map<Object, Object> checkCardMap = new HashMap<>();
@@ -99,7 +99,7 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
 
         if (responseGetToken.isStatus()) {
 
-            Response responseCheckCreditCard = getResponse(URL_CHECK_CREDIT_CARD, checkCardMap);
+            Response responseCheckCreditCard = getResponse(URL_CHECK_CREDIT_CARD, checkCardMap, QUERY_TYPE_GET);
             LOGGER.debug("Get status check credit card: {}", responseCheckCreditCard.getMessage());
 
             if (responseCheckCreditCard.isStatus()) {
@@ -123,8 +123,8 @@ public class InsertNewCreditCardCommandImpl implements BaseCommand {
                 sendNotificationCreateCreditCard(request, user, creditCardNumber);
                 LOGGER.debug("Send information about create new credit card.");
 
-                writeOffBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA);
-                refillBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA);
+                writeOffBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA, "Automatic operation.", orderNo);
+                refillBalance(new BigDecimal("1.00"), creditCardNumber, CODE_SERVICE_DATA, "Automatic operation.", orderNo);
                 LOGGER.debug("Save transaction in system about write-off and refill balance.");
 
                 request.getSession().setAttribute(MSG_EVENT_NAME, MESSAGE_CHECK_CREDIT_CARD_SUCCESS);

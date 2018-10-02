@@ -20,7 +20,6 @@ class RESTQueryManager {
 
     private static final String CONTEXT_TYPE = "Content-Type";
     private static final String CONTEXT_TYPE_VALUE = "application/json";
-    private static final String QUERY_TYPE_GET = "GET";
     private static final Integer RESPONSE_CODE_OK = 200;
     private static final String RESPONSE_STATUS = "status";
     private static final String RESPONSE_MESSAGE = "message";
@@ -39,14 +38,14 @@ class RESTQueryManager {
      * @return Map<String, String> responseMap response from Rest server
      * @throws IOException Exception
      */
-    static Response sendQuery(String url, Map<Object, Object> parameters) throws IOException {
+    static Response sendQuery(String url, Map<Object, Object> parameters, String typeQuery) throws IOException {
 
         Boolean status = false;
         String message = null;
 
         URL urlQuery = new URL(url);
         HttpURLConnection conn = (HttpURLConnection) urlQuery.openConnection();
-        conn.setRequestMethod(QUERY_TYPE_GET);
+        conn.setRequestMethod(typeQuery);
         conn.addRequestProperty(CONTEXT_TYPE, CONTEXT_TYPE_VALUE);
 
         for (Map.Entry prop : parameters.entrySet()) {
