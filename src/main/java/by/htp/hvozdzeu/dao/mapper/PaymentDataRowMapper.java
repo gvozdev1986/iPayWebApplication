@@ -12,6 +12,7 @@ public class PaymentDataRowMapper {
     private static final String PAYMENT_SERVICE_NAME = "PaymentDataName";
     private static final String PAYMENT_SERVICE_GROUP = "PaymentDataGroup";
     private static final String PAYMENT_SERVICE_DESCRIPTION = "PaymentDataDescription";
+    private static final String PAYMENT_SERVICE_FORMAT = "FormatDataService";
     private static final String PAYMENT_SERVICE_AVAILABLE = "Available";
 
     protected PaymentData buildPaymentServiceRowMapper(ResultSet resultSet) throws SQLException {
@@ -21,6 +22,7 @@ public class PaymentDataRowMapper {
                 .paymentDataName(resultSet.getString(PAYMENT_SERVICE_NAME))
                 .paymentDataGroup(resultSet.getString(PAYMENT_SERVICE_GROUP))
                 .paymentDataDescription(resultSet.getString(PAYMENT_SERVICE_DESCRIPTION))
+                .formatDataService(resultSet.getString(PAYMENT_SERVICE_FORMAT))
                 .available(resultSet.getBoolean(PAYMENT_SERVICE_AVAILABLE))
                 .build();
     }

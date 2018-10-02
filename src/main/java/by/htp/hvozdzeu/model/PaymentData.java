@@ -12,6 +12,7 @@ public class PaymentData extends Entity {
     private String paymentDataName;
     private String paymentDataGroup;
     private String paymentDataDescription;
+    private String formatDataService;
     private boolean available;
 
     private PaymentData() {}
@@ -36,6 +37,10 @@ public class PaymentData extends Entity {
         return paymentDataDescription;
     }
 
+    public String getFormatDataService() {
+        return formatDataService;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -50,6 +55,7 @@ public class PaymentData extends Entity {
                 Objects.equals(paymentDataCode, that.paymentDataCode) &&
                 Objects.equals(paymentDataName, that.paymentDataName) &&
                 Objects.equals(paymentDataGroup, that.paymentDataGroup) &&
+                Objects.equals(formatDataService, that.formatDataService) &&
                 Objects.equals(paymentDataDescription, that.paymentDataDescription);
     }
 
@@ -61,6 +67,7 @@ public class PaymentData extends Entity {
                 paymentDataName,
                 paymentDataGroup,
                 paymentDataDescription,
+                formatDataService,
                 available
         );
     }
@@ -73,6 +80,7 @@ public class PaymentData extends Entity {
                 ", paymentDataName='" + paymentDataName + '\'' +
                 ", paymentDataGroup='" + paymentDataGroup + '\'' +
                 ", paymentDataDescription='" + paymentDataDescription + '\'' +
+                ", formatDataService='" + formatDataService + '\'' +
                 ", available=" + available +
                 '}';
     }
@@ -103,6 +111,11 @@ public class PaymentData extends Entity {
 
         public Builder paymentDataDescription(String paymentDataDescription) {
             PaymentData.this.paymentDataDescription = paymentDataDescription;
+            return this;
+        }
+
+        public Builder formatDataService(String formatDataService) {
+            PaymentData.this.formatDataService = formatDataService;
             return this;
         }
 

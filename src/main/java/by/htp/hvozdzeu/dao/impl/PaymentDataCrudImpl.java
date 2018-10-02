@@ -20,6 +20,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             + "`PaymentDataName`, "
             + "`PaymentDataGroup`, "
             + "`PaymentDataDescription`, "
+            + "`FormatDataService`, "
             + "`Available`) "
             + "VALUES (?, ?, ?, ?, ?);";
 
@@ -36,6 +37,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             + "`PaymentDataName`, "
             + "`PaymentDataGroup`, "
             + "`PaymentDataDescription`, "
+            + "`FormatDataService`, "
             + "`Available` "
             + "FROM `ipaywebapplication`.`paymentdata` WHERE id = ?;";
 
@@ -45,8 +47,9 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             + "`PaymentDataName`, "
             + "`PaymentDataGroup`, "
             + "`PaymentDataDescription`, "
+            + "`FormatDataService`, "
             + "`Available` "
-            + "FROM `ipaywebapplication`.`paymentdata` WHERE `id` <> 22;";
+            + "FROM `ipaywebapplication`.`paymentdata` WHERE `id` <> 22 AND `id` <> 154;";
 
     private static final String SQL_PAGINATION = "SELECT "
             + "`Id`, "
@@ -54,6 +57,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             + "`PaymentDataName`, "
             + "`PaymentDataGroup`, "
             + "`PaymentDataDescription`, "
+            + "`FormatDataService`, "
             + "`Available` "
             + "FROM `ipaywebapplication`.`paymentdata` LIMIT ?, ?;";
 
@@ -66,6 +70,7 @@ public class PaymentDataCrudImpl extends PaymentDataRowMapper implements Payment
             "paymentdata.PaymentDataName, " +
             "paymentdata.PaymentDataGroup, " +
             "paymentdata.PaymentDataDescription, " +
+            "paymentdata.FormatDataService, " +
             "paymentdata.Available " +
             "FROM paymentdata " +
             "WHERE concat(paymentdata.PaymentDataCode, paymentdata.PaymentDataName, " +

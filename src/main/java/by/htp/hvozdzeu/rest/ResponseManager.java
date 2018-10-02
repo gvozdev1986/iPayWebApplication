@@ -29,12 +29,12 @@ public class ResponseManager {
      * @param parameters Map<Object, Object> parameters for get token
      * @return Response entity with response from server
      */
-    public static Response getResponse(String url, Map<Object, Object> parameters) {
+    public static Response getResponse(String url, Map<Object, Object> parameters, String typeQuery) {
 
         Response response = null;
 
         try {
-            response = sendQuery(url, parameters);
+            response = sendQuery(url, parameters, typeQuery);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
