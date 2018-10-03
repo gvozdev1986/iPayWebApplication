@@ -36,4 +36,12 @@
             </div>
         </h1>
     </div>
+    <div>
+        <c:if test="${serverStatus eq 'true'}">
+            <p></p>
+        </c:if>
+        <c:if test="${serverStatus eq 'false'}">
+            <p style="color: #fe0c00; font-size: 20px;"><fmt:message key="server_not_online"/></p>
+        </c:if>
+    </div>
 </div>
