@@ -25,8 +25,7 @@
 	/* Scrollable contents if viewport is shorter than content. */
 }
 
-@
-supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
+@supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 	{ position:-webkit-sticky;
 	position: sticky;
 }

@@ -70,6 +70,7 @@ public final class WebConstantDeclaration {
     public static final String REQUEST_PARAM_DATA_DESCRIPTION = "serviceDataDescription";
   	public static final String PATH_TO_SAVE_REPORT = "E:/PaymentHistory_";
 	public static final String FORMAT_FILE_EXCEL = ".xls";
+	public static final String SERVER_STATUS = "serverStatus";
 
 
 }

@@ -42,7 +42,7 @@
                         </table>
                     </div>
                     <div class="col-md-8">
-                        <form action="ServletController" method="post" onchange="prepareBill();">
+                        <form action="ServletController" method="post">
                             <input type="hidden" name="clientId" value="${client.id}"/>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3 input-group-sm">
@@ -98,7 +98,8 @@
                                            id="orderNo"
                                            placeholder=" <fmt:message key="order_field"/>"
                                            name="orderNo"
-                                           required>
+                                           required
+                                           autocomplete="off">
                                 </div>
                                 <div class="col-md-2 mb-3 input-group-sm">
                                     <label for="sum"><i class="fas fa-sort-numeric-up"></i> <fmt:message

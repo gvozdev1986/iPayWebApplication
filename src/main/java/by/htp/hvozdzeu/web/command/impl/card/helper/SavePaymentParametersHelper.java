@@ -41,7 +41,6 @@ public class SavePaymentParametersHelper {
         parametersMap.put(PARAMETER_VC_CODE, encrypt((String) attributes.get("verifyCode"), getSecretKey()));
         parametersMap.put(PARAMETER_APP_SECRET_CODE, getAppCode());
         return parametersMap;
-
     }
 
     /**
