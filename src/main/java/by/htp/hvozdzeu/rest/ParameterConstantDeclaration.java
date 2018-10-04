@@ -15,6 +15,7 @@ public final class ParameterConstantDeclaration {
     public static final String PARAMETER_APP_SECRET_CODE = "appSecretCode";
     public static final String PARAMETER_TOKEN_REST = "tokenRest";
     public static final String PARAMETER_AMOUNT = "amount";
+    public static final String VERIFY_CODE = "verifyCode";
 
     private ParameterConstantDeclaration() {
 

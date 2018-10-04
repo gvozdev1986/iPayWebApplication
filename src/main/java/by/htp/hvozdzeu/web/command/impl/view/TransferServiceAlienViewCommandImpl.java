@@ -1,5 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
+import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.PaymentData;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
@@ -25,7 +26,7 @@ public class TransferServiceAlienViewCommandImpl implements BaseCommand {
 
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
-		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
+		List<CreditCard> creditCards = creditCardService.findCreditCardByIdClient(clientId);
 		List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
 
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);

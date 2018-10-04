@@ -2,7 +2,6 @@ package by.htp.hvozdzeu.model.report;
 
 import by.htp.hvozdzeu.model.entity.Entity;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class StatusCardReport extends Entity {
@@ -16,7 +15,6 @@ public class StatusCardReport extends Entity {
 	private String typeCard;
 	private String verifyCode;
 	private boolean block;
-	private BigDecimal balanceBankAccount;
 	private String nameAccount;
 
 	private StatusCardReport() {}
@@ -53,10 +51,6 @@ public class StatusCardReport extends Entity {
 		return block;
 	}
 
-	public BigDecimal getBalanceBankAccount() {
-		return balanceBankAccount;
-	}
-
 	public String getNameAccount() {
 		return nameAccount;
 	}
@@ -74,7 +68,6 @@ public class StatusCardReport extends Entity {
                 Objects.equals(validDate, that.validDate) &&
                 Objects.equals(typeCard, that.typeCard) &&
                 Objects.equals(verifyCode, that.verifyCode) &&
-                Objects.equals(balanceBankAccount, that.balanceBankAccount) &&
                 Objects.equals(nameAccount, that.nameAccount);
     }
 
@@ -89,7 +82,6 @@ public class StatusCardReport extends Entity {
                 typeCard,
                 verifyCode,
                 block,
-                balanceBankAccount,
                 nameAccount
         );
     }
@@ -103,7 +95,6 @@ public class StatusCardReport extends Entity {
                 ", validDate='" + validDate + '\'' +
                 ", typeCard='" + typeCard + '\'' +
                 ", block=" + block +
-                ", balanceBankAccount=" + balanceBankAccount +
                 ", nameAccount='" + nameAccount + '\'' +
                 '}';
     }
@@ -149,11 +140,6 @@ public class StatusCardReport extends Entity {
 
 		public Builder block(boolean block) {
             StatusCardReport.this.block = block;
-			return this;
-		}
-
-		public Builder balanceBankAccount(BigDecimal balanceBankAccount) {
-            StatusCardReport.this.balanceBankAccount = balanceBankAccount;
 			return this;
 		}
 

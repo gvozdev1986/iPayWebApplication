@@ -73,17 +73,17 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
             + "`Available`= 0 WHERE  `Id`= ?; ";
 
     private static final String SQL_FIND_BY_CLIENT_ID = "SELECT "
-            + "creditcard.Id, "
-            + "CardNumber, "
-            + "CardFirstName, "
-            + "CardLastName, "
-            + "ValidDate, "
-            + "TypeCard, "
-            + "VerifyCode, "
-            + "Block, "
-            + "BalanceBankAccount, "
-            + "NameAccount "
-            + "FROM creditcard JOIN bankaccount ON bankaccount.CreditCard = creditcard.Id WHERE creditcard.Client = ?;";
+            + "`Id`, "
+            + "`Client`, "
+            + "`CardNumber`, "
+            + "`CardFirstName`, "
+            + "`CardLastName`, "
+            + "`ValidDate`, "
+            + "`TypeCard`, "
+            + "`VerifyCode`, "
+            + "`Block`, "
+            + "`Available` "
+            + "FROM creditcard WHERE creditcard.Client = ?;";
 
     private static final String SQL_BLOCK_CARD = "UPDATE `ipaywebapplication`.`creditcard` SET `Block`='1' WHERE `Id`= ?;";
 
@@ -277,16 +277,16 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
     }
 
     @Override
-    public List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException {
-        List<StatusCardReport> statusCardReports = new ArrayList<>();
-        StatusCardReport statusCardReport;
+    public List<CreditCard> findCreditCardByIdClient(Long userId) throws DAOException {
+        List<CreditCard> creditCards = new ArrayList<>();
+        CreditCard creditCard;
         Connection connection = dataBaseConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_CLIENT_ID)) {
             preparedStatement.setLong(1, userId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    statusCardReport = buildStatusCreditCardRowMapper(resultSet);
-                    statusCardReports.add(statusCardReport);
+                    creditCard = buildCreditCardRowMapper(resultSet);
+                    creditCards.add(creditCard);
                 }
             }
         } catch (SQLException e) {
@@ -294,7 +294,7 @@ public class CreditCardCrudImpl extends CreditCardRowMapper implements CreditCar
         } finally {
             dataBaseConnection.closeConnection(connection);
         }
-        return statusCardReports;
+        return creditCards;
     }
 
     @Override

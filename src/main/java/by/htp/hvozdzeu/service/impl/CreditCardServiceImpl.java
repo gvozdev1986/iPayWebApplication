@@ -4,7 +4,6 @@ import by.htp.hvozdzeu.dao.CreditCardDAO;
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.dao.factory.DAOFactory;
 import by.htp.hvozdzeu.model.CreditCard;
-import by.htp.hvozdzeu.model.report.StatusCardReport;
 import by.htp.hvozdzeu.service.CreditCardService;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class CreditCardServiceImpl implements CreditCardService {
 	}
 
 	@Override
-	public List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException {
+	public List<CreditCard> findCreditCardByIdClient(Long userId) throws DAOException {
 		return creditCardDAO.findCreditCardByIdClient(userId);
 	}
 

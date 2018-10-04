@@ -20,7 +20,7 @@ public interface CreditCardService {
 
     CreditCard findByCreditCardNumber(String creditCard) throws DAOException;
 
-    List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException;
+    List<CreditCard> findCreditCardByIdClient(Long userId) throws DAOException;
 
     boolean blockCreditCard(Long creditCardId) throws DAOException;
 

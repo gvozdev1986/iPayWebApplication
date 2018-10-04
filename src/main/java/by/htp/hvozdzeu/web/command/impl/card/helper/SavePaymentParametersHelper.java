@@ -1,7 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.card.helper;
 
 import by.htp.hvozdzeu.model.CreditCard;
-import by.htp.hvozdzeu.model.response.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -29,16 +28,14 @@ public class SavePaymentParametersHelper {
      * The method creating Map with parameters for query write-off amount
      *
      * @param attributes       Map with request attributes
-     * @param responseGetToken Response response from method getToken
      * @param creditCard       CreditCard with credit card data found by ID
      * @return Map with write-off parameters
      */
-    public static Map<Object, Object> writeOffParametersMapper(Map<String, Object> attributes, Response responseGetToken, CreditCard creditCard) {
+    public static Map<Object, Object> writeOffParametersMapper(Map<String, Object> attributes, CreditCard creditCard) {
         Map<Object, Object> parametersMap = new HashMap<>();
-        parametersMap.put(PARAMETER_TOKEN_REST, responseGetToken.getMessage());
         parametersMap.put(PARAMETER_CARD_NUMBER, encrypt(creditCard.getCardNumber(), getSecretKey()));
-        parametersMap.put(PARAMETER_AMOUNT, attributes.get("amount"));
-        parametersMap.put(PARAMETER_VC_CODE, encrypt((String) attributes.get("verifyCode"), getSecretKey()));
+        parametersMap.put(PARAMETER_AMOUNT, attributes.get(PARAMETER_AMOUNT));
+        parametersMap.put(PARAMETER_VC_CODE, encrypt((String) attributes.get(VERIFY_CODE), getSecretKey()));
         parametersMap.put(PARAMETER_APP_SECRET_CODE, getAppCode());
         return parametersMap;
     }
@@ -61,19 +58,71 @@ public class SavePaymentParametersHelper {
     }
 
     /**
-     * The method creating map for query getToken
+     * The method for creating map for query transfer money from card to card
      *
-     * @param creditCard CreditCard found by ID from request
+     * @param request HttpServletRequest request
      * @return Map with parameters
      */
-    public static Map<Object, Object> parameterMapper(CreditCard creditCard) {
+    public static Map<String, Object> requestTransferMapper(HttpServletRequest request) {
+        Map<String, Object> attributeMap = new HashMap<>();
+        attributeMap.put("cardNumberFromId", Long.valueOf(request.getParameter("idCardFromTransf")));
+        attributeMap.put("cardNumberToId", Long.valueOf(request.getParameter("idCardToTransf")));
+        attributeMap.put("amount", new BigDecimal(request.getParameter("sumCardTransf")));
+        attributeMap.put("description", request.getParameter("descriptionCardTransf"));
+        attributeMap.put("verifyCode", request.getParameter("code"));
+        return attributeMap;
+    }
+
+    /**
+     * The method for creating map for query transfer money from card to card
+     *
+     * @param request HttpServletRequest request
+     * @return Map with parameters
+     */
+    public static Map<String, Object> requestTransferAlienCardMapper(HttpServletRequest request) {
+        Map<String, Object> attributeMap = new HashMap<>();
+        attributeMap.put("cardNumberFromId", Long.valueOf(request.getParameter("idCardFromTransf")));
+        attributeMap.put("cardNumberToId", request.getParameter("idCardToTransf"));
+        attributeMap.put("amount", new BigDecimal(request.getParameter("sumCardTransf")));
+        attributeMap.put("description", request.getParameter("descriptionCardTransf"));
+        attributeMap.put("verifyCode", request.getParameter("code"));
+        return attributeMap;
+    }
+
+    /**
+     * The method creating Map with parameters for transfer money
+     *
+     * @param attributes       Map with request attributes
+     * @param creditCardFrom   CreditCard entity with credit card data found by ID from will be write-off money
+     * @param creditCardTo     CreditCard entity with credit card data found by ID to will be refill money
+     * @return Map with write-off parameters
+     */
+    public static Map<Object, Object> transferParametersMapper(Map<String, Object> attributes,
+                                                               CreditCard creditCardFrom, CreditCard creditCardTo) {
         Map<Object, Object> parametersMap = new HashMap<>();
-        parametersMap.put(PARAMETER_CREDIT_CARD_NUMBER, encrypt(creditCard.getCardNumber(), getSecretKey()));
-        parametersMap.put(PARAMETER_VC_CODE, encrypt(creditCard.getVerifyCode(), getSecretKey()));
-        parametersMap.put(PARAMETER_FIRST_NAME, encrypt(creditCard.getCardFirstName(), getSecretKey()));
-        parametersMap.put(PARAMETER_LAST_NAME, encrypt(creditCard.getCardLastName(), getSecretKey()));
-        parametersMap.put(PARAMETER_MONTH_VALID, encrypt(creditCard.getValidDate().split("/")[0], getSecretKey()));
-        parametersMap.put(PARAMETER_YEAR_VALID, encrypt(creditCard.getValidDate().split("/")[1], getSecretKey()));
+        parametersMap.put("cardNumberFrom", encrypt(creditCardFrom.getCardNumber(), getSecretKey()));
+        parametersMap.put("cardNumberTo", encrypt(creditCardTo.getCardNumber(), getSecretKey()));
+        parametersMap.put(PARAMETER_AMOUNT, attributes.get(PARAMETER_AMOUNT));
+        parametersMap.put(PARAMETER_VC_CODE, encrypt((String) attributes.get(VERIFY_CODE), getSecretKey()));
+        parametersMap.put(PARAMETER_APP_SECRET_CODE, getAppCode());
+        return parametersMap;
+    }
+
+    /**
+     * The method creating Map with parameters for transfer money
+     *
+     * @param attributes       Map with request attributes
+     * @param creditCardFrom   CreditCard entity with credit card data found by ID from will be write-off money
+     * @param creditCardTo     CreditCard entity with credit card data found by ID to will be refill money
+     * @return Map with write-off parameters
+     */
+    public static Map<Object, Object> transferAlienCardParametersMapper(Map<String, Object> attributes,
+                                                               CreditCard creditCardFrom, String creditCardTo) {
+        Map<Object, Object> parametersMap = new HashMap<>();
+        parametersMap.put("cardNumberFrom", encrypt(creditCardFrom.getCardNumber(), getSecretKey()));
+        parametersMap.put("cardNumberTo", encrypt(creditCardTo, getSecretKey()));
+        parametersMap.put(PARAMETER_AMOUNT, attributes.get(PARAMETER_AMOUNT));
+        parametersMap.put(PARAMETER_VC_CODE, encrypt((String) attributes.get(VERIFY_CODE), getSecretKey()));
         parametersMap.put(PARAMETER_APP_SECRET_CODE, getAppCode());
         return parametersMap;
     }

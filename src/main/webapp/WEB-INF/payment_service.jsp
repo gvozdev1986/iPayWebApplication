@@ -28,19 +28,6 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div id="reportTable" class="col-md-4">
-                        <table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
-                            <tr>
-                                <td style="text-align: center; vertical-align: middle; font-weight: bold; background-color: #00ad7e; color: #ffffff;">
-                                    <fmt:message key="information"/></td>
-                            </tr>
-                            <tr>
-                                <td id="report" style="vertical-align: middle; font-weight: bold;">
-                                    <fmt:message key="payment_information"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
                     <div class="col-md-8">
                         <form action="ServletController" method="post">
                             <input type="hidden" name="clientId" value="${client.id}"/>
@@ -52,8 +39,7 @@
                                             style="line-height: 14px; height: 31px;">
                                         <c:forEach items="${cards}" var="creditCards">
                                             <c:if test="${not creditCards.block}">
-                                                <option value="${creditCards.id}">${creditCards.cardNumber}
-                                                    / ${creditCards.balanceBankAccount}</option>
+                                                <option value="${creditCards.id}">${creditCards.cardNumber}</option>
                                             </c:if>
                                         </c:forEach>
                                     </select>

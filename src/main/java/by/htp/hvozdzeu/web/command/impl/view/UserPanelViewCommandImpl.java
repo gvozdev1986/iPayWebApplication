@@ -1,5 +1,6 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
+import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.PaymentData;
 import by.htp.hvozdzeu.model.User;
 import by.htp.hvozdzeu.model.report.StatusCardReport;
@@ -24,8 +25,7 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class UserPanelViewCommandImpl implements BaseCommand {
 
-    private static final String SERVER_STATUS_TRUE = "true";
-    private static final String SERVER_STATUS_FALSE = "false";
+
 
 	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 	private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
@@ -40,18 +40,15 @@ public class UserPanelViewCommandImpl implements BaseCommand {
 
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long userId = user.getId();
-		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(userId);
+
+		List<CreditCard> creditCards = creditCardService.findCreditCardByIdClient(userId);
+        System.out.println("USER ID: " + creditCards);
+
+
+
 		List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
 
-
-        parameters.put("appSecretCode", getAppCode());
-        Response serverStatus = getResponse(URL_CHECK_SERVER_STATUS, parameters, QUERY_TYPE_POST);
-
-        if(serverStatus == null){
-            request.getSession().setAttribute(SERVER_STATUS, SERVER_STATUS_FALSE);
-        } else {
-            request.getSession().setAttribute(SERVER_STATUS, SERVER_STATUS_TRUE);
-        }
+        getStatusServer(request);
 
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
 		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
@@ -59,5 +56,15 @@ public class UserPanelViewCommandImpl implements BaseCommand {
 		return PagePathConstantPool.LOAD_CLIENT_PANEL;
 
 	}
+
+	private void getStatusServer(HttpServletRequest request){
+        parameters.put("appSecretCode", getAppCode());
+        Response serverStatus = getResponse(URL_CHECK_SERVER_STATUS, parameters, QUERY_TYPE_POST);
+        if(serverStatus == null){
+            request.getSession().setAttribute(SERVER_STATUS, SERVER_STATUS_FALSE);
+        } else {
+            request.getSession().setAttribute(SERVER_STATUS, SERVER_STATUS_TRUE);
+        }
+    }
 
 }
