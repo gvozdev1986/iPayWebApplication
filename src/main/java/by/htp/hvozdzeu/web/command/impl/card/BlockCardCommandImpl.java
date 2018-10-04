@@ -36,7 +36,7 @@ public class BlockCardCommandImpl implements BaseCommand {
 		
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
-		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
+		List<CreditCard> creditCards = creditCardService.findCreditCardByIdClient(clientId);
 
         CreditCard creditCard = creditCardService.findById(cardId);
 

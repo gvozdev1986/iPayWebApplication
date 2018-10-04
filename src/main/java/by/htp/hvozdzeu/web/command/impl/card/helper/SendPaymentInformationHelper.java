@@ -76,7 +76,7 @@ public class SendPaymentInformationHelper {
         PaymentData paymentData = paymentDataService.findById(paymentDataServiceId);
 
         String refillDescription = "Transaction refill "
-                + amount + " point to bank account. Credit card [" + hideSymbolsCreditCard(creditCard.getCardNumber()) + "]" +
+                + amount + " point to bank account. Credit card [" + hideSymbolsCreditCard(creditCardNumber) + "]" +
                 " Additional Information: " + description + "" +
                 " PA: " + paymentData.getPaymentDataGroup();
 

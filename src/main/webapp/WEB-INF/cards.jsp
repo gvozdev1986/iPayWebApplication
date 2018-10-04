@@ -56,18 +56,13 @@
                     <c:forEach items="${cards}" var="creditCards">
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm credit-card-form" style="border-color: #00ad7e;">
-                                <div class="card-head" style="height: 150px; width: 100%; display: block; border-color: #00ad7e;" data-holder-rendered="true">
+                                <div class="card-head" style="height: 120px; width: 100%; display: block; border-color: #00ad7e;" data-holder-rendered="true">
                                     <div class="form-row" style="height: 25px;">
+                                            <div class="form-group col-md-4">
+                                                <label style="width: 100%; text-align: left;">${creditCards.validDate}</label>
+                                            </div>
                                         <div class="form-group col-md-6">
-                                            <c:if test="${creditCards.block}">
-                                                <i class="fas fa-lock" id="blink"></i>
-                                            </c:if>
-                                            <c:if test="${not creditCards.block}">
-                                                <i class="fas fa-lock-open"></i>
-                                            </c:if>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label style="text-align: right; width: 100%;">${creditCards.typeCard}<img style="width: 25px; margin-top: -4px;" src="img/${creditCards.typeCard}.png" alt="card"></label>
+                                            <label style="text-align: right; width: 140%;">${creditCards.typeCard} <img style="width: 25px; margin-top: -4px;" src="img/${creditCards.typeCard}.png" alt="card"></label>
                                         </div>
                                     </div>
                                     <div class="form-row" style="height: 50px;">
@@ -76,25 +71,12 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
+                                        <div class="form-group col-md-12" style="text-align: right;">
                                             <label style="margin-bottom: -10px;">${creditCards.cardLastName} ${creditCards.cardFirstName}</label>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label style="width: 100%; text-align: left; font-size: 11px; line-height: 28px;">${creditCards.nameAccount}</label>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <div style="background-color: #00ad7e; border-radius: 25px; height: 25px; width: auto;">
-                                                <label style="width: 100%; text-align: center;">${creditCards.balanceBankAccount}</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label style="width: 100%; text-align: right;">${creditCards.validDate}</label>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div class="card-body" style="height: 54px;">
+                                <div class="card-body" style="height: 44px;">
                                     <p class="card-text"></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
@@ -104,7 +86,7 @@
                                                 <div class="form-inline">
                                                     <c:if test="${not creditCards.block}">
                                                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
-                                                                style="margin-top: -46px; margin-left: -10px; margin-bottom: -27px;"
+                                                                style="margin-top: -56px; margin-left: -10px; margin-bottom: -27px; height: 30px;"
                                                                 onclick="getCardId(document.getElementById('cardId_${creditCards.id}').value);"
                                                                 type="button" data-toggle="modal"
                                                                 data-target="#agreeModal">
@@ -116,7 +98,7 @@
                                             </form>
                                         </div>
                                         <c:if test="${creditCards.block}">
-                                            <small class="text-muted" style="margin-top: -17px;"><fmt:message key="this_card_has_been_blocked"/></small>
+                                            <small class="text-muted" style="margin-top: -42px;"><fmt:message key="this_card_has_been_blocked"/></small>
                                         </c:if>
                                     </div>
                                 </div>
@@ -127,6 +109,7 @@
             </div>
         </main>
     </div>
+</div>
     <ctg:footer/>
     <!-- MODAL AGREE BLOCK CARD -->
     <div class="modal fade" id="agreeModal" tabindex="-1" role="dialog"
@@ -155,9 +138,10 @@
                                 <i class="fas fa-times"></i>
                                 <fmt:message key="cancel_btn"/>
                             </button>
-                            <button
-                                    class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
-                                    type="submit" name="command" value="block_card">
+                            <button class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
+                                    type="submit"
+                                    name="command"
+                                    value="block_card">
                                 <i class="fas fa-lock"></i>
                                 <fmt:message key="block_btn"/>
                             </button>

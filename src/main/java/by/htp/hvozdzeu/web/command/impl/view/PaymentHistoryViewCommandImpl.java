@@ -1,7 +1,7 @@
 package by.htp.hvozdzeu.web.command.impl.view;
 
+import by.htp.hvozdzeu.model.CreditCard;
 import by.htp.hvozdzeu.model.User;
-import by.htp.hvozdzeu.model.report.StatusCardReport;
 import by.htp.hvozdzeu.service.CreditCardService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 import by.htp.hvozdzeu.web.command.BaseCommand;
@@ -23,7 +23,7 @@ public class PaymentHistoryViewCommandImpl implements BaseCommand {
 
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long clientId = user.getId();
-		List<StatusCardReport> creditCards = creditCardService.findCreditCardByIdClient(clientId);
+		List<CreditCard> creditCards = creditCardService.findCreditCardByIdClient(clientId);
 
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
 		request.getSession().setAttribute(REQUEST_CARDS, creditCards);

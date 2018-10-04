@@ -1,10 +1,9 @@
 package by.htp.hvozdzeu.dao.specification;
 
-import java.util.List;
-
 import by.htp.hvozdzeu.dao.exception.DAOException;
 import by.htp.hvozdzeu.model.CreditCard;
-import by.htp.hvozdzeu.model.report.StatusCardReport;
+
+import java.util.List;
 
 /**
  * Interface with additional methods for CreditCard implements
@@ -13,7 +12,7 @@ public interface CreditCardSpecification {
 
     CreditCard findByCreditCardNumber(String creditCardNumber) throws DAOException;
 
-    List<StatusCardReport> findCreditCardByIdClient(Long userId) throws DAOException;
+    List<CreditCard> findCreditCardByIdClient(Long userId) throws DAOException;
 
     boolean blockCreditCard(Long creditCardId) throws DAOException;
 

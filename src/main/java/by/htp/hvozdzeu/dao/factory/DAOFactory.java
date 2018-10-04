@@ -9,7 +9,6 @@ import by.htp.hvozdzeu.dao.impl.*;
 public class DAOFactory {
 
     private static UserDAO userDAO;
-    private static BankAccountDAO bankAccountDAO;
     private static CreditCardDAO creditCardDAO;
     private static PaymentDAO paymentDAO;
     private static PaymentDataDAO paymentDataDAO;
@@ -18,7 +17,6 @@ public class DAOFactory {
 
     static {
         userDAO = new UserCrudImpl();
-        bankAccountDAO = new BankAccountCrudImpl();
         creditCardDAO = new CreditCardCrudImpl();
         paymentDAO = new PaymentCrudImpl();
         paymentDataDAO = new PaymentDataCrudImpl();
@@ -32,10 +30,6 @@ public class DAOFactory {
 
     public static UserDAO getClientDao() {
         return userDAO;
-    }
-
-    public static BankAccountDAO getBankAccountDao() {
-        return bankAccountDAO;
     }
 
     public static CreditCardDAO getCreditCardDao() {

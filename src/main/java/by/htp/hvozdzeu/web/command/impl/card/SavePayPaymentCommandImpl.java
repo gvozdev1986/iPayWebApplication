@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static by.htp.hvozdzeu.rest.ResponseManager.getResponse;
-import static by.htp.hvozdzeu.rest.URLConstantPool.*;
+import static by.htp.hvozdzeu.rest.URLConstantPool.QUERY_TYPE_PUT;
+import static by.htp.hvozdzeu.rest.URLConstantPool.URL_WRITE_OFF_BALANCE;
 import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentParametersHelper.*;
 import static by.htp.hvozdzeu.web.command.impl.card.helper.SendPaymentInformationHelper.writeOffBalance;
 import static by.htp.hvozdzeu.web.command.impl.message.MessageCreateCreditCard.sendNotificationCreateCreditCard;
@@ -34,9 +35,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
     private static final String MESSAGE_SAVE_SUCCESSFUL = "The operation was successful.";
     private static final String MESSAGE_SAVE_ERROR_AUTH = "CV-Code not correct.";
     private static final String MESSAGE_SAVE_NOT_ENOUGH_MONEY = "To conduct a transaction is impossible, not enough money.";
-    private static final String MESSAGE_SAVE_NOT_RIGHT_CODE = "Error verification credit card";
     private Map<String, Object> attributes;
-    private Map<Object, Object> parameters;
     private Map<Object, Object> writeOffParameters;
     private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 
@@ -45,7 +44,6 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
      */
     public SavePayPaymentCommandImpl() {
         attributes = new HashMap<>();
-        parameters = new HashMap<>();
         writeOffParameters = new HashMap<>();
     }
 
@@ -60,38 +58,29 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
     public String executeCommand(HttpServletRequest request) throws CommandException {
         User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
         attributes = requestMapper(request);
-
         CreditCard creditCard = creditCardService.findById((Long) attributes.get("cardId"));
-        parameters = parameterMapper(creditCard);
-
-        Response responseGetToken = getResponse(URL_GET_TOKEN, parameters, QUERY_TYPE_GET);
-        LOGGER.debug("Get token: {}", responseGetToken.getMessage());
-
-        writeOffParameters = writeOffParametersMapper(attributes, responseGetToken, creditCard);
-
-        if (responseGetToken.isStatus()) {
-            Response responseWriteOffCreditCard = getResponse(URL_WRITE_OFF_BALANCE, writeOffParameters, QUERY_TYPE_PUT);
-            LOGGER.debug("Write-off from credit card: {}", responseWriteOffCreditCard.getMessage());
-            if (responseWriteOffCreditCard.getMessage().equals(MESSAGE_SAVE_NOT_ENOUGH_MONEY)) {
-                request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_NOT_ENOUGH_MONEY);
-                return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
-            }
-            if (responseWriteOffCreditCard.isStatus()) {
-                sendNotificationCreateCreditCard(request, user, creditCard.getCardNumber());
-                LOGGER.debug("Send information about create new credit card.");
-                writeOffBalance(new BigDecimal(String.valueOf(attributes.get("amount"))), creditCard.getCardNumber(),
-                        (Long) attributes.get("serviceId"), (String) attributes.get("description"), (String) attributes.get("orderNo"));
-                LOGGER.debug("Save transaction in system about write-off and refill balance.");
-                request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_SUCCESSFUL);
-                return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
-            } else {
-                request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_ERROR_AUTH);
-                return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
-            }
-        } else {
-            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_NOT_RIGHT_CODE);
+        writeOffParameters = writeOffParametersMapper(attributes, creditCard);
+        Response responseWriteOffCreditCard = getResponse(URL_WRITE_OFF_BALANCE, writeOffParameters, QUERY_TYPE_PUT);
+        LOGGER.debug("Write-off from credit card: {}", responseWriteOffCreditCard.getMessage());
+        if (responseWriteOffCreditCard.getMessage().equals(MESSAGE_SAVE_NOT_ENOUGH_MONEY)) {
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_NOT_ENOUGH_MONEY);
             return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
         }
+        if (responseWriteOffCreditCard.isStatus()) {
+            sendNotificationCreateCreditCard(request, user, creditCard.getCardNumber());
+            LOGGER.debug("Send information about create new credit card.");
+
+            writeOffBalance(new BigDecimal(String.valueOf(attributes.get("amount"))), creditCard.getCardNumber(),
+                    (Long) attributes.get("serviceId"), (String) attributes.get("description"), (String) attributes.get("orderNo"));
+            LOGGER.debug("Save transaction in system about write-off and refill balance.");
+
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_SUCCESSFUL);
+            return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+        } else {
+            request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_ERROR_AUTH);
+            return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
+        }
+
     }
 
 }

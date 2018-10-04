@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="head.jsp"/>
 <%@ taglib prefix="ctg" uri="customtags" %>
@@ -47,11 +46,11 @@
                                oninput="setCustomValidity('')">
                     </div>
                     <div class="form-group input-group-sm">
-                        <label for="pswInput"><i class="fas fa-key"></i> <fmt:message
-                                key="login_password"/></label>
+                        <label for="pswInput"><i class="fas fa-key"></i> <fmt:message key="login_password"/></label>
                         <input type="password"
-                               class="form-control" id="pswInput" name="password"
-                               value=""
+                               class="form-control"
+                               id="pswInput"
+                               name="password"
                                autocomplete="off"
                                placeholder="<fmt:message key="login_password" />"
                                required

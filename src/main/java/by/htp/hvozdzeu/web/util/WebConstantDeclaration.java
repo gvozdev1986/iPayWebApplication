@@ -71,6 +71,8 @@ public final class WebConstantDeclaration {
   	public static final String PATH_TO_SAVE_REPORT = "E:/PaymentHistory_";
 	public static final String FORMAT_FILE_EXCEL = ".xls";
 	public static final String SERVER_STATUS = "serverStatus";
+    public static final String SERVER_STATUS_TRUE = "true";
+    public static final String SERVER_STATUS_FALSE = "false";
 
 
 }

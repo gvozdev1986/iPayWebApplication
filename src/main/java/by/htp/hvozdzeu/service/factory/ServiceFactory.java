@@ -9,7 +9,6 @@ import by.htp.hvozdzeu.service.impl.*;
 public class ServiceFactory {
 
     private static UserService userService;
-    private static BankAccountService bankAccountService;
     private static CreditCardService creditCardService;
     private static PaymentService paymentService;
     private static PaymentDataService paymentDataService;
@@ -18,7 +17,6 @@ public class ServiceFactory {
 
     static{
         userService = new UserServiceImpl();
-        bankAccountService = new BankAccountServiceImpl();
         creditCardService = new CreditCardServiceImpl();
         paymentService = new PaymentServiceImpl();
         paymentDataService = new PaymentDataServiceImpl();
@@ -31,10 +29,6 @@ public class ServiceFactory {
 
     public static UserService getUserService() {
         return userService;
-    }
-
-    public static BankAccountService getBankAccountService() {
-        return bankAccountService;
     }
 
     public static CreditCardService getCreditCardService() {

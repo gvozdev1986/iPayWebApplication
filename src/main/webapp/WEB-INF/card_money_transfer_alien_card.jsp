@@ -12,7 +12,10 @@
         border-radius: 5px;
         text-align: center;
         vertical-align: middle;
-        width: 50%;
+        width: 100%;
+        color: #ffffff;
+        background-color: #00ad7e;
+        font-weight: bold;
     }
 </style>
 <div class="container-fluid">
@@ -24,83 +27,105 @@
                 <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="transfer_alient_card_group"/></div>
             </div>
             <div class="container">
-                <form action="ServletController" method="post" name="transferForm">
-                    <input type="hidden" name="clientId" value="${client.id}"/>
-                    <div class="form-row">
-                        <div class="col-md-5 mb-3 input-group-sm">
-                            <label for="idCardFromTransf"><i
-                                    class="far fa-credit-card"></i> <fmt:message key="card_from"/></label>
-                            <select class="custom-select"
-                                    id="idCardFromTransf"
-                                    name="idCardFromTransf"
-                                    style="line-height: 14px; height: 31px;">
-                                <c:forEach items="${cards}" var="creditCards">
-                                    <c:if test="${not creditCards.block}">
-                                        <option value="${creditCards.id}">${creditCards.cardNumber}
-                                            / ${creditCards.balanceBankAccount}</option>
-                                    </c:if>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div id="anotherCardBlock" class="col-md-5 mb-3 input-group-sm">
-                            <label for="anotherCardInput"><i class="far fa-credit-card"></i> <fmt:message key="alien_credit_card_number"/></label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="anotherCardInput"
-                                   placeholder="XXXX XXXX XXXX XXXX"
-                                   name="anotherCardInput"
-                                   pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}"
-                                   required
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-md-2 mb-3 input-group-sm">
-                            <label for="sumCardTransf"><i class="fas fa-sort-numeric-up"></i> <fmt:message key="sum_transaction"/></label>
-                            <input type="number"
-                                   class="form-control"
-                                   id="sumCardTransf"
-                                   placeholder="0.00"
-                                   name="sumCardTransf"
-                                   step="0.01"
-                                   required
-                                   style="text-align: right;"
-                                   autocomplete="off">
+                <div class="row h-100">
+                    <div class="col-md-8">
+                        <form action="ServletController" method="post" name="transferForm">
+                            <input type="hidden"
+                                   name="clientId"
+                                   value="${client.id}"/>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3 input-group-sm">
+                                    <label for="idCardFromTransf">
+                                        <i class="far fa-credit-card"></i> <fmt:message key="card_from"/>
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <select class="custom-select"
+                                            id="idCardFromTransf"
+                                            name="idCardFromTransf"
+                                            style="line-height: 14px; height: 31px;"
+                                            required>
+                                        <c:forEach items="${cards}" var="creditCards">
+                                            <c:if test="${not creditCards.block}">
+                                                <option value="${creditCards.id}">${creditCards.cardNumber}</option>
+                                            </c:if>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div id="anotherCardBlock" class="col-md-6 mb-3 input-group-sm">
+                                    <label for="anotherCardInput"><i class="far fa-credit-card"></i> <fmt:message
+                                            key="alien_credit_card_number"/></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="anotherCardInput"
+                                           placeholder="XXXX XXXX XXXX XXXX"
+                                           name="idCardToTransf"
+                                           pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}"
+                                           required
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3 mb-3 input-group-sm">
+                                    <label for="sumCardTransf">
+                                        <i class="fas fa-sort-numeric-up"></i> <fmt:message key="amount"/>
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="sumCardTransf"
+                                           placeholder="0.00"
+                                           name="sumCardTransf"
+                                           step="0.01"
+                                           required
+                                           style="text-align: right;"
+                                           autocomplete="off">
+                                </div>
+                                <div class="col-md-3 mb-3 input-group-sm">
+                                    <label for="code">
+                                        <i class="fas fa-user-secret"></i> <fmt:message key="cv_code"/>
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="password"
+                                           class="form-control"
+                                           id="code"
+                                           placeholder="<fmt:message key="cv_code"/>"
+                                           name="code"
+                                           required
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3 input-group-sm">
+                                    <label for="descriptionCardTransf">
+                                        <i class="far fa-comment-alt"></i> <fmt:message key="description_field"/>
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="descriptionCardTransf"
+                                           placeholder="<fmt:message key="description_field"/>"
+                                           name="descriptionCardTransf"
+                                           autocomplete="off"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-1 mb-3 input-group-sm">
+                                    <div style="margin-top: 31px;"></div>
+                                    <button class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
+                                            id="save_btn"
+                                            type="submit"
+                                            name="command"
+                                            value="save_transfer_alien_credit_card">
+                                        <i class="fas fa-exchange-alt"></i> <fmt:message key="save_btn"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="message-box">
+                            ${messageFromTransfer}
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-md-10 mb-3 input-group-sm">
-                            <label for="descriptionCardTransf"><i class="far fa-comment-alt"></i> <fmt:message key="description_field"/></label>
-                            <input type="text"
-                                   class="form-control"
-                                   id="descriptionCardTransf"
-                                   placeholder="<fmt:message key="description_field"/>"
-                                   name="descriptionCardTransf"
-                                   required
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-md-1 mb-3 input-group-sm">
-                            <label for="code"><i class="fas fa-user-secret"></i> <fmt:message key="code_field"/></label>
-                            <input type="password"
-                                   class="form-control"
-                                   id="code"
-                                   placeholder="<fmt:message key="code_field"/>"
-                                   name="code"
-                                   required
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-md-1 mb-3 input-group-sm">
-                            <div style="margin-top: 31px;"></div>
-                            <button class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
-                                    id="save_btn"
-                                    type="submit"
-                                    name="command"
-                                    value="save_transfer_alien_credit_card">
-                                <i class="fas fa-save"></i> <fmt:message key="save_btn"/>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="message-box">
-                    ${messageFromTransfer}
                 </div>
             </div>
         </main>
@@ -112,6 +137,7 @@
     for (var i in ['input', 'change', 'blur', 'keyup']) {
         cc.addEventListener('input', formatAnotherCardInput, false);
     }
+
     function formatAnotherCardInput() {
         var anotherCardInput = this.value.replace(/[^\d]/g, '').substring(0, 16);
         anotherCardInput = anotherCardInput != '' ? anotherCardInput.match(/.{1,4}/g).join(' ') : '';

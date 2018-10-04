@@ -18,18 +18,19 @@ import java.util.Map;
 /**
  * The class for queries to RESTServer
  */
-class RESTQueryManager {
+class RESTManager {
 
     private static final String CONTEXT_TYPE = "Content-Type";
     private static final String CONTEXT_TYPE_VALUE = "application/json";
     private static final Integer RESPONSE_CODE_OK = 200;
+    private static final Integer RESPONSE_CODE_CREATED = 201;
     private static final String RESPONSE_STATUS = "status";
     private static final String RESPONSE_MESSAGE = "message";
 
     /**
      * Private constructor
      */
-    private RESTQueryManager() {
+    private RESTManager() {
     }
 
     /**
@@ -58,7 +59,7 @@ class RESTQueryManager {
         os.write(input.getBytes());
         os.flush();
 
-        if (conn.getResponseCode() != RESPONSE_CODE_OK) {
+        if (conn.getResponseCode() != RESPONSE_CODE_OK && conn.getResponseCode() != RESPONSE_CODE_CREATED) {
             throw new ErrorGetResponseException("Failed : HTTP error code : " + conn.getResponseCode());
         }
 

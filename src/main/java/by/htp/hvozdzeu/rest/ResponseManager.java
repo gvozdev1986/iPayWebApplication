@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 
-import static by.htp.hvozdzeu.rest.RESTQueryManager.sendQuery;
+import static by.htp.hvozdzeu.rest.RESTManager.sendQuery;
 
 /**
  * The class for getting response from server
