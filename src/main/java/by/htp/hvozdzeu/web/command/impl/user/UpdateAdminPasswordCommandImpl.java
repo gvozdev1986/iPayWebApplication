@@ -14,15 +14,15 @@ import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 public class UpdateAdminPasswordCommandImpl implements BaseCommand {
 
     private static final String MESSAGE_ERROR_SAVE_PSWD = "messageErrorSavePassword";
-    private static final String MESSAGE_ERROR_SAVE_PSWD_SUCCESS = "Update password was successful!";
-    private static final String MESSAGE_ERROR_SAVE_PSWD_ERROR = "Passwords do not match!";
+    private static final String MESSAGE_ERROR_SAVE_PSWD_SUCCESS = "update_password_was_success";
+    private static final String MESSAGE_ERROR_SAVE_PSWD_ERROR = "password_do_not_match";
     private UserService userService = ServiceFactory.getUserService();
 
     @Override
     public String executeCommand(HttpServletRequest request) throws CommandException {
 
         Long userId = Long.valueOf(request.getParameter(REQUEST_PARAM_USER_ID));
-        String currentPassword = passwordEncoder.getEncodeData(request.getParameter(REQUEST_CURRENT_PARAM_PSWD));
+        String currentPassword = request.getParameter(REQUEST_CURRENT_PARAM_PSWD);
         String newPassword = request.getParameter(REQUEST_NEW_PARAM_PSWD);
         String verifyPassword = request.getParameter(REQUEST_VERIFY_NEW_PSWD);
 

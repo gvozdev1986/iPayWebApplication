@@ -48,7 +48,9 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2"><fmt:message key="messages"/></h1>
-                <div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="list_messages"/></div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <fmt:message key="list_messages"/>
+                </div>
             </div>
             <!--<form action="" method="" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
@@ -77,20 +79,21 @@
                 </div>
             </form>-->
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-sm"
-                       style="width: 100%; font-size: 9pt;">
-                    <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
-                        <td style="vertical-align: middle; font-weight: bold;">#</td>
-                        <td style="vertical-align: middle; font-weight: bold;"></td>
-                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_data"/></td>
-                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_time"/></td>
-                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_name"/></td>
-                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_email"/></td>
-                        <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_tel"/></td>
-                    </tr>
+                <table class="table table-bordered table-sm table-striped" style="width: 100%; font-size: 9pt;">
+                    <thead>
+                        <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
+                            <td style="vertical-align: middle; font-weight: bold;">#</td>
+                            <td style="vertical-align: middle; font-weight: bold;"></td>
+                            <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_data"/></td>
+                            <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_time"/></td>
+                            <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_name"/></td>
+                            <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_email"/></td>
+                            <td style="vertical-align: middle; font-weight: bold;"><fmt:message key="messages_table_contact_tel"/></td>
+                        </tr>
+                    </thead>
                     <c:forEach items="${messageContacts}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
+                            <td style="vertical-align: middle; text-align: right;">${(page * countRowOnPage) + (loop.index + 1)}</td>
 
                             <c:if test="${pagination.checkRead}">
                                 <td style="vertical-align: middle; width: 25px; text-align: center;">

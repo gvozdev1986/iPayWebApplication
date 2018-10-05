@@ -69,20 +69,22 @@
 					</div>
 				</div>
 			</form>-->
-			<table class="table table-bordered table-sm" style="width: 100%; font-size: 9pt;">
-				<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
-					<td style="vertical-align: middle; font-weight: bold;">#</td>
-					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_first_name"/></td>
-					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="last_name_card_label"/></td>
-					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="credit_card_number_label"/></td>
-					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="valid_card_label"/></td>
-					<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="type_card_label"/></td>
-					<td style="vertical-align: middle; font-weight: bold; width: 5px;">B</td>
-					<td style="vertical-align: middle; font-weight: bold; width: 5px;">A</td>
-				</tr>
+			<table class="table table-bordered table-striped table-sm" style="width: 100%; font-size: 9pt;">
+				<thead>
+					<tr class="header-table-column" style="text-align: center; vertical-align: middle;">
+						<td style="vertical-align: middle; font-weight: bold;">#</td>
+						<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="form_first_name"/></td>
+						<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="last_name_card_label"/></td>
+						<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="credit_card_number_label"/></td>
+						<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="valid_card_label"/></td>
+						<td style="vertical-align: middle; font-weight: bold;"><fmt:message key="type_card_label"/></td>
+						<td style="vertical-align: middle; font-weight: bold; width: 5px;">B</td>
+						<td style="vertical-align: middle; font-weight: bold; width: 5px;">A</td>
+					</tr>
+				</thead>
 				<c:forEach items="${creditCard}" var="pagination" varStatus="loop">
 					<tr>
-						<td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
+						<td style="vertical-align: middle; text-align: right;">${(page * countRowOnPage) + (loop.index + 1)}</td>
 						<td>${pagination.cardFirstName}</td>
 						<td>${pagination.cardLastName}</td>
 						<td>${pagination.cardNumber}</td>

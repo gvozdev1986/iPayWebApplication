@@ -22,55 +22,43 @@
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Card # ${creditCard.cardNumber}</h1>
-			<div class="btn-toolbar mb-2 mb-md-0">CREDIT CARD INFORMATION</div>
+			<h1 class="h2"># ${creditCard.cardNumber}</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"><fmt:message key="list_credit_cards"/></div>
 		</div>
-		<div class="container"
-			style="height: 70%; overflow-y: scroll; padding: 5px;">
-			<table
-				class="table table-bordered table-hover table-sm table-striped"
-				style="width: 100%; font-size: 9pt;">
+		<div class="container" style="height: 70%; overflow-y: scroll; padding: 5px;">
+			<table class="table table-bordered table-hover table-sm table-striped"	style="width: 100%; font-size: 9pt;">
 				<tr>
-					<td colspan="2" style="text-align: center;">About client's
-						bank account</td>
+					<td colspan="2" style="text-align: center;"><fmt:message key="information_account"/></td>
 				</tr>
 				<tr>
-					<td>First name on credit card</td>
+					<td><fmt:message key="first_name_card_label"/></td>
 					<td>${creditCard.cardFirstName}</td>
 				</tr>
 				<tr>
-					<td>Last name on credit card</td>
+					<td><fmt:message key="last_name_card_label"/></td>
 					<td>${creditCard.cardLastName}</td>
 				</tr>
 				<tr>
-					<td>Credit card number</td>
+					<td><fmt:message key="credit_card_number_label"/></td>
 					<td>${creditCard.cardNumber}</td>
 				</tr>
 				<tr>
-					<td>Valid date</td>
+					<td><fmt:message key="valid_card_label"/></td>
 					<td>${creditCard.validDate}</td>
 				</tr>
 				<tr>
-					<td>Type of card</td>
+					<td><fmt:message key="type_card_label"/></td>
 					<td><img style="height: 20px; width: 28px; margin-top: -3px; margin-left: -2px;" src="img/${creditCard.typeCard}.png" alt="card">
 						${creditCard.typeCard}</td>
 				</tr>
 				<tr>
-					<td>Status bank account</td>
+					<td><fmt:message key="status"/></td>
 					<c:if test="${bankAccount.statusBankAccount}">
-						<td>Bank account blocked</td>
+						<td><fmt:message key="unblocked_status"/></td>
 					</c:if>
 					<c:if test="${not bankAccount.statusBankAccount}">
-						<td>Bank account doesn't blocked</td>
+						<td><fmt:message key="blocked_status"/></td>
 					</c:if>
-				</tr>
-				<tr>
-					<td>Code bank account</td>
-					<td>${bankAccount.nameAccount}</td>
-				</tr>
-				<tr>
-					<td>Balance</td>
-					<td>${bankAccount.balanceBankAccount}</td>
 				</tr>
 				<tr>
 			</table>
@@ -82,17 +70,83 @@
 					<button
 						class="btn btn-sm btn-secondary form-control mr-sm-2 custom_button"
 						type="submit" name="command" value="blocked_credit_cards_view">
-						<i class="fas fa-arrow-left"></i> Back
+						<i class="fas fa-arrow-left"></i> <fmt:message key="cancel_btn"/>
 					</button>
 					<button
 						class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
 						type="submit" name="command" value="unblock_card">
-						<i class="fas fa-lock-open"></i> Unblock
+						<i class="fas fa-lock-open"></i> <fmt:message key="unblock_btn"/>
+					</button>
+					<button
+							class="btn btn-sm btn-success form-control mr-sm-2 custom_button"
+							type="button"
+                            onclick="PrintReport('#statusTable');"
+                            value="unblock_card">
+						<i class="far fa-file-powerpoint"></i> <fmt:message key="print_btn"/>
 					</button>
 				</div>
 			</form>
+            <c:if test="${not empty messageStatusUnblockCreditCard}">
+                <p style="color: #fe0c00"><fmt:message key="${messageStatusUnblockCreditCard}"/></p>
+            </c:if>
 		</div>
 		</main>
 	</div>
 </div>
 <ctg:footer />
+<div id="statusTable" style="visibility: hidden">
+    <table class="table table-bordered table-hover table-sm table-striped"	style="width: 100%; font-size: 9pt;">
+        <tr>
+            <td colspan="2" style="text-align: center;"><fmt:message key="information_account"/></td>
+        </tr>
+        <tr>
+            <td><fmt:message key="first_name_card_label"/></td>
+            <td>${creditCard.cardFirstName}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="last_name_card_label"/></td>
+            <td>${creditCard.cardLastName}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="credit_card_number_label"/></td>
+            <td>${creditCard.cardNumber}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="valid_card_label"/></td>
+            <td>${creditCard.validDate}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="type_card_label"/></td>
+            <td><img style="height: 20px; width: 28px; margin-top: -3px; margin-left: -2px;" src="img/${creditCard.typeCard}.png" alt="card">
+                ${creditCard.typeCard}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="status"/></td>
+            <c:if test="${bankAccount.statusBankAccount}">
+                <td><fmt:message key="blocked_status"/></td>
+            </c:if>
+            <c:if test="${not bankAccount.statusBankAccount}">
+                <td><fmt:message key="unblocked_status"/></td>
+            </c:if>
+        </tr>
+        <tr>
+    </table>
+</div>
+<script>
+    function PrintReport(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var printReportWindow = window.open('', 'statusTable');
+        printReportWindow.document.write('<html><head><title><fmt:message key="report"/></title>');
+        printReportWindow.document.write('<link rel="stylesheet" href="../css/report.css" type="text/css" />');
+        printReportWindow.document.write('</head><body>');
+        printReportWindow.document.write(data);
+        printReportWindow.document.write('</body></html>');
+        printReportWindow.document.close();
+        printReportWindow.focus();
+        printReportWindow.print();
+        printReportWindow.close();
+    }
+</script>

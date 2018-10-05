@@ -5,18 +5,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="user_navbar.jsp"/>
-<style>
-    .card-head {
-        padding: .75rem 1.25rem;
-        margin-bottom: 0;
-        position: relative;
-        background: url("/img/header-part.png") no-repeat center center;
-        width: 100%;
-        height: 12%;
-        background-size: 100% 100%;
-        color: #fff;
-    }
-</style>
+<script src="../js/jquery.maskedinput.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <div class="container-fluid">
     <div class="row">
@@ -28,34 +17,13 @@
             </div>
             <div class="container" style="height: 60%; overflow-y: scroll; padding: 5px;">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card text-center" style="height: 100%;">
-                            <div class="card-head">
-                                <fmt:message key="rule_use_credit_card"/>
-                            </div>
-                            <div class="card-body" style="text-align: justify; font-size: 12px; margin-left: -31px;">
-                                <ol>
-                                    <fmt:message key="rules"/>
-                                </ol>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" value=""
-                                           id="anotherCardCheck"
-                                           onclick="agreeTerms();"
-                                           required>
-                                    <label class="form-check-label"
-                                           for="anotherCardCheck"> <fmt:message key="agree_with_rule"/></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-8">
                         <form autocomplete="off" action="ServletController" method="post" name="createCreditCard">
                             <div class="form-row">
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardFirstName"><i class="fas fa-user"></i> <fmt:message key="first_name_card_label"/></label>
+                                    <label for="cardFirstName"><i class="fas fa-user"></i>
+                                        <fmt:message key="first_name_card_label"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardFirstName"
@@ -63,11 +31,13 @@
                                            placeholder="<fmt:message key="first_name_card_label"/>"
                                            autocomplete="off"
                                            oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_first_name"/>')"
-                                           oninput="setCustomValidity('')"
+                                           onchange="validateFirstName();"
                                            required>
                                 </div>
                                 <div class="form-group col-md-6 input-group-sm">
-                                    <label for="cardLastName"><i class="fas fa-user"></i> <fmt:message key="last_name_card_label"/></label>
+                                    <label for="cardLastName"><i class="fas fa-user"></i>
+                                        <fmt:message key="last_name_card_label"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="text"
                                            class="form-control"
                                            id="cardLastName"
@@ -75,13 +45,15 @@
                                            placeholder="<fmt:message key="last_name_card_label"/>"
                                            autocomplete="off"
                                            oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_last_name"/>')"
-                                           oninput="setCustomValidity('')"
+                                           onchange="validateLastName();"
                                            required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="cardNumber"><i class="far fa-credit-card"></i> <fmt:message key="credit_card_number_label"/></label>
+                                    <label for="cardNumber"><i class="far fa-credit-card"></i>
+                                        <fmt:message key="credit_card_number_label"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="text"
                                            style="text-align: center;"
                                            class="form-control"
@@ -95,32 +67,40 @@
                                     <span class="validate">${messageCheckCreditCard}</span>
                                 </div>
                                 <div class="form-group col-md-1 input-group-sm">
-                                    <label for="cardValidMonth"><fmt:message key="month"/></label>
+                                    <label for="cardValidMonth">
+                                        <fmt:message key="month"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="text"
                                            style="text-align: center;"
                                            maxlength="2"
                                            class="form-control"
                                            id="cardValidMonth"
                                            name="cardValidMonth"
-                                           placeholder="00"
+                                           placeholder="XX"
                                            autocomplete="off"
+                                           onchange="validateInputValidMonth()"
                                            required>
                                 </div>
                                 <div class="form-group col-md-1 input-group-sm">
-                                    <label for="cardValidYear"><fmt:message key="year"/></label>
+                                    <label for="cardValidYear">
+                                        <fmt:message key="year"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="text"
                                            style="text-align: center;"
                                            maxlength="2"
                                            class="form-control"
                                            id="cardValidYear"
                                            name="cardValidYear"
-                                           placeholder="00"
+                                           placeholder="XX"
                                            autocomplete="off"
+                                           onchange="validateInputValidYear()"
                                            required>
                                 </div>
                                 <div class="form-group col-md-4 input-group-sm">
                                     <label for="creditCardType">
-                                        <i class="fas fa-list"></i> <fmt:message key="type_card_label"/></label>
+                                        <i class="fas fa-list"></i>
+                                        <fmt:message key="type_card_label"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <select class="custom-select"
                                             id="creditCardType"
                                             name="creditCardType"
@@ -133,7 +113,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 input-group-sm">
-                                    <label for="secretCode"><i class="fas fa-user-secret"></i> <fmt:message key="secret_code"/></label>
+                                    <label for="secretCode"><i class="fas fa-user-secret"></i>
+                                        <fmt:message key="cv_code"/><span style="color: #fe0c00;">*</span>
+                                    </label>
                                     <input type="password"
                                            class="form-control"
                                            id="secretCode"
@@ -158,8 +140,7 @@
                                         id="save_new_btn"
                                         type="submit"
                                         name="command"
-                                        value="save_new_credit_card"
-                                        disabled>
+                                        value="save_new_credit_card">
                                     <i class="fas fa-check"></i> <fmt:message key="save_btn"/>
                                 </button>
                             </div>
@@ -173,29 +154,60 @@
 <ctg:footer/>
 <script>
 
+    $(function () {
+        $("#mobile_phone").mask("9-999-999-99-99");
+        $("#home_phone").mask("9-999-999-99-99");
+        $("#cardNumber").mask("9999 9999 9999 9999");
 
-    $('input[type=text]').keyup(function() {
-        $(this).val($(this).val().toUpperCase());
+        $("#cardValidMonth").mask("99");
+        $("#cardValidYear").mask("99");
     });
 
-    var cc = createCreditCard.cardNumber;
-
-    for (var i in ['input', 'change', 'blur', 'keyup']) {
-        cc.addEventListener('input', formatCreateCardInput, false);
-    }
-
-    function formatCreateCardInput() {
-        var cardNumber = this.value.replace(/[^\d]/g, '').substring(0, 16);
-        cardNumber = cardNumber != '' ? cardNumber.match(/.{1,4}/g).join(' ') : '';
-        this.value = cardNumber;
-    }
-
-    function agreeTerms() {
-        save_new_btn = document.getElementById("save_new_btn");
-        if (save_new_btn.disabled == false) {
-            save_new_btn.disabled = true;
+    function validateInputValidMonth() {
+        var str = document.getElementById('cardValidMonth').value;
+        if (/(0[1-9]|1[012])/.test(str)) {
+            document.getElementById('cardValidMonth').style.background = "#fff";
+            document.getElementById('save_new_btn').removeAttribute('disabled');
         } else {
-            save_new_btn.disabled = false;
+            document.getElementById('cardValidMonth').style.background = "#ffad99";
+            document.getElementById('save_new_btn').setAttribute('disabled', 'disabled');
         }
     }
+
+    function validateFirstName() {
+        var str = document.getElementById('cardFirstName').value;
+        if (/^[а-яА-ЯёЁa-zA-Z]+$/.test(str)) {
+            document.getElementById('cardFirstName').style.background = "#fff";
+            document.getElementById('save_new_btn').removeAttribute('disabled');
+        } else {
+            document.getElementById('cardFirstName').style.background = "#ffad99";
+            document.getElementById('save_new_btn').setAttribute('disabled', 'disabled');
+        }
+    }
+
+    function validateLastName() {
+        var str = document.getElementById('cardLastName').value;
+        if (/^[а-яА-ЯёЁa-zA-Z]+$/.test(str)) {
+            document.getElementById('cardLastName').style.background = "#fff";
+            document.getElementById('save_new_btn').removeAttribute('disabled');
+        } else {
+            document.getElementById('cardLastName').style.background = "#ffad99";
+            document.getElementById('save_new_btn').setAttribute('disabled', 'disabled');
+        }
+    }
+
+    function validateInputValidYear() {
+        var d = new Date();
+        var n = d.getFullYear();
+        var s = n.toString().substr(2,2);
+        var str = document.getElementById('cardValidYear').value;
+        if (/[0-9]{2}/.test(str) && str > s) {
+            document.getElementById('cardValidYear').style.background = "#fff";
+            document.getElementById('save_new_btn').removeAttribute('disabled');
+        } else {
+            document.getElementById('cardValidYear').style.background = "#ffad99";
+            document.getElementById('save_new_btn').setAttribute('disabled', 'disabled');
+        }
+    }
+
 </script>
