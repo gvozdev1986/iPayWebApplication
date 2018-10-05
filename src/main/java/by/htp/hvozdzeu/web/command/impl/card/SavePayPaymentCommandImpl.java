@@ -70,8 +70,13 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
             sendNotificationCreateCreditCard(request, user, creditCard.getCardNumber());
             LOGGER.debug("Send information about create new credit card.");
 
-            writeOffBalance(new BigDecimal(String.valueOf(attributes.get("amount"))), creditCard.getCardNumber(),
-                    (Long) attributes.get("serviceId"), (String) attributes.get("description"), (String) attributes.get("orderNo"));
+            writeOffBalance(
+                    new BigDecimal(String.valueOf(attributes.get("amount"))),
+                    creditCard.getCardNumber(),
+                    (Long) attributes.get("serviceId"),
+                    (String) attributes.get("description"),
+                    (String) attributes.get("orderNo")
+            );
             LOGGER.debug("Save transaction in system about write-off and refill balance.");
 
             request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_SUCCESSFUL);

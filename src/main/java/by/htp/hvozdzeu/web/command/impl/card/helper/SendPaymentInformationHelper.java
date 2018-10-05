@@ -9,6 +9,7 @@ import by.htp.hvozdzeu.service.PaymentDataService;
 import by.htp.hvozdzeu.service.PaymentService;
 import by.htp.hvozdzeu.service.factory.ServiceFactory;
 
+import javax.mail.Session;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;

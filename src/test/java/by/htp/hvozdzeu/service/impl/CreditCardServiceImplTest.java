@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -47,8 +48,8 @@ public class CreditCardServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         creditCard = CreditCard.getBuilder()
-                .client(1L)
-                .cardNumber("0000 0000 0000 0000")
+                .client(clientId)
+                .cardNumber(cardNumber)
                 .cardFirstName("ALIAKSANDR")
                 .cardLastName("HVOZDZEU")
                 .validDate("12/25")
@@ -59,8 +60,8 @@ public class CreditCardServiceImplTest {
                 .build();
 
         blockedCreditCard = CreditCard.getBuilder()
-                .client(1L)
-                .cardNumber("0000 0000 0000 0000")
+                .client(clientId)
+                .cardNumber(cardNumber)
                 .cardFirstName("ALIAKSANDR")
                 .cardLastName("HVOZDZEU")
                 .validDate("12/25")
@@ -199,8 +200,7 @@ public class CreditCardServiceImplTest {
 
     @Test
     public void testFindCreditCardByIdClient_returnCreditCard() throws DAOException {
-        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn(Arrays.asList(creditCard));
-        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn((List<CreditCard>) creditCard);
+        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn(Collections.singletonList(creditCard));
         assertThat(service.findCreditCardByIdClient(clientId), is(notNullValue()));
         assertNotNull(creditCard.getClient());
         assertNotNull(creditCard.getCardNumber());
@@ -243,19 +243,4 @@ public class CreditCardServiceImplTest {
         assertTrue(creditCard.isAvailable());
     }
 
-    @Test
-    public void findByParameter() {
-    }
-
-    @Test
-    public void findBlockedByParameter() {
-    }
-
-    @Test
-    public void pagination() {
-    }
-
-    @Test
-    public void createReturnId() {
-    }
 }

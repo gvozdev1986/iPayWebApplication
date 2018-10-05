@@ -25,4 +25,10 @@
 		<body-content>empty</body-content>
 	</tag>
 
+	<tag>
+		<name>pagination_numeric</name>
+        <tag-class>by.htp.hvozdzeu.web.tags.PaginationNumeric</tag-class>
+        <body-content>empty</body-content>
+	</tag>
+
 </taglib>

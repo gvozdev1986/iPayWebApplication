@@ -4,6 +4,31 @@ function code() {
     document.getElementById('hiddenPSWD').value = hash;
 }
 
+function codeAdNewPswd() {
+    var pwd = document.getElementById('new_password').value;
+    var hash = md5(pwd);
+    document.getElementById('hiddenAdLoginPSWD').value = hash;
+}
+
+function codeNewPswd() {
+    var pwd = document.getElementById('new_password').value;
+    var hash = md5(pwd);
+    document.getElementById('hiddenLoginPSWD').value = hash;
+}
+
+
+function codeVerifyNewPswd() {
+    var pwd = document.getElementById('verify_new_password').value;
+    var hash = md5(pwd);
+    document.getElementById('hiddenVerifyLoginPSWD').value = hash;
+}
+
+function codeCurrentPswd() {
+    var pwd = document.getElementById('current_password').value;
+    var hash = md5(pwd);
+    document.getElementById('hiddenCurrentLoginPSWD').value = hash;
+}
+
 (function ($) {
     'use strict'
 
@@ -11,7 +36,7 @@ function code() {
     * Add integers, wrapping at 2^32. This uses 16-bit operations internally
     * to work around bugs in some JS interpreters.
     */
-    function safeAdd (x, y) {
+    function safeAdd(x, y) {
         var lsw = (x & 0xffff) + (y & 0xffff)
         var msw = (x >> 16) + (y >> 16) + (lsw >> 16)
         return (msw << 16) | (lsw & 0xffff)
@@ -20,33 +45,37 @@ function code() {
     /*
     * Bitwise rotate a 32-bit number to the left.
     */
-    function bitRotateLeft (num, cnt) {
+    function bitRotateLeft(num, cnt) {
         return (num << cnt) | (num >>> (32 - cnt))
     }
 
     /*
     * These functions implement the four basic operations the algorithm uses.
     */
-    function md5cmn (q, a, b, x, s, t) {
+    function md5cmn(q, a, b, x, s, t) {
         return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b)
     }
-    function md5ff (a, b, c, d, x, s, t) {
+
+    function md5ff(a, b, c, d, x, s, t) {
         return md5cmn((b & c) | (~b & d), a, b, x, s, t)
     }
-    function md5gg (a, b, c, d, x, s, t) {
+
+    function md5gg(a, b, c, d, x, s, t) {
         return md5cmn((b & d) | (c & ~d), a, b, x, s, t)
     }
-    function md5hh (a, b, c, d, x, s, t) {
+
+    function md5hh(a, b, c, d, x, s, t) {
         return md5cmn(b ^ c ^ d, a, b, x, s, t)
     }
-    function md5ii (a, b, c, d, x, s, t) {
+
+    function md5ii(a, b, c, d, x, s, t) {
         return md5cmn(c ^ (b | ~d), a, b, x, s, t)
     }
 
     /*
     * Calculate the MD5 of an array of little-endian words, and a bit length.
     */
-    function binlMD5 (x, len) {
+    function binlMD5(x, len) {
         /* append padding */
         x[len >> 5] |= 0x80 << (len % 32)
         x[((len + 64) >>> 9 << 4) + 14] = len
@@ -146,7 +175,7 @@ function code() {
     /*
     * Convert an array of little-endian words to a string
     */
-    function binl2rstr (input) {
+    function binl2rstr(input) {
         var i
         var output = ''
         var length32 = input.length * 32
@@ -160,7 +189,7 @@ function code() {
     * Convert a raw string to an array of little-endian words
     * Characters >255 have their high-byte silently ignored.
     */
-    function rstr2binl (input) {
+    function rstr2binl(input) {
         var i
         var output = []
         output[(input.length >> 2) - 1] = undefined
@@ -177,14 +206,14 @@ function code() {
     /*
     * Calculate the MD5 of a raw string
     */
-    function rstrMD5 (s) {
+    function rstrMD5(s) {
         return binl2rstr(binlMD5(rstr2binl(s), s.length * 8))
     }
 
     /*
     * Calculate the HMAC-MD5, of a key and some data (raw strings)
     */
-    function rstrHMACMD5 (key, data) {
+    function rstrHMACMD5(key, data) {
         var i
         var bkey = rstr2binl(key)
         var ipad = []
@@ -205,7 +234,7 @@ function code() {
     /*
     * Convert a raw string to a hex string
     */
-    function rstr2hex (input) {
+    function rstr2hex(input) {
         var hexTab = '0123456789abcdef'
         var output = ''
         var x
@@ -220,27 +249,30 @@ function code() {
     /*
     * Encode a string as utf-8
     */
-    function str2rstrUTF8 (input) {
+    function str2rstrUTF8(input) {
         return unescape(encodeURIComponent(input))
     }
 
     /*
     * Take string arguments and return either raw or hex encoded strings
     */
-    function rawMD5 (s) {
+    function rawMD5(s) {
         return rstrMD5(str2rstrUTF8(s))
     }
-    function hexMD5 (s) {
+
+    function hexMD5(s) {
         return rstr2hex(rawMD5(s))
     }
-    function rawHMACMD5 (k, d) {
+
+    function rawHMACMD5(k, d) {
         return rstrHMACMD5(str2rstrUTF8(k), str2rstrUTF8(d))
     }
-    function hexHMACMD5 (k, d) {
+
+    function hexHMACMD5(k, d) {
         return rstr2hex(rawHMACMD5(k, d))
     }
 
-    function md5 (string, key, raw) {
+    function md5(string, key, raw) {
         if (!key) {
             if (!raw) {
                 return hexMD5(string)

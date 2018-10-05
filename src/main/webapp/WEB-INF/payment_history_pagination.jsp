@@ -139,8 +139,8 @@
                 </div>
             </form>
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-sm"
-                       style="width: 100%; font-size: 9pt;">
+                <table class="table table-bordered table-striped table-sm" style="width: 100%; font-size: 9pt;">
+                <thead>
                     <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
                         <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
                         <td style="vertical-align: middle; font-weight: bold; width: 8%;"><fmt:message key="date"/></td>
@@ -149,9 +149,10 @@
                         <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
                         <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
                     </tr>
+                </thead>
                     <c:forEach items="${paymentHistory}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="text-align: right;">${loop.index + 1}</td>
+                            <td style="text-align: right;">${(page * countRowOnPage) + (loop.index + 1)}</td>
                             <td style="text-align: center;">${pagination.datePayment}</td>
                             <td style="text-align: center;">${pagination.timePayment}</td>
                             <td>${pagination.descriptionPayment}</td>

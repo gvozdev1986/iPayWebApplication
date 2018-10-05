@@ -5,7 +5,6 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <jsp:include page="admin_navbar.jsp"/>
-
 <style>
     .btn-success {
         color: #fff;
@@ -17,12 +16,6 @@
         color: #fff;
         background-color: #41c7a3;
         border-color: #41c7a3;
-    }
-    .header-table-column {
-        vertical-align: middle;
-        font-weight: bold;
-        color: white;
-        background-color: #00ad7e;
     }
 </style>
 <div class="container-fluid">
@@ -106,9 +99,61 @@
                             <i class="fas fa-check"></i> As read
                         </button>
                     </c:if>
+                    <button type="button"
+                            value="mail_sender_view"
+                            onclick="PrintReport('#messageDetail');"
+                            class="btn btn-success btn-sm">
+                        <i class="far fa-file-powerpoint"></i> Print
+                    </button>
                 </form>
             </div>
         </main>
     </div>
 </div>
 <ctg:footer/>
+<div id="messageDetail" style="visibility: hidden">
+    <table id="tablePrintReport">
+        <tr>
+            <td><fmt:message key="date"/></td>
+            <td>${messageContact.date}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="time"/></td>
+            <td>${messageContact.time}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="messages_table_contact_name"/></td>
+            <td>${messageContact.nameContact}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="messages_table_contact_email"/></td>
+            <td>${messageContact.emailContact}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="messages_table_contact_tel"/></td>
+            <td>${messageContact.phoneContact}</td>
+        </tr>
+        <tr>
+            <td><fmt:message key="messages_table_contact_message"/></td>
+            <td>${messageContact.messageFromContact}</td>
+        </tr>
+    </table>
+</div>
+<script>
+    function PrintReport(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var printReportWindow = window.open('', 'messageDetail');
+        printReportWindow.document.write('<html><head><title><fmt:message key="messages_table_contact_message"/> # ${messageContact.id}</title>');
+        printReportWindow.document.write('<link rel="stylesheet" href="../css/report.css" type="text/css" />');
+        printReportWindow.document.write('</head><body>');
+        printReportWindow.document.write(data);
+        printReportWindow.document.write('</body></html>');
+        printReportWindow.document.close();
+        printReportWindow.focus();
+        printReportWindow.print();
+        printReportWindow.close();
+    }
+</script>

@@ -63,13 +63,12 @@
             <form action="ServletController" method="get" style="margin-left: 5px; margin-bottom: 0px;">
                 <div class="form-inline">
                     <div class="input-group input-group-sm mb-2">
-                        <label for="paymentHistoryCardNumber">Card number&nbsp</label>
+                        <label for="paymentHistoryCardNumber"><fmt:message key="credit_card_number_label"/>&nbsp;</label>
                         <select class="custom-select mr-sm-2"
                                 id="paymentHistoryCardNumber"
                                 name="cardId"
                                 style="height: 31px; line-height: 18px; width: 200px; border-radius: .25rem;"
                                 required>
-                            <!--<option selected>Choose...</option>-->
                             <c:forEach items="${cards}" var="creditCards">
                                 <option value="${creditCards.id}">${creditCards.cardNumber}</option>
                             </c:forEach>
@@ -79,7 +78,7 @@
                                 $("select option[value=" + val + "]").attr('selected', 'true').text(text);
                             </script>
                         </select>
-                        <label for="paymentHistoryDateFrom">From&nbsp</label>
+                        <label for="paymentHistoryDateFrom"><fmt:message key="history_from"/>&nbsp;</label>
                         <div class="input-group date mr-sm-2">
                             <input type="text"
                                    name="dateStart"
@@ -93,7 +92,7 @@
                             <div class="input-group-addon">
                             </div>
                         </div>
-                        <label for="paymentHistoryDateTo">To&nbsp</label>
+                        <label for="paymentHistoryDateTo"><fmt:message key="history_to"/>&nbsp;</label>
                         <div class="input-group date mr-sm-2">
                             <input type="text"
                                    name="dateEnd"
@@ -121,19 +120,21 @@
                 </div>
             </form>
             <div class="container" style="height: 50%; overflow-y: scroll; padding: 5px;">
-                <table class="table table-bordered table-sm"
+                <table class="table table-bordered table-striped table-sm"
                        style="width: 100%; font-size: 9pt;">
-                    <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
-                        <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 8%;"><fmt:message key="date"/></td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 6%;"><fmt:message key="time"/></td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 59%;"><fmt:message key="brief"/></td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
-                        <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
-                    </tr>
+                    <thead>
+                        <tr class="header-table-column" style="text-align: center; vertical-align: middle;">
+                            <td style="vertical-align: middle; font-weight: bold; width: 5%;">#</td>
+                            <td style="vertical-align: middle; font-weight: bold; width: 8%;"><fmt:message key="date"/></td>
+                            <td style="vertical-align: middle; font-weight: bold; width: 6%;"><fmt:message key="time"/></td>
+                            <td style="vertical-align: middle; font-weight: bold; width: 59%;"><fmt:message key="brief"/></td>
+                            <td style="vertical-align: middle; font-weight: bold; width: 20%;"><fmt:message key="group"/></td>
+                            <td style="vertical-align: middle; font-weight: bold; width: 2%;"><fmt:message key="amount"/></td>
+                        </tr>
+                    </thead>
                     <c:forEach items="${paymentHistory}" var="pagination" varStatus="loop">
                         <tr>
-                            <td style="text-align: right;">${loop.index + 1}</td>
+                            <td style="text-align: right;">${(page * countRowOnPage) + (loop.index + 1)}</td>
                             <td style="text-align: center;">${pagination.datePayment}</td>
                             <td style="text-align: center;">${pagination.timePayment}</td>
                             <td>${pagination.descriptionPayment}</td>

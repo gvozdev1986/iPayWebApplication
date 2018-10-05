@@ -11,7 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand"
            href="ServletController?command=greeting_page_view"> <img
-                src="img/logo.png" width="30" height="30"
+                src="../img/logo.png" width="30" height="30"
                 class="d-inline-block align-top" alt=""> iPay
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"

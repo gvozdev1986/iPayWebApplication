@@ -28,6 +28,8 @@ public class UnblockCardCommandImpl implements BaseCommand{
 	
 	private static final String COUNT_BLOCKED_CREDIT_CARD = "countBlockedCreditCard";
 	private static final String LIST_BLOCKED_CREDIT_CARD = "listBlockedCreditCard";
+	private static final String MSG_UNBLOCK_CREDIT_CARD = "messageStatusUnblockCreditCard";
+	private static final String MSG_UNBLOCK_CREDIT_CARD_VALUE = "credit_card_unblocked";
 
 	@Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
@@ -53,6 +55,7 @@ public class UnblockCardCommandImpl implements BaseCommand{
 		}
 		mailSender(request, emailToReply, subjectToReply, messageToReply, null);
 
+        request.getSession().setAttribute(MSG_UNBLOCK_CREDIT_CARD, MSG_UNBLOCK_CREDIT_CARD_VALUE);
 		request.getSession().setAttribute(COUNT_BLOCKED_CREDIT_CARD, countBlockedCreditCard);
 		request.getSession().setAttribute(LIST_BLOCKED_CREDIT_CARD, creditBlockedCards);		
 		return PagePathConstantPool.DETAIL_BLOCKED_CARD;
