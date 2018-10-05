@@ -95,7 +95,7 @@
 				</tr>
 				<c:forEach items="${clients}" var="pagination" varStatus="loop">
 					<tr>
-						<td style="vertical-align: middle; text-align: right;">${loop.index + 1}</td>
+						<td style="vertical-align: middle; text-align: right;">${(page * countRowOnPage) + (loop.index + 1)}</td>
 						<td style="vertical-align: middle; width: 25px;">
 							<a href="ServletController?command=view_detail_client&clientId=${pagination.id}"
 							   style="cursor: pointer; 

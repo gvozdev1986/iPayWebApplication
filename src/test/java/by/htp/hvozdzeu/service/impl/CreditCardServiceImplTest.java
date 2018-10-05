@@ -199,22 +199,18 @@ public class CreditCardServiceImplTest {
 
     @Test
     public void testFindCreditCardByIdClient_returnCreditCard() throws DAOException {
-//
-//        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn(Arrays.asList(creditCard));
-//
-//
-//
-//        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn(creditCard);
-//        assertThat(service.findCreditCardByIdClient(clientId), is(notNullValue()));
-//        assertNotNull(creditCard.getClient());
-//        assertNotNull(creditCard.getCardNumber());
-//        assertNotNull(creditCard.getCardFirstName());
-//        assertNotNull(creditCard.getCardLastName());
-//        assertNotNull(creditCard.getValidDate());
-//        assertNotNull(creditCard.getTypeCard());
-//        assertNotNull(creditCard.getVerifyCode());
-//        assertFalse(creditCard.isBlock());
-//        assertTrue(creditCard.isAvailable());
+        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn(Arrays.asList(creditCard));
+        when(daoMock.findCreditCardByIdClient(clientId)).thenReturn((List<CreditCard>) creditCard);
+        assertThat(service.findCreditCardByIdClient(clientId), is(notNullValue()));
+        assertNotNull(creditCard.getClient());
+        assertNotNull(creditCard.getCardNumber());
+        assertNotNull(creditCard.getCardFirstName());
+        assertNotNull(creditCard.getCardLastName());
+        assertNotNull(creditCard.getValidDate());
+        assertNotNull(creditCard.getTypeCard());
+        assertNotNull(creditCard.getVerifyCode());
+        assertFalse(creditCard.isBlock());
+        assertTrue(creditCard.isAvailable());
     }
 
     @Test

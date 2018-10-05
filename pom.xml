@@ -33,6 +33,7 @@
         <commons.codec.version>1.6</commons.codec.version>
         <org.apache.tomcat.embed.version>8.5.31</org.apache.tomcat.embed.version>
         <org.mockito.version>2.0.2-beta</org.mockito.version>
+        <org.jmock.version>2.9.0</org.jmock.version>
     </properties>
 
     <build>
@@ -96,6 +97,14 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <version>${org.jmock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>com.sun.jersey</groupId>

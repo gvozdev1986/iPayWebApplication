@@ -344,10 +344,9 @@ public class UserCrudImpl extends UserRowMapper implements UserDAO {
     public User checkAccount(String login, String pswd) throws DAOException {
         User user = null;
         Connection connection = dataBaseConnection.getConnection();
-        PasswordEncoder passwordEncoder = PasswordEncoder.getInstance();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT)) {
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2, passwordEncoder.getEncodeData(pswd));
+            preparedStatement.setString(2, pswd);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     user = buildUserRowMapper(resultSet);

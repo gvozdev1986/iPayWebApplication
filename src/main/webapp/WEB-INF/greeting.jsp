@@ -22,6 +22,27 @@
         color: #00ad7e;
         margin-left: 21px;
     }
+    .msgBlock {
+        position: absolute;
+        z-index: 2;
+        margin-top: 8px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        height: 88px;
+        text-align: center;
+        margin-left: 30%;
+        width: 40%;
+        vertical-align: middle;
+        box-shadow: 0 0 53px rgba(0,0,0,0.5);
+    }
+    .msg {
+        font-size: 16px;
+        color: #00ad7e;
+        margin-left: -98px;
+        bottom: 2px;
+        margin-bottom: 22px;
+        position: absolute;
+    }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
 <header>
@@ -65,6 +86,11 @@
         </div>
     </nav>
 </header>
+<c:if test = "${messageEvent != null}">
+    <div id="messageBlock" class="msgBlock">
+        <span class="msgEvent msg"><fmt:message key="${messageEvent}"/></span>
+    </div>
+</c:if>
 <div class="jumbotron jumbotron-fluid"
      style="margin-top: 30px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
     <div class="container" style="color: white; margin-top: -2%;">
@@ -189,7 +215,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4 input-group-sm">
                             <label for="name_contact"><i class="fas fa-user-edit"></i>
-                                <fmt:message key="greeting_name"/></label>
+                                <fmt:message key="greeting_name"/><span style="color: #fe0c00;">*</span></label>
                             <input type="text"
                                    class="form-control" id="name_contact"
                                    placeholder="<fmt:message key="greeting_name" />"
@@ -199,7 +225,8 @@
                             <span class="validate">${validateErrorMap.nameValidateError}</span>
                         </div>
                         <div class="form-group col-md-4 input-group-sm">
-                            <label for="email_contact"><i class="fas fa-envelope-open"></i> <fmt:message key="greeting_email"/></label>
+                            <label for="email_contact"><i class="fas fa-envelope-open"></i>
+                                <fmt:message key="greeting_email"/><span style="color: #fe0c00;">*</span></label>
                             <input type="email"
                                    class="form-control"
                                    id="email_contact"
@@ -211,11 +238,12 @@
                         </div>
                         <div class="form-group col-md-4 input-group-sm">
                             <label for="phone_contact"><i class="fas fa-mobile-alt"></i>
-                                <fmt:message key="greeting_phone"/></label>
+                                <fmt:message key="greeting_phone"/><span style="color: #fe0c00;">*</span></label>
                             <input type="tel"
                                    class="form-control"
                                    id="phone_contact"
-                                   placeholder="0-000-000-00-00"
+                                   id="date"
+                                   placeholder="<fmt:message key="greeting_phone"/>"
                                    value="${returnValidateErrorMap.returnPhoneValidateError}"
                                    name="phone_contact"
                                    required>
@@ -225,7 +253,7 @@
                     <div class="form-row">
                         <div class="col-md-12 mb-3 input-group-sm">
                             <label for="message_contact"><i class="fas fa-comments"></i>
-                                <fmt:message key="greeting_message"/></label>
+                                <fmt:message key="greeting_message"/><span style="color: #fe0c00;">*</span></label>
                             <textarea maxlength="1000" class="form-control" rows="10" aria-label="With textarea"
                                       id="message_contact" name="message_contact"
                                       placeholder="<fmt:message key="greeting_message" />" required>${returnValidateErrorMap.returnMessageContactValidateError}</textarea>
@@ -240,9 +268,6 @@
                             <i class="fas fa-share-square"></i>
                             <fmt:message key="greeting_send"/>
                         </button>
-                        <c:if test = "${messageEvent != null}">
-                            <span class="msgEvent"><fmt:message key="${messageEvent}"/></span>
-                        </c:if>
                     </div>
                 </form>
             </div>

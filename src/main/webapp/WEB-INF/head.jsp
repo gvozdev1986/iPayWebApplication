@@ -5,6 +5,10 @@
 
 <link rel="stylesheet" href="css/anim.css">
 
+<script src="js/md5.js"></script>
+
+<script src="js/jquery.maskedinput.js"></script>
+
 <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
 
 <script src="js/Chart.js"></script>
