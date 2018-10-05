@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.regex.Pattern;
 
+/**
+ * Class checking javascript injections.
+ */
 public class XSSRequestWrapper extends HttpServletRequestWrapper{
 
     private static final String NOT_VALID_DATE_MSG = "Not valid date";
 
     private static Pattern[] patterns = new Pattern[]{
+            Pattern.compile("<script>", Pattern.CASE_INSENSITIVE),
             Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE),
             Pattern.compile("src[\r\n]*=[\r\n]*'(.*?)'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
             Pattern.compile("src[\r\n]*=[\r\n]*\"(.*?)\"", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL),
@@ -64,6 +68,11 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper{
             for (Pattern scriptPattern : patterns){
                 value = scriptPattern.matcher(value).replaceAll(NOT_VALID_DATE_MSG);
             }
+
+            if(value.equals(NOT_VALID_DATE_MSG)){
+                throw new RuntimeException();
+            }
+
         }
         return value;
     }

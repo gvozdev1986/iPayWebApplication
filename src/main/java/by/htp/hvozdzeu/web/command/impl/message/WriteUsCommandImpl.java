@@ -60,17 +60,9 @@ public class WriteUsCommandImpl implements BaseCommand {
 
         String nameContact = request.getParameter(NAME_CONTACT);
         String emailContact = request.getParameter(EMAIL_CONTACT);
-        String phoneContact = request.getParameter(PHONE_CONTACT);
         String messageContact = request.getParameter(MESSAGE_CONTACT);
 
         validateReturnData.put("returnNameValidateError", nameContact);
-
-        if (validatePhone(phoneContact)) {
-            validateErrorMap.put("phoneValidateError", "Incorrect phone.");
-            validateReturnData.put("returnPhoneValidateError", phoneContact);
-        } else {
-            validateReturnData.put("returnPhoneValidateError", phoneContact);
-        }
 
         if (validateEmail(emailContact)) {
             validateErrorMap.put("emailValidateError", "Incorrect email.");

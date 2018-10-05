@@ -24,9 +24,6 @@ import static by.htp.hvozdzeu.util.ApplicationCodeProperties.getAppCode;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.*;
 
 public class UserPanelViewCommandImpl implements BaseCommand {
-
-
-
 	private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
 	private PaymentDataService paymentDataService = ServiceFactory.getPaymentDataService();
     private Map<Object, Object> parameters;
@@ -37,19 +34,11 @@ public class UserPanelViewCommandImpl implements BaseCommand {
 
     @Override
 	public String executeCommand(HttpServletRequest request) throws CommandException {
-
 		User user = (User) request.getSession().getAttribute(REQUEST_PARAM_USER);
 		Long userId = user.getId();
-
 		List<CreditCard> creditCards = creditCardService.findCreditCardByIdClient(userId);
-        System.out.println("USER ID: " + creditCards);
-
-
-
 		List<PaymentData> paymentDates = paymentDataService.getAllPaymentsData();
-
         getStatusServer(request);
-
 		request.getSession().setAttribute(REQUEST_PARAM_USER, user);
 		request.getSession().setAttribute(REQUEST_CARDS, creditCards);
 		request.getSession().setAttribute(REQUEST_GROUPS, paymentDates);

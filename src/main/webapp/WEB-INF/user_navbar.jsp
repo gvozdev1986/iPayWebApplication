@@ -39,7 +39,7 @@
 			</ul>
 		</div>
 		<form class="form-inline my-2 my-lg-0" action="ServletController"
-			method="post">
+			method="get">
 			<jsp:include page="localization_btn.jsp" />
 			<button class="btn btn-success form-control my-sm-0 my-2 btn-sm"
 				type="submit" id="logOutBtn" name="command" value="log_out">

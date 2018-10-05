@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
+<jsp:include page="head.jsp"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -47,15 +48,15 @@
                     </div>
                     <div class="form-group input-group-sm">
                         <label for="pswInput"><i class="fas fa-key"></i> <fmt:message key="login_password"/></label>
+                        <input type="hidden" name="password" value="" id="hiddenPSWD">
                         <input type="password"
                                class="form-control"
                                id="pswInput"
-                               name="password"
+                               oninput="code();"
                                autocomplete="off"
                                placeholder="<fmt:message key="login_password" />"
                                required
-                               oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_password" />')"
-                               oninput="setCustomValidity('')">
+                               oninvalid="this.setCustomValidity('<fmt:message key="please_enter_valid_password" />')">
                     </div>
                     <c:if test="${not empty info_message}">
                         <p style="color: red;"><fmt:message key="invalid_login_or_password"/></p>
@@ -65,7 +66,8 @@
                     </c:if>
                     <div class="form-inline">
                         <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
-                                type="button" name="command" value="log_out">
+                                type="button"
+                                onClick='location.href="http://localhost/"'>
                             <i class="fas fa-undo"></i>
                             <fmt:message key="login_cancel"/>
                         </button>

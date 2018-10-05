@@ -41,19 +41,16 @@
         </div>
         <form class="form-inline my-2 my-lg-0"
               action="ServletController"
-              method="post">
-            <div style="font-size: 29px; color: #ffffff; margin-right: 10px;">
-                <a class="nav-link"
-                   href="ServletController?command=list_message_view"
-                   style="cursor: pointer; color: #FFFFFF;">
-                    <i class="far fa-bell">
-                        <sup>
-                            <span style="font-size: 10px;" class="badge badge-danger">${countUnreadMessage}
-                            </span>
-                        </sup>
-                    </i>
-                </a>
-            </div>
+              method="get">
+            <button class="btn btn-danger form-control my-sm-0 my-2 btn-sm"
+                    type="submit"
+                    name="command"
+                    style="margin-right: 8px; width: auto;"
+                    value="list_message_view">
+                <i class="far fa-bell">
+                    ${countUnreadMessage}
+                </i>
+            </button>
             <jsp:include page="localization_btn.jsp"/>
             <button class="btn btn-success form-control my-sm-0 my-2 btn-sm"
                     type="submit" name="command" value="log_out">
