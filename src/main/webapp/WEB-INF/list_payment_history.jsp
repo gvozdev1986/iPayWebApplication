@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="user_navbar.jsp"/>
+<%@include file="user_navbar.jsp" %>
 <link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
 <script type="text/javascript" src="../js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../js/bootstrap-datepicker.ru.js" charset="UTF-8"></script>
@@ -53,7 +53,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <jsp:include page="user_menu.jsp"/>
+        <%@include file="user_menu.jsp" %>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"
               style="padding-bottom: 85px;">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

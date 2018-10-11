@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="head.jsp"/>
+<%@include file="head.jsp" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="head.jsp"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/app.css">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

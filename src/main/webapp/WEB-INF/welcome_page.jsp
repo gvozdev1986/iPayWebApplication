@@ -11,6 +11,14 @@
                 <fmt:message key="welcome"/>
             </div>
             <div class="container" style="height: 70%; overflow-y: scroll; padding: 5px;">
+                <div>
+                    <c:if test="${serverStatus eq 'true'}">
+                        <p></p>
+                    </c:if>
+                    <c:if test="${serverStatus eq 'false'}">
+                        <p style="color: #fe0c00; font-size: 20px;"><fmt:message key="server_not_online"/></p>
+                    </c:if>
+                </div>
                 <table class="table table-bordered table-hover table-sm"
                        style="width: 100%; font-size: 9pt;">
                     <tr style="background-color: #00ad7e; color: #ffffff;">
@@ -35,13 +43,5 @@
                 </table>
             </div>
         </h1>
-    </div>
-    <div>
-        <c:if test="${serverStatus eq 'true'}">
-            <p></p>
-        </c:if>
-        <c:if test="${serverStatus eq 'false'}">
-            <p style="color: #fe0c00; font-size: 20px;"><fmt:message key="server_not_online"/></p>
-        </c:if>
     </div>
 </div>

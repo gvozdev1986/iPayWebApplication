@@ -5,7 +5,7 @@
 <jsp:useBean id="date" class="java.util.Date"/>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="head.jsp"/>
+<%@include file="head.jsp" %>
 <style>
     .card-head {
         padding: .75rem 1.25rem;
