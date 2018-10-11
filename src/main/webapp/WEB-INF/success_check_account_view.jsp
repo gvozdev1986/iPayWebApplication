@@ -5,7 +5,7 @@
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="head.jsp"/>
+<%@include file="/WEB-INF/head.jsp" %>
 <style>
     .btn-success {
         color: #fff;

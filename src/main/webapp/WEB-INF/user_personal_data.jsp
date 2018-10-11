@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
 <%@ taglib prefix="ctg" uri="customtags" %>
-<jsp:include page="user_navbar.jsp"/>
+<%@include file="user_navbar.jsp" %>
 <style>
     .invalid-field {
         color: #FF0000;
@@ -20,7 +20,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <jsp:include page="user_menu.jsp"/>
+        <%@include file="user_menu.jsp" %>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2"><fmt:message key="personal_data_label"/></h1>

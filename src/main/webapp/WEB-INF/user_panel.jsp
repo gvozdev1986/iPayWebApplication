@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="now" class="java.util.Date" scope="page" />
 <%@ taglib prefix="ctg" uri="customtags"%>
-<jsp:include page="user_navbar.jsp" />
+<%@include file="user_navbar.jsp" %>
 <style>
 .sidebar {
 	position: fixed;
@@ -71,7 +71,7 @@
 </style>
 <div class="container-fluid">
 	<div class="row">
-		<jsp:include page="user_menu.jsp" />
+		<%@include file="user_menu.jsp" %>
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"> <jsp:include
 			page="welcome_page.jsp" /> </main>
 	</div>

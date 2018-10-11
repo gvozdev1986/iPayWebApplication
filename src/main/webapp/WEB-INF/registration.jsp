@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="head.jsp"/>
+<%@include file="head.jsp" %>
 <link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
 <script type="text/javascript" src="../js/bootstrap-datepicker.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../js/bootstrap-datepicker.ru.js" charset="UTF-8"></script>

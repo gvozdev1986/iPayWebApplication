@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="Resource"/>
-<jsp:include page="admin_navbar.jsp"/>
+<%@include file="admin_navbar.jsp" %>
 
 <style>
     ::-webkit-scrollbar {
@@ -40,7 +40,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <jsp:include page="admin_menu.jsp"/>
+        <%@include file="admin_menu.jsp" %>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Services</h1>
