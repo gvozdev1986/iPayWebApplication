@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="css/anim.css">
 
+<link rel="stylesheet" href="css/bill.css">
+
 <script src="js/md5.js"></script>
 
 <script src="js/jquery.maskedinput.js"></script>
