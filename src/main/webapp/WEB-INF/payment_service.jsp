@@ -138,20 +138,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="col-md-1 mb-3 input-group-sm">
+                            <div class="form-inline">
+                                <button class="btn btn-success form-control mr-sm-2 btn-sm custom_button"
+                                        style="height: 31px;"
+                                        id="save_btn"
+                                        type="submit"
+                                        name="command"
+                                        value="save_pay_payment">
+                                    <i class="fas fa-shopping-cart"></i> <fmt:message key="pay_btn"/>
+                                </button>
+                                <c:if test="${billPrintButtonVisible}">
                                     <button class="btn btn-success form-control my-sm-0 my-2 btn-sm custom_button"
-                                            id="save_btn"
-                                            type="submit"
-                                            name="command"
-                                            value="save_pay_payment">
-                                        <i class="fas fa-shopping-cart"></i> <fmt:message key="pay_btn"/>
+                                            style="height: 31px;"
+                                            type="button"
+                                            onclick="PrintReport('#paymentBill');">
+                                        <i class="fas fa-print"></i> <fmt:message key="print_btn"/>
                                     </button>
-                                </div>
+                                </c:if>
                             </div>
                         </form>
                         <div class="message-box">
-                            ${messageSavePayment}
+                            <c:if test="${not empty messageSavePayment}">
+                                <fmt:message key="${messageSavePayment}"/>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -160,8 +169,8 @@
     </div>
 </div>
 <ctg:footer/>
+<%@include file="payment_bill.jsp" %>
 <script>
-
     function clearService() {
         document.getElementById('idService').value = '';
         document.getElementById('serviceDescription').innerHTML = '';
@@ -177,5 +186,23 @@
         document.getElementById("serviceDescription").innerHTML = $('#services [value="' + value + '"]').attr('description');
         $('#orderNo').attr('placeholder', $('#services [value="' + value + '"]').attr('placeholder'));
     }
+
+    function PrintReport(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var printReportWindow = window.open('', 'paymentBill');
+        printReportWindow.document.write('<html><head><title><fmt:message key="bill"/></title>');
+        printReportWindow.document.write('<link rel="stylesheet" href="../css/bill.css" type="text/css" />');
+        printReportWindow.document.write('</head><body>');
+        printReportWindow.document.write(data);
+        printReportWindow.document.write('</body></html>');
+        printReportWindow.document.close();
+        printReportWindow.focus();
+        printReportWindow.print();
+        printReportWindow.close();
+    }
 </script>
+
 

@@ -19,9 +19,11 @@ import java.util.Map;
 import static by.htp.hvozdzeu.rest.ResponseManager.getResponse;
 import static by.htp.hvozdzeu.rest.URLConstantPool.QUERY_TYPE_PUT;
 import static by.htp.hvozdzeu.rest.URLConstantPool.URL_WRITE_OFF_BALANCE;
-import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentParametersHelper.*;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentParametersHelper.requestMapper;
+import static by.htp.hvozdzeu.web.command.impl.card.helper.SavePaymentParametersHelper.writeOffParametersMapper;
 import static by.htp.hvozdzeu.web.command.impl.card.helper.SendPaymentInformationHelper.writeOffBalance;
 import static by.htp.hvozdzeu.web.command.impl.message.MessageCreateCreditCard.sendNotificationCreateCreditCard;
+import static by.htp.hvozdzeu.web.util.BillPaymentBuilder.billBuilder;
 import static by.htp.hvozdzeu.web.util.WebConstantDeclaration.REQUEST_PARAM_USER;
 
 /**
@@ -32,9 +34,9 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(SavePayPaymentCommandImpl.class);
 
     private static final String MESSAGE_SAVE_PAYMENT = "messageSavePayment";
-    private static final String MESSAGE_SAVE_SUCCESSFUL = "The operation was successful.";
-    private static final String MESSAGE_SAVE_ERROR_AUTH = "CV-Code not correct.";
-    private static final String MESSAGE_SAVE_NOT_ENOUGH_MONEY = "To conduct a transaction is impossible, not enough money.";
+    private static final String MESSAGE_SAVE_SUCCESSFUL = "operation_was_successful";
+    private static final String MESSAGE_SAVE_ERROR_AUTH = "not_correct_cv_code";
+    private static final String MESSAGE_SAVE_NOT_ENOUGH_MONEY = "not_enough_money";
     private Map<String, Object> attributes;
     private Map<Object, Object> writeOffParameters;
     private CreditCardService creditCardService = ServiceFactory.getCreditCardService();
@@ -79,6 +81,15 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
             );
             LOGGER.debug("Save transaction in system about write-off and refill balance.");
 
+            billBuilder(
+                    request,
+                    creditCard,
+                    (Long) attributes.get("serviceId"),
+                    (String) attributes.get("orderNo"),
+                    new BigDecimal(String.valueOf(attributes.get("amount"))),
+                    (String) attributes.get("description")
+            );
+
             request.getSession().setAttribute(MESSAGE_SAVE_PAYMENT, MESSAGE_SAVE_SUCCESSFUL);
             return PagePathConstantPool.REDIRECT_SAVE_PAY_PAYMENT;
         } else {
@@ -87,5 +98,7 @@ public class SavePayPaymentCommandImpl implements BaseCommand {
         }
 
     }
+
+
 
 }

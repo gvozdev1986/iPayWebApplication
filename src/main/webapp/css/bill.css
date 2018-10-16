@@ -1,0 +1,28 @@
+.hide-bill-block {
+    visibility: hidden;
+}
+
+.billFieldValue {
+
+}
+
+.bill {
+    text-align: center;
+}
+
+#billDescription {
+    word-wrap: break-word;
+}
+
+.billBlock {
+    width: 350px;
+}
+
+.line  {
+    border-top: 1px dashed #000; /* Параметры линии */
+    height: 18px; /* Высота блока */
+}
+
+.billField {
+    font-weight: 600;
+}
